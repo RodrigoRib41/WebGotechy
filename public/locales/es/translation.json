@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "siteName": "GoTechy",
+    "tagline": "Consultora SAP de clase mundial",
+    "description": "Transformamos empresas con tecnología SAP. Signavio, BTP, LeanIX, Basis, Fiori, ABAP, IA y Next Gen Development."
+  },
+  "header": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "clients": "Clientes",
+    "projects": "Proyectos",
+    "about": "Nosotros",
+    "blog": "BlogTechy",
+    "contact": "Contacto",
+    "cta": "Agendar consultoría",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "switchLanguage": "Cambiar idioma"
+  },
+  "footer": {
+    "tagline": "Consultora SAP especializada en transformar empresas con tecnología de clase mundial.",
+    "services": "Servicios",
+    "links": "Enlaces rápidos",
+    "blog": "Últimos del blog",
+    "contact": "Contacto",
+    "newsletter": "Newsletter mensual",
+    "subscribed": "¡Gracias! Te sumamos a la lista.",
+    "emailPlaceholder": "tu@empresa.com",
+    "rights": "Todos los derechos reservados.",
+    "madeIn": "Hecho con SAP + IA en Argentina.",
+    "officesTitle": "Oficinas"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Partner SAP · 15+ años en LATAM",
+      "title": "Transformamos empresas con",
+      "titleHighlight": "tecnología SAP",
+      "titleEnd": "de clase mundial",
+      "subtitle": "Diseñamos, implementamos y operamos soluciones SAP end-to-end — Signavio, BTP, LeanIX, Fiori, ABAP— potenciadas con IA y desarrollo de última generación.",
+      "primaryCta": "Conocé nuestros servicios",
+      "secondaryCta": "Ver casos de éxito"
+    },
+    "highlights": {
+      "title": "Soluciones que aceleran tu negocio",
+      "subtitle": "Cuatro pilares para una transformación digital sin fricción.",
+      "cta": "Ver todos los servicios"
+    },
+    "clients": {
+      "title": "Confían en nosotros",
+      "subtitle": "Empresas líderes en LATAM y el mundo"
+    },
+    "blogPreview": {
+      "title": "Últimos artículos",
+      "subtitle": "Insights, tendencias y mejores prácticas SAP",
+      "cta": "Ver todo el blog",
+      "readMore": "Leer artículo",
+      "empty": "Pronto publicaremos contenido. ¡Mantente atento!"
+    },
+    "finalCta": {
+      "title": "¿Listo para tu próximo proyecto SAP?",
+      "subtitle": "Hablemos sobre cómo podemos acelerar tu transformación digital.",
+      "cta": "Conversemos"
+    }
+  },
+  "services": {
+    "pageTitle": "Servicios",
+    "pageSubtitle": "Soluciones SAP de extremo a extremo para empresas de clase mundial",
+    "cta": "Hablemos de tu proyecto",
+    "learnMore": "Conocer más"
+  },
+  "clients": {
+    "pageTitle": "Clientes",
+    "pageSubtitle": "Más de 40 empresas líderes en LATAM confían en nosotros",
+    "industries": "Industrias",
+    "metricsTitle": "Impacto global"
+  },
+  "projects": {
+    "pageTitle": "Casos de éxito",
+    "pageSubtitle": "Proyectos que transforman negocios",
+    "filters": {
+      "all": "Todos",
+      "industry": "Industria",
+      "technology": "Tecnología"
+    },
+    "challenge": "Desafío",
+    "solution": "Solución",
+    "results": "Resultados",
+    "viewDetails": "Ver detalles"
+  },
+  "about": {
+    "pageTitle": "Nosotros",
+    "pageSubtitle": "Conocé al equipo y la historia detrás de GoTechy",
+    "mission": {
+      "title": "Misión",
+      "body": "Acelerar la transformación digital de empresas líderes en LATAM con soluciones SAP de clase mundial, combinando expertise técnico, IA y desarrollo de vanguardia."
+    },
+    "vision": {
+      "title": "Visión",
+      "body": "Ser el partner SAP de referencia en LATAM, reconocido por la calidad de nuestras entregas, la innovación de nuestras soluciones y el impacto medible en cada cliente."
+    },
+    "values": {
+      "title": "Valores",
+      "items": [
+        { "title": "Excelencia técnica", "body": "Profundidad real en la stack SAP, no consultoría superficial." },
+        { "title": "Resultados medibles", "body": "Cada proyecto se mide en valor de negocio entregado." },
+        { "title": "Colaboración cercana", "body": "Trabajamos como una extensión del equipo del cliente." },
+        { "title": "Innovación responsable", "body": "Adoptamos lo último que aporta valor, no novedad por novedad." }
+      ]
+    },
+    "team": "Nuestro equipo",
+    "certifications": "Certificaciones y partners",
+    "timeline": "Hitos",
+    "offices": "Oficinas"
+  },
+  "contact": {
+    "pageTitle": "Contacto",
+    "pageSubtitle": "Hablemos sobre tu próximo proyecto SAP",
+    "form": {
+      "name": "Nombre completo",
+      "email": "Email corporativo",
+      "company": "Empresa",
+      "phone": "Teléfono",
+      "service": "Servicio de interés",
+      "servicePlaceholder": "Seleccioná un servicio",
+      "message": "Mensaje",
+      "messagePlaceholder": "Contanos sobre tu proyecto…",
+      "submit": "Enviar mensaje",
+      "submitting": "Enviando…",
+      "success": "¡Mensaje enviado! Te contactamos en menos de 24 horas hábiles.",
+      "error": "Hubo un problema al enviar. Probá nuevamente o escribinos a contacto@gotechy.com.",
+      "required": "Este campo es requerido",
+      "invalidEmail": "Email inválido"
+    },
+    "info": {
+      "email": "Email",
+      "phone": "Teléfono",
+      "hours": "Horarios de atención",
+      "hoursValue": "Lunes a Viernes · 9:00 — 18:00"
+    },
+    "officesTitle": "Nuestras oficinas"
+  },
+  "blog": {
+    "pageTitle": "BlogTechy",
+    "pageSubtitle": "Insights, tendencias y mejores prácticas del mundo SAP",
+    "search": "Buscar artículos…",
+    "allTags": "Todos los temas",
+    "readTime": "{{minutes}} min de lectura",
+    "readMore": "Leer más",
+    "empty": "Aún no publicamos artículos. ¡Volvé pronto!",
+    "noResults": "No se encontraron artículos con esos filtros.",
+    "relatedTitle": "Artículos relacionados",
+    "shareTitle": "Compartir",
+    "publishedOn": "Publicado el",
+    "by": "Por",
+    "backToBlog": "Volver al blog"
+  },
+  "common": {
+    "loading": "Cargando…",
+    "error": "Algo salió mal",
+    "tryAgain": "Reintentar",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "publish": "Publicar",
+    "draft": "Borrador",
+    "published": "Publicado"
+  }
+}

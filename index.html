@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#060E1A" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- SEO -->
+    <title>GoTechy | Consultora SAP de clase mundial — Signavio, BTP, LeanIX, Fiori</title>
+    <meta
+      name="description"
+      content="GoTechy es una consultora SAP líder en LATAM. Implementamos SAP Signavio, BTP, LeanIX, Basis, Fiori, ABAP, IA y Next Gen Development para empresas como Raizen, Tenaris, Gerdau y Ledesma."
+    />
+    <meta
+      name="keywords"
+      content="SAP, consultora SAP, SAP Signavio, SAP BTP, SAP LeanIX, SAP Basis, SAP Fiori, ABAP, Inteligencia Artificial, Next Gen Development, Argentina, Buenos Aires, Santa Fe"
+    />
+    <meta name="author" content="GoTechy" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://gotechy.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:url" content="https://gotechy.com/" />
+    <meta property="og:title" content="GoTechy | Consultora SAP de clase mundial" />
+    <meta
+      property="og:description"
+      content="Transformamos empresas con tecnología SAP. Signavio, BTP, LeanIX, Fiori, ABAP, IA y Next Gen Development."
+    />
+    <meta property="og:image" content="https://gotechy.com/og-image.jpg" />
+    <meta property="og:site_name" content="GoTechy" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="GoTechy | Consultora SAP de clase mundial" />
+    <meta
+      name="twitter:description"
+      content="Transformamos empresas con tecnología SAP. Signavio, BTP, LeanIX, Fiori, ABAP, IA y Next Gen Development."
+    />
+    <meta name="twitter:image" content="https://gotechy.com/og-image.jpg" />
+
+    <!-- Preconnect a Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "GoTechy",
+        "url": "https://gotechy.com",
+        "logo": "https://gotechy.com/logo.svg",
+        "description": "Consultora SAP especializada en Signavio, BTP, LeanIX, Basis, Fiori, ABAP e IA.",
+        "sameAs": [
+          "https://www.linkedin.com/company/gotechy",
+          "https://www.youtube.com/@gotechy"
+        ],
+        "address": [
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "Juan Diaz de Solis 2384 Piso 2",
+            "addressLocality": "Buenos Aires",
+            "postalCode": "1636",
+            "addressCountry": "AR"
+          },
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "Los Silos, Dique I, Puerto de Santa Fe",
+            "addressLocality": "Santa Fe",
+            "postalCode": "3000",
+            "addressCountry": "AR"
+          }
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+54-9-11-6753-3991",
+          "contactType": "customer service",
+          "areaServed": "AR",
+          "availableLanguage": ["Spanish", "English"]
+        }
+      }
+    </script>
+  </head>
+  <body style="background-color: #060E1A; color: #E6F0FA;">
+    <div id="root"></div>
+
+    <!-- Formulario oculto para que Netlify detecte el form en el build estático -->
+    <form name="contacto" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="company" />
+      <input type="tel" name="phone" />
+      <textarea name="message"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

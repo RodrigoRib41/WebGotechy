@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "siteName": "GoTechy",
+    "tagline": "World-class SAP consultancy",
+    "description": "We transform companies with SAP technology. Signavio, BTP, LeanIX, Basis, Fiori, ABAP, AI and Next Gen Development."
+  },
+  "header": {
+    "home": "Home",
+    "services": "Services",
+    "clients": "Clients",
+    "projects": "Projects",
+    "about": "About",
+    "blog": "BlogTechy",
+    "contact": "Contact",
+    "cta": "Book a consultation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "switchLanguage": "Switch language"
+  },
+  "footer": {
+    "tagline": "SAP consultancy specialized in transforming companies with world-class technology.",
+    "services": "Services",
+    "links": "Quick links",
+    "blog": "Latest from the blog",
+    "contact": "Contact",
+    "newsletter": "Monthly newsletter",
+    "subscribed": "Thanks! You've been added to the list.",
+    "emailPlaceholder": "you@company.com",
+    "rights": "All rights reserved.",
+    "madeIn": "Made with SAP + AI in Argentina.",
+    "officesTitle": "Offices"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "SAP Partner · 15+ years in LATAM",
+      "title": "We transform companies with",
+      "titleHighlight": "SAP technology",
+      "titleEnd": "of world-class quality",
+      "subtitle": "We design, implement and operate end-to-end SAP solutions — Signavio, BTP, LeanIX, Fiori, ABAP — powered by AI and cutting-edge development.",
+      "primaryCta": "Explore our services",
+      "secondaryCta": "View case studies"
+    },
+    "highlights": {
+      "title": "Solutions that accelerate your business",
+      "subtitle": "Four pillars for frictionless digital transformation.",
+      "cta": "See all services"
+    },
+    "clients": {
+      "title": "Trusted by",
+      "subtitle": "Leading companies across LATAM and beyond"
+    },
+    "blogPreview": {
+      "title": "Latest articles",
+      "subtitle": "Insights, trends and SAP best practices",
+      "cta": "View all the blog",
+      "readMore": "Read article",
+      "empty": "We'll publish content soon. Stay tuned!"
+    },
+    "finalCta": {
+      "title": "Ready for your next SAP project?",
+      "subtitle": "Let's talk about how we can accelerate your digital transformation.",
+      "cta": "Let's talk"
+    }
+  },
+  "services": {
+    "pageTitle": "Services",
+    "pageSubtitle": "End-to-end SAP solutions for world-class enterprises",
+    "cta": "Let's talk about your project",
+    "learnMore": "Learn more"
+  },
+  "clients": {
+    "pageTitle": "Clients",
+    "pageSubtitle": "More than 40 leading companies in LATAM trust us",
+    "industries": "Industries",
+    "metricsTitle": "Global impact"
+  },
+  "projects": {
+    "pageTitle": "Case studies",
+    "pageSubtitle": "Projects that transform businesses",
+    "filters": {
+      "all": "All",
+      "industry": "Industry",
+      "technology": "Technology"
+    },
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "results": "Results",
+    "viewDetails": "View details"
+  },
+  "about": {
+    "pageTitle": "About us",
+    "pageSubtitle": "Meet the team and story behind GoTechy",
+    "mission": {
+      "title": "Mission",
+      "body": "Accelerate the digital transformation of leading companies in LATAM with world-class SAP solutions, combining technical expertise, AI and cutting-edge development."
+    },
+    "vision": {
+      "title": "Vision",
+      "body": "Be the SAP partner of reference in LATAM, recognized for the quality of our delivery, the innovation of our solutions and the measurable impact on every client."
+    },
+    "values": {
+      "title": "Values",
+      "items": [
+        { "title": "Technical excellence", "body": "Real depth across the SAP stack, not surface-level consulting." },
+        { "title": "Measurable results", "body": "Every project is measured in business value delivered." },
+        { "title": "Close collaboration", "body": "We work as an extension of the client's team." },
+        { "title": "Responsible innovation", "body": "We adopt the latest that brings value, not novelty for its own sake." }
+      ]
+    },
+    "team": "Our team",
+    "certifications": "Certifications and partners",
+    "timeline": "Milestones",
+    "offices": "Offices"
+  },
+  "contact": {
+    "pageTitle": "Contact",
+    "pageSubtitle": "Let's talk about your next SAP project",
+    "form": {
+      "name": "Full name",
+      "email": "Corporate email",
+      "company": "Company",
+      "phone": "Phone",
+      "service": "Service of interest",
+      "servicePlaceholder": "Select a service",
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your project…",
+      "submit": "Send message",
+      "submitting": "Sending…",
+      "success": "Message sent! We'll reach out within 24 business hours.",
+      "error": "There was a problem submitting. Please try again or write to contacto@gotechy.com.",
+      "required": "This field is required",
+      "invalidEmail": "Invalid email"
+    },
+    "info": {
+      "email": "Email",
+      "phone": "Phone",
+      "hours": "Business hours",
+      "hoursValue": "Monday to Friday · 9:00 — 18:00"
+    },
+    "officesTitle": "Our offices"
+  },
+  "blog": {
+    "pageTitle": "BlogTechy",
+    "pageSubtitle": "Insights, trends and best practices from the SAP world",
+    "search": "Search articles…",
+    "allTags": "All topics",
+    "readTime": "{{minutes}} min read",
+    "readMore": "Read more",
+    "empty": "We haven't published articles yet. Come back soon!",
+    "noResults": "No articles found with these filters.",
+    "relatedTitle": "Related articles",
+    "shareTitle": "Share",
+    "publishedOn": "Published on",
+    "by": "By",
+    "backToBlog": "Back to the blog"
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong",
+    "tryAgain": "Try again",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "publish": "Publish",
+    "draft": "Draft",
+    "published": "Published"
+  }
+}
