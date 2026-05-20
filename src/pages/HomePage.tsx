@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Hero } from '../components/Hero';
 import { Clients } from '../components/Clients';
+import { Partners } from '../components/Partners';
 import { WhyUs } from '../components/WhyUs';
 import { SERVICES } from '../data/services';
 import { cn } from '../utils/cn';
@@ -88,6 +89,8 @@ export function HomePage() {
       </section>
 
       <Clients />
+
+      <Partners />
 
       <WhyUs />
 

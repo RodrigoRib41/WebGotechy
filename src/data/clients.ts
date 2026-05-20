@@ -1,23 +1,25 @@
 /**
- * Logos de clientes representados como SVGs inline en wordmark.
- * Esto evita peticiones extra y permite controlar el color desde CSS
- * (grayscale + colorize on hover) sin perder calidad en escalas.
+ * Logos de clientes — imágenes servidas desde /public/images.
+ * Los logos se renderizan como <img> con tratamiento uniforme en el carrusel.
  */
 
 export interface Client {
   name: string;
-  /** Letras o iniciales que se renderizan como wordmark estilizado. */
-  wordmark: string;
-  /** Color "marca" en hover. */
-  brandColor: string;
+  /** Ruta absoluta dentro de /public. */
+  logo: string;
+  /** Texto alternativo accesible. */
+  alt: string;
 }
 
 export const CLIENTS: Client[] = [
-  { name: 'Raizen', wordmark: 'Raízen', brandColor: '#E30613' },
-  { name: 'Tenaris', wordmark: 'Tenaris', brandColor: '#003B71' },
-  { name: 'Gerdau', wordmark: 'Gerdau', brandColor: '#005EB8' },
-  { name: 'Ledesma', wordmark: 'Ledesma', brandColor: '#1F8A3B' },
-  { name: 'Roemmers', wordmark: 'Roemmers', brandColor: '#0058A3' },
-  { name: 'Molinos', wordmark: 'Molinos', brandColor: '#C8102E' },
-  { name: 'ACA', wordmark: 'ACA', brandColor: '#1E4D2B' },
+  { name: 'Raizen', logo: '/images/raizen.png', alt: 'Logo de Raízen' },
+  { name: 'Tenaris', logo: '/images/Tenaris.png', alt: 'Logo de Tenaris' },
+  { name: 'Gerdau', logo: '/images/gerdau.png', alt: 'Logo de Gerdau' },
+  { name: 'Ledesma', logo: '/images/ledesma.png', alt: 'Logo de Ledesma' },
+  { name: 'Roemmers', logo: '/images/roemmers.jpg', alt: 'Logo de Roemmers' },
+  { name: 'Molinos', logo: '/images/molinos.webp', alt: 'Logo de Molinos' },
+  { name: 'ACA', logo: '/images/aca.jpg', alt: 'Logo de ACA' },
+  { name: 'Komatsu', logo: '/images/komatsu.png', alt: 'Logo de Komatsu' },
+  { name: 'Topper', logo: '/images/topper.png', alt: 'Logo de Topper' },
+  { name: 'Ecopetrol', logo: '/images/ecopetrol.jpg', alt: 'Logo de Ecopetrol' },
 ];

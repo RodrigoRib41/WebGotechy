@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { PageHeader } from '../components/PageHeader';
 import { Clients } from '../components/Clients';
+import { Partners } from '../components/Partners';
 import { STATS } from '../data/site';
 
 export function ClientsPage() {
@@ -14,6 +15,8 @@ export function ClientsPage() {
         subtitle={t('clients.pageSubtitle')}
       />
       <Clients />
+
+      <Partners />
 
       <section className="bg-surface-soft py-20" aria-labelledby="clients-metrics">
         <div className="container-x">
