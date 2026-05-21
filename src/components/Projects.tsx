@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, Building2, Loader2 } from 'lucide-react';
 import { SectionHeader } from './SectionHeader';
@@ -8,11 +8,15 @@ import { cn } from '../utils/cn';
 export function Projects() {
   const { data: projects, loading } = useProjects();
   const [expanded, setExpanded] = useState<string | null>(null);
+  const didInitExpand = useRef(false);
 
-  // Expandir el primer proyecto por default cuando llega la data.
+  // Expandir el primer proyecto sólo en la carga inicial — si el usuario lo cierra, debe quedar cerrado.
   useEffect(() => {
-    if (!expanded && projects[0]) setExpanded(projects[0].id);
-  }, [projects, expanded]);
+    if (!didInitExpand.current && projects[0]) {
+      setExpanded(projects[0].id);
+      didInitExpand.current = true;
+    }
+  }, [projects]);
 
   return (
     <section id="proyectos" className="relative py-24 sm:py-32" aria-labelledby="projects-title">
