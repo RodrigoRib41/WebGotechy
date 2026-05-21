@@ -191,6 +191,174 @@
   }
 }
 
+/* ====== Leaflet (dark theme overrides) ====== */
+.leaflet-container {
+  background: #06111C !important;
+  font-family: inherit;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #0A1929 !important;
+  color: #E6F0FA !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.7);
+}
+.leaflet-popup-content {
+  margin: 12px 16px !important;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.leaflet-popup-content strong {
+  color: #FFFFFF;
+  font-size: 14px;
+}
+.leaflet-popup-content a {
+  color: #62EFFF;
+  text-decoration: none;
+  font-weight: 600;
+}
+.leaflet-popup-content a:hover {
+  text-decoration: underline;
+}
+.leaflet-popup-close-button {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+.leaflet-popup-close-button:hover {
+  color: #FFFFFF !important;
+}
+.leaflet-control-attribution {
+  background: rgba(10, 25, 41, 0.85) !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+  backdrop-filter: blur(6px);
+}
+.leaflet-control-attribution a {
+  color: #62EFFF !important;
+}
+.leaflet-control-zoom a {
+  background: #0A1929 !important;
+  color: #E6F0FA !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.leaflet-control-zoom a:hover {
+  background: #06111C !important;
+  color: #00E5FF !important;
+}
+/* Quitar el outline blanco del icon container del marker */
+.gotechy-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* ====== TipTap editor (dark theme) ====== */
+.tiptap-editor .ProseMirror {
+  min-height: 500px;
+  color: #E2E8F0;
+  line-height: 1.7;
+  outline: none;
+}
+
+.tiptap-editor .ProseMirror > * + * {
+  margin-top: 0.85em;
+}
+
+.tiptap-editor .ProseMirror h1 {
+  color: #F8FAFC;
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-top: 1.5em;
+  letter-spacing: -0.02em;
+}
+.tiptap-editor .ProseMirror h2 {
+  color: #F8FAFC;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 1.4em;
+}
+.tiptap-editor .ProseMirror h3 {
+  color: #F8FAFC;
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin-top: 1.25em;
+}
+.tiptap-editor .ProseMirror p {
+  color: #E2E8F0;
+}
+.tiptap-editor .ProseMirror a {
+  color: #62EFFF;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.tiptap-editor .ProseMirror code {
+  background: rgba(0, 229, 255, 0.1);
+  color: #62EFFF;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.9em;
+}
+.tiptap-editor .ProseMirror pre {
+  background: #02060A;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+.tiptap-editor .ProseMirror pre code {
+  background: transparent;
+  padding: 0;
+  color: #E2E8F0;
+  font-size: 0.85em;
+}
+.tiptap-editor .ProseMirror blockquote {
+  border-left: 4px solid #00E5FF;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: #CBD5E1;
+  font-style: italic;
+}
+.tiptap-editor .ProseMirror ul,
+.tiptap-editor .ProseMirror ol {
+  padding-left: 1.5rem;
+}
+.tiptap-editor .ProseMirror ul {
+  list-style: disc;
+}
+.tiptap-editor .ProseMirror ol {
+  list-style: decimal;
+}
+.tiptap-editor .ProseMirror li {
+  margin: 0.25rem 0;
+}
+.tiptap-editor .ProseMirror li > p {
+  margin: 0;
+}
+.tiptap-editor .ProseMirror img {
+  border-radius: 12px;
+  max-width: 100%;
+  height: auto;
+}
+.tiptap-editor .ProseMirror hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  margin: 2rem 0;
+}
+.tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #64748B;
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+
+/* highlight.js syntax (dark) */
+.hljs { background: transparent; color: #E2E8F0; }
+.hljs-keyword, .hljs-tag, .hljs-selector-tag { color: #62EFFF; }
+.hljs-string, .hljs-attr { color: #1DE9B6; }
+.hljs-function, .hljs-title { color: #B3F3FC; }
+.hljs-comment, .hljs-meta { color: #64748B; font-style: italic; }
+.hljs-number, .hljs-literal { color: #FBBF24; }
+.hljs-built_in, .hljs-type { color: #F472B6; }
+
 /* ====== Scrollbar global ====== */
 ::-webkit-scrollbar {
   width: 10px;

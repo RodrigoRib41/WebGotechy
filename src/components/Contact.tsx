@@ -11,6 +11,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { SectionHeader } from './SectionHeader';
+import { OfficesMap } from './OfficesMap';
 import { OFFICES, SITE } from '../data/site';
 import { cn } from '../utils/cn';
 
@@ -265,34 +266,29 @@ export function Contact() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex flex-col gap-5"
           >
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 shadow-card">
-              <iframe
-                title="Mapa de oficinas GoTechy"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-61.2%2C-35.0%2C-58.0%2C-31.2&amp;layer=mapnik&amp;marker=-34.498%2C-58.515"
-                loading="lazy"
-                className="absolute inset-0 h-full w-full grayscale-[20%] invert-[0.85] hue-rotate-180"
-                style={{ border: 0 }}
-              />
-              {/* Pins decorativos */}
-              <div className="pointer-events-none absolute left-[68%] top-[78%]">
-                <MapPin className="h-7 w-7 text-secondary drop-shadow-md" fill="#00E5FF" />
-              </div>
-              <div className="pointer-events-none absolute left-[40%] top-[42%]">
-                <MapPin className="h-7 w-7 text-accent drop-shadow-md" fill="#1DE9B6" />
-              </div>
-            </div>
+            {/* Un solo mapa con las dos oficinas marcadas */}
+            <OfficesMap />
 
+            {/* Cards con la info de cada oficina */}
             <div className="grid gap-4 sm:grid-cols-2">
               {OFFICES.map((office) => (
                 <div
                   key={office.id}
                   className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-card backdrop-blur"
                 >
-                  <div className="flex items-center gap-2 text-secondary-300">
-                    <MapPin className="h-4 w-4" />
-                    <span className="text-xs font-semibold uppercase tracking-wider">
+                  <div className="flex items-center justify-between gap-2 text-secondary-300">
+                    <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+                      <MapPin className="h-4 w-4" />
                       {office.city}
                     </span>
+                    <a
+                      href={office.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[11px] font-semibold text-white/55 underline-offset-2 hover:text-secondary hover:underline"
+                    >
+                      Cómo llegar →
+                    </a>
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-white/80">
                     {office.address}

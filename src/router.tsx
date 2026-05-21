@@ -1,8 +1,9 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, type ReactNode } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { WhatsAppButton } from './components/WhatsAppButton';
+import { ProtectedRoute } from './components/admin/ProtectedRoute';
 import { useScrollToTop } from './hooks/useScrollToTop';
 
 // Code splitting por ruta — cada página se carga on-demand.
@@ -24,9 +25,28 @@ const BlogPage = lazy(() => import('./pages/BlogPage').then((m) => ({ default: m
 const BlogPostPage = lazy(() =>
   import('./pages/BlogPostPage').then((m) => ({ default: m.BlogPostPage })),
 );
-const AdminPage = lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })));
 const NotFoundPage = lazy(() =>
   import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
+);
+
+// Admin (también lazy)
+const AdminLogin = lazy(() =>
+  import('./pages/admin/AdminLogin').then((m) => ({ default: m.AdminLogin })),
+);
+const AdminDashboard = lazy(() =>
+  import('./pages/admin/AdminDashboard').then((m) => ({ default: m.AdminDashboard })),
+);
+const AdminEditor = lazy(() =>
+  import('./pages/admin/AdminEditor').then((m) => ({ default: m.AdminEditor })),
+);
+const AdminLogosManager = lazy(() =>
+  import('./pages/admin/AdminLogosManager').then((m) => ({ default: m.AdminLogosManager })),
+);
+const AdminProjects = lazy(() =>
+  import('./pages/admin/AdminProjects').then((m) => ({ default: m.AdminProjects })),
+);
+const AdminProjectEditor = lazy(() =>
+  import('./pages/admin/AdminProjectEditor').then((m) => ({ default: m.AdminProjectEditor })),
 );
 
 function RouteFallback() {
@@ -37,7 +57,7 @@ function RouteFallback() {
   );
 }
 
-function RootLayout() {
+function PublicLayout() {
   useScrollToTop();
   return (
     <>
@@ -56,9 +76,15 @@ function RootLayout() {
   );
 }
 
+function AdminShell({ children }: { children: ReactNode }) {
+  useScrollToTop();
+  return <Suspense fallback={<RouteFallback />}>{children}</Suspense>;
+}
+
 export const router = createBrowserRouter([
+  // Rutas públicas con Header/Footer
   {
-    element: <RootLayout />,
+    element: <PublicLayout />,
     children: [
       { path: '/', element: <HomePage /> },
       { path: '/servicios', element: <ServicesPage /> },
@@ -68,8 +94,96 @@ export const router = createBrowserRouter([
       { path: '/contacto', element: <ContactPage /> },
       { path: '/blogtechy', element: <BlogPage /> },
       { path: '/blogtechy/:slug', element: <BlogPostPage /> },
-      { path: '/admin', element: <AdminPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
+  },
+  // Admin (sin Header/Footer públicos)
+  {
+    path: '/admin',
+    element: (
+      <AdminShell>
+        <AdminLogin />
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/dashboard',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminDashboard />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/posts/new',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminEditor mode="new" />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/posts/edit/:id',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminEditor mode="edit" />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/clients',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminLogosManager kind="client" />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/partners',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminLogosManager kind="partner" />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/projects',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminProjects />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/projects/new',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminProjectEditor mode="new" />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/projects/edit/:id',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminProjectEditor mode="edit" />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
   },
 ]);

@@ -4,15 +4,31 @@
  * vive aquí en lugar de estar hardcodeado en los componentes.
  */
 
+// Defaults (se usan si las VITE_* no están definidas).
+const DEFAULT_PHONE_DISPLAY = '+54 9 11 6753-3991';
+const DEFAULT_WHATSAPP_RAW = '5491167533991';
+const DEFAULT_EMAIL = 'contacto@gotechy.com';
+
+const envPhone = import.meta.env.VITE_CONTACT_PHONE as string | undefined;
+const envWhats = import.meta.env.VITE_WHATSAPP_NUMBER as string | undefined;
+const envEmail = import.meta.env.VITE_CONTACT_EMAIL as string | undefined;
+
+/** Solo dígitos: lo que necesita wa.me. */
+function toRawDigits(value: string): string {
+  return value.replace(/\D+/g, '');
+}
+
 export const SITE = {
   name: 'GoTechy',
   tagline: 'Consultora SAP de clase mundial',
   description:
     'Transformamos empresas con tecnología SAP. Signavio, BTP, LeanIX, Basis, Fiori, ABAP, IA y Next Gen Development.',
   url: 'https://gotechy.com',
-  phone: '+54 9 11 6753-3991',
-  phoneRaw: '5491167533991', // wa.me sin signos
-  email: 'contacto@gotechy.com',
+  /** Texto que se muestra al usuario. */
+  phone: envPhone?.trim() || DEFAULT_PHONE_DISPLAY,
+  /** Solo dígitos, listo para wa.me y tel:. */
+  phoneRaw: toRawDigits(envWhats?.trim() || envPhone?.trim() || DEFAULT_WHATSAPP_RAW),
+  email: envEmail?.trim() || DEFAULT_EMAIL,
   social: {
     linkedin: 'https://www.linkedin.com/company/gotechy',
     youtube: 'https://www.youtube.com/@gotechy',
@@ -36,10 +52,11 @@ export const OFFICES = [
   {
     id: 'baires',
     city: 'Buenos Aires',
-    address: 'Juan Diaz de Solis 2384, Piso 2',
+    address: 'Juan Díaz de Solís 2384, Piso 2 — Olivos',
     postal: 'CP 1636',
     country: 'Argentina',
-    coords: { lat: -34.498, lng: -58.515 },
+    coords: { lat: -34.5078092, lng: -58.4779991 },
+    mapsUrl: 'https://maps.app.goo.gl/iPbQuTCYoWcWGxqj8',
   },
   {
     id: 'santafe',
@@ -47,7 +64,8 @@ export const OFFICES = [
     address: 'Los Silos, Dique I, Puerto de Santa Fe',
     postal: 'CP 3000',
     country: 'Argentina',
-    coords: { lat: -31.628, lng: -60.704 },
+    coords: { lat: -31.6484254, lng: -60.7004238 },
+    mapsUrl: 'https://maps.app.goo.gl/YsrdHCXdvfTryQ6y8',
   },
 ] as const;
 
