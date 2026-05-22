@@ -11,6 +11,9 @@ const HomePage = lazy(() => import('./pages/HomePage').then((m) => ({ default: m
 const ServicesPage = lazy(() =>
   import('./pages/ServicesPage').then((m) => ({ default: m.ServicesPage })),
 );
+const ServiceDetailPage = lazy(() =>
+  import('./pages/ServiceDetailPage').then((m) => ({ default: m.ServiceDetailPage })),
+);
 const ClientsPage = lazy(() =>
   import('./pages/ClientsPage').then((m) => ({ default: m.ClientsPage })),
 );
@@ -88,6 +91,7 @@ export const router = createBrowserRouter([
     children: [
       { path: '/', element: <HomePage /> },
       { path: '/servicios', element: <ServicesPage /> },
+      { path: '/servicios/:slug', element: <ServiceDetailPage /> },
       { path: '/clientes', element: <ClientsPage /> },
       { path: '/proyectos', element: <ProjectsPage /> },
       { path: '/nosotros', element: <AboutPage /> },

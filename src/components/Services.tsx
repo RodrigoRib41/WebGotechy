@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { SERVICES } from '../data/services';
 import { SectionHeader } from './SectionHeader';
 import { cn } from '../utils/cn';
@@ -90,6 +92,17 @@ export function Services() {
                     </span>
                   ))}
                 </div>
+
+                {service.detail && (
+                  <Link
+                    to={`/servicios/${service.slug}`}
+                    className="relative z-10 mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-secondary hover:text-secondary-200"
+                    aria-label={`Ver más sobre ${service.title}`}
+                  >
+                    Ver más
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                )}
 
                 {/* Decoración sutil esquina inferior */}
                 <span

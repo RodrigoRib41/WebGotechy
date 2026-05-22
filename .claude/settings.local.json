@@ -3,7 +3,8 @@
     "allow": [
       "Bash(dir \"c:\\\\Users\\\\Rodri\\\\Documents\\\\VisualStudioCode\\\\PaginaWebGotechy\\\\src\\\\components\" \"c:\\\\Users\\\\Rodri\\\\Documents\\\\VisualStudioCode\\\\PaginaWebGotechy\\\\src\\\\hooks\" \"c:\\\\Users\\\\Rodri\\\\Documents\\\\VisualStudioCode\\\\PaginaWebGotechy\\\\src\\\\utils\" \"c:\\\\Users\\\\Rodri\\\\Documents\\\\VisualStudioCode\\\\PaginaWebGotechy\\\\src\\\\data\" \"c:\\\\Users\\\\Rodri\\\\Documents\\\\VisualStudioCode\\\\PaginaWebGotechy\\\\src\\\\types\" \"c:\\\\Users\\\\Rodri\\\\Documents\\\\VisualStudioCode\\\\PaginaWebGotechy\\\\src\\\\styles\" \"c:\\\\Users\\\\Rodri\\\\Documents\\\\VisualStudioCode\\\\PaginaWebGotechy\\\\src\\\\assets\" \"c:\\\\Users\\\\Rodri\\\\Documents\\\\VisualStudioCode\\\\PaginaWebGotechy\\\\public\")",
       "Bash(npm install *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "WebFetch(domain:gotechy.com)"
     ]
   }
 }
