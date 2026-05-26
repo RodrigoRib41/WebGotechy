@@ -38,7 +38,7 @@ export function ServiceApproach({
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5 }}
             className="relative order-1 aspect-[5/4] overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-card backdrop-blur lg:order-none"
           >
@@ -69,7 +69,7 @@ export function ServiceApproach({
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <span className="eyebrow mb-4 inline-flex">{eyebrow}</span>
@@ -88,7 +88,7 @@ export function ServiceApproach({
                   key={i}
                   initial={{ opacity: 0, x: -12 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
                   transition={{ duration: 0.35, delay: 0.05 * i }}
                   className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur transition-colors hover:border-secondary/40 hover:bg-white/[0.05]"
                 >

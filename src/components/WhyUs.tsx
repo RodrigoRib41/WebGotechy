@@ -60,7 +60,7 @@ export function WhyUs() {
                 key={pillar.title}
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
               >
                 <Tilt
@@ -106,7 +106,7 @@ export function WhyUs() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur sm:grid-cols-4"
         >

@@ -27,7 +27,7 @@ export function CaseStudies() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.6 }}
           className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end"
         >
@@ -68,7 +68,7 @@ export function CaseStudies() {
           <motion.div
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, amount: 0.15 }}
             variants={{
               hidden: { opacity: 0 },
               show: { opacity: 1, transition: { staggerChildren: 0.1 } },

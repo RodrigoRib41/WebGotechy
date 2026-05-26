@@ -96,7 +96,7 @@ export function FinalCtaForm() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-2xl text-center"
         >
@@ -153,7 +153,7 @@ export function FinalCtaForm() {
           <motion.form
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             onSubmit={onSubmit}
             name="contacto"

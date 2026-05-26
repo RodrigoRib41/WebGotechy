@@ -33,4 +33,4 @@ export const staggerFast: Variants = {
   },
 };
 
-export const viewportOnce = { once: true, margin: '-80px' } as const;
+export const viewportOnce = { once: true, amount: 0.15 } as const;

@@ -24,7 +24,7 @@ export function ServiceStats({ eyebrow, title, items }: ServiceStatsProps) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5 }}
           className="relative isolate overflow-hidden rounded-3xl border border-secondary/20 bg-gradient-to-br from-secondary/10 via-primary/40 to-accent/5 p-8 shadow-glow-md backdrop-blur sm:p-12"
         >
@@ -52,7 +52,7 @@ export function ServiceStats({ eyebrow, title, items }: ServiceStatsProps) {
                 key={`${item.label}-${i}`}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
                 className="text-center"
               >

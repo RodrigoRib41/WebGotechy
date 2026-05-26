@@ -110,7 +110,7 @@ export function Contact() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5 }}
             className="rounded-3xl border border-white/10 bg-white/[0.03] p-7 shadow-elevated backdrop-blur sm:p-10"
           >
@@ -262,7 +262,7 @@ export function Contact() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex flex-col gap-5"
           >

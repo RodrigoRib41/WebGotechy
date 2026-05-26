@@ -12,13 +12,13 @@ export const PILLARS: Pillar[] = [
     icon: Award,
     title: 'Experiencia comprobada',
     description:
-      'Más de 15 años entregando proyectos SAP críticos en empresas líderes de Argentina y la región.',
+      'Más de 20 años entregando proyectos SAP críticos en empresas líderes de Argentina y la región.',
   },
   {
     icon: ShieldCheck,
-    title: 'Certificaciones SAP oficiales',
+    title: 'Al día con el roadmap SAP',
     description:
-      'Consultores certificados en Signavio, BTP, LeanIX, Fiori, Basis y S/4HANA. Partner activo de SAP.',
+      'Silver Partner alineado con la visión de Empresa Autónoma — Joule, Industry AI, Business AI Platform, Clean Core y Cloud ERP en producción real.',
   },
   {
     icon: Users,

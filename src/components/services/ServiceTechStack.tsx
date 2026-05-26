@@ -36,7 +36,7 @@ export function ServiceTechStack({ items }: ServiceTechStackProps) {
                 key={`${tech.label}-${i}`}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.4, delay: i * 0.04 }}
                 className="group flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-card backdrop-blur transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-secondary/40 hover:bg-white/[0.06] hover:shadow-glow-sm"
               >

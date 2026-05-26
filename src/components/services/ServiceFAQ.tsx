@@ -38,7 +38,7 @@ export function ServiceFAQ({ faq }: ServiceFAQProps) {
                 key={i}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.35, delay: i * 0.04 }}
                 className={cn(
                   'overflow-hidden rounded-2xl border bg-white/[0.03] shadow-card backdrop-blur transition-colors',

@@ -14,16 +14,6 @@ interface ServiceFeaturesProps {
   features: ServiceFeature[];
 }
 
-const grid = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.06 } },
-};
-
-const card = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
-};
-
 export function ServiceFeatures({ features }: ServiceFeaturesProps) {
   if (features.length === 0) return null;
 
@@ -39,19 +29,16 @@ export function ServiceFeatures({ features }: ServiceFeaturesProps) {
           }
         />
 
-        <motion.div
-          variants={grid}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0 }}
-          className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, i) => {
             const Icon = feature.icon;
             return (
               <motion.article
                 key={`${feature.title}-${i}`}
-                variants={card}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.45, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
                 className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-card backdrop-blur transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-secondary/40 hover:bg-white/[0.06] hover:shadow-glow-md"
               >
                 <div
@@ -83,7 +70,7 @@ export function ServiceFeatures({ features }: ServiceFeaturesProps) {
               </motion.article>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

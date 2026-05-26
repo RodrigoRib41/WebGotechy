@@ -33,7 +33,7 @@ export function HomePage() {
 
   return (
     <div ref={pageRef} className="relative">
-      <HomeBackgroundCurve targetRef={pageRef} />
+      <HomeBackgroundCurve targetRef={pageRef} thickenWithScroll />
       <Hero />
       <ServicesPreview />
       <StatsHighlight />

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, FileDown, ShieldCheck } from 'lucide-react';
+import { ArrowRight, FileDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { LucideIcon } from 'lucide-react';
 
@@ -76,14 +76,6 @@ export function ServiceHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* Credibility chip */}
-            <div className="mb-6">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/30 bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary-200">
-                <ShieldCheck className="h-3.5 w-3.5" />
-                SAP Silver Partner
-              </span>
-            </div>
-
             <div
               className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl ${iconBg}`}
             >

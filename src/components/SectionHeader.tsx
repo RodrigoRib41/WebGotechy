@@ -22,7 +22,7 @@ export function SectionHeader({
         <motion.span
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.4 }}
           className="eyebrow"
         >
@@ -32,7 +32,7 @@ export function SectionHeader({
       <motion.h2
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
+        viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.5, delay: 0.05 }}
         className="text-display-2 font-display font-bold text-white"
       >
@@ -42,7 +42,7 @@ export function SectionHeader({
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-base leading-relaxed text-white/70 sm:text-lg"
         >

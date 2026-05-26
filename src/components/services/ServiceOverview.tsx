@@ -30,7 +30,7 @@ export function ServiceOverview({
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5 }}
           >
             <span className="eyebrow mb-6 inline-flex">Qué es</span>
@@ -53,7 +53,7 @@ export function ServiceOverview({
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="relative aspect-[5/4] overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-card backdrop-blur"
           >

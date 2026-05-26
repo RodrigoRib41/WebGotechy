@@ -50,7 +50,7 @@ export function Projects() {
                   key={project.id}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-80px' }}
+                  viewport={{ once: true, amount: 0.15 }}
                   transition={{ duration: 0.5, delay: idx * 0.05 }}
                   className="grid overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] shadow-card backdrop-blur md:grid-cols-2"
                 >

@@ -75,7 +75,7 @@ export const OFFICES = [
  * por compatibilidad y para SSR/no-JS.
  */
 export const STATS = [
-  { value: '15+', count: 15, suffix: '+', label: 'Años de experiencia', labelEn: 'Years of experience' },
+  { value: '20+', count: 20, suffix: '+', label: 'Años de experiencia', labelEn: 'Years of experience' },
   { value: '120+', count: 120, suffix: '+', label: 'Proyectos entregados', labelEn: 'Projects delivered' },
   { value: '40+', count: 40, suffix: '+', label: 'Clientes enterprise', labelEn: 'Enterprise clients' },
   { value: '24/7', count: null, suffix: '', label: 'Soporte continuo', labelEn: 'Continuous support' },

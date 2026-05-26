@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { getServiceBySlug, getRelatedServices } from '../data/services';
+import { getServiceBySlug } from '../data/services';
 import { ServiceHero } from '../components/services/ServiceHero';
 import { ServiceOverview } from '../components/services/ServiceOverview';
 import { ServiceStats } from '../components/services/ServiceStats';
@@ -8,10 +8,20 @@ import { ServiceApproach } from '../components/services/ServiceApproach';
 import { ServiceBenefits } from '../components/services/ServiceBenefits';
 import { ServiceUseCases } from '../components/services/ServiceUseCases';
 import { ServiceTechStack } from '../components/services/ServiceTechStack';
-import { ServiceRelatedTech } from '../components/services/ServiceRelatedTech';
 import { ServiceFAQ } from '../components/services/ServiceFAQ';
 import { ServiceCTA } from '../components/services/ServiceCTA';
+import { HomeBackgroundCurve, type CurveVariant } from '../components/effects/HomeBackgroundCurve';
 import { SITE } from '../data/site';
+
+/**
+ * Picker determinístico de variant — el mismo slug siempre devuelve la misma
+ * curva. Hash simple de los char codes para mapear al índice del array.
+ */
+const VARIANTS: CurveVariant[] = ['serpentine', 'wave', 'spiral', 'zigzag', 'arc'];
+function pickCurveVariant(slug: string): CurveVariant {
+  const sum = slug.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  return VARIANTS[sum % VARIANTS.length];
+}
 
 function setMeta(name: string, content: string, attr: 'name' | 'property' = 'name') {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);
@@ -36,6 +46,7 @@ function setCanonical(href: string) {
 export function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const service = slug ? getServiceBySlug(slug) : undefined;
+  const pageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!service?.detail) return;
@@ -67,10 +78,13 @@ export function ServiceDetailPage() {
   }
 
   const { detail } = service;
-  const related = getRelatedServices(detail.relatedTechIds);
 
   return (
-    <>
+    <div ref={pageRef} className="relative">
+      <HomeBackgroundCurve
+        targetRef={pageRef}
+        variant={pickCurveVariant(service.slug)}
+      />
       <ServiceHero
         title={service.title}
         tagline={detail.tagline}
@@ -112,9 +126,8 @@ export function ServiceDetailPage() {
       {detail.techStack && detail.techStack.length > 0 && (
         <ServiceTechStack items={detail.techStack} />
       )}
-      {related.length > 0 && <ServiceRelatedTech services={related} />}
       <ServiceFAQ faq={detail.faq} />
       <ServiceCTA serviceName={service.title} />
-    </>
+    </div>
   );
 }
