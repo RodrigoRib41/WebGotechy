@@ -69,9 +69,14 @@ export const OFFICES = [
   },
 ] as const;
 
+/**
+ * STATS — para el counter animado usamos `count` + `suffix`. Cuando `count`
+ * es null el bloque renderiza `value` literal (ej "24/7"). `value` se mantiene
+ * por compatibilidad y para SSR/no-JS.
+ */
 export const STATS = [
-  { value: '15+', label: 'Años de experiencia', labelEn: 'Years of experience' },
-  { value: '120+', label: 'Proyectos entregados', labelEn: 'Projects delivered' },
-  { value: '40+', label: 'Clientes enterprise', labelEn: 'Enterprise clients' },
-  { value: '24/7', label: 'Soporte continuo', labelEn: 'Continuous support' },
+  { value: '15+', count: 15, suffix: '+', label: 'Años de experiencia', labelEn: 'Years of experience' },
+  { value: '120+', count: 120, suffix: '+', label: 'Proyectos entregados', labelEn: 'Projects delivered' },
+  { value: '40+', count: 40, suffix: '+', label: 'Clientes enterprise', labelEn: 'Enterprise clients' },
+  { value: '24/7', count: null, suffix: '', label: 'Soporte continuo', labelEn: 'Continuous support' },
 ] as const;

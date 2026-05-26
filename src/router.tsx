@@ -51,6 +51,12 @@ const AdminProjects = lazy(() =>
 const AdminProjectEditor = lazy(() =>
   import('./pages/admin/AdminProjectEditor').then((m) => ({ default: m.AdminProjectEditor })),
 );
+const AdminTestimonials = lazy(() =>
+  import('./pages/admin/AdminTestimonials').then((m) => ({ default: m.AdminTestimonials })),
+);
+const AdminEvents = lazy(() =>
+  import('./pages/admin/AdminEvents').then((m) => ({ default: m.AdminEvents })),
+);
 
 function RouteFallback() {
   return (
@@ -186,6 +192,26 @@ export const router = createBrowserRouter([
       <AdminShell>
         <ProtectedRoute>
           <AdminProjectEditor mode="edit" />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/testimonials',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminTestimonials />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/events',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminEvents />
         </ProtectedRoute>
       </AdminShell>
     ),

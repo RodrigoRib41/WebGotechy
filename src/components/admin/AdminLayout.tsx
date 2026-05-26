@@ -9,6 +9,8 @@ import {
   Building2,
   Briefcase,
   Handshake,
+  Quote,
+  CalendarDays,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../hooks/useAuth';
@@ -52,6 +54,8 @@ const NAV: NavGroup[] = [
       { to: '/admin/projects', label: 'Proyectos', icon: Briefcase },
       { to: '/admin/clients', label: 'Clientes', icon: Building2 },
       { to: '/admin/partners', label: 'Partners', icon: Handshake },
+      { to: '/admin/testimonials', label: 'Testimonios', icon: Quote },
+      { to: '/admin/events', label: 'Eventos', icon: CalendarDays },
     ],
   },
 ];

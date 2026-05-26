@@ -7,6 +7,8 @@ import type {
   NewProject,
   ProjectRow,
 } from '../types/catalog';
+import type { NewTestimonial, TestimonialRow } from '../types/testimonials';
+import type { EventRow, NewEvent } from '../types/events';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -204,6 +206,106 @@ export const projectsService = {
 
   async remove(id: string): Promise<void> {
     const { error } = await supabase.from(PROJECTS_TABLE).delete().eq('id', id);
+    if (error) throw error;
+  },
+};
+
+// ============================================================
+//  Testimonials
+// ============================================================
+const TESTIMONIALS_TABLE = 'testimonials';
+
+export const testimonialsService = {
+  /** Lista todos (admin). El sitio público filtra por published=true. */
+  async list(onlyPublished = false): Promise<TestimonialRow[]> {
+    let q = supabase
+      .from(TESTIMONIALS_TABLE)
+      .select('*')
+      .order('sort_order')
+      .order('created_at', { ascending: false });
+    if (onlyPublished) q = q.eq('published', true);
+    const { data, error } = await q;
+    if (error) throw error;
+    return (data ?? []) as TestimonialRow[];
+  },
+
+  async create(t: NewTestimonial): Promise<TestimonialRow> {
+    const { data, error } = await supabase
+      .from(TESTIMONIALS_TABLE)
+      .insert(t)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as TestimonialRow;
+  },
+
+  async update(id: string, updates: Partial<NewTestimonial>): Promise<TestimonialRow> {
+    const { data, error } = await supabase
+      .from(TESTIMONIALS_TABLE)
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as TestimonialRow;
+  },
+
+  async remove(id: string): Promise<void> {
+    const { error } = await supabase.from(TESTIMONIALS_TABLE).delete().eq('id', id);
+    if (error) throw error;
+  },
+};
+
+// ============================================================
+//  Events / Webinars
+// ============================================================
+const EVENTS_TABLE = 'events';
+
+export const eventsService = {
+  /**
+   * Lista eventos.
+   * - `onlyPublished`: solo los marcados como publicados (uso público).
+   * - `onlyUpcoming`: solo eventos con `start_date >= hoy` (uso público).
+   */
+  async list(onlyPublished = false, onlyUpcoming = false): Promise<EventRow[]> {
+    let q = supabase
+      .from(EVENTS_TABLE)
+      .select('*')
+      .order('start_date', { ascending: true })
+      .order('sort_order');
+    if (onlyPublished) q = q.eq('published', true);
+    if (onlyUpcoming) {
+      const today = new Date().toISOString().slice(0, 10);
+      q = q.gte('start_date', today);
+    }
+    const { data, error } = await q;
+    if (error) throw error;
+    return (data ?? []) as EventRow[];
+  },
+
+  async create(e: NewEvent): Promise<EventRow> {
+    const { data, error } = await supabase
+      .from(EVENTS_TABLE)
+      .insert(e)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as EventRow;
+  },
+
+  async update(id: string, updates: Partial<NewEvent>): Promise<EventRow> {
+    const { data, error } = await supabase
+      .from(EVENTS_TABLE)
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as EventRow;
+  },
+
+  async remove(id: string): Promise<void> {
+    const { error } = await supabase.from(EVENTS_TABLE).delete().eq('id', id);
     if (error) throw error;
   },
 };

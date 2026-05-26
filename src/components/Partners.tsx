@@ -1,14 +1,11 @@
-import { useState } from 'react';
+import Marquee from 'react-fast-marquee';
 import { Loader2 } from 'lucide-react';
 import { SectionHeader } from './SectionHeader';
 import { useLogos } from '../hooks/useCatalog';
 import { cloudinaryService } from '../lib/cloudinary';
 
 export function Partners() {
-  const [paused, setPaused] = useState(false);
   const { data: partners, loading } = useLogos('partner');
-
-  const loop = partners.length > 0 ? [...partners, ...partners] : [];
 
   return (
     <section
@@ -38,32 +35,31 @@ export function Partners() {
         ) : (
           <div
             className="relative mt-14 mask-fade-r"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onFocus={() => setPaused(true)}
-            onBlur={() => setPaused(false)}
             aria-label="Carrusel de logos de partners"
           >
-            <div
-              className="flex w-max gap-6 animate-scroll-x"
-              style={{ animationPlayState: paused ? 'paused' : 'running' }}
+            <Marquee
+              gradient={false}
+              pauseOnHover
+              speed={35}
+              direction="right"
+              autoFill
             >
-              {loop.map((partner, idx) => (
+              {partners.map((partner, idx) => (
                 <div
                   key={`${partner.id}-${idx}`}
-                  className="group flex h-24 min-w-[200px] items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-6 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-secondary/40 hover:bg-white/[0.07] hover:shadow-glow-sm sm:min-w-[240px]"
+                  className="group mx-3 flex h-24 min-w-[200px] items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-6 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-secondary/40 hover:bg-white/[0.07] hover:shadow-glow-sm sm:min-w-[240px]"
                 >
                   <img
                     src={cloudinaryService.padLogoUrl(partner.logo_url, { h: 80, w: 240 })}
                     alt={partner.alt ?? `Logo de ${partner.name}`}
                     loading="lazy"
                     decoding="async"
-                    className="h-16 w-auto max-w-[180px] object-contain opacity-80 transition-all duration-300 group-hover:scale-105 group-hover:opacity-100"
+                    className="h-16 w-auto max-w-[180px] object-contain opacity-70 grayscale transition-all duration-500 group-hover:scale-110 group-hover:opacity-100 group-hover:grayscale-0"
                     style={{ mixBlendMode: 'lighten' }}
                   />
                 </div>
               ))}
-            </div>
+            </Marquee>
           </div>
         )}
       </div>

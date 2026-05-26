@@ -1,6 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { logosService, projectsService } from '../lib/supabase';
+import {
+  eventsService,
+  logosService,
+  projectsService,
+  testimonialsService,
+} from '../lib/supabase';
 import type { LogoKind, LogoRow, ProjectRow } from '../types/catalog';
+import type { TestimonialRow } from '../types/testimonials';
+import type { EventRow } from '../types/events';
 
 interface State<T> {
   data: T[];
@@ -52,6 +59,62 @@ export function useProjects() {
       setState({ data: [], loading: false, error: msg });
     }
   }, []);
+
+  useEffect(() => {
+    void refresh();
+  }, [refresh]);
+
+  return { ...state, refresh };
+}
+
+/** Testimonios. Por default trae solo publicados (uso público). */
+export function useTestimonials(onlyPublished = true) {
+  const [state, setState] = useState<State<TestimonialRow>>({
+    data: [],
+    loading: true,
+    error: null,
+  });
+
+  const refresh = useCallback(async () => {
+    setState((s) => ({ ...s, loading: true, error: null }));
+    try {
+      const data = await testimonialsService.list(onlyPublished);
+      setState({ data, loading: false, error: null });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'Error desconocido';
+      setState({ data: [], loading: false, error: msg });
+    }
+  }, [onlyPublished]);
+
+  useEffect(() => {
+    void refresh();
+  }, [refresh]);
+
+  return { ...state, refresh };
+}
+
+/**
+ * Eventos / webinars. Por default trae solo publicados y próximos
+ * (start_date >= hoy). El admin pasa `onlyPublished=false, onlyUpcoming=false`
+ * para ver todos.
+ */
+export function useEvents(onlyPublished = true, onlyUpcoming = true) {
+  const [state, setState] = useState<State<EventRow>>({
+    data: [],
+    loading: true,
+    error: null,
+  });
+
+  const refresh = useCallback(async () => {
+    setState((s) => ({ ...s, loading: true, error: null }));
+    try {
+      const data = await eventsService.list(onlyPublished, onlyUpcoming);
+      setState({ data, loading: false, error: null });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'Error desconocido';
+      setState({ data: [], loading: false, error: msg });
+    }
+  }, [onlyPublished, onlyUpcoming]);
 
   useEffect(() => {
     void refresh();

@@ -113,6 +113,126 @@
     background-size: 40px 40px;
   }
 
+  /* ================ Sistema de secciones light / dark ================ */
+  /* Cada sección del Home usa una de estas clases. Resuelven background,
+     color de texto, divider y tokens "soft" para cards/inputs internos.
+     Espaciado vertical generoso (Stripe/Linear-like): 120px desktop / 80px mobile. */
+  .section-light {
+    @apply relative bg-white text-[#0F1419];
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .section-dark {
+    @apply relative bg-surface text-white;
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  @media (min-width: 768px) {
+    .section-light,
+    .section-dark {
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+  }
+
+  /* Eyebrow / pill — versión adaptable */
+  .eyebrow-dark {
+    @apply inline-flex items-center gap-2 rounded-full border border-secondary/40 bg-secondary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-secondary-300;
+  }
+  .eyebrow-light {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand-600/30 bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-brand-700;
+  }
+
+  /* Tipografía — display sizes responsivos basados en spec UX
+     H1 64px / 36px mobile, H2 48px / 32px, H3 32px / 24px, body 18px lh 1.7 */
+  .h1-display {
+    @apply font-display font-bold leading-[1.05] tracking-tight;
+    font-size: clamp(2.25rem, 5.5vw, 4rem);
+    letter-spacing: -0.025em;
+  }
+  .h2-display {
+    @apply font-display font-semibold leading-[1.1] tracking-tight;
+    font-size: clamp(2rem, 4.2vw, 3rem);
+    letter-spacing: -0.02em;
+  }
+  .h3-display {
+    @apply font-display font-semibold leading-[1.2] tracking-tight;
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+  }
+  .body-lg {
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  /* Cards: variantes para fondo claro y oscuro */
+  .card-light {
+    @apply rounded-3xl border border-black/5 bg-white p-7 transition-all duration-300 ease-smooth;
+    box-shadow: 0 1px 2px rgba(15, 20, 25, 0.03), 0 10px 30px -16px rgba(15, 20, 25, 0.08);
+  }
+  .card-light-hover {
+    @apply hover:-translate-y-1 hover:border-brand-200;
+  }
+  .card-light-hover:hover {
+    box-shadow:
+      0 1px 2px rgba(15, 20, 25, 0.04),
+      0 24px 60px -22px rgba(0, 229, 255, 0.22);
+  }
+
+  /* CTA en sección clara */
+  .btn-primary-light {
+    @apply btn bg-brand-500 text-white hover:bg-brand-600 hover:-translate-y-0.5 active:translate-y-0;
+    box-shadow: 0 6px 22px -8px rgba(0, 229, 255, 0.55);
+  }
+  .btn-primary-light:hover {
+    box-shadow: 0 14px 38px -10px rgba(0, 229, 255, 0.7);
+  }
+  .btn-secondary-light {
+    @apply btn border-2 border-black/10 bg-white text-[#0F1419] hover:border-brand-500 hover:text-brand-700;
+  }
+
+  /* Input claro */
+  .input-light {
+    @apply w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-base text-[#0F1419] placeholder:text-[#0F1419]/40 transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20;
+  }
+
+  /* Divider sutil entre secciones */
+  .section-divider {
+    @apply mx-auto h-px w-full max-w-7xl bg-gradient-to-r from-transparent via-secondary/15 to-transparent;
+  }
+  .section-divider-dark {
+    @apply mx-auto h-px w-full max-w-7xl bg-gradient-to-r from-transparent via-white/10 to-transparent;
+  }
+
+  /* Decoraciones geométricas inspiradas en el isotipo */
+  .geo-circle-cyan {
+    @apply pointer-events-none absolute rounded-full;
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(0, 229, 255, 0.35),
+      rgba(0, 229, 255, 0) 70%
+    );
+    filter: blur(50px);
+  }
+  .geo-circle-mint {
+    @apply pointer-events-none absolute rounded-full;
+    background: radial-gradient(
+      circle at 70% 70%,
+      rgba(29, 233, 182, 0.3),
+      rgba(29, 233, 182, 0) 70%
+    );
+    filter: blur(50px);
+  }
+  /* Mismo concepto pero para secciones light: más sutil */
+  .geo-soft-cyan {
+    @apply pointer-events-none absolute rounded-full;
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(0, 229, 255, 0.18),
+      rgba(0, 229, 255, 0) 70%
+    );
+    filter: blur(70px);
+  }
+
   .noise-bg {
     background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
     background-size: 24px 24px;
@@ -188,6 +308,77 @@
 
   .animate-pause:hover {
     animation-play-state: paused;
+  }
+
+  /* Reflejo que cruza un botón al hover (shine effect) */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn-shine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 0%,
+      transparent 35%,
+      rgba(255, 255, 255, 0.55) 50%,
+      transparent 65%,
+      transparent 100%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+  .btn-shine:hover::after {
+    transform: translateX(120%);
+  }
+
+  /* Gradient animado (background-position) — usar con bg-[length:200%_200%] */
+  .animate-gradient-shift {
+    animation: gradient-shift 8s ease-in-out infinite;
+  }
+
+  /* Mesh radial animado para fondos de sección */
+  .animated-mesh::before {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    z-index: -1;
+    background:
+      radial-gradient(at 20% 30%, rgba(0, 229, 255, 0.18) 0px, transparent 50%),
+      radial-gradient(at 80% 20%, rgba(29, 233, 182, 0.16) 0px, transparent 50%),
+      radial-gradient(at 50% 80%, rgba(0, 184, 212, 0.14) 0px, transparent 50%);
+    animation: mesh-drift 18s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  @keyframes mesh-drift {
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    100% { transform: translate3d(2%, -2%, 0) scale(1.05); }
+  }
+
+  /* Glow on hover utility para cards */
+  .card-glow {
+    position: relative;
+  }
+  .card-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0,229,255,0), rgba(0,229,255,0));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    transition: background 0.4s ease;
+    pointer-events: none;
+  }
+  .card-glow:hover::before {
+    background: linear-gradient(135deg, rgba(0,229,255,0.6), rgba(29,233,182,0.6));
   }
 }
 
