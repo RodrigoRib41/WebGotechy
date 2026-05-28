@@ -52,7 +52,7 @@ export function AboutPage() {
                     tiltMaxAngleY={5}
                     glareEnable={!reduced}
                     glareMaxOpacity={0.15}
-                    glareColor="#00E5FF"
+                    glareColor="#00F3FF"
                     glarePosition="all"
                     scale={1.02}
                     transitionSpeed={1100}
@@ -133,7 +133,7 @@ export function AboutPage() {
                   tiltMaxAngleY={4}
                   glareEnable={!reduced}
                   glareMaxOpacity={0.12}
-                  glareColor="#00E5FF"
+                  glareColor="#00F3FF"
                   glarePosition="all"
                   scale={1.02}
                   transitionSpeed={1100}
@@ -191,7 +191,7 @@ export function AboutPage() {
                   tiltMaxAngleY={4}
                   glareEnable={!reduced}
                   glareMaxOpacity={0.1}
-                  glareColor="#00E5FF"
+                  glareColor="#00F3FF"
                   glarePosition="all"
                   scale={1.02}
                   transitionSpeed={1100}

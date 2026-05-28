@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { Building2 } from 'lucide-react';
 import Tilt from 'react-parallax-tilt';
+import { useTranslation } from 'react-i18next';
 import { SectionHeader } from '../SectionHeader';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { approachItem, approachContainer } from '../effects/ApproachReveal';
 
 export interface ServiceUseCase {
   title: string;
@@ -17,6 +19,7 @@ interface ServiceUseCasesProps {
 
 export function ServiceUseCases({ useCases }: ServiceUseCasesProps) {
   const reduced = usePrefersReducedMotion();
+  const { t } = useTranslation();
 
   return (
     <section
@@ -28,30 +31,31 @@ export function ServiceUseCases({ useCases }: ServiceUseCasesProps) {
 
       <div className="container-x relative">
         <SectionHeader
-          eyebrow="Casos de uso"
+          eyebrow={t('services.useCases.eyebrow')}
           title={
             <>
-              Dónde <span className="text-gradient">aplica</span>
+              {t('services.useCases.titleStart')}{' '}
+              <span className="text-secondary">{t('services.useCases.titleHighlight')}</span>
             </>
           }
         />
 
-        <div className="mt-14 grid gap-5 md:grid-cols-2">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.05 }}
+          variants={approachContainer}
+          className="mt-14 grid gap-5 md:grid-cols-2"
+        >
           {useCases.map((uc, i) => (
-            <motion.div
-              key={`${uc.title}-${i}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.45, delay: i * 0.05 }}
-            >
+            <motion.div key={`${uc.title}-${i}`} variants={approachItem}>
               <Tilt
                 tiltEnable={!reduced}
                 tiltMaxAngleX={5}
                 tiltMaxAngleY={5}
                 glareEnable={!reduced}
                 glareMaxOpacity={0.12}
-                glareColor="#00E5FF"
+                glareColor="#00F3FF"
                 glarePosition="all"
                 scale={1.02}
                 transitionSpeed={1100}
@@ -96,7 +100,7 @@ export function ServiceUseCases({ useCases }: ServiceUseCasesProps) {
               </Tilt>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

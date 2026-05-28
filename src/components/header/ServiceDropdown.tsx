@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { SERVICES } from '../../data/services';
+import { useTranslation } from 'react-i18next';
+import { SERVICES, localizeService } from '../../data/services';
 import { cn } from '../../utils/cn';
 
 const HOVER_OPEN_DELAY_MS = 150;
@@ -22,6 +23,8 @@ interface ServiceDropdownProps {
  */
 export function ServiceDropdown({ label }: ServiceDropdownProps) {
   const { pathname } = useLocation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -135,7 +138,7 @@ export function ServiceDropdown({ label }: ServiceDropdownProps) {
             )}
             style={{
               boxShadow:
-                '0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 229, 255, 0.05), 0 0 30px -10px rgba(0, 229, 255, 0.15)',
+                '0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 243, 255, 0.05), 0 0 30px -10px rgba(0, 243, 255, 0.15)',
             }}
           >
             <div className="border-b border-white/[0.06] px-6 py-4">
@@ -148,7 +151,8 @@ export function ServiceDropdown({ label }: ServiceDropdownProps) {
             </div>
 
             <ul className="max-h-[70vh] overflow-y-auto py-2">
-              {SERVICES.map((service) => {
+              {SERVICES.map((rawService) => {
+                const service = localizeService(rawService, isEn);
                 const Icon = service.icon;
                 return (
                   <li key={service.id} role="none">
@@ -183,7 +187,7 @@ export function ServiceDropdown({ label }: ServiceDropdownProps) {
                 to="/servicios"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-secondary hover:text-secondary-200"
               >
-                Ver todos los servicios
+                {t('home.highlights.cta')}
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>

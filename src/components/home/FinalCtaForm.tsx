@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../../utils/cn';
+import { ArrowMark } from '../brand';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -40,8 +41,7 @@ function encode(data: Record<string, string>) {
  * declarado para /contacto, así que reusar form-name=contacto basta.
  */
 export function FinalCtaForm() {
-  const { i18n } = useTranslation();
-  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
+  const { t } = useTranslation();
 
   const [fields, setFields] = useState<Fields>(initial);
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({});
@@ -82,15 +82,20 @@ export function FinalCtaForm() {
 
   return (
     <section className="section-light relative overflow-hidden" aria-labelledby="final-cta-title">
-      {/* Gradient cyan muy sutil al fondo */}
+      {/* Iluminaciones circulares brandbook (pág. 26): cyan + verde sutiles */}
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-0"
         style={{
           background:
-            'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,229,255,0.08), transparent 60%), radial-gradient(ellipse 60% 40% at 80% 100%, rgba(29,233,182,0.06), transparent 60%)',
+            'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,243,255,0.08), transparent 60%), radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0,255,146,0.06), transparent 60%)',
         }}
       />
+
+      {/* Flecha ornamental brandbook — esquina superior derecha */}
+      <div className="pointer-events-none absolute right-4 top-12 opacity-[0.07] sm:right-12" aria-hidden="true">
+        <ArrowMark size={160} outline color="#0A0E1A" strokeWidth={3} />
+      </div>
 
       <div className="container-x relative">
         <motion.div
@@ -100,28 +105,13 @@ export function FinalCtaForm() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-2xl text-center"
         >
-          <span className="eyebrow-light">{isEn ? "Let's talk" : 'Conversemos'}</span>
+          <span className="eyebrow-light">{t('home.finalCta.eyebrow')}</span>
           <h2 id="final-cta-title" className="h1-display mt-5 text-[#0F1419]">
-            {isEn ? (
-              <>
-                Ready for your next{' '}
-                <span className="bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-                  SAP project?
-                </span>
-              </>
-            ) : (
-              <>
-                ¿Listo para tu próximo{' '}
-                <span className="bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-                  proyecto SAP?
-                </span>
-              </>
-            )}
+            {t('home.finalCta.titleStart')}{' '}
+            <span className="text-brand-600">{t('home.finalCta.titleHighlight')}</span>
           </h2>
           <p className="body-lg mx-auto mt-5 max-w-xl text-[#0F1419]/65">
-            {isEn
-              ? 'Tell us what you need. A senior consultant will reply within 24 hours.'
-              : 'Contanos qué necesitás. Un consultor senior te responde dentro de 24 horas.'}
+            {t('home.finalCta.subtitleAlt')}
           </p>
         </motion.div>
 
@@ -134,19 +124,17 @@ export function FinalCtaForm() {
           >
             <CheckCircle2 className="mx-auto h-14 w-14 text-brand-500" />
             <h3 className="mt-5 font-display text-2xl font-semibold text-[#0F1419]">
-              {isEn ? 'Got it. Talk soon.' : '¡Listo! Hablamos pronto.'}
+              {t('home.finalCta.successTitle')}
             </h3>
             <p className="mt-3 text-[#0F1419]/65">
-              {isEn
-                ? 'We received your message. A consultant will reach out within 24h.'
-                : 'Recibimos tu mensaje. Un consultor te contacta dentro de 24h.'}
+              {t('home.finalCta.successBody')}
             </p>
             <button
               type="button"
               onClick={() => setState('idle')}
               className="btn-secondary-light mt-6 !text-sm"
             >
-              {isEn ? 'Send another' : 'Enviar otro'}
+              {t('home.finalCta.sendAnother')}
             </button>
           </motion.div>
         ) : (
@@ -173,7 +161,7 @@ export function FinalCtaForm() {
 
             <div className="grid gap-4 sm:grid-cols-2">
               <FieldLight
-                label={isEn ? 'Name' : 'Nombre'}
+                label={t('home.finalCta.fieldName')}
                 name="name"
                 value={fields.name}
                 onChange={(v) => update('name', v)}
@@ -181,7 +169,7 @@ export function FinalCtaForm() {
                 required
               />
               <FieldLight
-                label="Email"
+                label={t('home.finalCta.fieldEmail')}
                 name="email"
                 type="email"
                 value={fields.email}
@@ -191,14 +179,14 @@ export function FinalCtaForm() {
               />
             </div>
             <FieldLight
-              label={isEn ? 'Company' : 'Empresa'}
+              label={t('home.finalCta.fieldCompany')}
               name="company"
               value={fields.company}
               onChange={(v) => update('company', v)}
               className="mt-4"
             />
             <FieldLight
-              label={isEn ? 'Message' : 'Mensaje'}
+              label={t('home.finalCta.fieldMessage')}
               name="message"
               value={fields.message}
               onChange={(v) => update('message', v)}
@@ -206,29 +194,19 @@ export function FinalCtaForm() {
               required
               textarea
               className="mt-4"
-              placeholder={
-                isEn
-                  ? 'Tell us about your project, scope, timing...'
-                  : 'Contanos sobre tu proyecto, alcance, timing...'
-              }
+              placeholder={t('home.finalCta.messagePlaceholder')}
             />
 
             {state === 'error' && (
               <div className="mt-4 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
                 <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>
-                  {isEn
-                    ? 'Something went wrong. Try again or write us at contacto@gotechy.com.'
-                    : 'Algo falló. Probá de nuevo o escribinos a contacto@gotechy.com.'}
-                </span>
+                <span>{t('home.finalCta.errorBody')}</span>
               </div>
             )}
 
             <div className="mt-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
               <p className="text-xs text-[#0F1419]/55">
-                {isEn
-                  ? 'We respond within 24 business hours.'
-                  : 'Respondemos en 24h hábiles.'}
+                {t('home.finalCta.respondInHours')}
               </p>
               <button
                 type="submit"
@@ -241,11 +219,11 @@ export function FinalCtaForm() {
                 {state === 'submitting' ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    {isEn ? 'Sending…' : 'Enviando…'}
+                    {t('home.finalCta.sending')}
                   </>
                 ) : (
                   <>
-                    {isEn ? 'Send message' : 'Enviar mensaje'}
+                    {t('home.finalCta.sendMessage')}
                     <ArrowRight className="h-4 w-4" />
                   </>
                 )}

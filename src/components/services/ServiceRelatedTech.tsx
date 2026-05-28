@@ -1,40 +1,44 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import type { Service } from '../../data/services';
 import { SectionHeader } from '../SectionHeader';
+import { approachItem, approachContainer } from '../effects/ApproachReveal';
 
 interface ServiceRelatedTechProps {
   services: Service[];
 }
 
 export function ServiceRelatedTech({ services }: ServiceRelatedTechProps) {
+  const { t } = useTranslation();
   if (services.length === 0) return null;
 
   return (
     <section className="relative py-20 sm:py-28" aria-labelledby="related-title">
       <div className="container-x">
         <SectionHeader
-          eyebrow="Tecnologías relacionadas"
+          eyebrow={t('services.relatedTech.eyebrow')}
           title={
             <>
-              Se integra con el <span className="text-gradient">resto del ecosistema</span>
+              {t('services.relatedTech.titleStart')}{' '}
+              <span className="text-secondary">{t('services.relatedTech.titleHighlight')}</span>
             </>
           }
         />
 
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, i) => {
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.05 }}
+          variants={approachContainer}
+          className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {services.map((service) => {
             const Icon = service.icon;
             const target = service.detail ? `/servicios/${service.slug}` : '/servicios';
             return (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.4, delay: i * 0.04 }}
-              >
+              <motion.div key={service.id} variants={approachItem}>
                 <Link
                   to={target}
                   className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-card backdrop-blur transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-secondary/40 hover:bg-white/[0.05] hover:shadow-glow-sm"
@@ -53,7 +57,7 @@ export function ServiceRelatedTech({ services }: ServiceRelatedTechProps) {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

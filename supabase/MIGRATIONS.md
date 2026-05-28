@@ -118,3 +118,32 @@ create policy "Authenticated can manage events"
 
 Sin data, la sección "Eventos y Webinars" no se renderiza en el Home
 (graceful fallback). El admin muestra empty state con CTA para crear el primero.
+
+---
+
+## 2026-05-27 — Columnas EN en `projects` y `blog_posts`
+
+Soporta el toggle ES/EN en el sitio público para casos de éxito y artículos
+del blog. El admin (`/admin/projects` y `/admin/posts`) ya muestra los nuevos
+campos en una sección colapsable "EN — Traducción al inglés (opcional)". Si
+los campos EN quedan vacíos, el sitio público hace fallback al español de
+forma transparente — no se rompe nada al correr sin haber traducido todavía.
+
+```sql
+-- Casos de éxito (Proyectos)
+alter table public.projects
+  add column if not exists title_en text,
+  add column if not exists industry_en text,
+  add column if not exists challenge_en text,
+  add column if not exists solution_en text;
+
+-- Blog
+alter table public.blog_posts
+  add column if not exists title_en text,
+  add column if not exists excerpt_en text,
+  add column if not exists content_en text;
+```
+
+Después de correr esto, podés entrar al admin y empezar a llenar los campos
+EN proyecto por proyecto y post por post. El sitio público los va a usar
+automáticamente cuando el usuario selecciona EN en el header.

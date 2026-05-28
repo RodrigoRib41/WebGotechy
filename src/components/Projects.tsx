@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, Building2, Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { SectionHeader } from './SectionHeader';
 import { useProjects } from '../hooks/useCatalog';
+import { localizeProject } from '../types/catalog';
 import { cn } from '../utils/cn';
 
 export function Projects() {
-  const { data: projects, loading } = useProjects();
+  const { data: rawProjects, loading } = useProjects();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
+  const projects = rawProjects.map((p) => localizeProject(p, isEn));
   const [expanded, setExpanded] = useState<string | null>(null);
   const didInitExpand = useRef(false);
 
@@ -22,13 +27,14 @@ export function Projects() {
     <section id="proyectos" className="relative py-24 sm:py-32" aria-labelledby="projects-title">
       <div className="container-x">
         <SectionHeader
-          eyebrow="Casos de éxito"
+          eyebrow={t('projects.section.eyebrow')}
           title={
             <>
-              Proyectos que <span className="text-gradient">movieron la aguja</span>
+              {t('projects.section.titleStart')}{' '}
+              <span className="text-secondary">{t('projects.section.titleHighlight')}</span>
             </>
           }
-          description="Cada implementación se mide por su impacto en el negocio. Estos son algunos de los resultados que entregamos en producción."
+          description={t('projects.section.description')}
         />
 
         {loading ? (
@@ -37,7 +43,7 @@ export function Projects() {
           </div>
         ) : projects.length === 0 ? (
           <div className="mt-16 rounded-3xl border border-white/10 bg-white/[0.04] p-10 text-center text-sm text-white/65 backdrop-blur">
-            Cargá proyectos desde el panel /admin para que aparezcan acá.
+            {t('projects.section.loadFromAdmin')}
           </div>
         ) : (
           <div className="mt-16 grid gap-8">
@@ -123,7 +129,7 @@ export function Projects() {
                           <div className="mt-5 space-y-4 border-t border-white/10 pt-5">
                             <div>
                               <div className="text-xs font-semibold uppercase tracking-wider text-white/55">
-                                Desafío
+                                {t('projects.challenge')}
                               </div>
                               <p className="mt-1 text-sm leading-relaxed text-white/80">
                                 {project.challenge}
@@ -131,7 +137,7 @@ export function Projects() {
                             </div>
                             <div>
                               <div className="text-xs font-semibold uppercase tracking-wider text-white/55">
-                                Solución
+                                {t('projects.solution')}
                               </div>
                               <p className="mt-1 text-sm leading-relaxed text-white/80">
                                 {project.solution}
@@ -148,7 +154,7 @@ export function Projects() {
                       aria-expanded={isOpen}
                       className="mt-5 inline-flex items-center gap-1.5 self-start text-sm font-semibold text-secondary hover:text-secondary-200"
                     >
-                      {isOpen ? 'Ocultar detalles' : 'Leer más'}
+                      {isOpen ? t('projects.section.hideDetails') : t('projects.section.readMore')}
                       <ChevronDown
                         className={cn(
                           'h-4 w-4 transition-transform duration-300',

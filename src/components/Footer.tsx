@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Logo } from './Logo';
 import { SITE, NAV_LINKS } from '../data/site';
+import { ArrowMark, ArrowPattern } from './brand';
 
 export function Footer() {
   const { t } = useTranslation();
@@ -10,14 +11,28 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-primary text-white">
+      {/* Iluminación circular cyan oficial brandbook */}
       <div
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-25"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 50% 0%, rgba(0,229,255,0.25), transparent 50%)',
+            'radial-gradient(circle at 50% 0%, rgba(0,243,255,0.30), transparent 55%)',
         }}
         aria-hidden="true"
       />
+
+      {/* Trama sutil de flechas (brandbook) */}
+      <ArrowPattern
+        density={4}
+        arrowSize={130}
+        opacity={0.025}
+        className="[mask-image:linear-gradient(to_bottom,transparent_0%,black_30%,black_70%,transparent_100%)]"
+      />
+
+      {/* Flecha ornamental decorativa esquina derecha */}
+      <div className="pointer-events-none absolute -right-12 -top-12 opacity-[0.08]" aria-hidden="true">
+        <ArrowMark size={260} outline color="#00F3FF" strokeWidth={3} />
+      </div>
 
       <div className="container-x relative py-10">
         <div className="grid gap-8 md:grid-cols-3 md:gap-10">

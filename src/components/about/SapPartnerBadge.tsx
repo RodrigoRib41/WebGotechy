@@ -121,7 +121,7 @@ const PILLARS_EN: Pillar[] = [
 ];
 
 export function SapPartnerBadge() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
   const pillars = isEn ? PILLARS_EN : PILLARS_ES;
 
@@ -192,28 +192,13 @@ export function SapPartnerBadge() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="eyebrow-dark">
-                {isEn ? 'Official recognition' : 'Reconocimiento oficial'}
-              </span>
+              <span className="eyebrow-dark">{t('about.sapPartner.officialRecognition')}</span>
               <h2
                 id="sap-partner-title"
                 className="mt-5 text-display-2 font-display font-bold text-white"
               >
-                {isEn ? (
-                  <>
-                    Somos{' '}
-                    <span className="bg-gradient-to-r from-secondary-200 via-secondary to-accent bg-clip-text text-transparent">
-                      SAP Silver Partner
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    Somos{' '}
-                    <span className="bg-gradient-to-r from-secondary-200 via-secondary to-accent bg-clip-text text-transparent">
-                      SAP Silver Partner
-                    </span>
-                  </>
-                )}
+                {t('about.sapPartner.weAre')}{' '}
+                <span className="text-secondary">{t('about.sapPartner.partnerLevel')}</span>
               </h2>
             </motion.div>
 

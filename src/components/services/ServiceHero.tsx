@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, FileDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import type { LucideIcon } from 'lucide-react';
+import { approachItem } from '../effects/ApproachReveal';
 
 interface ServiceHeroProps {
   title: string;
@@ -24,6 +26,7 @@ export function ServiceHero({
   tags,
 }: ServiceHeroProps) {
   const [imageOk, setImageOk] = useState(true);
+  const { t } = useTranslation();
   const showImage = Boolean(image) && imageOk;
   const iconBg = accent === 'secondary' ? 'bg-secondary/10 text-secondary' : 'bg-accent/10 text-accent';
 
@@ -71,23 +74,36 @@ export function ServiceHero({
         </nav>
 
         <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          {/* Hero del servicio con efecto "aparece desde lejos" stagger */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            initial="hidden"
+            animate="show"
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.16, delayChildren: 0.1 } },
+            }}
           >
-            <div
+            <motion.div
+              variants={approachItem}
               className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl ${iconBg}`}
             >
               <Icon className="h-7 w-7" />
-            </div>
-            <h1 className="text-display-1 font-display font-extrabold leading-[1.05] text-white">
+            </motion.div>
+            <motion.h1
+              variants={approachItem}
+              className="text-display-1 font-display font-extrabold leading-[1.05] text-white"
+            >
               {title}
-            </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">{tagline}</p>
+            </motion.h1>
+            <motion.p
+              variants={approachItem}
+              className="mt-5 max-w-xl text-lg leading-relaxed text-white/75"
+            >
+              {tagline}
+            </motion.p>
 
             {tags && tags.length > 0 && (
-              <div className="mt-5 flex flex-wrap gap-2">
+              <motion.div variants={approachItem} className="mt-5 flex flex-wrap gap-2">
                 {tags.map((tag) => (
                   <span
                     key={tag}
@@ -96,20 +112,19 @@ export function ServiceHero({
                     {tag}
                   </span>
                 ))}
-              </div>
+              </motion.div>
             )}
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <motion.div variants={approachItem} className="mt-8 flex flex-wrap items-center gap-3">
               <Link to="/contacto" className="btn-primary">
-                Agendar demo
+                {t('services.hero.scheduleDemo')}
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link to="/contacto" className="btn-secondary">
                 <FileDown className="h-4 w-4" />
-                Hablar con un especialista
+                {t('services.hero.talkToSpecialist')}
               </Link>
-            </div>
-
+            </motion.div>
           </motion.div>
 
           {/* Imagen / decoración */}

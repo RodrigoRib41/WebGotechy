@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import type { LucideIcon } from 'lucide-react';
 import { ServiceOverviewIllustration } from './ServiceOverviewIllustration';
+import { approachItem } from '../effects/ApproachReveal';
 
 interface ServiceOverviewProps {
   paragraphs: string[];
@@ -21,23 +23,31 @@ export function ServiceOverview({
   image,
 }: ServiceOverviewProps) {
   const [imageOk, setImageOk] = useState(true);
+  const { t } = useTranslation();
   const showImage = Boolean(image) && imageOk;
 
   return (
     <section className="relative py-20 sm:py-28" aria-label="Descripción del servicio">
       <div className="container-x">
         <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+          {/* Texto con "approach reveal" stagger — cada párrafo se acerca desde lejos */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.5 }}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.05 }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.18 } },
+            }}
           >
-            <span className="eyebrow mb-6 inline-flex">Qué es</span>
+            <motion.span variants={approachItem} className="eyebrow mb-6 inline-flex">
+              {t('services.overview.eyebrow')}
+            </motion.span>
             <div className="space-y-4 text-base leading-relaxed text-white/80 sm:text-lg">
               {paragraphs.map((p, i) => (
-                <p
+                <motion.p
                   key={i}
+                  variants={approachItem}
                   className={
                     i === 0
                       ? 'text-lg font-medium text-white sm:text-xl'
@@ -45,7 +55,7 @@ export function ServiceOverview({
                   }
                 >
                   {p}
-                </p>
+                </motion.p>
               ))}
             </div>
           </motion.div>

@@ -10,6 +10,7 @@ import {
   MessageCircle,
   Loader2,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { SectionHeader } from './SectionHeader';
 import { OfficesMap } from './OfficesMap';
 import { OFFICES, SITE } from '../data/site';
@@ -27,14 +28,17 @@ interface Fields {
 
 const initial: Fields = { name: '', email: '', company: '', phone: '', message: '' };
 
-function validate(fields: Fields): Partial<Record<keyof Fields, string>> {
+function validate(
+  fields: Fields,
+  t: (k: string) => string,
+): Partial<Record<keyof Fields, string>> {
   const errors: Partial<Record<keyof Fields, string>> = {};
-  if (!fields.name.trim()) errors.name = 'Ingresá tu nombre';
-  if (!fields.email.trim()) errors.email = 'Ingresá tu email';
+  if (!fields.name.trim()) errors.name = t('contact.form.required');
+  if (!fields.email.trim()) errors.email = t('contact.form.required');
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email))
-    errors.email = 'El email no es válido';
+    errors.email = t('contact.form.invalidEmail');
   if (fields.message.trim().length < 10)
-    errors.message = 'Contanos un poco más (mínimo 10 caracteres)';
+    errors.message = t('contact.form.required');
   return errors;
 }
 
@@ -45,6 +49,7 @@ function encode(data: Record<string, string>) {
 }
 
 export function Contact() {
+  const { t } = useTranslation();
   const [fields, setFields] = useState<Fields>(initial);
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({});
   const [state, setState] = useState<FormState>('idle');
@@ -53,14 +58,14 @@ export function Contact() {
     setFields((prev) => ({ ...prev, [key]: value }));
     // Validación en tiempo real solo para campos ya tocados
     if (errors[key]) {
-      const next = validate({ ...fields, [key]: value });
+      const next = validate({ ...fields, [key]: value }, t);
       setErrors(next);
     }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const validation = validate(fields);
+    const validation = validate(fields, t);
     setErrors(validation);
     if (Object.keys(validation).length > 0) return;
 
@@ -96,13 +101,14 @@ export function Contact() {
     >
       <div className="container-x">
         <SectionHeader
-          eyebrow="Contacto"
+          eyebrow={t('contactSection.eyebrow')}
           title={
             <>
-              Hablemos de tu próximo <span className="text-gradient">proyecto SAP</span>
+              {t('contactSection.titleStart')}{' '}
+              <span className="text-secondary">{t('contactSection.titleHighlight')}</span>
             </>
           }
-          description="Contanos qué necesitás y te respondemos en menos de 24 horas hábiles. Sin compromiso."
+          description={t('contactSection.description')}
         />
 
         <div className="mt-16 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
@@ -127,17 +133,16 @@ export function Contact() {
                     <CheckCircle2 className="h-9 w-9" />
                   </div>
                   <h3 className="mt-5 font-display text-2xl font-bold text-white">
-                    ¡Gracias por escribirnos!
+                    {t('contactSection.successTitle')}
                   </h3>
                   <p className="mt-2 max-w-md text-white/70">
-                    Recibimos tu mensaje. Un consultor de GoTechy se va a contactar
-                    en las próximas horas hábiles.
+                    {t('contactSection.successBody')}
                   </p>
                   <button
                     onClick={() => setState('idle')}
                     className="btn-secondary mt-6"
                   >
-                    Enviar otro mensaje
+                    {t('contactSection.sendAnother')}
                   </button>
                 </motion.div>
               ) : (
@@ -158,7 +163,7 @@ export function Contact() {
                   <input type="hidden" name="form-name" value="contacto" />
                   <p className="hidden">
                     <label>
-                      No completar:
+                      {t('contact.form.botField')}:
                       <input name="bot-field" tabIndex={-1} autoComplete="off" />
                     </label>
                   </p>
@@ -166,7 +171,7 @@ export function Contact() {
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field
                       id="name"
-                      label="Nombre completo"
+                      label={t('contactSection.fieldName')}
                       value={fields.name}
                       onChange={(v) => handleChange('name', v)}
                       error={errors.name}
@@ -176,7 +181,7 @@ export function Contact() {
                     <Field
                       id="email"
                       type="email"
-                      label="Email corporativo"
+                      label={t('contactSection.fieldEmail')}
                       value={fields.email}
                       onChange={(v) => handleChange('email', v)}
                       error={errors.email}
@@ -187,7 +192,7 @@ export function Contact() {
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field
                       id="company"
-                      label="Empresa"
+                      label={t('contactSection.fieldCompany')}
                       value={fields.company}
                       onChange={(v) => handleChange('company', v)}
                       error={errors.company}
@@ -196,7 +201,7 @@ export function Contact() {
                     <Field
                       id="phone"
                       type="tel"
-                      label="Teléfono"
+                      label={t('contactSection.fieldPhone')}
                       value={fields.phone}
                       onChange={(v) => handleChange('phone', v)}
                       error={errors.phone}
@@ -205,7 +210,7 @@ export function Contact() {
                   </div>
                   <Field
                     id="message"
-                    label="¿En qué podemos ayudarte?"
+                    label={t('contactSection.fieldMessage')}
                     value={fields.message}
                     onChange={(v) => handleChange('message', v)}
                     error={errors.message}
@@ -216,7 +221,7 @@ export function Contact() {
                   {state === 'error' && (
                     <div className="flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
                       <AlertCircle className="h-4 w-4" />
-                      Hubo un problema al enviar. Probá nuevamente o escribinos por WhatsApp.
+                      {t('contactSection.errorBody')}
                     </div>
                   )}
 
@@ -229,12 +234,12 @@ export function Contact() {
                       {state === 'submitting' ? (
                         <>
                           <Loader2 className="h-4 w-4 animate-spin" />
-                          Enviando…
+                          {t('contactSection.sending')}
                         </>
                       ) : (
                         <>
                           <Send className="h-4 w-4" />
-                          Enviar mensaje
+                          {t('contactSection.sendMessage')}
                         </>
                       )}
                     </button>
@@ -245,13 +250,12 @@ export function Contact() {
                       className="btn-secondary flex-1"
                     >
                       <MessageCircle className="h-4 w-4 text-whatsapp" />
-                      WhatsApp
+                      {t('contactSection.whatsapp')}
                     </a>
                   </div>
 
                   <p className="text-xs text-white/55">
-                    Al enviar este formulario aceptás nuestra política de privacidad. No
-                    compartimos tu información con terceros.
+                    {t('contactSection.privacyNote')}
                   </p>
                 </motion.form>
               )}
@@ -287,7 +291,7 @@ export function Contact() {
                       rel="noopener noreferrer"
                       className="text-[11px] font-semibold text-white/55 underline-offset-2 hover:text-secondary hover:underline"
                     >
-                      Cómo llegar →
+                      {t('contactSection.directions')}
                     </a>
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-white/80">
@@ -305,7 +309,7 @@ export function Contact() {
                   <Phone className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="text-xs uppercase tracking-wider text-white/55">Teléfono</div>
+                  <div className="text-xs uppercase tracking-wider text-white/55">{t('contactSection.phoneLabel')}</div>
                   <a href={`tel:${SITE.phone}`} className="text-sm font-semibold hover:text-secondary">
                     {SITE.phone}
                   </a>
@@ -316,7 +320,7 @@ export function Contact() {
                   <Mail className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="text-xs uppercase tracking-wider text-white/55">Email</div>
+                  <div className="text-xs uppercase tracking-wider text-white/55">{t('contactSection.emailLabel')}</div>
                   <a href={`mailto:${SITE.email}`} className="text-sm font-semibold hover:text-secondary">
                     {SITE.email}
                   </a>

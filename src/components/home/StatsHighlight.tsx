@@ -3,6 +3,7 @@ import { Award, Briefcase, Users, Headphones } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { STATS } from '../../data/site';
 import { AnimatedCounter } from '../effects/AnimatedCounter';
+import { ArrowMark } from '../brand';
 
 /**
  * Sección "Stats destacados" — fondo OSCURO. Counter animations + iconos
@@ -12,12 +13,12 @@ import { AnimatedCounter } from '../effects/AnimatedCounter';
 const ICONS = [Award, Briefcase, Users, Headphones];
 
 export function StatsHighlight() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
 
   return (
     <section className="section-dark overflow-hidden" aria-labelledby="stats-title">
-      {/* Formas geométricas decorativas — círculos suaves */}
+      {/* Iluminaciones circulares brandbook (pág. 26) */}
       <div className="geo-circle-cyan left-[-15%] top-[10%] h-[500px] w-[500px]" />
       <div className="geo-circle-mint right-[-15%] bottom-[5%] h-[450px] w-[450px]" />
 
@@ -27,6 +28,11 @@ export function StatsHighlight() {
         aria-hidden="true"
       />
 
+      {/* Flecha ornamental brandbook — esquina derecha */}
+      <div className="pointer-events-none absolute -right-16 top-20 opacity-[0.05]" aria-hidden="true">
+        <ArrowMark size={320} outline color="#00F3FF" strokeWidth={3} />
+      </div>
+
       <div className="container-x relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -35,23 +41,11 @@ export function StatsHighlight() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-2xl text-center"
         >
-          <span className="eyebrow-dark">{isEn ? 'By the numbers' : 'En números'}</span>
+          <span className="eyebrow-dark">{t('home.stats.eyebrow')}</span>
           <h2 id="stats-title" className="h2-display mt-5 text-white">
-            {isEn ? (
-              <>
-                Trusted partner of{' '}
-                <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-                  enterprise leaders
-                </span>
-              </>
-            ) : (
-              <>
-                Partner de confianza de{' '}
-                <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-                  empresas líderes
-                </span>
-              </>
-            )}
+            {/* Brandbook: títulos solo blanco o celeste */}
+            {t('home.stats.titleStart')}{' '}
+            <span className="text-secondary">{t('home.stats.titleHighlight')}</span>
           </h2>
         </motion.div>
 

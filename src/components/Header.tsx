@@ -7,12 +7,13 @@ import { Logo } from './Logo';
 import { LanguageToggle } from './LanguageToggle';
 import { ServiceDropdown } from './header/ServiceDropdown';
 import { NAV_LINKS } from '../data/site';
-import { SERVICES } from '../data/services';
+import { SERVICES, localizeService } from '../data/services';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { cn } from '../utils/cn';
 
 export function Header() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
   const { pathname } = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -181,10 +182,11 @@ export function Header() {
                                         )
                                       }
                                     >
-                                      Ver todos
+                                      {t('header.viewAll')}
                                     </NavLink>
                                   </li>
-                                  {SERVICES.map((service) => {
+                                  {SERVICES.map((rawSvc) => {
+                                    const service = localizeService(rawSvc, isEn);
                                     const Icon = service.icon;
                                     return (
                                       <li key={service.id}>

@@ -21,7 +21,7 @@ export function ServicesPage() {
               className="absolute inset-0 -z-10 opacity-40"
               style={{
                 backgroundImage:
-                  'radial-gradient(circle at 20% 30%, rgba(0,229,255,0.35), transparent 50%), radial-gradient(circle at 80% 70%, rgba(29,233,182,0.25), transparent 50%)',
+                  'radial-gradient(circle at 20% 30%, rgba(0,243,255,0.35), transparent 50%), radial-gradient(circle at 80% 70%, rgba(0,255,146,0.25), transparent 50%)',
               }}
               aria-hidden="true"
             />

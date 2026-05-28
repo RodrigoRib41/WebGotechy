@@ -1,11 +1,13 @@
 import Marquee from 'react-fast-marquee';
 import { Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { SectionHeader } from './SectionHeader';
 import { useLogos } from '../hooks/useCatalog';
 import { cloudinaryService } from '../lib/cloudinary';
 
 export function Partners() {
   const { data: partners, loading } = useLogos('partner');
+  const { t } = useTranslation();
 
   return (
     <section
@@ -15,13 +17,14 @@ export function Partners() {
     >
       <div className="container-x">
         <SectionHeader
-          eyebrow="Partners"
+          eyebrow={t('partners.eyebrow')}
           title={
             <>
-              Trabajamos junto a <span className="text-gradient">los mejores</span>
+              {t('partners.titleStart')}{' '}
+              <span className="text-secondary">{t('partners.titleHighlight')}</span>
             </>
           }
-          description="Nuestra red de partners estratégicos amplifica el valor que entregamos. Alianzas seleccionadas para cubrir cada capa del ecosistema SAP."
+          description={t('partners.description')}
         />
 
         {loading ? (
@@ -30,12 +33,12 @@ export function Partners() {
           </div>
         ) : partners.length === 0 ? (
           <p className="mt-14 text-center text-sm text-ink-muted">
-            Cargá partners desde el panel /admin para que aparezcan acá.
+            {t('partners.loadFromAdmin')}
           </p>
         ) : (
           <div
             className="relative mt-14 mask-fade-r"
-            aria-label="Carrusel de logos de partners"
+            aria-label={t('partners.marqueeLabel')}
           >
             <Marquee
               gradient={false}
@@ -51,7 +54,7 @@ export function Partners() {
                 >
                   <img
                     src={cloudinaryService.padLogoUrl(partner.logo_url, { h: 80, w: 240 })}
-                    alt={partner.alt ?? `Logo de ${partner.name}`}
+                    alt={partner.alt ?? `Logo - ${partner.name}`}
                     loading="lazy"
                     decoding="async"
                     className="h-16 w-auto max-w-[180px] object-contain opacity-70 grayscale transition-all duration-500 group-hover:scale-110 group-hover:opacity-100 group-hover:grayscale-0"

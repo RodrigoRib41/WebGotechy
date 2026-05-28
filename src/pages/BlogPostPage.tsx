@@ -1,20 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { es, enUS } from 'date-fns/locale';
 import DOMPurify from 'dompurify';
 import { useTranslation } from 'react-i18next';
 import { PageHeader } from '../components/PageHeader';
 import { blogService } from '../lib/supabase';
-import type { BlogPost } from '../types/blog';
+import { localizeBlogPost, type BlogPost } from '../types/blog';
 
 export function BlogPostPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
+  const locale = isEn ? enUS : es;
   const { slug } = useParams<{ slug: string }>();
-  const [post, setPost] = useState<BlogPost | null>(null);
+  const [rawPost, setRawPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const post = useMemo(
+    () => (rawPost ? localizeBlogPost(rawPost, isEn) : null),
+    [rawPost, isEn],
+  );
 
   useEffect(() => {
     if (!slug) return;
@@ -24,7 +30,7 @@ export function BlogPostPage() {
       .getPostBySlug(slug)
       .then((p) => {
         if (!active) return;
-        setPost(p);
+        setRawPost(p);
         setLoading(false);
         if (p && p.status === 'published') {
           // Fire and forget; no bloquea el render.
@@ -44,7 +50,7 @@ export function BlogPostPage() {
   if (loading) {
     return (
       <>
-        <PageHeader title="Cargando…" />
+        <PageHeader title={t('blog.loadingTitle')} />
         <section className="pb-28">
           <div className="container-x flex h-32 items-center justify-center">
             <Loader2 className="h-6 w-6 animate-spin text-secondary" />
@@ -96,13 +102,15 @@ export function BlogPostPage() {
 
           <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-white/55">
             <span>
-              Por <span className="font-semibold text-white/80">{post.author}</span>
+              {t('blog.by')} <span className="font-semibold text-white/80">{post.author}</span>
             </span>
             <span className="text-white/25">·</span>
             <span>
-              {format(new Date(post.published_at ?? post.created_at), "d 'de' MMMM, yyyy", {
-                locale: es,
-              })}
+              {format(
+                new Date(post.published_at ?? post.created_at),
+                isEn ? 'MMMM d, yyyy' : "d 'de' MMMM, yyyy",
+                { locale },
+              )}
             </span>
             {post.tags && post.tags.length > 0 && (
               <>

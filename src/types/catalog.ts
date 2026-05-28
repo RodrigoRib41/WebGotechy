@@ -34,6 +34,28 @@ export interface ProjectRow {
   sort_order: number;
   created_at: string;
   updated_at: string;
+  /** Variantes EN opcionales. Si están vacías, el renderer hace fallback al ES. */
+  title_en?: string | null;
+  industry_en?: string | null;
+  challenge_en?: string | null;
+  solution_en?: string | null;
+}
+
+/**
+ * Devuelve una vista del proyecto con los campos en EN aplicados si están
+ * cargados (fallback transparente al ES cuando no existen).
+ */
+export function localizeProject(p: ProjectRow, isEn: boolean): ProjectRow {
+  if (!isEn) return p;
+  const pickStr = (en: string | null | undefined, es: string) =>
+    en && en.trim() !== '' ? en : es;
+  return {
+    ...p,
+    title: pickStr(p.title_en, p.title),
+    industry: pickStr(p.industry_en, p.industry),
+    challenge: pickStr(p.challenge_en, p.challenge),
+    solution: pickStr(p.solution_en, p.solution),
+  };
 }
 
 export type NewProject = Omit<ProjectRow, 'id' | 'created_at' | 'updated_at'>;
@@ -49,6 +71,11 @@ export interface ProjectFormState {
   image_url: string;
   image_alt: string;
   sort_order: number;
+  /** Traducciones en inglés. Si quedan vacías, el sitio público hace fallback al ES. */
+  title_en: string;
+  industry_en: string;
+  challenge_en: string;
+  solution_en: string;
 }
 
 export const EMPTY_PROJECT: ProjectFormState = {
@@ -62,4 +89,8 @@ export const EMPTY_PROJECT: ProjectFormState = {
   image_url: '',
   image_alt: '',
   sort_order: 0,
+  title_en: '',
+  industry_en: '',
+  challenge_en: '',
+  solution_en: '',
 };

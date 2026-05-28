@@ -17,10 +17,10 @@ const cyanPin = L.divIcon({
       </defs>
       <path
         d="M16 0C7.2 0 0 7.2 0 16c0 11 16 24 16 24s16-13 16-24C32 7.2 24.8 0 16 0z"
-        fill="#00E5FF"
+        fill="#00F3FF"
         filter="url(#pinGlow)"
       />
-      <circle cx="16" cy="16" r="6" fill="#0A1929"/>
+      <circle cx="16" cy="16" r="6" fill="#0A0E1A"/>
     </svg>
   `,
   iconSize: [32, 40],

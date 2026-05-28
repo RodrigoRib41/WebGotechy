@@ -1,11 +1,13 @@
 import Marquee from 'react-fast-marquee';
 import { Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { SectionHeader } from './SectionHeader';
 import { useLogos } from '../hooks/useCatalog';
 import { cloudinaryService } from '../lib/cloudinary';
 
 export function Clients() {
   const { data: clients, loading } = useLogos('client');
+  const { t } = useTranslation();
 
   return (
     <section
@@ -15,13 +17,15 @@ export function Clients() {
     >
       <div className="container-x">
         <SectionHeader
-          eyebrow="Clientes"
+          eyebrow={t('clients.section.eyebrow')}
           title={
             <>
-              Empresas <span className="text-gradient">líderes</span> confían en nosotros
+              {t('clients.section.titleStart')}{' '}
+              <span className="text-secondary">{t('clients.section.titleHighlight')}</span>{' '}
+              {t('clients.section.titleEnd')}
             </>
           }
-          description="Operamos junto a los principales jugadores de industria en Argentina y la región. Performance probada en producción."
+          description={t('clients.section.description')}
         />
 
         {loading ? (
@@ -30,13 +34,13 @@ export function Clients() {
           </div>
         ) : clients.length === 0 ? (
           <p className="mt-14 text-center text-sm text-ink-muted">
-            Cargá clientes desde el panel /admin para que aparezcan acá.
+            {t('clients.section.loadFromAdmin')}
           </p>
         ) : (
           <>
             <div
               className="relative mt-14 mask-fade-r"
-              aria-label="Carrusel de logos de clientes"
+              aria-label={t('clients.section.marqueeLabel')}
             >
               <Marquee
                 gradient={false}
@@ -51,7 +55,7 @@ export function Clients() {
                   >
                     <img
                       src={cloudinaryService.padLogoUrl(client.logo_url, { h: 80, w: 240 })}
-                      alt={client.alt ?? `Logo de ${client.name}`}
+                      alt={client.alt ?? `Logo - ${client.name}`}
                       loading="lazy"
                       decoding="async"
                       className="h-16 w-auto max-w-[180px] object-contain opacity-70 grayscale transition-all duration-500 group-hover:scale-110 group-hover:opacity-100 group-hover:grayscale-0"
@@ -63,7 +67,7 @@ export function Clients() {
             </div>
 
             <p className="mt-8 text-center text-sm text-ink-muted">
-              Y muchas más empresas top de Argentina, Brasil, Chile y México.
+              {t('clients.section.andMore')}
             </p>
           </>
         )}

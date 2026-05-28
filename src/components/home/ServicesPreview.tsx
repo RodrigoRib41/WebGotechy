@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { SERVICES } from '../../data/services';
+import { SERVICES, localizeService } from '../../data/services';
 import { cn } from '../../utils/cn';
+import { ArrowMark } from '../brand';
 
 /**
  * Sección "Servicios Preview" — fondo BLANCO, grid limpio, cards minimalistas.
@@ -11,13 +12,19 @@ import { cn } from '../../utils/cn';
  * en Stripe/Linear: respiración, sin ruido, hover sutil.
  */
 export function ServicesPreview() {
-  const { t } = useTranslation();
-  const items = SERVICES.slice(0, 9);
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
+  const items = SERVICES.slice(0, 9).map((s) => localizeService(s, isEn));
 
   return (
     <section className="section-light" aria-labelledby="services-preview-title">
       {/* Decoración geométrica sutil */}
       <div className="geo-soft-cyan -top-32 right-[-10%] h-[400px] w-[400px]" />
+
+      {/* Flecha ornamental brandbook — esquina superior izquierda */}
+      <div className="pointer-events-none absolute left-4 top-12 opacity-[0.06] sm:left-12" aria-hidden="true">
+        <ArrowMark size={140} outline color="#0A0E1A" strokeWidth={3} />
+      </div>
 
       <div className="container-x relative">
         <motion.div
@@ -27,12 +34,10 @@ export function ServicesPreview() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-2xl text-center"
         >
-          <span className="eyebrow-light">{t('home.highlights.eyebrow', 'Servicios')}</span>
+          <span className="eyebrow-light">{t('home.highlights.eyebrow')}</span>
           <h2 id="services-preview-title" className="h2-display mt-5 text-[#0F1419]">
-            Soluciones SAP que{' '}
-            <span className="bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-              impulsan resultados
-            </span>
+            {t('home.highlights.title')}{' '}
+            <span className="text-brand-600">{t('home.highlights.titleHighlight')}</span>
           </h2>
           <p className="body-lg mx-auto mt-5 max-w-xl text-[#0F1419]/65">
             {t('home.highlights.subtitle')}
@@ -80,7 +85,7 @@ export function ServicesPreview() {
                     {service.short}
                   </p>
                   <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
-                    Ver más
+                    {t('home.highlights.viewMore')}
                     <ArrowRight className="h-3.5 w-3.5" />
                   </span>
                 </Link>

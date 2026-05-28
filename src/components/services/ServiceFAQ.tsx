@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { SectionHeader } from '../SectionHeader';
 import { cn } from '../../utils/cn';
+import { approachItem, approachContainer } from '../effects/ApproachReveal';
 
 export interface ServiceFAQItem {
   q: string;
@@ -15,6 +17,7 @@ interface ServiceFAQProps {
 
 export function ServiceFAQ({ faq }: ServiceFAQProps) {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
+  const { t } = useTranslation();
 
   if (faq.length === 0) return null;
 
@@ -22,24 +25,29 @@ export function ServiceFAQ({ faq }: ServiceFAQProps) {
     <section className="relative py-20 sm:py-28" aria-labelledby="faq-title">
       <div className="container-x">
         <SectionHeader
-          eyebrow="Preguntas frecuentes"
+          eyebrow={t('services.faq.eyebrow')}
           title={
             <>
-              <span className="text-gradient">Resolvemos</span> las dudas más comunes
+              {t('services.faq.titleStart')}{' '}
+              <span className="text-secondary">{t('services.faq.titleHighlight')}</span>{' '}
+              {t('services.faq.titleEnd')}
             </>
           }
         />
 
-        <div className="mx-auto mt-12 max-w-3xl space-y-3">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.05 }}
+          variants={approachContainer}
+          className="mx-auto mt-12 max-w-3xl space-y-3"
+        >
           {faq.map((item, i) => {
             const isOpen = openIdx === i;
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.35, delay: i * 0.04 }}
+                variants={approachItem}
                 className={cn(
                   'overflow-hidden rounded-2xl border bg-white/[0.03] shadow-card backdrop-blur transition-colors',
                   isOpen ? 'border-secondary/40' : 'border-white/10',
@@ -80,7 +88,7 @@ export function ServiceFAQ({ faq }: ServiceFAQProps) {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

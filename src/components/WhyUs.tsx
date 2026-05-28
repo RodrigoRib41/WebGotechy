@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
+import { useTranslation } from 'react-i18next';
 import { PILLARS } from '../data/pillars';
 import { STATS } from '../data/site';
 import { SectionHeader } from './SectionHeader';
@@ -8,6 +9,8 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
 export function WhyUs() {
   const reduced = usePrefersReducedMotion();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
   return (
     <section
       id="nosotros"
@@ -20,7 +23,7 @@ export function WhyUs() {
         className="absolute inset-0 -z-10 opacity-35 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 20% 20%, rgba(0,229,255,0.45), transparent 50%), radial-gradient(circle at 80% 80%, rgba(29,233,182,0.35), transparent 50%)',
+            'radial-gradient(circle at 20% 20%, rgba(0,243,255,0.45), transparent 50%), radial-gradient(circle at 80% 80%, rgba(0,255,146,0.35), transparent 50%)',
         }}
         aria-hidden="true"
       />
@@ -37,18 +40,14 @@ export function WhyUs() {
       <div className="container-x">
         <div className="text-white">
           <SectionHeader
-            eyebrow="Por qué elegirnos"
+            eyebrow={t('whyUs.eyebrow')}
             title={
               <span className="text-white">
-                Profundidad técnica, <span className="text-gradient">obsesión por resultados</span>
+                {t('whyUs.titleStart')}{' '}
+                <span className="text-secondary">{t('whyUs.titleHighlight')}</span>
               </span>
             }
-            description={
-              <span className="text-white/80">
-                No vendemos consultoría: entregamos transformación medible. Equipos
-                senior, metodología validada y soporte continuo.
-              </span>
-            }
+            description={<span className="text-white/80">{t('whyUs.description')}</span>}
           />
         </div>
 
@@ -69,7 +68,7 @@ export function WhyUs() {
                   tiltMaxAngleY={8}
                   glareEnable={!reduced}
                   glareMaxOpacity={0.18}
-                  glareColor="#00E5FF"
+                  glareColor="#00F3FF"
                   glarePosition="all"
                   scale={1.03}
                   transitionSpeed={1100}
@@ -86,10 +85,10 @@ export function WhyUs() {
                       style={{ transform: 'translateZ(20px)' }}
                       className="mt-5 font-display text-lg font-semibold text-white"
                     >
-                      {pillar.title}
+                      {isEn ? pillar.titleEn : pillar.title}
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-white/70">
-                      {pillar.description}
+                      {isEn ? pillar.descriptionEn : pillar.description}
                     </p>
                     <div
                       className="pointer-events-none absolute -bottom-10 -right-10 h-32 w-32 rounded-full bg-secondary/20 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -123,7 +122,7 @@ export function WhyUs() {
                 )}
               </div>
               <div className="mt-2 text-xs uppercase tracking-wider text-white/60 sm:text-sm">
-                {s.label}
+                {isEn ? s.labelEn : s.label}
               </div>
             </div>
           ))}

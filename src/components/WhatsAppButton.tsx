@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { SITE } from '../data/site';
 
 export function WhatsAppButton() {
+  const { t } = useTranslation();
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -38,7 +40,7 @@ export function WhatsAppButton() {
                   transition={{ duration: 0.18 }}
                   className="absolute right-full mr-3 whitespace-nowrap rounded-full bg-primary px-4 py-2 text-sm font-medium text-white shadow-elevated"
                 >
-                  Hablemos por WhatsApp
+                  {t('contact.whatsapp')}
                   <span className="absolute right-[-4px] top-1/2 h-2 w-2 -translate-y-1/2 rotate-45 bg-primary" />
                 </motion.span>
               )}

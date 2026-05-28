@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import type { LucideIcon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { SectionHeader } from '../SectionHeader';
+import { approachItem, approachContainer } from '../effects/ApproachReveal';
 
 export interface ServiceTechItem {
   label: string;
@@ -14,30 +16,36 @@ interface ServiceTechStackProps {
 }
 
 export function ServiceTechStack({ items }: ServiceTechStackProps) {
+  const { t } = useTranslation();
   if (items.length === 0) return null;
 
   return (
     <section className="relative py-20 sm:py-28" aria-labelledby="techstack-title">
       <div className="container-x">
         <SectionHeader
-          eyebrow="Stack tecnológico"
+          eyebrow={t('services.techStack.eyebrow')}
           title={
             <>
-              Las <span className="text-gradient">herramientas</span> que usamos
+              {t('services.techStack.titleStart')}{' '}
+              <span className="text-secondary">{t('services.techStack.titleHighlight')}</span>{' '}
+              {t('services.techStack.titleEnd')}
             </>
           }
         />
 
-        <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.05 }}
+          variants={approachContainer}
+          className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7"
+        >
           {items.map((tech, i) => {
             const Icon = tech.icon;
             return (
               <motion.div
                 key={`${tech.label}-${i}`}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.4, delay: i * 0.04 }}
+                variants={approachItem}
                 className="group flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-card backdrop-blur transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-secondary/40 hover:bg-white/[0.06] hover:shadow-glow-sm"
               >
                 {tech.imageUrl ? (
@@ -61,7 +69,7 @@ export function ServiceTechStack({ items }: ServiceTechStackProps) {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

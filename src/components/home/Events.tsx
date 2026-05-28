@@ -18,7 +18,7 @@ const KIND_LABEL_EN: Record<EventKind, string> = { event: 'Event', webinar: 'Web
  * publicados/futuros, no se renderiza.
  */
 export function Events() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
   const { data: events, loading } = useEvents(true, true);
 
@@ -42,28 +42,13 @@ export function Events() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-2xl text-center"
         >
-          <span className="eyebrow-light">{isEn ? 'Agenda' : 'Agenda'}</span>
+          <span className="eyebrow-light">{t('home.events.eyebrow')}</span>
           <h2 id="events-title" className="h2-display mt-5 text-[#0F1419]">
-            {isEn ? (
-              <>
-                Upcoming events &{' '}
-                <span className="bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-                  webinars
-                </span>
-              </>
-            ) : (
-              <>
-                Próximos eventos y{' '}
-                <span className="bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-                  webinars
-                </span>
-              </>
-            )}
+            {t('home.events.titleStart')}{' '}
+            <span className="text-brand-600">{t('home.events.titleHighlight')}</span>
           </h2>
           <p className="body-lg mx-auto mt-5 max-w-xl text-[#0F1419]/65">
-            {isEn
-              ? 'Real cases, live demos and technical deep dives from our team and partners.'
-              : 'Casos reales, demos en vivo y deep dives técnicos junto a nuestro equipo y partners.'}
+            {t('home.events.subtitle')}
           </p>
         </motion.div>
 

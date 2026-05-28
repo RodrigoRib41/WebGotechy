@@ -2,26 +2,20 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Tilt from 'react-parallax-tilt';
-import { SERVICES } from '../data/services';
+import { useTranslation } from 'react-i18next';
+import { SERVICES, localizeService } from '../data/services';
 import { SectionHeader } from './SectionHeader';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { cn } from '../utils/cn';
+import { approachItem, approachContainer } from './effects/ApproachReveal';
 
-const grid = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.06 },
-  },
-};
-
-const card = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
-};
+const grid = approachContainer;
+const card = approachItem;
 
 export function Services() {
   const reduced = usePrefersReducedMotion();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
 
   return (
     <section
@@ -35,23 +29,26 @@ export function Services() {
 
       <div className="container-x relative">
         <SectionHeader
-          eyebrow="Servicios"
+          eyebrow={t('services.listing.eyebrow')}
           title={
             <>
-              Una <span className="text-gradient">stack completa</span> al servicio de tu negocio
+              {t('services.listing.titleStart')}{' '}
+              <span className="text-secondary">{t('services.listing.titleHighlight')}</span>{' '}
+              {t('services.listing.titleEnd')}
             </>
           }
-          description="Desde la arquitectura empresarial hasta la operación diaria. Cubrimos cada capa del ecosistema SAP con equipos certificados y metodología propia."
+          description={t('services.listing.description')}
         />
 
         <motion.div
           variants={grid}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.05 }}
           className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {SERVICES.map((service) => {
+          {SERVICES.map((rawService) => {
+            const service = localizeService(rawService, isEn);
             const Icon = service.icon;
             const accentColor = service.accent === 'secondary' ? 'secondary' : 'accent';
             return (
@@ -62,7 +59,7 @@ export function Services() {
                   tiltMaxAngleY={5}
                   glareEnable={!reduced}
                   glareMaxOpacity={0.12}
-                  glareColor={service.accent === 'secondary' ? '#00E5FF' : '#1DE9B6'}
+                  glareColor={service.accent === 'secondary' ? '#00F3FF' : '#00FF92'}
                   glarePosition="all"
                   scale={1.02}
                   transitionSpeed={1100}
@@ -74,8 +71,8 @@ export function Services() {
                       className={cn(
                         'pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100',
                         accentColor === 'secondary'
-                          ? 'bg-[radial-gradient(circle_at_top_left,rgba(0,229,255,0.14),transparent_60%)]'
-                          : 'bg-[radial-gradient(circle_at_top_left,rgba(29,233,182,0.14),transparent_60%)]',
+                          ? 'bg-[radial-gradient(circle_at_top_left,rgba(0,243,255,0.14),transparent_60%)]'
+                          : 'bg-[radial-gradient(circle_at_top_left,rgba(0,255,146,0.14),transparent_60%)]',
                       )}
                       aria-hidden="true"
                     />
@@ -122,9 +119,9 @@ export function Services() {
                       <Link
                         to={`/servicios/${service.slug}`}
                         className="relative z-10 mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-secondary hover:text-secondary-200"
-                        aria-label={`Ver más sobre ${service.title}`}
+                        aria-label={t('services.viewMoreAria', { title: service.title })}
                       >
-                        Ver más
+                        {t('services.viewMore')}
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </Link>
                     )}

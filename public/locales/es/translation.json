@@ -15,7 +15,8 @@
     "cta": "Agendar consultoría",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
-    "switchLanguage": "Cambiar idioma"
+    "switchLanguage": "Cambiar idioma",
+    "viewAll": "Ver todos"
   },
   "footer": {
     "tagline": "Consultora SAP especializada en transformar empresas con tecnología de clase mundial.",
@@ -32,46 +33,185 @@
   "home": {
     "hero": {
       "eyebrow": "Partner SAP · 20+ años en LATAM",
-      "title": "Transformamos empresas con",
-      "titleHighlight": "tecnología SAP",
-      "titleEnd": "de clase mundial",
-      "subtitle": "Acompañamos la transición a la Empresa Autónoma de SAP — Joule, Industry AI, Cloud ERP, Signavio, BTP, LeanIX y desarrollo de última generación, end-to-end.",
+      "title": "Tecnología SAP para empresas que quieren",
+      "titleHighlight": "escalar",
+      "titleEnd": "",
+      "subtitle": "Acompañamos organizaciones en su transformación digital con soluciones SAP end-to-end, automatización e innovación continua.",
       "primaryCta": "Conocé nuestros servicios",
       "secondaryCta": "Ver casos de éxito"
     },
     "highlights": {
-      "title": "Soluciones que aceleran tu negocio",
+      "eyebrow": "Servicios",
+      "title": "Soluciones SAP que",
+      "titleHighlight": "impulsan resultados",
       "subtitle": "Cuatro pilares para una transformación digital sin fricción.",
-      "cta": "Ver todos los servicios"
+      "cta": "Ver todos los servicios",
+      "viewMore": "Ver más"
+    },
+    "stats": {
+      "eyebrow": "En números",
+      "titleStart": "Partner de confianza de",
+      "titleHighlight": "empresas líderes"
     },
     "clients": {
+      "eyebrow": "Clientes",
       "title": "Confían en nosotros",
-      "subtitle": "Empresas líderes en LATAM y el mundo"
+      "subtitle": "Empresas líderes en LATAM y el mundo",
+      "titleStart": "Empresas líderes confían en",
+      "titleHighlight": "GoTechy",
+      "titleEnd": ""
+    },
+    "cases": {
+      "eyebrow": "Casos de éxito",
+      "titleStart": "Proyectos reales.",
+      "titleHighlight": "Impacto medible.",
+      "viewAll": "Ver todos",
+      "viewCase": "Ver caso",
+      "viewAllCases": "Ver todos los casos"
+    },
+    "testimonials": {
+      "eyebrow": "Testimonios",
+      "title": "Lo que dicen nuestros clientes",
+      "previous": "Testimonio anterior",
+      "next": "Siguiente testimonio",
+      "goTo": "Ir al testimonio"
+    },
+    "events": {
+      "eyebrow": "Agenda",
+      "titleStart": "Próximos eventos y",
+      "titleHighlight": "webinars",
+      "subtitle": "Casos reales, demos en vivo y deep dives técnicos de nuestro equipo y partners."
     },
     "blogPreview": {
+      "eyebrow": "BlogTechy",
+      "titleStart": "Lo último en",
+      "titleHighlight": "nuestro blog",
       "title": "Últimos artículos",
       "subtitle": "Insights, tendencias y mejores prácticas SAP",
       "cta": "Ver todo el blog",
+      "viewAll": "Ver todo",
+      "viewBlog": "Ver BlogTechy",
       "readMore": "Leer artículo",
       "empty": "Pronto publicaremos contenido. ¡Mantente atento!"
     },
     "finalCta": {
+      "eyebrow": "Conversemos",
       "title": "¿Listo para tu próximo proyecto SAP?",
+      "titleStart": "¿Listo para tu próximo",
+      "titleHighlight": "proyecto SAP?",
       "subtitle": "Hablemos sobre cómo podemos acelerar tu transformación digital.",
-      "cta": "Conversemos"
+      "subtitleAlt": "Contanos qué necesitás. Un consultor senior te responde dentro de 24 horas.",
+      "cta": "Conversemos",
+      "successTitle": "¡Listo! Hablamos pronto.",
+      "successBody": "Recibimos tu mensaje. Un consultor te contacta dentro de 24h.",
+      "sendAnother": "Enviar otro",
+      "sending": "Enviando…",
+      "sendMessage": "Enviar mensaje",
+      "fieldName": "Nombre",
+      "fieldEmail": "Email",
+      "fieldCompany": "Empresa",
+      "fieldMessage": "Mensaje",
+      "messagePlaceholder": "Contanos sobre tu proyecto, alcance, timing...",
+      "errorBody": "Algo falló. Probá de nuevo o escribinos a contacto@gotechy.com.",
+      "respondInHours": "Respondemos en 24h hábiles."
     }
   },
   "services": {
     "pageTitle": "Servicios",
     "pageSubtitle": "Soluciones SAP de extremo a extremo para empresas de clase mundial",
     "cta": "Hablemos de tu proyecto",
-    "learnMore": "Conocer más"
+    "learnMore": "Conocer más",
+    "viewMore": "Ver más",
+    "viewMoreAria": "Ver más sobre {{title}}",
+    "listing": {
+      "eyebrow": "Servicios",
+      "titleStart": "Una",
+      "titleHighlight": "stack completa",
+      "titleEnd": "al servicio de tu negocio",
+      "description": "Desde la arquitectura empresarial hasta la operación diaria. Cubrimos cada capa del ecosistema SAP con equipos certificados y metodología propia."
+    },
+    "approach": {
+      "eyebrow": "Metodología"
+    },
+    "benefits": {
+      "eyebrow": "Beneficios",
+      "titleStart": "Resultados",
+      "titleHighlight": "medibles",
+      "titleEnd": "para tu negocio"
+    },
+    "useCases": {
+      "eyebrow": "Casos de uso",
+      "titleStart": "Dónde",
+      "titleHighlight": "aplica"
+    },
+    "techStack": {
+      "eyebrow": "Stack tecnológico",
+      "titleStart": "Las",
+      "titleHighlight": "herramientas",
+      "titleEnd": "que usamos"
+    },
+    "relatedTech": {
+      "eyebrow": "Tecnologías relacionadas",
+      "titleStart": "Se integra con el",
+      "titleHighlight": "resto del ecosistema"
+    },
+    "features": {
+      "eyebrow": "Características",
+      "titleStart": "Qué incluye",
+      "titleHighlight": "esta solución"
+    },
+    "faq": {
+      "eyebrow": "Preguntas frecuentes",
+      "titleStart": "",
+      "titleHighlight": "Resolvemos",
+      "titleEnd": "las dudas más comunes"
+    },
+    "stats": {
+      "labelDefault": "Métricas del producto"
+    },
+    "hero": {
+      "scheduleDemo": "Agendar demo",
+      "talkToSpecialist": "Hablar con un especialista",
+      "breadcrumbHome": "Inicio",
+      "breadcrumbServices": "Servicios"
+    },
+    "overview": {
+      "eyebrow": "Qué es"
+    },
+    "cta": {
+      "titleStart": "¿Listo para transformar tu negocio con",
+      "titleEnd": "?",
+      "subtitle": "Agendá una sesión con nuestro equipo. Te mostramos en vivo qué podemos hacer con tu caso puntual.",
+      "scheduleMeeting": "Agendar reunión",
+      "viewCases": "Ver casos de éxito",
+      "email": "Email",
+      "phone": "Teléfono",
+      "trustStrip": "Empresas que confían en GoTechy"
+    }
   },
   "clients": {
     "pageTitle": "Clientes",
     "pageSubtitle": "Más de 40 empresas líderes en LATAM confían en nosotros",
     "industries": "Industrias",
-    "metricsTitle": "Impacto global"
+    "metricsTitle": "Impacto global",
+    "section": {
+      "eyebrow": "Clientes",
+      "titleStart": "Empresas",
+      "titleHighlight": "líderes",
+      "titleEnd": "confían en nosotros",
+      "description": "Operamos junto a los principales jugadores de industria en Argentina y la región. Performance probada en producción.",
+      "loadFromAdmin": "Cargá clientes desde el panel /admin para que aparezcan acá.",
+      "andMore": "Y muchas más empresas top de Argentina, Brasil, Chile y México.",
+      "marqueeLabel": "Carrusel de logos de clientes"
+    }
+  },
+  "partners": {
+    "eyebrow": "Partners",
+    "titleStart": "Trabajamos junto a",
+    "titleHighlight": "los mejores",
+    "description": "Nuestra red de partners estratégicos amplifica el valor que entregamos. Alianzas seleccionadas para cubrir cada capa del ecosistema SAP.",
+    "loadFromAdmin": "Cargá partners desde el panel /admin para que aparezcan acá.",
+    "marqueeLabel": "Carrusel de logos de partners"
   },
   "projects": {
     "pageTitle": "Casos de éxito",
@@ -84,7 +224,45 @@
     "challenge": "Desafío",
     "solution": "Solución",
     "results": "Resultados",
-    "viewDetails": "Ver detalles"
+    "viewDetails": "Ver detalles",
+    "section": {
+      "eyebrow": "Casos de éxito",
+      "titleStart": "Proyectos que",
+      "titleHighlight": "movieron la aguja",
+      "titleEnd": "",
+      "description": "Cada implementación se mide por su impacto en el negocio. Estos son algunos de los resultados que entregamos en producción.",
+      "loadFromAdmin": "Cargá proyectos desde el panel /admin para que aparezcan acá.",
+      "hideDetails": "Ocultar detalles",
+      "readMore": "Leer más"
+    }
+  },
+  "contactSection": {
+    "eyebrow": "Contacto",
+    "titleStart": "Hablemos de tu próximo",
+    "titleHighlight": "proyecto SAP",
+    "description": "Contanos qué necesitás y te respondemos en menos de 24 horas hábiles. Sin compromiso.",
+    "successTitle": "¡Gracias por escribirnos!",
+    "successBody": "Recibimos tu mensaje. Un consultor de GoTechy se va a contactar en las próximas horas hábiles.",
+    "sendAnother": "Enviar otro mensaje",
+    "fieldName": "Nombre completo",
+    "fieldEmail": "Email corporativo",
+    "fieldCompany": "Empresa",
+    "fieldPhone": "Teléfono",
+    "fieldMessage": "¿En qué podemos ayudarte?",
+    "errorBody": "Hubo un problema al enviar. Probá nuevamente o escribinos por WhatsApp.",
+    "sending": "Enviando…",
+    "sendMessage": "Enviar mensaje",
+    "whatsapp": "WhatsApp",
+    "privacyNote": "Al enviar este formulario aceptás nuestra política de privacidad. No compartimos tu información con terceros.",
+    "directions": "Cómo llegar →",
+    "phoneLabel": "Teléfono",
+    "emailLabel": "Email"
+  },
+  "whyUs": {
+    "eyebrow": "Por qué elegirnos",
+    "titleStart": "Profundidad técnica,",
+    "titleHighlight": "obsesión por resultados",
+    "description": "No vendemos consultoría: entregamos transformación medible. Equipos senior, metodología validada y soporte continuo."
   },
   "about": {
     "pageTitle": "Nosotros",
@@ -109,7 +287,12 @@
     "team": "Nuestro equipo",
     "certifications": "Certificaciones y partners",
     "timeline": "Hitos",
-    "offices": "Oficinas"
+    "offices": "Oficinas",
+    "sapPartner": {
+      "officialRecognition": "Reconocimiento oficial",
+      "weAre": "Somos",
+      "partnerLevel": "SAP Silver Partner"
+    }
   },
   "contact": {
     "pageTitle": "Contacto",
@@ -128,7 +311,8 @@
       "success": "¡Mensaje enviado! Te contactamos en menos de 24 horas hábiles.",
       "error": "Hubo un problema al enviar. Probá nuevamente o escribinos a contacto@gotechy.com.",
       "required": "Este campo es requerido",
-      "invalidEmail": "Email inválido"
+      "invalidEmail": "Email inválido",
+      "botField": "No completar"
     },
     "info": {
       "email": "Email",
@@ -136,7 +320,8 @@
       "hours": "Horarios de atención",
       "hoursValue": "Lunes a Viernes · 9:00 — 18:00"
     },
-    "officesTitle": "Nuestras oficinas"
+    "officesTitle": "Nuestras oficinas",
+    "whatsapp": "Hablemos por WhatsApp"
   },
   "blog": {
     "pageTitle": "BlogTechy",
@@ -151,7 +336,8 @@
     "shareTitle": "Compartir",
     "publishedOn": "Publicado el",
     "by": "Por",
-    "backToBlog": "Volver al blog"
+    "backToBlog": "Volver al blog",
+    "loadingTitle": "Cargando…"
   },
   "common": {
     "loading": "Cargando…",

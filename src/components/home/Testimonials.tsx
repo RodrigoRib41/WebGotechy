@@ -14,8 +14,7 @@ const AUTO_ROTATE_MS = 7000;
  * Si no hay testimonios cargados desde /admin, la sección no se renderiza.
  */
 export function Testimonials() {
-  const { i18n } = useTranslation();
-  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
+  const { t } = useTranslation();
   const { data: items, loading } = useTestimonials(true);
   const reduced = usePrefersReducedMotion();
   const [idx, setIdx] = useState(0);
@@ -61,9 +60,9 @@ export function Testimonials() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-xl text-center"
         >
-          <span className="eyebrow-light">{isEn ? 'Testimonials' : 'Testimonios'}</span>
+          <span className="eyebrow-light">{t('home.testimonials.eyebrow')}</span>
           <h2 id="testimonials-title" className="h2-display mt-5 text-[#0F1419]">
-            {isEn ? 'What our clients say' : 'Lo que dicen nuestros clientes'}
+            {t('home.testimonials.title')}
           </h2>
         </motion.div>
 
@@ -116,19 +115,19 @@ export function Testimonials() {
               <button
                 type="button"
                 onClick={() => setIdx((i) => (i - 1 + items.length) % items.length)}
-                aria-label={isEn ? 'Previous testimonial' : 'Testimonio anterior'}
+                aria-label={t('home.testimonials.previous')}
                 className="rounded-full border border-black/10 bg-white p-2 text-[#0F1419]/70 transition hover:border-brand-500 hover:text-brand-600"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
 
               <div className="flex items-center gap-2">
-                {items.map((t, i) => (
+                {items.map((item, i) => (
                   <button
-                    key={t.id}
+                    key={item.id}
                     type="button"
                     onClick={() => setIdx(i)}
-                    aria-label={`${isEn ? 'Go to testimonial' : 'Ir al testimonio'} ${i + 1}`}
+                    aria-label={`${t('home.testimonials.goTo')} ${i + 1}`}
                     aria-current={i === idx ? 'true' : undefined}
                     className={cn(
                       'h-2 rounded-full transition-all duration-300',
@@ -141,7 +140,7 @@ export function Testimonials() {
               <button
                 type="button"
                 onClick={() => setIdx((i) => (i + 1) % items.length)}
-                aria-label={isEn ? 'Next testimonial' : 'Siguiente testimonio'}
+                aria-label={t('home.testimonials.next')}
                 className="rounded-full border border-black/10 bg-white p-2 text-[#0F1419]/70 transition hover:border-brand-500 hover:text-brand-600"
               >
                 <ChevronRight className="h-4 w-4" />

@@ -30,8 +30,8 @@ export const SITE = {
   phoneRaw: toRawDigits(envWhats?.trim() || envPhone?.trim() || DEFAULT_WHATSAPP_RAW),
   email: envEmail?.trim() || DEFAULT_EMAIL,
   social: {
-    linkedin: 'https://www.linkedin.com/company/gotechy',
-    youtube: 'https://www.youtube.com/@gotechy',
+    linkedin: 'https://www.linkedin.com/company/gotechy-consulting',
+    youtube: 'https://www.youtube.com/@Gotechy-Consulting',
   },
 };
 

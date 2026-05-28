@@ -2,14 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ====== Variables CSS (Dark Theme) ====== */
+/* ====== Variables CSS — Brandbook GoTechy 2025 ====== */
 :root {
-  --color-primary: 10 25 41;        /* #0A1929 dark navy */
-  --color-secondary: 0 229 255;     /* #00E5FF cyan (brand) */
-  --color-accent: 29 233 182;       /* #1DE9B6 mint */
-  --color-bg: 6 14 26;              /* #060E1A near-black navy */
-  --color-bg-soft: 10 22 38;        /* #0A1626 slightly lighter */
-  --color-ink: 230 240 250;         /* #E6F0FA near-white */
+  /* Primario (brandbook): celeste #00F3FF + oscuro #0A0E1A */
+  --color-primary: 10 14 26;        /* #0A0E1A oscuro oficial brandbook */
+  --color-secondary: 0 243 255;     /* #00F3FF celeste oficial brandbook */
+  /* Secundario (brandbook): verde #00FF92 — solo CTAs y detalles */
+  --color-accent: 0 255 146;        /* #00FF92 verde oficial brandbook */
+  --color-bg: 10 14 26;             /* #0A0E1A base oscura */
+  --color-bg-soft: 20 27 45;        /* #141B2D escala de grises brandbook */
+  --color-ink: 255 255 255;         /* #FFFFFF blanco puro */
   --color-ink-muted: 148 163 184;   /* slate-400 */
   --color-border: 30 41 59;         /* slate-800 */
 }
@@ -35,9 +37,11 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
+  /* Brandbook: titulares en bold, lineheight 1.25, blanco o celeste */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-tight;
+    @apply font-display font-bold tracking-tight;
     color: rgb(var(--color-ink));
+    line-height: 1.25;
   }
 
   ::selection {
@@ -81,6 +85,15 @@
 
   .btn-ghost {
     @apply btn text-white hover:bg-white/5;
+  }
+
+  /* Brandbook: CTA acento verde — únicamente para CTAs clave. NUNCA en títulos. */
+  .btn-accent {
+    @apply btn bg-accent text-primary font-bold hover:bg-accent-400 hover:-translate-y-0.5 active:translate-y-0;
+    box-shadow: 0 0 24px -8px rgba(0, 255, 146, 0.55);
+  }
+  .btn-accent:hover {
+    box-shadow: 0 0 48px -8px rgba(0, 255, 146, 0.7);
   }
 
   .card {
@@ -203,13 +216,13 @@
     @apply mx-auto h-px w-full max-w-7xl bg-gradient-to-r from-transparent via-white/10 to-transparent;
   }
 
-  /* Decoraciones geométricas inspiradas en el isotipo */
+  /* Iluminaciones circulares brandbook (pág. 26) — cyan #00F3FF + verde #00FF92 */
   .geo-circle-cyan {
     @apply pointer-events-none absolute rounded-full;
     background: radial-gradient(
       circle at 30% 30%,
-      rgba(0, 229, 255, 0.35),
-      rgba(0, 229, 255, 0) 70%
+      rgba(0, 243, 255, 0.35),
+      rgba(0, 243, 255, 0) 70%
     );
     filter: blur(50px);
   }
@@ -217,18 +230,18 @@
     @apply pointer-events-none absolute rounded-full;
     background: radial-gradient(
       circle at 70% 70%,
-      rgba(29, 233, 182, 0.3),
-      rgba(29, 233, 182, 0) 70%
+      rgba(0, 255, 146, 0.28),
+      rgba(0, 255, 146, 0) 70%
     );
     filter: blur(50px);
   }
-  /* Mismo concepto pero para secciones light: más sutil */
+  /* Versión sutil para secciones light */
   .geo-soft-cyan {
     @apply pointer-events-none absolute rounded-full;
     background: radial-gradient(
       circle at 30% 30%,
-      rgba(0, 229, 255, 0.18),
-      rgba(0, 229, 255, 0) 70%
+      rgba(0, 243, 255, 0.18),
+      rgba(0, 243, 255, 0) 70%
     );
     filter: blur(70px);
   }
@@ -236,6 +249,77 @@
   .noise-bg {
     background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
     background-size: 24px 24px;
+  }
+
+  /* ============== BRANDBOOK GoTechy 2025 ==============
+     Gradientes circulares oficiales — pág. 26.
+     Base oscura con iluminaciones cyan (#00F3FF) y verde (#00FF92). */
+  .gt-bg-gradient-cyan {
+    background:
+      radial-gradient(circle at 30% 50%, rgba(0, 243, 255, 0.15) 0%, transparent 60%),
+      #0A0E1A;
+  }
+  .gt-bg-gradient-green {
+    background:
+      radial-gradient(circle at 70% 50%, rgba(0, 255, 146, 0.10) 0%, transparent 50%),
+      #0A0E1A;
+  }
+  .gt-bg-gradient-dual {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(0, 243, 255, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(0, 255, 146, 0.08) 0%, transparent 40%),
+      #0A0E1A;
+  }
+  .gt-bg-gradient-hero {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(0, 243, 255, 0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 30% 100%, rgba(0, 255, 146, 0.08) 0%, transparent 50%),
+      linear-gradient(180deg, #0A0E1A 0%, #141B2D 50%, #0A0E1A 100%);
+  }
+
+  /* Tratamiento duotono — brandbook pág. 32.
+     Convierte a escala de grises y aplica celeste + iluminación verde. */
+  .img-duotone {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .img-duotone img,
+  .img-duotone > picture > img {
+    filter: grayscale(100%) contrast(1.05);
+    transition: filter 0.5s ease;
+  }
+  .img-duotone::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 243, 255, 0.65);
+    mix-blend-mode: color;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .img-duotone::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 70% 80%,
+      rgba(0, 255, 146, 0.45) 0%,
+      transparent 50%
+    );
+    mix-blend-mode: screen;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  /* Variante hover: vuelve a color al pasar el mouse */
+  .img-duotone-hover:hover img {
+    filter: grayscale(0%) contrast(1);
+  }
+  .img-duotone-hover:hover::before,
+  .img-duotone-hover:hover::after {
+    opacity: 0;
   }
 
   .input-base {
@@ -384,12 +468,12 @@
 
 /* ====== Leaflet (dark theme overrides) ====== */
 .leaflet-container {
-  background: #06111C !important;
+  background: #0A0E1A !important;
   font-family: inherit;
 }
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: #0A1929 !important;
+  background: #141B2D !important;
   color: #E6F0FA !important;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.7);
@@ -404,7 +488,7 @@
   font-size: 14px;
 }
 .leaflet-popup-content a {
-  color: #62EFFF;
+  color: #5CF4FF;
   text-decoration: none;
   font-weight: 600;
 }
@@ -423,16 +507,16 @@
   backdrop-filter: blur(6px);
 }
 .leaflet-control-attribution a {
-  color: #62EFFF !important;
+  color: #5CF4FF !important;
 }
 .leaflet-control-zoom a {
-  background: #0A1929 !important;
+  background: #141B2D !important;
   color: #E6F0FA !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
 .leaflet-control-zoom a:hover {
-  background: #06111C !important;
-  color: #00E5FF !important;
+  background: #0A0E1A !important;
+  color: #00F3FF !important;
 }
 /* Quitar el outline blanco del icon container del marker */
 .gotechy-pin {
@@ -475,13 +559,13 @@
   color: #E2E8F0;
 }
 .tiptap-editor .ProseMirror a {
-  color: #62EFFF;
+  color: #5CF4FF;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 .tiptap-editor .ProseMirror code {
   background: rgba(0, 229, 255, 0.1);
-  color: #62EFFF;
+  color: #5CF4FF;
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
@@ -501,7 +585,7 @@
   font-size: 0.85em;
 }
 .tiptap-editor .ProseMirror blockquote {
-  border-left: 4px solid #00E5FF;
+  border-left: 4px solid #00F3FF;
   padding-left: 1rem;
   margin: 1.5rem 0;
   color: #CBD5E1;
@@ -543,8 +627,8 @@
 
 /* highlight.js syntax (dark) */
 .hljs { background: transparent; color: #E2E8F0; }
-.hljs-keyword, .hljs-tag, .hljs-selector-tag { color: #62EFFF; }
-.hljs-string, .hljs-attr { color: #1DE9B6; }
+.hljs-keyword, .hljs-tag, .hljs-selector-tag { color: #5CF4FF; }
+.hljs-string, .hljs-attr { color: #00FF92; }
 .hljs-function, .hljs-title { color: #B3F3FC; }
 .hljs-comment, .hljs-meta { color: #64748B; font-style: italic; }
 .hljs-number, .hljs-literal { color: #FBBF24; }

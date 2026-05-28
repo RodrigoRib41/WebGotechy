@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { approachItem } from '../effects/ApproachReveal';
 
 interface ServiceApproachProps {
   /** Etiqueta sobre el título. Default: "Metodología". */
@@ -17,13 +19,15 @@ interface ServiceApproachProps {
  * provee, se renderiza un panel decorativo on-brand.
  */
 export function ServiceApproach({
-  eyebrow = 'Metodología',
+  eyebrow,
   title,
   subtitle,
   items,
   image,
 }: ServiceApproachProps) {
   const [imageOk, setImageOk] = useState(true);
+  const { t } = useTranslation();
+  const eyebrowText = eyebrow ?? t('services.approach.eyebrow');
   const showImage = Boolean(image) && imageOk;
 
   return (
@@ -65,31 +69,49 @@ export function ServiceApproach({
             )}
           </motion.div>
 
-          {/* Texto + lista */}
+          {/* Texto + lista — efecto "aparece desde lejos" stagger */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.05 }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.18 } },
+            }}
           >
-            <span className="eyebrow mb-4 inline-flex">{eyebrow}</span>
-            <h2
+            <motion.span variants={approachItem} className="eyebrow mb-4 inline-flex">
+              {eyebrowText}
+            </motion.span>
+            <motion.h2
+              variants={approachItem}
               id="approach-title"
               className="text-display-2 font-display font-bold text-white"
             >
               {title}
-            </h2>
+            </motion.h2>
             {subtitle && (
-              <p className="mt-4 text-base leading-relaxed text-white/70 sm:text-lg">{subtitle}</p>
+              <motion.p
+                variants={approachItem}
+                className="mt-4 text-base leading-relaxed text-white/70 sm:text-lg"
+              >
+                {subtitle}
+              </motion.p>
             )}
-            <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            <motion.ul
+              variants={approachItem}
+              className="mt-8 grid gap-3 sm:grid-cols-2"
+            >
               {items.map((item, i) => (
                 <motion.li
                   key={i}
-                  initial={{ opacity: 0, x: -12 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
-                  transition={{ duration: 0.35, delay: 0.05 * i }}
+                  initial={{ opacity: 0, scale: 0.5, y: 24 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.05 }}
+                  transition={{
+                    duration: 1.1,
+                    delay: 0.12 * i,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur transition-colors hover:border-secondary/40 hover:bg-white/[0.05]"
                 >
                   <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-secondary/15 text-secondary ring-1 ring-secondary/30">
@@ -98,7 +120,7 @@ export function ServiceApproach({
                   <span className="text-sm font-medium text-white/85">{item}</span>
                 </motion.li>
               ))}
-            </ul>
+            </motion.ul>
           </motion.div>
         </div>
       </div>

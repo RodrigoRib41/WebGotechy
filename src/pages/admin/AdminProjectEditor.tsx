@@ -51,6 +51,10 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
       image_url: project.image_url ?? '',
       image_alt: project.image_alt ?? '',
       sort_order: project.sort_order,
+      title_en: project.title_en ?? '',
+      industry_en: project.industry_en ?? '',
+      challenge_en: project.challenge_en ?? '',
+      solution_en: project.solution_en ?? '',
     });
     setSlugTouched(true);
   }, [mode, project]);
@@ -112,6 +116,10 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
         image_url: form.image_url || null,
         image_alt: form.image_alt.trim() || null,
         sort_order: form.sort_order,
+        title_en: form.title_en.trim() || null,
+        industry_en: form.industry_en.trim() || null,
+        challenge_en: form.challenge_en.trim() || null,
+        solution_en: form.solution_en.trim() || null,
       };
       if (mode === 'new') {
         const created = await projectsService.create(payload);
@@ -243,6 +251,59 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
               className="input-base resize-none"
             />
           </Field>
+
+          {/* Traducciones EN — opcionales (fallback al ES si quedan vacías) */}
+          <div className="rounded-2xl border border-secondary/20 bg-secondary/[0.04] p-5">
+            <div className="mb-4 flex items-baseline gap-2">
+              <span className="rounded-full bg-secondary/15 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-secondary-200 ring-1 ring-secondary/30">
+                EN
+              </span>
+              <h3 className="text-sm font-semibold text-white/85">Traducción al inglés (opcional)</h3>
+              <span className="ml-auto text-[11px] text-white/45">
+                Si queda vacío, el sitio público usa el español.
+              </span>
+            </div>
+
+            <div className="space-y-4">
+              <Field label="Title (EN)">
+                <input
+                  value={form.title_en}
+                  onChange={(e) => update('title_en', e.target.value)}
+                  placeholder="Process Intelligence on SAP Signavio"
+                  className="input-base"
+                />
+              </Field>
+
+              <Field label="Industry (EN)">
+                <input
+                  value={form.industry_en}
+                  onChange={(e) => update('industry_en', e.target.value)}
+                  placeholder="Energy & Fuels"
+                  className="input-base"
+                />
+              </Field>
+
+              <Field label="Challenge (EN)">
+                <textarea
+                  value={form.challenge_en}
+                  onChange={(e) => update('challenge_en', e.target.value)}
+                  placeholder="What problem the customer had, which metrics were off, etc."
+                  rows={4}
+                  className="input-base resize-none"
+                />
+              </Field>
+
+              <Field label="Solution (EN)">
+                <textarea
+                  value={form.solution_en}
+                  onChange={(e) => update('solution_en', e.target.value)}
+                  placeholder="What we implemented, technologies used, approach."
+                  rows={4}
+                  className="input-base resize-none"
+                />
+              </Field>
+            </div>
+          </div>
 
           {/* Métricas */}
           <div>

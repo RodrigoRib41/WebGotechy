@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import Tilt from 'react-parallax-tilt';
+import { useTranslation } from 'react-i18next';
 import { SectionHeader } from '../SectionHeader';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { approachItem, approachContainer } from '../effects/ApproachReveal';
 
 export interface ServiceBenefit {
   title: string;
@@ -16,6 +18,7 @@ interface ServiceBenefitsProps {
 
 export function ServiceBenefits({ benefits }: ServiceBenefitsProps) {
   const reduced = usePrefersReducedMotion();
+  const { t } = useTranslation();
 
   return (
     <section
@@ -29,30 +32,32 @@ export function ServiceBenefits({ benefits }: ServiceBenefitsProps) {
 
       <div className="container-x relative">
         <SectionHeader
-          eyebrow="Beneficios"
+          eyebrow={t('services.benefits.eyebrow')}
           title={
             <>
-              Resultados <span className="text-gradient">medibles</span> para tu negocio
+              {t('services.benefits.titleStart')}{' '}
+              <span className="text-secondary">{t('services.benefits.titleHighlight')}</span>{' '}
+              {t('services.benefits.titleEnd')}
             </>
           }
         />
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.05 }}
+          variants={approachContainer}
+          className="mt-14 grid gap-5 sm:grid-cols-2"
+        >
           {benefits.map((benefit, i) => (
-            <motion.div
-              key={`${benefit.title}-${i}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.45, delay: i * 0.05 }}
-            >
+            <motion.div key={`${benefit.title}-${i}`} variants={approachItem}>
               <Tilt
                 tiltEnable={!reduced}
                 tiltMaxAngleX={4}
                 tiltMaxAngleY={4}
                 glareEnable={!reduced}
                 glareMaxOpacity={0.1}
-                glareColor="#00E5FF"
+                glareColor="#00F3FF"
                 glarePosition="all"
                 scale={1.02}
                 transitionSpeed={1100}
@@ -84,7 +89,7 @@ export function ServiceBenefits({ benefits }: ServiceBenefitsProps) {
               </Tilt>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

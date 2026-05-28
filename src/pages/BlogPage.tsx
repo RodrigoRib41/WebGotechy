@@ -2,13 +2,17 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { BookOpen, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { es, enUS } from 'date-fns/locale';
 import { PageHeader } from '../components/PageHeader';
 import { usePublishedPosts } from '../hooks/usePosts';
+import { localizeBlogPost } from '../types/blog';
 
 export function BlogPage() {
-  const { t } = useTranslation();
-  const { posts, loading, error } = usePublishedPosts();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
+  const locale = isEn ? enUS : es;
+  const { posts: rawPosts, loading, error } = usePublishedPosts();
+  const posts = rawPosts.map((p) => localizeBlogPost(p, isEn));
 
   return (
     <>
@@ -62,7 +66,7 @@ export function BlogPage() {
                     <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-white/50">
                       <span>
                         {format(new Date(p.published_at ?? p.created_at), "d MMM yyyy", {
-                          locale: es,
+                          locale,
                         })}
                       </span>
                       {p.tags?.[0] && (
@@ -79,7 +83,7 @@ export function BlogPage() {
                       <p className="mt-2 line-clamp-3 text-sm text-white/70">{p.excerpt}</p>
                     )}
                     <div className="mt-4 text-xs text-white/55">
-                      Por <span className="font-semibold text-white/75">{p.author}</span>
+                      {t('blog.by')} <span className="font-semibold text-white/75">{p.author}</span>
                     </div>
                   </div>
                 </Link>

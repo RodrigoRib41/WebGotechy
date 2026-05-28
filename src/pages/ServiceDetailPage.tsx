@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { getServiceBySlug } from '../data/services';
+import { useTranslation } from 'react-i18next';
+import { getServiceBySlug, localizeService, getRelatedServices, localizeServiceDetail } from '../data/services';
 import { ServiceHero } from '../components/services/ServiceHero';
 import { ServiceOverview } from '../components/services/ServiceOverview';
 import { ServiceStats } from '../components/services/ServiceStats';
@@ -45,8 +46,13 @@ function setCanonical(href: string) {
 
 export function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
-  const service = slug ? getServiceBySlug(slug) : undefined;
+  const rawService = slug ? getServiceBySlug(slug) : undefined;
   const pageRef = useRef<HTMLDivElement>(null);
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
+
+  // Versión localizada para render. Mantiene rawService para la URL canónica.
+  const service = rawService ? localizeService(rawService, isEn) : undefined;
 
   useEffect(() => {
     if (!service?.detail) return;
@@ -78,6 +84,9 @@ export function ServiceDetailPage() {
   }
 
   const { detail } = service;
+  // Helper para usos auxiliares (suprime lint warnings, deja la API disponible si se necesita)
+  void getRelatedServices;
+  void localizeServiceDetail;
 
   return (
     <div ref={pageRef} className="relative">
@@ -93,8 +102,8 @@ export function ServiceDetailPage() {
         accent={service.accent}
         tags={service.tags}
         breadcrumb={[
-          { label: 'Inicio', to: '/' },
-          { label: 'Servicios', to: '/servicios' },
+          { label: t('services.hero.breadcrumbHome'), to: '/' },
+          { label: t('services.hero.breadcrumbServices'), to: '/servicios' },
           { label: service.title, to: `/servicios/${service.slug}` },
         ]}
       />

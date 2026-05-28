@@ -33,9 +33,8 @@ export function PageHeader({ eyebrow, title, highlight, subtitle }: PageHeaderPr
     return (
       <>
         {before && <span className="text-white">{before}</span>}
-        <span className="bg-gradient-to-r from-secondary-200 via-secondary to-accent bg-clip-text text-transparent">
-          {highlight}
-        </span>
+        {/* Brandbook: títulos en cyan o blanco — sólido, sin gradient */}
+        <span className="text-secondary">{highlight}</span>
         {after && <span className="text-white">{after}</span>}
       </>
     );

@@ -63,6 +63,9 @@ export function AdminEditor({ mode }: AdminEditorProps) {
       author_email: post.author_email ?? '',
       tags: post.tags ?? [],
       status: post.status,
+      title_en: post.title_en ?? '',
+      excerpt_en: post.excerpt_en ?? '',
+      content_en: post.content_en ?? '',
     });
     setSlugTouched(true);
   }, [mode, post]);
@@ -110,6 +113,9 @@ export function AdminEditor({ mode }: AdminEditorProps) {
           targetStatus === 'published'
             ? (post?.published_at ?? new Date().toISOString())
             : null,
+        title_en: next.title_en.trim() || null,
+        excerpt_en: next.excerpt_en.trim() || null,
+        content_en: next.content_en.trim() || null,
       };
 
       if (mode === 'new') {
@@ -249,6 +255,50 @@ export function AdminEditor({ mode }: AdminEditorProps) {
           >
             <TipTapEditor value={form.content} onChange={(html) => update('content', html)} />
           </Field>
+
+          {/* Traducciones EN — opcionales (fallback al ES si quedan vacías) */}
+          <div className="rounded-2xl border border-secondary/20 bg-secondary/[0.04] p-5">
+            <div className="mb-4 flex items-baseline gap-2">
+              <span className="rounded-full bg-secondary/15 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-secondary-200 ring-1 ring-secondary/30">
+                EN
+              </span>
+              <h3 className="text-sm font-semibold text-white/85">English translation (optional)</h3>
+              <span className="ml-auto text-[11px] text-white/45">
+                Empty fields fall back to Spanish on the public site.
+              </span>
+            </div>
+
+            <div className="space-y-4">
+              <Field label="Title (EN)">
+                <input
+                  value={form.title_en}
+                  onChange={(e) => update('title_en', e.target.value)}
+                  placeholder="Catchy article title in English"
+                  className="input-base"
+                />
+              </Field>
+
+              <Field
+                label="Excerpt (EN)"
+                hint={`${form.excerpt_en.length}/300 characters`}
+              >
+                <textarea
+                  value={form.excerpt_en}
+                  onChange={(e) => update('excerpt_en', e.target.value.slice(0, 300))}
+                  placeholder="Short summary used in listings and SEO."
+                  rows={3}
+                  className="input-base resize-none"
+                />
+              </Field>
+
+              <Field label="Content (EN)">
+                <TipTapEditor
+                  value={form.content_en}
+                  onChange={(html) => update('content_en', html)}
+                />
+              </Field>
+            </div>
+          </div>
         </div>
 
         {/* Columna lateral (metadata) */}

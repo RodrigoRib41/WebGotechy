@@ -10,8 +10,7 @@ import { cloudinaryService } from '../../lib/cloudinary';
  * colorean al hover. Clean look estilo Stripe.
  */
 export function ClientsLight() {
-  const { i18n } = useTranslation();
-  const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
+  const { t } = useTranslation();
   const { data: clients, loading } = useLogos('client');
 
   return (
@@ -24,19 +23,10 @@ export function ClientsLight() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-2xl text-center"
         >
-          <span className="eyebrow-light">{isEn ? 'Clients' : 'Clientes'}</span>
+          <span className="eyebrow-light">{t('home.clients.eyebrow')}</span>
           <h2 id="clients-light-title" className="h2-display mt-5 text-[#0F1419]">
-            {isEn ? (
-              <>
-                Leading companies trust{' '}
-                <span className="text-brand-600">GoTechy</span>
-              </>
-            ) : (
-              <>
-                Empresas líderes confían en{' '}
-                <span className="text-brand-600">GoTechy</span>
-              </>
-            )}
+            {t('home.clients.titleStart')}{' '}
+            <span className="text-brand-600">{t('home.clients.titleHighlight')}</span>
           </h2>
         </motion.div>
 
