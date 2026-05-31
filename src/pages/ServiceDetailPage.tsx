@@ -101,6 +101,7 @@ export function ServiceDetailPage() {
         image={detail.heroImage}
         accent={service.accent}
         tags={service.tags}
+        aspect={detail.imageAspect}
         breadcrumb={[
           { label: t('services.hero.breadcrumbHome'), to: '/' },
           { label: t('services.hero.breadcrumbServices'), to: '/servicios' },
@@ -122,6 +123,7 @@ export function ServiceDetailPage() {
         featureIcons={detail.features.map((f) => f.icon)}
         accent={service.accent}
         image={detail.overviewImage}
+        aspect={detail.imageAspect}
       />
       <AnimatedDivider />
       {/* Resultados (beneficios) antes que capacidades */}

@@ -14,6 +14,8 @@ interface ServiceHeroProps {
   accent: 'secondary' | 'accent';
   breadcrumb: { label: string; to: string }[];
   tags?: string[];
+  /** Relación de aspecto fija del marco. Default '4/3'. */
+  aspect?: '5/4' | '4/3' | '3/4' | '1/1';
 }
 
 export function ServiceHero({
@@ -24,11 +26,22 @@ export function ServiceHero({
   accent,
   breadcrumb,
   tags,
+  aspect,
 }: ServiceHeroProps) {
   const [imageOk, setImageOk] = useState(true);
   const { t } = useTranslation();
   const showImage = Boolean(image) && imageOk;
   const iconBg = accent === 'secondary' ? 'bg-secondary/10 text-secondary' : 'bg-accent/10 text-accent';
+  // Relación de aspecto del marco (default 4:3).
+  const frameAspect = aspect ?? '4/3';
+  const frameClass =
+    frameAspect === '4/3'
+      ? 'aspect-[4/3]'
+      : frameAspect === '3/4'
+        ? 'aspect-[3/4]'
+        : frameAspect === '1/1'
+          ? 'aspect-square'
+          : 'aspect-[5/4]';
 
   return (
     <header className="relative isolate overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-24">
@@ -133,7 +146,7 @@ export function ServiceHero({
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative hidden h-full min-h-[300px] lg:block"
+            className={`relative hidden ${frameClass} lg:block`}
           >
             {/* Glow celeste detrás */}
             <div

@@ -13,6 +13,8 @@ interface ServiceOverviewProps {
   accent: 'secondary' | 'accent';
   /** Foto opcional. Si no se pasa o falla la carga, se renderiza la ilustración SVG on-brand. */
   image?: string;
+  /** Relación de aspecto del marco. Default '4/3'. */
+  aspect?: '5/4' | '4/3' | '3/4' | '1/1';
 }
 
 export function ServiceOverview({
@@ -21,10 +23,19 @@ export function ServiceOverview({
   featureIcons,
   accent,
   image,
+  aspect = '4/3',
 }: ServiceOverviewProps) {
   const [imageOk, setImageOk] = useState(true);
   const { t } = useTranslation();
   const showImage = Boolean(image) && imageOk;
+  const aspectClass =
+    aspect === '4/3'
+      ? 'aspect-[4/3]'
+      : aspect === '3/4'
+        ? 'aspect-[3/4]'
+        : aspect === '1/1'
+          ? 'aspect-square'
+          : 'aspect-[5/4]';
 
   // Parallax sutil: la imagen se desplaza levemente más lento que el scroll.
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -81,7 +92,7 @@ export function ServiceOverview({
               aria-hidden="true"
             />
             <div
-              className={`group relative aspect-[5/4] overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-glow-md backdrop-blur ${
+              className={`group relative ${aspectClass} overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-glow-md backdrop-blur ${
                 showImage ? 'img-duotone img-duotone-hover' : ''
               }`}
             >

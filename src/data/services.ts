@@ -130,6 +130,8 @@ export interface ServiceDetail {
   tagline_en?: string;
   heroImage?: string;
   overviewImage?: string;
+  /** Relación de aspecto de los marcos de imagen (hero + overview) en la página. Default '4/3'. */
+  imageAspect?: '5/4' | '4/3' | '3/4' | '1/1';
   overviewParagraphs: string[];
   overviewParagraphs_en?: string[];
   features: ServiceFeature[];
@@ -191,8 +193,8 @@ export const SERVICES: Service[] = [
         'IA aplicada al negocio. No al hype, sí a los resultados.',
       tagline_en:
         'AI applied to business. Not to the hype — to results.',
-      heroImage: '/images/IA-1.jpg',
-      overviewImage: '/images/IA-2.webp',
+      heroImage: '/images/IA-1.png',
+      overviewImage: '/images/IA-2.png',
       overviewParagraphs: [
         'Implementamos soluciones de IA que automatizan tareas, predicen resultados y mejoran decisiones dentro del ecosistema SAP y sistemas conectados.',
         'Desde la automatización de documentos hasta asistentes inteligentes integrados en los procesos diarios.',
@@ -1521,7 +1523,7 @@ export const SERVICES: Service[] = [
       tagline_en:
         'Custom solutions that integrate with SAP and scale with your business.',
       heroImage: '/images/NEXTGEN-1.png',
-      overviewImage: '/images/NEXTGEN-2.jpg',
+      overviewImage: '/images/NEXTGEN-2.webp',
       overviewParagraphs: [
         'Desarrollamos aplicaciones modernas que extienden o complementan tu ecosistema SAP.',
         'APIs, microservicios, portales y sistemas de gestión construidos con tecnologías actuales, integrados con los procesos core de tu empresa.',
@@ -1920,6 +1922,8 @@ export const SERVICES: Service[] = [
         'Control total del ciclo de vida de tu solución SAP.',
       tagline_en:
         'Full control of your SAP solution\'s lifecycle.',
+      heroImage: '/images/ALM-1.png',
+      overviewImage: '/images/ALM-2.png',
       overviewParagraphs: [
         'Implementamos y operamos SAP Solution Manager y SAP Cloud ALM para monitorear sistemas y gestionar incidentes.',
         'Mantenemos tu infraestructura SAP en estado óptimo a lo largo de todo su ciclo de vida.',
