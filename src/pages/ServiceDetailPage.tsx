@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { getServiceBySlug, localizeService, getRelatedServices, localizeServiceDetail } from '../data/services';
 import { ServiceHero } from '../components/services/ServiceHero';
 import { ServiceOverview } from '../components/services/ServiceOverview';
+import { ServiceFeatures } from '../components/services/ServiceFeatures';
 import { ServiceStats } from '../components/services/ServiceStats';
-import { ServiceApproach } from '../components/services/ServiceApproach';
 import { ServiceBenefits } from '../components/services/ServiceBenefits';
 import { ServiceUseCases } from '../components/services/ServiceUseCases';
-import { ServiceTechStack } from '../components/services/ServiceTechStack';
-import { ServiceFAQ } from '../components/services/ServiceFAQ';
+import { ServiceHorizonte } from '../components/services/ServiceHorizonte';
 import { ServiceCTA } from '../components/services/ServiceCTA';
+import { AnimatedDivider } from '../components/effects/AnimatedDivider';
 import { HomeBackgroundCurve, type CurveVariant } from '../components/effects/HomeBackgroundCurve';
 import { SITE } from '../data/site';
 
@@ -107,13 +107,7 @@ export function ServiceDetailPage() {
           { label: service.title, to: `/servicios/${service.slug}` },
         ]}
       />
-      <ServiceOverview
-        paragraphs={detail.overviewParagraphs}
-        Icon={service.icon}
-        featureIcons={detail.features.map((f) => f.icon)}
-        accent={service.accent}
-        image={detail.overviewImage}
-      />
+      {/* Prueba social arriba: métricas del producto (cuando existen). */}
       {detail.stats && detail.stats.items.length > 0 && (
         <ServiceStats
           eyebrow={detail.stats.eyebrow}
@@ -121,21 +115,25 @@ export function ServiceDetailPage() {
           items={detail.stats.items}
         />
       )}
-      {detail.approach && (
-        <ServiceApproach
-          eyebrow={detail.approach.eyebrow}
-          title={detail.approach.title}
-          subtitle={detail.approach.subtitle}
-          items={detail.approach.items}
-          image={detail.approach.image}
-        />
-      )}
+      {/* Problema → La solución */}
+      <ServiceOverview
+        paragraphs={detail.overviewParagraphs}
+        Icon={service.icon}
+        featureIcons={detail.features.map((f) => f.icon)}
+        accent={service.accent}
+        image={detail.overviewImage}
+      />
+      <AnimatedDivider />
+      {/* Resultados (beneficios) antes que capacidades */}
       <ServiceBenefits benefits={detail.benefits} />
+      {/* Capacidades clave */}
+      <ServiceFeatures features={detail.features} />
+      {/* Casos: dónde aplica */}
       <ServiceUseCases useCases={detail.useCases} />
-      {detail.techStack && detail.techStack.length > 0 && (
-        <ServiceTechStack items={detail.techStack} />
-      )}
-      <ServiceFAQ faq={detail.faq} />
+      <AnimatedDivider />
+      {/* Diferenciador: Horizonte SAP */}
+      {detail.horizonte && <ServiceHorizonte text={detail.horizonte.text} />}
+      {/* CTA final */}
       <ServiceCTA serviceName={service.title} />
     </div>
   );

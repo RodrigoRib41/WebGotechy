@@ -1,7 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import {
   Activity,
-  ArrowUpCircle,
   BarChart3,
   Bot,
   Boxes,
@@ -39,7 +38,8 @@ export interface ServiceFeature {
   icon: LucideIcon;
   title: string;
   title_en?: string;
-  description: string;
+  /** Opcional: las tarjetas de "Capacidades" pueden ser solo título + icono. */
+  description?: string;
   description_en?: string;
   /** Sub-bullets opcionales para detallar el alcance de la feature. */
   bullets?: string[];
@@ -112,6 +112,15 @@ export interface ServiceFAQItem {
 }
 
 /**
+ * Bloque "Horizonte SAP" — novedades del ecosistema SAP que vienen.
+ * Tono: "esto llega, estamos preparados para acompañarte". Sin fechas ni años.
+ */
+export interface ServiceHorizonte {
+  text: string;
+  text_en?: string;
+}
+
+/**
  * Contenido detallado para la página individual del servicio.
  * Opcional: si no está presente, el servicio sólo aparece en el overview
  * pero no tiene página propia accesible.
@@ -132,6 +141,8 @@ export interface ServiceDetail {
   approach?: ServiceApproachBlock;
   /** Opcional: stack tecnológico mostrado como grid de badges. */
   techStack?: ServiceTechItem[];
+  /** Opcional: bloque "Horizonte SAP" con las novedades que vienen del ecosistema. */
+  horizonte?: ServiceHorizonte;
   /** IDs de otros services en este mismo array — se renderizan como cards linkeables. */
   relatedTechIds: string[];
   faq: ServiceFAQItem[];
@@ -177,139 +188,28 @@ export const SERVICES: Service[] = [
     tags: ['Joule', 'Agents', 'Industry AI', 'GenAI'],
     detail: {
       tagline:
-        'Llevamos la Empresa Autónoma de SAP a producción — Joule Assistants, Agentes y escenarios de Industry AI integrados con tus procesos reales.',
+        'IA aplicada al negocio. No al hype, sí a los resultados.',
       tagline_en:
-        'We bring SAP\'s Autonomous Enterprise to production — Joule Assistants, Agents and Industry AI scenarios integrated with your real processes.',
-      heroImage:
-        'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1600&q=80',
-      overviewImage:
-        'https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&w=1200&q=80',
+        'AI applied to business. Not to the hype — to results.',
+      heroImage: '/images/IA-1.jpg',
+      overviewImage: '/images/IA-2.webp',
       overviewParagraphs: [
-        'SAP definió la Empresa Autónoma como la próxima generación del software empresarial: Joule Assistants y Agentes que colaboran con las personas para ejecutar procesos críticos en finanzas, compras, HCM, CX, cadena de suministro e industria. En GoTechy diseñamos, implementamos y operamos esa arquitectura en clientes reales.',
-        'Construimos sobre SAP Business AI Platform: integramos asistentes especializados por dominio (Cierre Financiero, Planificación, Compras, Nómina, Servicio al Cliente, Activos, Logística, Fabricación), conectados a Joule Work como capa de interacción unificada y a Joule Studio para extensiones a medida.',
-        'Cuando el caso lo requiere, desarrollamos agentes personalizados con SAP Domain Models, Cloud SDK para Python y los protocolos MCP y A2A — interoperando de forma segura con herramientas y agentes de terceros (Claude de Anthropic, modelos abiertos en EU AI Cloud, NVIDIA OpenShell para ejecución segura).',
-        'Cubrimos el ciclo completo: descubrimiento de escenarios de mayor ROI, arquitectura, gobernanza con SAP AI Agent Hub, integración con SAP Business Data Cloud, fundamentación en SAP Knowledge Graph, observabilidad y control de costos. Cada agente que entregamos opera con datos confiables, gobernanza explícita y métricas accionables.',
+        'Implementamos soluciones de IA que automatizan tareas, predicen resultados y mejoran decisiones dentro del ecosistema SAP y sistemas conectados.',
+        'Desde la automatización de documentos hasta asistentes inteligentes integrados en los procesos diarios.',
+        'Cada proyecto arranca con un objetivo de negocio medible: empezamos por el escenario de mayor retorno, lo validamos con un piloto acotado y recién ahí escalamos a producción con datos confiables y gobernanza.',
       ],
       overviewParagraphs_en: [
-        'SAP defined the Autonomous Enterprise as the next generation of enterprise software: Joule Assistants and Agents that collaborate with people to execute critical processes across finance, procurement, HCM, CX, supply chain and industry. At GoTechy we design, implement and operate that architecture for real customers.',
-        'We build on SAP Business AI Platform: we integrate domain-specialized assistants (Financial Close, Planning, Procurement, Payroll, Customer Service, Assets, Logistics, Manufacturing), connected to Joule Work as a unified interaction layer and Joule Studio for custom extensions.',
-        'When the case requires it, we develop custom agents with SAP Domain Models, the Cloud SDK for Python and the MCP and A2A protocols — securely interoperating with third-party tools and agents (Anthropic\'s Claude, open models on EU AI Cloud, NVIDIA OpenShell for secure execution).',
-        'We cover the full lifecycle: discovery of high-ROI scenarios, architecture, governance with SAP AI Agent Hub, integration with SAP Business Data Cloud, grounding on SAP Knowledge Graph, observability and cost control. Every agent we deliver operates with trusted data, explicit governance and actionable metrics.',
+        'We implement AI solutions that automate tasks, predict outcomes and improve decisions across the SAP ecosystem and connected systems.',
+        'From document automation to intelligent assistants embedded in everyday processes.',
+        'Every project starts from a measurable business goal: we begin with the highest-return scenario, validate it with a focused pilot, and only then scale to production with trusted data and governance.',
       ],
       features: [
-        {
-          icon: Bot,
-          title: 'Chatbots y Asistentes Inteligentes',
-          title_en: 'Chatbots and Intelligent Assistants',
-          description:
-            'Asistentes conversacionales empresariales que no solo responden — ejecutan acciones reales sobre tus sistemas, con escalamiento inteligente cuando hace falta.',
-          description_en:
-            'Enterprise conversational assistants that don\'t just answer — they execute real actions on your systems, with intelligent escalation when needed.',
-          bullets: [
-            'Integración con sistemas internos (ERP, CRM, bases de datos)',
-            'Automatización de tareas operativas',
-            'Flujos conversacionales con validaciones y lógica de negocio',
-            'Atención al cliente con escalamiento a humanos',
-            'Soporte interno para IT, RRHH y operaciones',
-          ],
-          bullets_en: [
-            'Integration with internal systems (ERP, CRM, databases)',
-            'Automation of operational tasks',
-            'Conversational flows with validations and business logic',
-            'Customer support with escalation to humans',
-            'Internal support for IT, HR and operations',
-          ],
-        },
-        {
-          icon: Network,
-          title: 'Agentes Inteligentes y Multi-Agentes',
-          title_en: 'Intelligent and Multi-Agent Systems',
-          description:
-            'Agentes capaces de razonar, planificar y ejecutar acciones en múltiples sistemas, con patrones modernos de orquestación y control de contexto.',
-          description_en:
-            'Agents capable of reasoning, planning and executing actions across multiple systems, with modern orchestration patterns and context control.',
-          bullets: [
-            'Arquitecturas de agentes autónomos',
-            'Orquestación de tareas complejas',
-            'Agentes especializados por dominio',
-            'Integración con herramientas externas y APIs',
-            'Flujos multi-agente coordinados',
-          ],
-          bullets_en: [
-            'Autonomous agent architectures',
-            'Orchestration of complex tasks',
-            'Domain-specialized agents',
-            'Integration with external tools and APIs',
-            'Coordinated multi-agent flows',
-          ],
-        },
-        {
-          icon: FileText,
-          title: 'Lectura Inteligente de Documentos (IDP)',
-          title_en: 'Intelligent Document Processing (IDP)',
-          description:
-            'Automatización del procesamiento documental que reduce tiempos manuales, errores humanos y costos operativos.',
-          description_en:
-            'Document processing automation that reduces manual time, human errors and operational costs.',
-          bullets: [
-            'Lectura y análisis de PDFs, contratos, facturas y formularios',
-            'Extracción estructurada de datos',
-            'Clasificación automática de documentos',
-            'Validación contra reglas de negocio',
-            'Integración con sistemas administrativos o financieros',
-          ],
-          bullets_en: [
-            'Reading and analysis of PDFs, contracts, invoices and forms',
-            'Structured data extraction',
-            'Automatic document classification',
-            'Validation against business rules',
-            'Integration with administrative or financial systems',
-          ],
-        },
-        {
-          icon: Sparkles,
-          title: 'Integración de LLM y Arquitecturas RAG',
-          title_en: 'LLM Integration and RAG Architectures',
-          description:
-            'Modelos de lenguaje de última generación implementados de forma segura y controlada, balanceando precisión, rendimiento y costo.',
-          description_en:
-            'Latest-generation language models implemented securely and controllably, balancing accuracy, performance and cost.',
-          bullets: [
-            'Integración de LLM en aplicaciones existentes',
-            'Arquitecturas RAG (Retrieval-Augmented Generation)',
-            'Control de contexto y memoria conversacional',
-            'Optimización de prompts y evaluación de respuestas',
-            'Gobernanza y protección de datos sensibles',
-          ],
-          bullets_en: [
-            'LLM integration into existing applications',
-            'RAG architectures (Retrieval-Augmented Generation)',
-            'Context control and conversational memory',
-            'Prompt optimization and response evaluation',
-            'Governance and protection of sensitive data',
-          ],
-        },
-        {
-          icon: Server,
-          title: 'Servidores MCP y Conectividad Avanzada',
-          title_en: 'MCP Servers and Advanced Connectivity',
-          description:
-            'Servidores MCP (Model Context Protocol) para que agentes y asistentes operen activamente — no solo conversen — dentro de tu infraestructura.',
-          description_en:
-            'MCP (Model Context Protocol) servers so agents and assistants operate actively — not just chat — inside your infrastructure.',
-          bullets: [
-            'Diseño de herramientas personalizadas para agentes',
-            'Exposición controlada de funciones empresariales',
-            'Seguridad y control de acceso granular',
-            'Arquitecturas extensibles para ecosistemas de IA',
-          ],
-          bullets_en: [
-            'Custom tool design for agents',
-            'Controlled exposure of enterprise functions',
-            'Granular security and access control',
-            'Extensible architectures for AI ecosystems',
-          ],
-        },
+        { icon: Workflow, title: 'Automatización inteligente de procesos', title_en: 'Intelligent process automation' },
+        { icon: BarChart3, title: 'Modelos predictivos sobre datos SAP', title_en: 'Predictive models on SAP data' },
+        { icon: FileText, title: 'Document processing con IA (facturas, órdenes)', title_en: 'AI document processing (invoices, orders)' },
+        { icon: Bot, title: 'Chatbots y asistentes empresariales', title_en: 'Enterprise chatbots and assistants' },
+        { icon: Plug, title: 'Integración con SAP BTP AI Services', title_en: 'Integration with SAP BTP AI Services' },
+        { icon: Brain, title: 'Consultoría de adopción de IA', title_en: 'AI adoption consulting' },
       ],
       approach: {
         title: 'Cómo trabajamos la IA',
@@ -434,6 +334,12 @@ export const SERVICES: Service[] = [
         { label: 'Text Embeddings', icon: Sparkles },
         { label: 'Evaluation', icon: Target },
       ],
+      horizonte: {
+        text:
+          'SAP presenta la Empresa Autónoma: un modelo en el que Joule Work, la Autonomous Suite y la SAP Business AI Platform trabajan juntos para que los equipos deleguen tareas rutinarias a asistentes y agentes, y se concentren en decisiones estratégicas. SAP y Anthropic colaboran para integrar Claude como capacidad central de razonamiento en la plataforma SAP Business AI, operando en finanzas, RRHH, compras y cadena de suministro con comprensión del contexto empresarial de SAP. Acompañamos a las organizaciones en su camino hacia este nuevo modelo de trabajo.',
+        text_en:
+          'SAP introduces the Autonomous Enterprise: a model where Joule Work, the Autonomous Suite and the SAP Business AI Platform work together so teams can delegate routine tasks to assistants and agents and focus on strategic decisions. SAP and Anthropic are collaborating to integrate Claude as a core reasoning capability within the SAP Business AI platform, operating across finance, HR, procurement and supply chain with an understanding of SAP\'s business context. We guide organizations on their path toward this new way of working.',
+      },
       relatedTechIds: ['signavio', 'btp', 'nextgen', 'abap'],
       faq: [
         {
@@ -497,24 +403,21 @@ export const SERVICES: Service[] = [
     tags: ['Process Mining', 'Joule', 'Governance', 'Atoms'],
     detail: {
       tagline:
-        'La columna vertebral de la transformación: Process Intelligence + IA con agentes, atomización de reglas y memoria corporativa para escalar la Empresa Autónoma con gobernanza.',
+        'Visibilidad total de tus procesos. Mejora lo que realmente ocurre.',
       tagline_en:
-        'The backbone of transformation: Process Intelligence + AI with agents, rule atomization and corporate memory to scale the Autonomous Enterprise with governance.',
+        'Total visibility into your processes. Improve what actually happens.',
       heroImage:
-        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80',
-      overviewImage:
-        'https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&w=1200&q=80',
+        '/images/SAPSignavio-1.png',
+      overviewImage: '/images/SAPSignavio-2.png',
       overviewParagraphs: [
-        'SAP Signavio es la suite que SAP eligió como base de la Empresa Autónoma: cada Joule Agent que entra en producción necesita procesos modelados, reglas explícitas y trazabilidad. Sin esto, la IA escala sin control. En GoTechy implementamos Signavio como punto de partida real para la transformación con IA.',
-        'Cubrimos las siete herramientas de la suite — Process Insights, Process Intelligence, Process Manager, Process Transformation Manager, Process Collaboration Hub, Process Governance y Journey Modeler — combinadas con las nuevas capacidades: Asistente de Transformación de Procesos, Análisis de Causa Raíz asistido por IA, Inteligencia de Red de Procesos y los Value Accelerators por industria.',
-        'Trabajamos los Process Atoms — fragmentos reutilizables de reglas, restricciones y objetivos — para que tus agentes de IA operen dentro de los límites del negocio y de la regulación. Sumamos la Memoria Corporativa para centralizar el conocimiento que comparten todos los agentes desplegados en la organización.',
-        'Conectamos Signavio con SAP LeanIX (Process Transformation Manager + Fact Sheets), SAP Cloud ALM y los Joule Assistants de cada línea de negocio. Esto convierte el modelado de procesos en una palanca operativa: lo que se diseña se ejecuta, se monitorea y se mejora — con métricas auditables y gobernanza nativa.',
+        'Implementamos SAP Signavio para que identifiques cuellos de botella, modeles procesos y tomes decisiones basadas en datos reales.',
+        'Transformamos el proceso teórico en inteligencia operativa que impulsa mejoras medibles y sostenibles.',
+        'Conectamos el modelado con la ejecución: lo que se diseña se mide, se monitorea y se mejora, con métricas auditables y trazabilidad de punta a punta.',
       ],
       overviewParagraphs_en: [
-        'SAP Signavio is the suite SAP chose as the foundation of the Autonomous Enterprise: every Joule Agent going into production needs modeled processes, explicit rules and traceability. Without this, AI scales out of control. At GoTechy we implement Signavio as the real starting point for AI-driven transformation.',
-        'We cover the seven tools in the suite — Process Insights, Process Intelligence, Process Manager, Process Transformation Manager, Process Collaboration Hub, Process Governance and Journey Modeler — combined with the new capabilities: Process Transformation Assistant, AI-assisted Root Cause Analysis, Process Network Intelligence and industry-specific Value Accelerators.',
-        'We work with Process Atoms — reusable fragments of rules, constraints and objectives — so your AI agents operate within business and regulatory limits. We add Corporate Memory to centralize the knowledge shared by all agents deployed in the organization.',
-        'We connect Signavio with SAP LeanIX (Process Transformation Manager + Fact Sheets), SAP Cloud ALM and the Joule Assistants of each line of business. This turns process modeling into an operational lever: what is designed is executed, monitored and improved — with auditable metrics and native governance.',
+        'We implement SAP Signavio so you can spot bottlenecks, model processes and make decisions based on real data.',
+        'We turn the theoretical process into operational intelligence that drives measurable, sustainable improvement.',
+        'We connect modeling with execution: what gets designed is measured, monitored and improved — with auditable metrics and end-to-end traceability.',
       ],
       stats: {
         eyebrow: 'La suite en números',
@@ -529,75 +432,12 @@ export const SERVICES: Service[] = [
         ],
       },
       features: [
-        {
-          icon: Search,
-          title: 'Optimizar procesos',
-          title_en: 'Optimize processes',
-          description:
-            'Mediante la minería de procesos permite visualizar los procesos empresariales de forma clara y comprensible mediante diagramas intuitivos que facilitan la identificación de áreas de mejora.',
-          description_en:
-            'Through process mining, it lets you visualize business processes clearly and understandably with intuitive diagrams that make improvement areas easy to spot.',
-          bullets: [
-            'Discovery automático desde los logs de tus sistemas',
-            'Diagramas BPMN 2.0 intuitivos',
-            'Visualización de variantes y desviaciones',
-            'Identificación inmediata de áreas de mejora',
-            'Métricas y KPIs sobre el proceso real',
-          ],
-          bullets_en: [
-            'Automatic discovery from your system logs',
-            'Intuitive BPMN 2.0 diagrams',
-            'Visualization of variants and deviations',
-            'Immediate identification of improvement areas',
-            'Metrics and KPIs on the real process',
-          ],
-        },
-        {
-          icon: BarChart3,
-          title: 'Analizar y optimizar',
-          title_en: 'Analyze and optimize',
-          description:
-            'Permite analizar el rendimiento de tus procesos actuales, identifica cuellos de botella y puntos de mejora, y simula cambios para optimizar la eficiencia operativa.',
-          description_en:
-            'Analyze the performance of your current processes, identify bottlenecks and improvement points, and simulate changes to optimize operational efficiency.',
-          bullets: [
-            'Análisis de performance del proceso actual',
-            'Identificación de cuellos de botella y reprocesos',
-            'Simulación de cambios "what-if" antes de implementarlos',
-            'Recomendaciones accionables de mejora',
-            'Benchmarks de industria con SAP Insights',
-          ],
-          bullets_en: [
-            'Performance analysis of the current process',
-            'Identification of bottlenecks and reworks',
-            '"What-if" simulation of changes before implementing them',
-            'Actionable improvement recommendations',
-            'Industry benchmarks with SAP Insights',
-          ],
-        },
-        {
-          icon: Users,
-          title: 'Colaborar',
-          title_en: 'Collaborate',
-          description:
-            'Fomenta la colaboración entre equipos y partes interesadas al permitirles trabajar juntos en la documentación, análisis y mejora de los procesos empresariales.',
-          description_en:
-            'Foster collaboration across teams and stakeholders by letting them work together on documenting, analyzing and improving business processes.',
-          bullets: [
-            'Repositorio central de procesos para toda la organización',
-            'Modelado colaborativo en BPMN',
-            'Workflows de aprobación y publicación con governance',
-            'Comentarios, versionado y trazabilidad',
-            'Journey Modeler para alinear CX y operaciones',
-          ],
-          bullets_en: [
-            'Central process repository for the whole organization',
-            'Collaborative BPMN modeling',
-            'Approval and publishing workflows with governance',
-            'Comments, versioning and traceability',
-            'Journey Modeler to align CX and operations',
-          ],
-        },
+        { icon: Search, title: 'Process Mining sobre datos SAP', title_en: 'Process Mining on SAP data' },
+        { icon: Workflow, title: 'Modelado colaborativo BPMN 2.0', title_en: 'Collaborative BPMN 2.0 modeling' },
+        { icon: Activity, title: 'Simulación de escenarios de mejora', title_en: 'Improvement scenario simulation' },
+        { icon: BarChart3, title: 'KPIs y dashboards en tiempo real', title_en: 'Real-time KPIs and dashboards' },
+        { icon: GitBranch, title: 'Journey Modeler end-to-end', title_en: 'End-to-end Journey Modeler' },
+        { icon: Users, title: 'Gestión del cambio organizacional', title_en: 'Organizational change management' },
       ],
       benefits: [
         {
@@ -687,6 +527,12 @@ export const SERVICES: Service[] = [
           technologies: ['SAP Signavio', 'S/4HANA', 'Activate'],
         },
       ],
+      horizonte: {
+        text:
+          'Signavio incorpora asistentes y agentes Joule que permiten a usuarios sin experiencia analítica realizar análisis sofisticados en lenguaje natural. El nuevo Asistente para la Transformación de Procesos combina múltiples agentes especializados para guiar a las organizaciones en su transformación. Además, los Process Atoms definen reglas y restricciones para que los agentes de IA operen dentro de los límites regulatorios y operativos de tu empresa, y la Corporate Memory centraliza el conocimiento organizacional para gobernar la ejecución de múltiples agentes a escala.',
+        text_en:
+          'Signavio adds Joule assistants and agents that let users with no analytics background run sophisticated analyses in natural language. The new Process Transformation Assistant combines multiple specialized agents to guide organizations through their transformation. Process Atoms define rules and constraints so AI agents operate within your company\'s regulatory and operational limits, and Corporate Memory centralizes organizational knowledge to govern the execution of multiple agents at scale.',
+      },
       relatedTechIds: ['btp', 'leanix', 'pm', 'ia'],
       faq: [
         {
@@ -750,89 +596,29 @@ export const SERVICES: Service[] = [
     tags: ['Business AI Platform', 'Joule Studio', 'BDC', 'Integration Suite'],
     detail: {
       tagline:
-        'BTP es el cimiento de la Empresa Autónoma — Business AI Platform, Joule Studio, AI Agent Hub, Business Data Cloud e Integration Suite trabajando como un solo tejido.',
+        'La plataforma que conecta, automatiza y extiende tu ecosistema SAP.',
       tagline_en:
-        'BTP is the foundation of the Autonomous Enterprise — Business AI Platform, Joule Studio, AI Agent Hub, Business Data Cloud and Integration Suite working as one fabric.',
+        'The platform that connects, automates and extends your SAP ecosystem.',
       heroImage:
-        'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80',
-      overviewImage:
-        'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+        '/images/SAPBTP-1.png',
+      overviewImage: '/images/SAPBTP-2.png',
       overviewParagraphs: [
-        'BTP se consolidó como la plataforma donde vive todo lo nuevo del ecosistema SAP: SAP Business AI Platform (la base de Joule), Joule Studio (creación de agentes y aplicaciones), SAP Business Data Cloud, SAP Integration Suite con orquestación de agentes, y SAP AI Agent Hub para gobernanza centralizada. En GoTechy diseñamos arquitecturas BTP listas para escalar la Empresa Autónoma.',
-        'Implementamos extensiones limpias siguiendo los principios de Clean Core: nada se toca en el ERP; todo lo custom vive en BTP. Esto te permite adoptar las nuevas releases de SAP sin romper desarrollos propios y aprovechar las innovaciones de IA a medida que llegan.',
-        'Cubrimos Integration Suite (con las nuevas capacidades de orquestación de agentes, ingestión de datos en tiempo real, gateway de IA y exposición selectiva de APIs para servidores MCP), CAP, Cloud Foundry y Kyma, junto con SAP HANA Cloud como base de datos de IA nativa de BDC.',
-        'Para clientes con requisitos de soberanía, implementamos sobre SAP Sovereign Cloud y EU AI Cloud con modelos como Mistral y Cohere, manteniendo control total de infraestructura, datos y gobernanza local.',
+        'Implementamos SAP BTP para integrar sistemas, automatizar procesos y desarrollar aplicaciones personalizadas.',
+        'Conectamos entornos on-premise y cloud en una plataforma unificada que permite innovar sin reemplazar lo que ya funciona.',
+        'Aplicamos el principio de Clean Core: el ERP queda estándar y todo lo custom vive en BTP, para que adoptes cada nueva versión de SAP sin romper tus desarrollos.',
       ],
       overviewParagraphs_en: [
-        'BTP has consolidated itself as the platform where everything new in the SAP ecosystem lives: SAP Business AI Platform (the foundation of Joule), Joule Studio (creation of agents and applications), SAP Business Data Cloud, SAP Integration Suite with agent orchestration, and SAP AI Agent Hub for centralized governance. At GoTechy we design BTP architectures ready to scale the Autonomous Enterprise.',
-        'We implement clean extensions following Clean Core principles: nothing is touched in the ERP; everything custom lives in BTP. This lets you adopt new SAP releases without breaking your developments and take advantage of AI innovations as they arrive.',
-        'We cover Integration Suite (with the new capabilities for agent orchestration, real-time data ingestion, AI gateway and selective API exposure for MCP servers), CAP, Cloud Foundry and Kyma, alongside SAP HANA Cloud as BDC\'s native AI database.',
-        'For customers with sovereignty requirements, we implement on SAP Sovereign Cloud and EU AI Cloud with models like Mistral and Cohere, keeping full control of infrastructure, data and local governance.',
+        'We implement SAP BTP to integrate systems, automate processes and build custom applications.',
+        'We connect on-premise and cloud environments in a unified platform that lets you innovate without replacing what already works.',
+        'We apply the Clean Core principle: the ERP stays standard and everything custom lives in BTP, so you can adopt every new SAP release without breaking your developments.',
       ],
       features: [
-        {
-          icon: Plug,
-          title: 'Integración',
-          title_en: 'Integration',
-          description:
-            'Conectamos tus sistemas y aplicaciones para asegurar un flujo de información sin interrupciones, mejorando la eficiencia operativa y facilitando la toma de decisiones informadas.',
-          description_en:
-            'We connect your systems and applications to ensure an uninterrupted flow of information, improving operational efficiency and enabling informed decision-making.',
-        },
-        {
-          icon: ArrowUpCircle,
-          title: 'Despliegue de aplicaciones SAP',
-          title_en: 'Deployment of SAP applications',
-          description:
-            'Disponibilizamos los productos de SAP BTP que ya contrataste, en conformidad con las mejores prácticas de SAP, para que tu empresa pueda comenzar a aprovecharlos de inmediato.',
-          description_en:
-            'We provision the SAP BTP products you\'ve already contracted, in line with SAP best practices, so your company can start leveraging them right away.',
-        },
-        {
-          icon: Code2,
-          title: 'Desarrollo de aplicaciones',
-          title_en: 'Application development',
-          description:
-            'Creamos soluciones a medida que se alinean perfectamente con los objetivos y procesos de tu empresa, utilizando las herramientas avanzadas de SAP BTP para garantizar aplicaciones robustas y escalables.',
-          description_en:
-            'We create custom solutions perfectly aligned with your company\'s goals and processes, using the advanced tools of SAP BTP to guarantee robust and scalable applications.',
-        },
-        {
-          icon: Workflow,
-          title: 'Flujo de trabajo',
-          title_en: 'Workflow',
-          description:
-            'Optimizamos y automatizamos tus procesos de negocio para mejorar la productividad y reducir los tiempos de ciclo, asegurando que tus operaciones sean más ágiles y efectivas.',
-          description_en:
-            'We optimize and automate your business processes to improve productivity and reduce cycle times, making your operations more agile and effective.',
-        },
-        {
-          icon: BarChart3,
-          title: 'Gestión y análisis de datos',
-          title_en: 'Data management and analytics',
-          description:
-            'Implementamos estrategias de gestión de datos que te permiten obtener insights valiosos y en tiempo real, apoyando decisiones estratégicas y operativas basadas en datos precisos.',
-          description_en:
-            'We implement data management strategies that give you valuable real-time insights, supporting strategic and operational decisions based on precise data.',
-        },
-        {
-          icon: Bot,
-          title: 'Automatización',
-          title_en: 'Automation',
-          description:
-            'Utilizamos las capacidades de automatización de SAP BTP para reducir la carga de trabajo manual, minimizar errores y liberar recursos para tareas de mayor valor añadido.',
-          description_en:
-            'We use the automation capabilities of SAP BTP to reduce manual workload, minimize errors and free up resources for higher-value tasks.',
-        },
-        {
-          icon: Users,
-          title: 'Soporte y consultoría',
-          title_en: 'Support and consulting',
-          description:
-            'Ofrecemos soporte continuo y servicios de consultoría para asegurar que tu empresa maximice el valor de SAP BTP, adaptándose a las tendencias del mercado y manteniendo una ventaja competitiva.',
-          description_en:
-            'We provide ongoing support and consulting services to ensure your company maximizes the value of SAP BTP, adapting to market trends and maintaining a competitive edge.',
-        },
+        { icon: Plug, title: 'Integración de sistemas y APIs', title_en: 'System and API integration' },
+        { icon: Code2, title: 'Desarrollo de extensiones y apps custom', title_en: 'Custom extensions and app development' },
+        { icon: Workflow, title: 'Automatización con SAP Build Process Automation', title_en: 'Automation with SAP Build Process Automation' },
+        { icon: BarChart3, title: 'Gestión de datos y analíticas', title_en: 'Data management and analytics' },
+        { icon: Network, title: 'Conectividad con sistemas externos', title_en: 'Connectivity with external systems' },
+        { icon: Wrench, title: 'Soporte y evolución continua', title_en: 'Ongoing support and evolution' },
       ],
       benefits: [
         {
@@ -932,6 +718,12 @@ export const SERVICES: Service[] = [
           technologies: ['AI Core', 'HANA Cloud', 'BTP'],
         },
       ],
+      horizonte: {
+        text:
+          'SAP BTP evoluciona hacia el núcleo de la Empresa Autónoma. Con Joule Studio integrado, los desarrolladores pueden crear agentes, flujos de trabajo y extensiones usando lenguaje natural, respetando el Clean Core y los estándares de gobernanza SAP. La Integration Suite suma orquestación de agentes, ingesta de datos en tiempo real y un AI Gateway para conectar IA con sistemas SAP y de terceros de forma controlada.',
+        text_en:
+          'SAP BTP is evolving into the core of the Autonomous Enterprise. With Joule Studio built in, developers can create agents, workflows and extensions using natural language while respecting Clean Core and SAP governance standards. The Integration Suite adds agent orchestration, real-time data ingestion and an AI Gateway to connect AI with SAP and third-party systems in a controlled way.',
+      },
       relatedTechIds: ['signavio', 'fiori', 'leanix', 'ia'],
       faq: [
         {
@@ -989,95 +781,29 @@ export const SERVICES: Service[] = [
     tags: ['EA', 'AI Agent Hub', 'Fact Sheets', 'Governance'],
     detail: {
       tagline:
-        'La arquitectura como palanca: catálogo, gobernanza y ahora también el control central de agentes, LLMs y servidores MCP en toda la organización.',
+        'Conocé tu arquitectura tecnológica. Decidí con claridad.',
       tagline_en:
-        'Architecture as leverage: catalog, governance and now the central control point for agents, LLMs and MCP servers across the entire organization.',
+        'Know your technology architecture. Decide with clarity.',
       heroImage:
-        'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80',
-      overviewImage:
-        'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80',
+        '/images/LEANIX-1.png',
+      overviewImage: '/images/LEANIX-2.png',
       overviewParagraphs: [
-        'SAP LeanIX dejó de ser solo una herramienta de Enterprise Architecture: con SAP AI Agent Hub se convirtió en el centro de gobernanza de la IA empresarial — inventario centralizado de agentes, LLMs y servidores MCP, sin importar en qué plataforma corran. En GoTechy implementamos LeanIX como columna vertebral del control de cambio en organizaciones que escalan IA.',
-        'Cubrimos las capacidades clave de la plataforma: el Enterprise Architect Assistant que mantiene los datos arquitectónicos al día, la integración con Signavio Process Transformation Manager para conectar arquitectura con procesos, el alineamiento con SAP Cloud ALM y los Fact Sheets enriquecidos con datos de procesos.',
-        'Implementamos las nuevas funcionalidades de gobernanza de IA: registro y observabilidad de agentes, evaluación de riesgo y verificación formal antes de producción, integración con SAP Cloud Identity Services para control de acceso, análisis de ejecución con Signavio y mapeo a unidades de negocio vía SuccessFactors.',
-        'Sin LeanIX, escalar agentes es jugar a la ruleta. Con LeanIX, cada agente que entra a producción está catalogado, evaluado, monitoreado y vinculado a un dueño funcional. Eso es lo que diferencia un POC de IA de una operación autónoma sostenible.',
+        'Implementamos SAP LeanIX para mapear, analizar y optimizar el portfolio de aplicaciones de tu empresa.',
+        'Eliminá redundancias, gestioná deuda técnica y planificá tu roadmap tecnológico con visibilidad real sobre cada sistema y su ciclo de vida.',
+        'Convertimos un inventario disperso en una única fuente de verdad: cada aplicación queda documentada, evaluada y con un dueño asignado, lista para sostener decisiones de arquitectura con datos.',
       ],
       overviewParagraphs_en: [
-        'SAP LeanIX is no longer just an Enterprise Architecture tool: with SAP AI Agent Hub it became the governance center for enterprise AI — a centralized inventory of agents, LLMs and MCP servers, no matter which platform they run on. At GoTechy we implement LeanIX as the backbone of change control in organizations scaling AI.',
-        'We cover the platform\'s key capabilities: the Enterprise Architect Assistant that keeps architectural data up to date, integration with Signavio Process Transformation Manager to connect architecture with processes, alignment with SAP Cloud ALM and Fact Sheets enriched with process data.',
-        'We implement the new AI governance features: agent registration and observability, risk assessment and formal verification before production, integration with SAP Cloud Identity Services for access control, execution analysis with Signavio and mapping to business units via SuccessFactors.',
-        'Without LeanIX, scaling agents is a gamble. With LeanIX, every agent going to production is catalogued, evaluated, monitored and tied to a functional owner. That\'s what separates an AI POC from a sustainable autonomous operation.',
+        'We implement SAP LeanIX to map, analyze and optimize your company\'s application portfolio.',
+        'Eliminate redundancies, manage technical debt and plan your technology roadmap with real visibility into every system and its lifecycle.',
+        'We turn a scattered inventory into a single source of truth: every application is documented, assessed and assigned an owner — ready to back architecture decisions with data.',
       ],
       features: [
-        {
-          icon: Network,
-          title: 'Modelado de plataformas',
-          title_en: 'Platform modeling',
-          description:
-            'Conecta componentes de TI y aplicaciones a conceptos estratégicos, brindando a los CIOs información sobre los elementos críticos que respaldan las plataformas de la organización.',
-          description_en:
-            'Connects IT components and applications to strategic concepts, giving CIOs insight into the critical elements that support the organization\'s platforms.',
-          bullets: [
-            'Application Portfolio Management vivo',
-            'Mapeo de aplicaciones a capabilities de negocio',
-            'Análisis de dependencias entre componentes',
-            'Inventario de tecnologías y su ciclo de vida',
-            'Vista ejecutiva del landscape completo',
-          ],
-          bullets_en: [
-            'Live Application Portfolio Management',
-            'Mapping of applications to business capabilities',
-            'Dependency analysis between components',
-            'Technology inventory and lifecycle',
-            'Executive view of the full landscape',
-          ],
-        },
-        {
-          icon: Boxes,
-          title: 'Meta Model predefinido',
-          title_en: 'Predefined Meta Model',
-          description:
-            'Proporciona una estructura estandarizada para documentar todos los elementos de la arquitectura empresarial, basada en las mejores prácticas de más de 1.000 clientes.',
-          description_en:
-            'Provides a standardized structure to document all elements of the enterprise architecture, based on best practices from over 1,000 customers.',
-          bullets: [
-            'Estructura estandarizada lista para usar',
-            'Best practices de 1.000+ clientes globales',
-            'Aplicaciones, tecnologías, capabilities y procesos pre-modelados',
-            'Adaptable a tu modelo de negocio',
-            'Reduce el time-to-value a semanas',
-          ],
-          bullets_en: [
-            'Ready-to-use standardized structure',
-            'Best practices from 1,000+ global customers',
-            'Applications, technologies, capabilities and processes pre-modeled',
-            'Adaptable to your business model',
-            'Reduces time-to-value to weeks',
-          ],
-        },
-        {
-          icon: Sparkles,
-          title: 'Integración con herramientas de IA',
-          title_en: 'Integration with AI tools',
-          description:
-            'Ofrece funciones como el Inventory Builder, que acelera la creación del inventario de TI mediante inteligencia artificial.',
-          description_en:
-            'Offers features like the Inventory Builder, which speeds up IT inventory creation using artificial intelligence.',
-          bullets: [
-            'Inventory Builder con IA para el inventario inicial',
-            'Detección automática desde SSO, CMDB y cloud providers',
-            'Continuous discovery del landscape',
-            'Recomendaciones automatizadas de catalogación',
-            'Mantenimiento mínimo del repositorio',
-          ],
-          bullets_en: [
-            'AI-powered Inventory Builder for the initial inventory',
-            'Automatic detection from SSO, CMDB and cloud providers',
-            'Continuous discovery of the landscape',
-            'Automated catalog recommendations',
-            'Minimal manual repository maintenance',
-          ],
-        },
+        { icon: LayoutGrid, title: 'Application Portfolio Management', title_en: 'Application Portfolio Management' },
+        { icon: Network, title: 'Mapeo de arquitectura empresarial', title_en: 'Enterprise architecture mapping' },
+        { icon: Cloud, title: 'Evaluación de cloud readiness', title_en: 'Cloud readiness assessment' },
+        { icon: GitBranch, title: 'Gestión del ciclo de vida de aplicaciones', title_en: 'Application lifecycle management' },
+        { icon: Plug, title: 'Integración nativa con Signavio y BTP', title_en: 'Native integration with Signavio and BTP' },
+        { icon: BarChart3, title: 'Reporting para CIOs y equipos técnicos', title_en: 'Reporting for CIOs and technical teams' },
       ],
       benefits: [
         {
@@ -1167,6 +893,12 @@ export const SERVICES: Service[] = [
           technologies: ['LeanIX', 'TBM'],
         },
       ],
+      horizonte: {
+        text:
+          'El Asistente de Arquitectura Empresarial de LeanIX convierte documentos internos en datos estructurados y enriquece las fichas técnicas con investigación externa de forma automática. Integrado con SAP AI Agent Hub, los equipos pueden inventariar, evaluar y gobernar todos los agentes de IA de la organización con visibilidad completa de quién los usa, qué hacen y cómo se alinean con la arquitectura empresarial.',
+        text_en:
+          'LeanIX\'s Enterprise Architecture Assistant turns internal documents into structured data and automatically enriches fact sheets with external research. Integrated with SAP AI Agent Hub, teams can inventory, assess and govern every AI agent in the organization with full visibility into who uses them, what they do and how they align with the enterprise architecture.',
+      },
       relatedTechIds: ['signavio', 'btp', 'basis', 'pm'],
       faq: [
         {
@@ -1224,116 +956,29 @@ export const SERVICES: Service[] = [
     tags: ['Cloud ERP', 'RISE', 'Clean Core', '24/7 Ops'],
     detail: {
       tagline:
-        'El camino a Cloud ERP con asistentes Joule de migración y modernización — Clean Core como principio, no como aspiración.',
+        'Tu infraestructura SAP, estable, segura y en buenas manos.',
       tagline_en:
-        'The path to Cloud ERP with Joule migration and modernization assistants — Clean Core as a principle, not an aspiration.',
+        'Your SAP infrastructure — stable, secure and in good hands.',
       heroImage:
-        'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&w=1600&q=80',
-      overviewImage:
-        'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+        '/images/SAPBASIS-1.png',
+      overviewImage: '/images/SAPBASIS-2.png',
       overviewParagraphs: [
-        'Operamos, migramos y modernizamos sistemas SAP a lo largo de todo su ciclo de vida — desde implementación hasta upgrades, alta disponibilidad, DR y soporte 24/7. Con más de 20 años en el ecosistema y SLAs personalizados para clientes enterprise críticos.',
-        'SAP incorporó los asistentes Joule de migración y modernización dentro de RISE with SAP Advanced Cloud Transformation: análisis automatizado de sistemas, detección y corrección de código personalizado, aplicación de best practices y testing/validación automatizados. En GoTechy aprovechamos estos asistentes para acortar drásticamente los tiempos de transición a SAP Cloud ERP — público o privado.',
-        'Aplicamos los cinco principios de Clean Core en cada migración: el ERP queda estándar, las extensiones viven en BTP, y las puertas de calidad de RISE with SAP miden objetivamente la preparación para IA. Esto permite que cada release nueva de SAP (Joule, Industry AI, BDC) llegue al cliente sin reescribir nada.',
-        'Cubrimos toda la stack técnica: instalación, configuración, performance tuning, seguridad, observabilidad, migraciones a S/4HANA y arquitecturas híbridas. Sumamos servicios alineados al Max Success Plan de SAP para coordinar adopción, gobernanza y soporte premium en transformaciones complejas.',
+        'Administramos y monitoreamos tu entorno SAP de punta a punta.',
+        'Desde la operación diaria hasta upgrades y migraciones complejas, garantizamos disponibilidad, seguridad y rendimiento óptimo con SLAs adaptados a los requerimientos de tu negocio.',
+        'Operamos con guardia activa para los entornos productivos críticos y más de 20 años de experiencia en el ecosistema, para que tu equipo se enfoque en el negocio y no en apagar incendios.',
       ],
       overviewParagraphs_en: [
-        'We operate, migrate and modernize SAP systems across their full lifecycle — from implementation to upgrades, high availability, DR and 24/7 support. With more than 20 years in the ecosystem and customized SLAs for critical enterprise customers.',
-        'SAP added the Joule migration and modernization assistants inside RISE with SAP Advanced Cloud Transformation: automated system analysis, detection and correction of custom code, best-practice application and automated testing/validation. At GoTechy we leverage these assistants to drastically shorten transition times to SAP Cloud ERP — public or private.',
-        'We apply the five Clean Core principles to every migration: the ERP stays standard, extensions live in BTP, and the RISE with SAP quality gates objectively measure AI readiness. This lets every new SAP release (Joule, Industry AI, BDC) reach the customer without rewriting anything.',
-        'We cover the full technical stack: installation, configuration, performance tuning, security, observability, S/4HANA migrations and hybrid architectures. We add services aligned with SAP\'s Max Success Plan to coordinate adoption, governance and premium support in complex transformations.',
+        'We administer and monitor your SAP environment end to end.',
+        'From daily operations to complex upgrades and migrations, we guarantee availability, security and optimal performance with SLAs adapted to your business requirements.',
+        'We run active on-call for critical production environments, backed by 20+ years in the ecosystem, so your team focuses on the business instead of firefighting.',
       ],
       features: [
-        {
-          icon: Server,
-          title: 'Implementaciones técnicas y soporte post-implementación',
-          title_en: 'Technical implementations and post-implementation support',
-          description:
-            'Realizamos implementaciones técnicas de sistemas SAP — incluyendo sizing, instalación, configuración técnica y soporte continuo — para asegurar una transición sin problemas y garantizar que tu sistema funcione de manera eficiente.',
-          description_en:
-            'We deliver technical implementations of SAP systems — including sizing, installation, technical configuration and ongoing support — to ensure a smooth transition and make sure your system runs efficiently.',
-        },
-        {
-          icon: ArrowUpCircle,
-          title: 'Actualización de stack o versión de sistemas',
-          title_en: 'Stack or version upgrades',
-          description:
-            'Realizamos actualizaciones de stack y de versión de sistemas SAP, asegurando que tu infraestructura esté siempre al día con las últimas mejoras y parches de seguridad.',
-          description_en:
-            'We perform stack and version upgrades of SAP systems, making sure your infrastructure is always up to date with the latest improvements and security patches.',
-        },
-        {
-          icon: Database,
-          title: 'Actualización de bases de datos',
-          title_en: 'Database upgrades',
-          description:
-            'Actualizamos las bases de datos sobre las que corren tus sistemas SAP para que cuentes con las últimas mejoras y correcciones.',
-          description_en:
-            'We upgrade the databases your SAP systems run on so you benefit from the latest improvements and fixes.',
-        },
-        {
-          icon: ShieldCheck,
-          title: 'Backup y restauración de bases de datos',
-          title_en: 'Database backup and restoration',
-          description:
-            'Configuramos backups periódicos de las bases de datos de tus sistemas SAP, protegiendo tus datos ante posibles fallas. En caso de requerir el regreso a un estado anterior, efectuamos restauraciones de bases de datos.',
-          description_en:
-            'We configure periodic database backups of your SAP systems, protecting your data against possible failures. When a rollback is needed, we perform database restorations.',
-        },
-        {
-          icon: GitMerge,
-          title: 'Migraciones homogéneas y heterogéneas',
-          title_en: 'Homogeneous and heterogeneous migrations',
-          description:
-            'Llevamos a cabo migraciones de sistemas SAP, ya sea dentro del mismo entorno (homogéneas) o hacia diferentes plataformas (heterogéneas), minimizando riesgos y asegurando la integridad de los datos.',
-          description_en:
-            'We carry out SAP system migrations, whether within the same environment (homogeneous) or to different platforms (heterogeneous), minimizing risk and safeguarding data integrity.',
-        },
-        {
-          icon: Activity,
-          title: 'Esquemas de alta disponibilidad',
-          title_en: 'High availability architectures',
-          description:
-            'Diseñamos e implementamos arquitecturas de alta disponibilidad para tus sistemas SAP, garantizando la continuidad operativa y minimizando el tiempo de inactividad.',
-          description_en:
-            'We design and implement high availability architectures for your SAP systems, guaranteeing operational continuity and minimizing downtime.',
-        },
-        {
-          icon: Lock,
-          title: 'Gestión integral de seguridad y perfiles',
-          title_en: 'Integrated security and profile management',
-          description:
-            'Ofrecemos una gestión completa de la seguridad de tu entorno SAP, incluyendo la administración de perfiles y roles de usuario, para proteger tu información crítica.',
-          description_en:
-            'We provide full security management for your SAP environment, including user profile and role administration, to protect your critical information.',
-        },
-        {
-          icon: Wrench,
-          title: 'Soporte y mantenimiento',
-          title_en: 'Support and maintenance',
-          description:
-            'Proporcionamos soporte técnico y mantenimiento preventivo y correctivo, asegurando que tus sistemas SAP operen de manera óptima y resolviendo cualquier incidencia que pueda surgir.',
-          description_en:
-            'We provide technical support and preventive and corrective maintenance, ensuring your SAP systems run at their best and resolving any incidents that arise.',
-        },
-        {
-          icon: BarChart3,
-          title: 'Monitoreo y reportes',
-          title_en: 'Monitoring and reporting',
-          description:
-            'Monitoreamos la integridad y el rendimiento de tus sistemas SAP y generamos reportes técnicos y ejecutivos para que te mantengas al tanto del estado de tu plataforma y puedas tomar decisiones informadas.',
-          description_en:
-            'We monitor the integrity and performance of your SAP systems and generate technical and executive reports so you stay aware of your platform\'s status and make informed decisions.',
-        },
-        {
-          icon: Users,
-          title: 'Coaching de proyectos',
-          title_en: 'Project coaching',
-          description:
-            'Brindamos asesoramiento y coaching para proyectos SAP, apoyando a tu equipo en la planificación, ejecución y gestión de proyectos para garantizar su éxito.',
-          description_en:
-            'We provide advisory and coaching for SAP projects, supporting your team in planning, executing and managing projects to guarantee their success.',
-        },
+        { icon: Server, title: 'Administración SAP (ECC, S/4HANA, BTP)', title_en: 'SAP administration (ECC, S/4HANA, BTP)' },
+        { icon: Activity, title: 'Monitoreo proactivo y soporte continuo', title_en: 'Proactive monitoring and ongoing support' },
+        { icon: Lock, title: 'Gestión de seguridad y perfiles de usuario', title_en: 'Security and user profile management' },
+        { icon: GitMerge, title: 'Upgrades, migraciones y aplicación de patches', title_en: 'Upgrades, migrations and patching' },
+        { icon: ShieldCheck, title: 'SLAs personalizados', title_en: 'Customized SLAs' },
+        { icon: BarChart3, title: 'Reportes técnicos y ejecutivos', title_en: 'Technical and executive reporting' },
       ],
       benefits: [
         {
@@ -1423,6 +1068,12 @@ export const SERVICES: Service[] = [
           technologies: ['Basis', 'HANA', 'Workload analysis'],
         },
       ],
+      horizonte: {
+        text:
+          'SAP Cloud ALM se consolida como la plataforma central de operaciones para entornos cloud, con capacidades de resolución de casos asistida por agentes de IA que analizan incidentes, detectan duplicados y acortan los tiempos de resolución. Acompañamos esa transición para que no pierdas visibilidad ni control durante el cambio.',
+        text_en:
+          'SAP Cloud ALM is consolidating as the central operations platform for cloud environments, with AI-agent-assisted case resolution that analyzes incidents, detects duplicates and shortens resolution times. We support that transition so you don\'t lose visibility or control during the change.',
+      },
       relatedTechIds: ['btp', 'leanix', 'abap', 'pm'],
       faq: [
         {
@@ -1480,141 +1131,29 @@ export const SERVICES: Service[] = [
     tags: ['Fiori Elements', 'UI5', 'Joule Work', 'UX'],
     detail: {
       tagline:
-        'La experiencia de usuario completa: Fiori para transacciones estructuradas + Joule Work como capa adaptativa basada en intención.',
+        'SAP en cualquier dispositivo. Simple, rápido, sin fricciones.',
       tagline_en:
-        'The complete user experience: Fiori for structured transactions + Joule Work as an adaptive intent-based layer.',
+        'SAP on any device. Simple, fast, frictionless.',
       heroImage:
-        'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1600&q=80',
-      overviewImage:
-        'https://images.unsplash.com/photo-1607013251379-e6eecfffe234?auto=format&fit=crop&w=1200&q=80',
+        '/images/SAPFIORI-1.png',
+      overviewImage: '/images/SAPFIORI-2.png',
       overviewParagraphs: [
-        'SAP redefinió la experiencia de usuario con Joule Work — un espacio de trabajo dinámico que interpreta la intención del usuario en lenguaje natural (texto y voz) y coordina agentes para ejecutar tareas en sistemas SAP y no SAP. Joule Work complementa Fiori: las transacciones estructuradas siguen siendo el dominio de Fiori; los flujos multi-paso, multi-sistema, multi-dominio los resuelve Joule.',
-        'En GoTechy diseñamos e implementamos la combinación correcta para cada cliente: apps Fiori estándar y custom con SAPUI5/Fiori Elements para operaciones core, y la integración progresiva de Joule Work (web, móvil y desktop) para que los usuarios deleguen tareas rutinarias y se enfoquen en decisiones.',
-        'Cubrimos el Fiori Launchpad como punto de entrada unificado, desarrollos custom con UI5/Fiori Elements y la incorporación de la voz inteligente (alianza SAP-LiveKit) para empleados que trabajan fuera del teclado — campo, planta, retail, logística.',
-        'El diferencial real ya no es solo "menos clicks". Es: lo que antes requería navegar 7 transacciones, hoy se resuelve diciéndole a Joule cuál es tu objetivo. Esa transición es la que ayudamos a planificar y entregar sin romper lo que ya funciona.',
+        'Modernizamos la experiencia de usuario de SAP con Fiori.',
+        'Interfaces intuitivas y responsive que reducen la curva de aprendizaje, mejoran la productividad y hacen que el trabajo en SAP sea más ágil desde cualquier dispositivo.',
+        'Combinamos apps estándar y desarrollos a medida sobre SAPUI5 y Fiori Elements, integrados con S/4HANA y BTP, para que cada rol acceda exactamente a lo que necesita.',
       ],
       overviewParagraphs_en: [
-        'SAP redefined the user experience with Joule Work — a dynamic workspace that interprets user intent in natural language (text and voice) and coordinates agents to execute tasks across SAP and non-SAP systems. Joule Work complements Fiori: structured transactions remain Fiori\'s domain; multi-step, multi-system, multi-domain flows are resolved by Joule.',
-        'At GoTechy we design and implement the right combination for each customer: standard and custom Fiori apps with SAPUI5/Fiori Elements for core operations, and the progressive integration of Joule Work (web, mobile and desktop) so users delegate routine tasks and focus on decisions.',
-        'We cover the Fiori Launchpad as a unified entry point, custom developments with UI5/Fiori Elements and the addition of intelligent voice (SAP-LiveKit partnership) for employees who work away from the keyboard — field, plant, retail, logistics.',
-        'The real differentiator is no longer just "fewer clicks." It\'s: what used to require navigating 7 transactions is now solved by telling Joule what your goal is. That\'s the transition we help you plan and deliver without breaking what already works.',
+        'We modernize the SAP user experience with Fiori.',
+        'Intuitive, responsive interfaces that reduce the learning curve, boost productivity and make working in SAP more agile from any device.',
+        'We combine standard apps and custom development on SAPUI5 and Fiori Elements, integrated with S/4HANA and BTP, so every role gets exactly what it needs.',
       ],
       features: [
-        {
-          icon: Rocket,
-          title: 'Implementación',
-          title_en: 'Implementation',
-          description:
-            'Despliegue completo de SAP Fiori adaptado a las necesidades de tu empresa, desde la activación del Launchpad hasta el rollout a usuarios.',
-          description_en:
-            'Full SAP Fiori deployment tailored to your company\'s needs, from Launchpad activation to user rollout.',
-          bullets: [
-            'Activación y configuración del Fiori Launchpad',
-            'Catalogación de apps estándar relevantes',
-            'Roles, autorizaciones y SSO con tu IdP',
-            'Plan de adopción y rollout por área',
-            'Transferencia de conocimiento al equipo interno',
-          ],
-          bullets_en: [
-            'Activation and configuration of the Fiori Launchpad',
-            'Cataloging of relevant standard apps',
-            'Roles, authorizations and SSO with your IdP',
-            'Adoption and rollout plan by department',
-            'Knowledge transfer to the internal team',
-          ],
-        },
-        {
-          icon: Code2,
-          title: 'Desarrollo de aplicaciones personalizadas',
-          title_en: 'Custom application development',
-          description:
-            'Creación de soluciones a medida para optimizar tus procesos, utilizando Fiori Elements y SAPUI5 según el caso.',
-          description_en:
-            'Creation of tailored solutions to optimize your processes, using Fiori Elements and SAPUI5 as appropriate.',
-          bullets: [
-            'Fiori Elements (apps generadas por metadata)',
-            'SAPUI5 / OpenUI5 custom para procesos específicos',
-            'Diseño UX alineado al design system de Fiori',
-            'Backend OData v4 / RAP a medida',
-            'Apps responsive — desktop, tablet y mobile',
-          ],
-          bullets_en: [
-            'Fiori Elements (metadata-driven apps)',
-            'Custom SAPUI5 / OpenUI5 for specific processes',
-            'UX design aligned with the Fiori design system',
-            'Custom OData v4 / RAP backend',
-            'Responsive apps — desktop, tablet and mobile',
-          ],
-        },
-        {
-          icon: ArrowUpCircle,
-          title: 'Actualizaciones',
-          title_en: 'Updates',
-          description:
-            'Mantenimiento y mejora continua para asegurar el mejor rendimiento y compatibilidad con nuevos releases de SAP.',
-          description_en:
-            'Maintenance and continuous improvement to ensure the best performance and compatibility with new SAP releases.',
-          bullets: [
-            'Upgrades de versión de UI5',
-            'Actualización de catálogos estándar',
-            'Compatibilidad con nuevos releases SAP',
-            'Refactor de apps custom legacy',
-            'Mantenimiento preventivo y proactivo',
-          ],
-          bullets_en: [
-            'UI5 version upgrades',
-            'Update of standard catalogs',
-            'Compatibility with new SAP releases',
-            'Refactor of legacy custom apps',
-            'Preventive and proactive maintenance',
-          ],
-        },
-        {
-          icon: Zap,
-          title: 'Optimización del rendimiento',
-          title_en: 'Performance optimization',
-          description:
-            'Ajustes técnicos para mejorar la velocidad y eficiencia de tus aplicaciones Fiori, con foco en la experiencia del usuario final.',
-          description_en:
-            'Technical adjustments to improve the speed and efficiency of your Fiori applications, focused on the end-user experience.',
-          bullets: [
-            'Análisis de tiempos de carga y LCP',
-            'Optimización OData v4 vs. v2',
-            'Lazy loading, bundling y caching',
-            'Tuning del SAP Gateway',
-            'Mejores prácticas de SAPUI5',
-          ],
-          bullets_en: [
-            'Load time and LCP analysis',
-            'OData v4 vs. v2 optimization',
-            'Lazy loading, bundling and caching',
-            'SAP Gateway tuning',
-            'SAPUI5 best practices',
-          ],
-        },
-        {
-          icon: Wrench,
-          title: 'Resolución de problemas',
-          title_en: 'Troubleshooting',
-          description:
-            'Asistencia experta para solucionar errores y garantizar un funcionamiento óptimo de tus apps Fiori en producción.',
-          description_en:
-            'Expert assistance to solve errors and guarantee optimal operation of your Fiori apps in production.',
-          bullets: [
-            'Soporte L2 / L3 especializado',
-            'Diagnóstico y resolución de incidencias',
-            'Hotfixes a apps custom',
-            'Análisis de logs y troubleshooting',
-            'SLA personalizado según criticidad',
-          ],
-          bullets_en: [
-            'Specialized L2 / L3 support',
-            'Incident diagnosis and resolution',
-            'Hotfixes to custom apps',
-            'Log analysis and troubleshooting',
-            'Customized SLA based on criticality',
-          ],
-        },
+        { icon: Rocket, title: 'Implementación y configuración de SAP Fiori', title_en: 'SAP Fiori implementation and configuration' },
+        { icon: Code2, title: 'Desarrollo de apps personalizadas (Fiori Elements / RAP)', title_en: 'Custom app development (Fiori Elements / RAP)' },
+        { icon: MonitorSmartphone, title: 'Fiori Launchpad y UX design', title_en: 'Fiori Launchpad and UX design' },
+        { icon: Plug, title: 'Integración con S/4HANA y BTP', title_en: 'Integration with S/4HANA and BTP' },
+        { icon: Zap, title: 'Optimización de rendimiento', title_en: 'Performance optimization' },
+        { icon: Wrench, title: 'Soporte y actualizaciones continuas', title_en: 'Ongoing support and updates' },
       ],
       benefits: [
         {
@@ -1714,6 +1253,12 @@ export const SERVICES: Service[] = [
           technologies: ['Fiori', 'Workflow', 'S/4HANA'],
         },
       ],
+      horizonte: {
+        text:
+          'Joule Work redefine la interacción con SAP más allá de las interfaces transaccionales. Los usuarios expresan sus objetivos en lenguaje natural y los asistentes coordinan agentes para ejecutar tareas en múltiples sistemas sin necesidad de navegar entre pantallas. Además, SAP y Vercel colaboran para ofrecer experiencias web más flexibles que combinan los estándares Fiori con la velocidad del desarrollo moderno.',
+        text_en:
+          'Joule Work redefines interaction with SAP beyond transactional interfaces. Users express their goals in natural language and assistants coordinate agents to execute tasks across multiple systems without navigating between screens. SAP and Vercel are also collaborating to deliver more flexible web experiences that combine Fiori standards with the speed of modern development.',
+      },
       relatedTechIds: ['abap', 'btp', 'nextgen', 'signavio'],
       faq: [
         {
@@ -1771,164 +1316,29 @@ export const SERVICES: Service[] = [
     tags: ['Clean Core', 'RAP', 'CDS Views', 'Domain Models'],
     detail: {
       tagline:
-        'Desarrollo ABAP alineado a los principios de Clean Core: extensiones que no rompen al upgradear y que conviven con SAP Domain Models e IA generativa de código.',
+        'Customizaciones SAP limpias, eficientes y listas para S/4HANA.',
       tagline_en:
-        'ABAP development aligned with Clean Core principles: extensions that don\'t break on upgrade and coexist with SAP Domain Models and generative AI code.',
+        'Clean, efficient SAP customizations, ready for S/4HANA.',
       heroImage:
-        'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=80',
-      overviewImage:
-        'https://images.unsplash.com/photo-1572177812156-58036aae439c?auto=format&fit=crop&w=1200&q=80',
+        '/images/SAPABAP-1.png',
+      overviewImage: '/images/SAPABAP-2.png',
       overviewParagraphs: [
-        'Especialistas en SAP ABAP — clásico, RAP (RESTful ABAP Programming), CDS Views y AMDPs — para extender, optimizar y modernizar el sistema sin comprometer la trayectoria a Cloud ERP. Nuestro equipo aplica los cinco principios de Clean Core en cada commit.',
-        'SAP introdujo los Domain Models: modelos de IA entrenados específicamente con código, datos y patrones de SAP S/4HANA, capaces de generar ABAP limpio y compatible con el core desde lenguaje natural. En GoTechy adoptamos estas capacidades — vía Joule Studio — para acelerar el desarrollo manteniendo la gobernanza.',
-        'Trabajamos con User Exits, BAdIs, Enhancements y CDS Views para extender el estándar sin tocarlo. Para extensiones complejas, las llevamos a SAP BTP como side-by-side: ese es el patrón que sobrevive cada upgrade y deja al ERP listo para adoptar Joule Assistants y nuevos releases sin reescribir.',
-        'Cuando el caso lo requiere, integramos ABAP con desarrollo agentico: APIs OData consumidas por agentes Joule, contextos publicados vía MCP para que la IA opere con datos de tu instancia, y validación de cambios con SAP Cloud ALM. Lo viejo y lo nuevo conviviendo sin fricción.',
+        'Desarrollamos y optimizamos código ABAP alineado a las mejores prácticas SAP.',
+        'Desde reportes y formularios hasta integraciones complejas y migraciones a S/4HANA, aseguramos soluciones escalables y fáciles de mantener.',
+        'Extendemos el estándar sin tocarlo —User Exits, BAdIs, CDS y RAP— y llevamos lo complejo a BTP, de modo que tus customizaciones sobrevivan cada upgrade.',
       ],
       overviewParagraphs_en: [
-        'Specialists in SAP ABAP — classic, RAP (RESTful ABAP Programming), CDS Views and AMDPs — to extend, optimize and modernize the system without compromising the path to Cloud ERP. Our team applies the five Clean Core principles on every commit.',
-        'SAP introduced Domain Models: AI models trained specifically on SAP S/4HANA code, data and patterns, capable of generating clean, core-compatible ABAP from natural language. At GoTechy we adopt these capabilities — via Joule Studio — to speed up development while keeping governance.',
-        'We work with User Exits, BAdIs, Enhancements and CDS Views to extend the standard without touching it. For complex extensions, we move them to SAP BTP as side-by-side: that\'s the pattern that survives every upgrade and leaves the ERP ready to adopt Joule Assistants and new releases without rewriting.',
-        'When the case requires it, we integrate ABAP with agentic development: OData APIs consumed by Joule agents, contexts published via MCP so AI operates with your instance\'s data, and change validation with SAP Cloud ALM. Old and new coexisting without friction.',
+        'We develop and optimize ABAP code aligned with SAP best practices.',
+        'From reports and forms to complex integrations and S/4HANA migrations, we deliver scalable solutions that are easy to maintain.',
+        'We extend the standard without touching it — User Exits, BAdIs, CDS and RAP — and move the complex pieces to BTP, so your customizations survive every upgrade.',
       ],
       features: [
-        {
-          icon: Code2,
-          title: 'Desarrollo y optimización de programas ABAP',
-          title_en: 'ABAP development and optimization',
-          description:
-            'Creación de reportes, formularios, interfaces y mejoras en el rendimiento del código existente, siguiendo normas de calidad y best practices.',
-          description_en:
-            'Creation of reports, forms, interfaces and performance improvements on existing code, following quality standards and best practices.',
-          bullets: [
-            'Reports ALV, SmartForms y Adobe Forms',
-            'Formularios e interfaces personalizadas',
-            'Mejoras de rendimiento sobre código legacy',
-            'Refactor con foco en mantenibilidad',
-            'Code reviews y validación con ATC',
-          ],
-          bullets_en: [
-            'ALV reports, SmartForms and Adobe Forms',
-            'Custom forms and interfaces',
-            'Performance improvements on legacy code',
-            'Refactor focused on maintainability',
-            'Code reviews and validation with ATC',
-          ],
-        },
-        {
-          icon: Wrench,
-          title: 'Ampliaciones y mejoras',
-          title_en: 'Enhancements and improvements',
-          description:
-            'User Exits, BAdIs, Enhancements y BTEs para adaptar procesos estándar de SAP a los requerimientos del negocio — sin tocar el core.',
-          description_en:
-            'User Exits, BAdIs, Enhancements and BTEs to adapt standard SAP processes to business requirements — without touching the core.',
-          bullets: [
-            'User Exits clásicos sobre ECC',
-            'BAdIs (Business Add-Ins) en S/4HANA',
-            'Implicit y Explicit Enhancements',
-            'BTEs (Business Transaction Events)',
-            'Customización 100% upgrade-safe',
-          ],
-          bullets_en: [
-            'Classic User Exits on ECC',
-            'BAdIs (Business Add-Ins) on S/4HANA',
-            'Implicit and Explicit Enhancements',
-            'BTEs (Business Transaction Events)',
-            '100% upgrade-safe customization',
-          ],
-        },
-        {
-          icon: Network,
-          title: 'Integraciones',
-          title_en: 'Integrations',
-          description:
-            'Desarrollo de APIs, Web Services y conectores para la integración de SAP con sistemas externos y plataformas B2B.',
-          description_en:
-            'Development of APIs, Web Services and connectors to integrate SAP with external systems and B2B platforms.',
-          bullets: [
-            'APIs REST y Web Services SOAP',
-            'BAPIs y BAPIs remotas (RFC)',
-            'IDOCs para integración EDI/B2B',
-            'Conectores con marketplaces y bancos',
-            'Middleware y mensajería',
-          ],
-          bullets_en: [
-            'REST APIs and SOAP Web Services',
-            'BAPIs and remote BAPIs (RFC)',
-            'IDOCs for EDI/B2B integration',
-            'Connectors with marketplaces and banks',
-            'Middleware and messaging',
-          ],
-        },
-        {
-          icon: GitMerge,
-          title: 'Migración y adaptación a S/4HANA',
-          title_en: 'Migration and adaptation to S/4HANA',
-          description:
-            'Conversión de código a ABAP en S/4HANA y uso de nuevas tecnologías como CDS Views y AMDPs para máxima performance.',
-          description_en:
-            'Code conversion to ABAP on S/4HANA and use of new technologies like CDS Views and AMDPs for maximum performance.',
-          bullets: [
-            'Análisis con SAP Readiness Check',
-            'Conversión a sintaxis S/4HANA',
-            'Reemplazo de tablas obsoletas',
-            'Modelado moderno con CDS Views',
-            'Procedimientos optimizados con AMDPs',
-          ],
-          bullets_en: [
-            'Analysis with SAP Readiness Check',
-            'Conversion to S/4HANA syntax',
-            'Replacement of obsolete tables',
-            'Modern modeling with CDS Views',
-            'Optimized procedures with AMDPs',
-          ],
-        },
-        {
-          icon: Workflow,
-          title: 'Desarrollo en SAP Fiori / UI5',
-          title_en: 'Development on SAP Fiori / UI5',
-          description:
-            'Aplicaciones web modernas y responsivas basadas en ABAP RAP y OData, listas para consumirse desde el Fiori Launchpad.',
-          description_en:
-            'Modern, responsive web applications based on ABAP RAP and OData, ready to be consumed from the Fiori Launchpad.',
-          bullets: [
-            'ABAP RAP (RESTful ABAP Programming)',
-            'Servicios OData v2 y v4',
-            'Backend para apps Fiori Elements',
-            'Integración con Fiori Launchpad',
-            'Custom apps SAPUI5',
-          ],
-          bullets_en: [
-            'ABAP RAP (RESTful ABAP Programming)',
-            'OData v2 and v4 services',
-            'Backend for Fiori Elements apps',
-            'Integration with Fiori Launchpad',
-            'Custom SAPUI5 apps',
-          ],
-        },
-        {
-          icon: Zap,
-          title: 'Automatización de procesos',
-          title_en: 'Process automation',
-          description:
-            'Creación de programas batch, BAPIs y herramientas de optimización de tareas repetitivas — para liberar al equipo de trabajo manual.',
-          description_en:
-            'Creation of batch programs, BAPIs and tools to optimize repetitive tasks — freeing the team from manual work.',
-          bullets: [
-            'Programas batch (background jobs)',
-            'BAPIs custom para procesos repetitivos',
-            'Workflow SAP estándar',
-            'Job scheduling y monitoreo',
-            'Reducción medible de tareas manuales',
-          ],
-          bullets_en: [
-            'Batch programs (background jobs)',
-            'Custom BAPIs for repetitive processes',
-            'Standard SAP Workflow',
-            'Job scheduling and monitoring',
-            'Measurable reduction of manual tasks',
-          ],
-        },
+        { icon: Code2, title: 'Desarrollo ABAP OO y ABAP RESTful (RAP)', title_en: 'ABAP OO and RESTful ABAP (RAP) development' },
+        { icon: Database, title: 'CDS Views y AMDPs para HANA', title_en: 'CDS Views and AMDPs for HANA' },
+        { icon: Network, title: 'APIs, Web Services y conectores', title_en: 'APIs, Web Services and connectors' },
+        { icon: Wrench, title: 'User Exits, BAdIs y Enhancements', title_en: 'User Exits, BAdIs and Enhancements' },
+        { icon: GitMerge, title: 'Migración y adaptación a S/4HANA', title_en: 'Migration and adaptation to S/4HANA' },
+        { icon: Zap, title: 'Automatización de procesos batch', title_en: 'Batch process automation' },
       ],
       approach: {
         eyebrow: 'Áreas de aplicación',
@@ -2044,6 +1454,12 @@ export const SERVICES: Service[] = [
           technologies: ['ABAP RAP', 'OData', 'Fiori'],
         },
       ],
+      horizonte: {
+        text:
+          'Los Domain Models de SAP son modelos de IA entrenados con conocimiento específico del ecosistema SAP: código, datos, procesos y arquitectura. Permiten a los desarrolladores en Joule Studio generar extensiones Clean Core a partir de lenguaje natural, con comprensión real del contexto SAP. ABAP Cloud y Clean Core son la dirección oficial: las extensiones del futuro corren en BTP y respetan el núcleo limpio. Preparamos tu código para esa transición.',
+        text_en:
+          'SAP\'s Domain Models are AI models trained on specific SAP-ecosystem knowledge: code, data, processes and architecture. They let developers in Joule Studio generate Clean Core extensions from natural language, with real understanding of the SAP context. ABAP Cloud and Clean Core are the official direction: tomorrow\'s extensions run on BTP and respect the clean core. We prepare your code for that transition.',
+      },
       relatedTechIds: ['fiori', 'btp', 'basis', 'pm'],
       faq: [
         {
@@ -2101,78 +1517,28 @@ export const SERVICES: Service[] = [
     tags: ['Joule Studio', 'MCP', 'A2A', 'Python', 'React'],
     detail: {
       tagline:
-        'Desarrollo moderno y agentico: Joule Studio con marcos de agentes preferidos (LangGraph, AutoGen, LlamaIndex), Python SDK, MCP, A2A y orquestación visual con n8n.',
+        'Soluciones a medida que se integran con SAP y escalan con tu negocio.',
       tagline_en:
-        'Modern and agentic development: Joule Studio with preferred agent frameworks (LangGraph, AutoGen, LlamaIndex), Python SDK, MCP, A2A and visual orchestration with n8n.',
-      heroImage:
-        'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1600&q=80',
+        'Custom solutions that integrate with SAP and scale with your business.',
+      heroImage: '/images/NEXTGEN-1.png',
+      overviewImage: '/images/NEXTGEN-2.jpg',
       overviewParagraphs: [
-        'El desarrollo empresarial ya no es solo "Java + APIs". Hoy se construyen agentes que razonan sobre datos SAP, se conectan vía MCP a herramientas internas y dialogan con agentes de terceros vía A2A. En GoTechy combinamos lo mejor de los dos mundos: full-stack moderno (Java, Node, Python, React, Angular) y desarrollo agentico sobre Joule Studio.',
-        'Usamos Joule Studio en modo pro-code con SAP Cloud SDK para Python y los frameworks de agentes que prefiere cada equipo — LangGraph, AutoGen, LlamaIndex. Los agentes que entregamos entienden nativamente el código, los modelos de datos y los procesos SAP gracias a los SAP Domain Models, no como genéricos de internet.',
-        'Para orquestación visual de flujos agenticos, aprovechamos la alianza SAP-n8n integrada en Joule Studio. Para experiencias front-end más allá de Fiori, usamos Vercel + Next.js cuando el caso pide velocidad y diseño custom. Y para razonamiento avanzado, integramos modelos como Claude (Anthropic) o los soberanos de la EU AI Cloud (Mistral, Cohere).',
-        'Construimos productos completos: portales B2B/B2C, comprobantes fiscales digitales, gestores de logística, integraciones con TMS, servicios cloud-native y ahora también agentes empresariales con gobernanza vía SAP AI Agent Hub. Código limpio, testeado, observable y listo para producción.',
+        'Desarrollamos aplicaciones modernas que extienden o complementan tu ecosistema SAP.',
+        'APIs, microservicios, portales y sistemas de gestión construidos con tecnologías actuales, integrados con los procesos core de tu empresa.',
+        'Trabajamos con código limpio, testeado y observable, con CI/CD y arquitecturas cloud-native pensadas para escalar y mantenerse en el tiempo.',
       ],
       overviewParagraphs_en: [
-        'Enterprise development is no longer just "Java + APIs". Today we build agents that reason over SAP data, connect to internal tools via MCP and converse with third-party agents via A2A. At GoTechy we combine the best of both worlds: modern full-stack (Java, Node, Python, React, Angular) and agentic development on Joule Studio.',
-        'We use Joule Studio in pro-code mode with the SAP Cloud SDK for Python and the agent frameworks each team prefers — LangGraph, AutoGen, LlamaIndex. The agents we deliver natively understand SAP code, data models and processes thanks to SAP Domain Models, not as internet generics.',
-        'For visual orchestration of agentic flows, we leverage the SAP-n8n partnership integrated into Joule Studio. For front-end experiences beyond Fiori, we use Vercel + Next.js when the case calls for speed and custom design. And for advanced reasoning, we integrate models like Claude (Anthropic) or the EU AI Cloud sovereigns (Mistral, Cohere).',
-        'We build complete products: B2B/B2C portals, digital tax receipts, logistics managers, TMS integrations, cloud-native services and now also enterprise agents with governance via SAP AI Agent Hub. Clean code, tested, observable and production-ready.',
+        'We build modern applications that extend or complement your SAP ecosystem.',
+        'APIs, microservices, portals and management systems built with current technologies, integrated with your company\'s core processes.',
+        'We work with clean, tested and observable code — CI/CD and cloud-native architectures designed to scale and last.',
       ],
       features: [
-        {
-          icon: Server,
-          title: 'Backend en Java / Spring Boot',
-          title_en: 'Backend in Java / Spring Boot',
-          description:
-            'APIs REST, microservicios y aplicaciones empresariales con Spring Boot, Hibernate y el stack Java tradicional.',
-          description_en:
-            'REST APIs, microservices and enterprise applications with Spring Boot, Hibernate and the traditional Java stack.',
-        },
-        {
-          icon: Code2,
-          title: 'Backend en Node.js / Python',
-          title_en: 'Backend in Node.js / Python',
-          description:
-            'Servicios livianos en Node.js (Express, NestJS) y Python (FastAPI, Django) cuando el caso lo justifica.',
-          description_en:
-            'Lightweight services in Node.js (Express, NestJS) and Python (FastAPI, Django) when the case warrants it.',
-        },
-        {
-          icon: Sparkles,
-          title: 'Frontends en React / Angular',
-          title_en: 'Frontends in React / Angular',
-          description:
-            'SPAs modernas, responsive y accesibles. Design systems consistentes con la marca del cliente.',
-          description_en:
-            'Modern, responsive and accessible SPAs. Design systems consistent with the client\'s brand.',
-        },
-        {
-          icon: GitBranch,
-          title: 'Microservicios y APIs',
-          title_en: 'Microservices and APIs',
-          description:
-            'Arquitecturas desacopladas con comunicación vía REST, gRPC o eventos. Listas para escalar.',
-          description_en:
-            'Decoupled architectures with communication via REST, gRPC or events. Ready to scale.',
-        },
-        {
-          icon: Workflow,
-          title: 'CI/CD y testing',
-          title_en: 'CI/CD and testing',
-          description:
-            'Pipelines de CI/CD, pruebas unitarias, integración y e2e. Calidad como parte del proceso, no como auditoría posterior.',
-          description_en:
-            'CI/CD pipelines, unit, integration and e2e testing. Quality as part of the process, not as a later audit.',
-        },
-        {
-          icon: ShieldCheck,
-          title: 'Seguridad y escalabilidad',
-          title_en: 'Security and scalability',
-          description:
-            'OAuth2/OIDC, encriptación, secrets management y auditoría. Apps diseñadas para crecer con el negocio.',
-          description_en:
-            'OAuth2/OIDC, encryption, secrets management and auditing. Apps designed to grow with the business.',
-        },
+        { icon: Server, title: 'Desarrollo Java / Spring Boot', title_en: 'Java / Spring Boot development' },
+        { icon: GitBranch, title: 'APIs REST y microservicios', title_en: 'REST APIs and microservices' },
+        { icon: Plug, title: 'Integración con SAP via RFC, OData, BAPI', title_en: 'SAP integration via RFC, OData, BAPI' },
+        { icon: MonitorSmartphone, title: 'Portales y aplicaciones web', title_en: 'Portals and web applications' },
+        { icon: Workflow, title: 'Automatización de procesos', title_en: 'Process automation' },
+        { icon: Cloud, title: 'Arquitecturas cloud-native', title_en: 'Cloud-native architectures' },
       ],
       benefits: [
         {
@@ -2282,6 +1648,12 @@ export const SERVICES: Service[] = [
           technologies: ['Spring Boot', 'React', 'PostgreSQL'],
         },
       ],
+      horizonte: {
+        text:
+          'Joule Studio permite a los desarrolladores construir agentes con sus frameworks preferidos (LangGraph, AutoGen, LlamaIndex) combinando código profesional con contexto SAP nativo. Los agentes soportan los protocolos MCP y A2A para conectarse con herramientas y agentes de terceros, haciéndolos interoperables y escalables en entornos multiagente. Además, SAP colabora con n8n para la orquestación visual de flujos de IA dentro de la infraestructura cloud de SAP.',
+        text_en:
+          'Joule Studio lets developers build agents with their preferred frameworks (LangGraph, AutoGen, LlamaIndex), combining professional code with native SAP context. The agents support the MCP and A2A protocols to connect with third-party tools and agents, making them interoperable and scalable in multi-agent environments. SAP is also collaborating with n8n for visual orchestration of AI flows within SAP\'s cloud infrastructure.',
+      },
       relatedTechIds: ['btp', 'fiori', 'ia', 'abap'],
       faq: [
         {
@@ -2339,95 +1711,28 @@ export const SERVICES: Service[] = [
     tags: ['Activate', 'Agile', 'Joule PM Assistant', 'PMO'],
     detail: {
       tagline:
-        'Project management de SAP enterprise potenciado por Autonomous Project Delivery — Asistente de Gestión de Proyectos, Asistente de Facturación y métricas de valor en tiempo real.',
+        'Implementaciones SAP que llegan en tiempo y dentro del presupuesto.',
       tagline_en:
-        'Enterprise SAP project management powered by Autonomous Project Delivery — Project Management Assistant, Billing Assistant and real-time value metrics.',
-      heroImage:
-        'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80',
-      overviewImage:
-        'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80',
+        'SAP implementations that land on time and on budget.',
+      heroImage: '/images/GestióndeProyectos-1.png',
+      overviewImage: '/images/GestióndeProyectos-2.png',
       overviewParagraphs: [
-        'Lideramos programas SAP end-to-end con SAP Activate, la metodología oficial — combinada con prácticas ágiles cuando el caso lo requiere. Gobierno claro, KPIs accionables, gestión activa de riesgos y cambios, y roadmaps medibles alineados a objetivos de negocio.',
-        'SAP definió Autonomous Project Delivery como uno de los escenarios iniciales de Industry AI. Adoptamos los asistentes Joule de gestión de proyectos: configuración rápida de proyectos a partir de datos históricos, asignación inteligente de recursos, soporte conversacional para hojas de horas, cambios de proyecto y facturación más precisa y puntual.',
-        'Conectamos la ejecución del proyecto con SAP Signavio Process Transformation Manager y SAP Cloud ALM para que el valor entregado (monetario y no monetario) se capture en tiempo real, no en una hoja de cálculo paralela. Cada hito que cerramos tiene métricas auditables vinculadas a la inversión.',
-        'Lideramos con visión estratégica y aterrizamos con disciplina técnica: el equipo correcto, las metodologías correctas y los asistentes correctos para que la transformación entregue resultados sostenibles — no esfuerzos puntuales que no escalan.',
+        'Lideramos proyectos SAP con metodologías probadas, equipos certificados y foco en resultados.',
+        'Desde la planificación inicial hasta el go-live y el soporte post-productivo, adoptamos los objetivos de nuestros clientes como propios.',
+        'Gobierno claro, gestión proactiva de riesgos y KPIs medibles desde el día uno: anticipamos los desvíos antes de que se vuelvan problemas y mantenemos al sponsor con visibilidad total.',
       ],
       overviewParagraphs_en: [
-        'We lead end-to-end SAP programs with SAP Activate, the official methodology — combined with agile practices when the case calls for it. Clear governance, actionable KPIs, active risk and change management, and measurable roadmaps aligned with business goals.',
-        'SAP defined Autonomous Project Delivery as one of the initial Industry AI scenarios. We adopt the Joule project management assistants: fast project setup from historical data, intelligent resource assignment, conversational support for timesheets, project changes and more accurate, timely billing.',
-        'We connect project execution with SAP Signavio Process Transformation Manager and SAP Cloud ALM so delivered value (monetary and non-monetary) is captured in real time, not in a parallel spreadsheet. Every milestone we close has auditable metrics tied to the investment.',
-        'We lead with strategic vision and land with technical discipline: the right team, the right methodologies and the right assistants so the transformation delivers sustainable results — not one-off efforts that don\'t scale.',
+        'We lead SAP projects with proven methodologies, certified teams and a focus on results.',
+        'From initial planning to go-live and post-production support, we take our clients\' goals as our own.',
+        'Clear governance, proactive risk management and measurable KPIs from day one: we anticipate deviations before they become problems and keep the sponsor fully informed.',
       ],
       features: [
-        {
-          icon: Target,
-          title: 'Roadmaps claros y medibles',
-          title_en: 'Clear, measurable roadmaps',
-          description:
-            'Definimos roadmaps con KPIs que permiten evaluar avances de forma constante y transparente, conectando hitos técnicos con objetivos de negocio.',
-          description_en:
-            'We define roadmaps with KPIs that let you evaluate progress constantly and transparently, connecting technical milestones with business objectives.',
-          bullets: [
-            'Hitos y entregables claros por fase',
-            'KPIs y métricas accionables para el sponsor',
-            'Tracking de avance vs. baseline',
-            'Reporting ejecutivo continuo',
-            'Visibilidad transparente para todos los stakeholders',
-          ],
-          bullets_en: [
-            'Clear milestones and deliverables per phase',
-            'KPIs and actionable metrics for the sponsor',
-            'Progress tracking vs. baseline',
-            'Continuous executive reporting',
-            'Transparent visibility for all stakeholders',
-          ],
-        },
-        {
-          icon: Users,
-          title: 'Coordinación efectiva entre actores',
-          title_en: 'Effective coordination across stakeholders',
-          description:
-            'Logramos una coordinación efectiva entre todos los actores del proyecto, generando alineación y fluidez en la comunicación interna y externa.',
-          description_en:
-            'We achieve effective coordination across all project stakeholders, fostering alignment and smooth internal and external communication.',
-          bullets: [
-            'Stakeholders mapeados y comprometidos',
-            'RACI claro y respetado',
-            'Comunicación fluida interna y externa',
-            'Ritualidad: standups, status reviews, retros',
-            'Escalación clara cuando hace falta',
-          ],
-          bullets_en: [
-            'Stakeholders mapped and engaged',
-            'Clear and respected RACI',
-            'Smooth internal and external communication',
-            'Ceremonies: standups, status reviews, retros',
-            'Clear escalation when needed',
-          ],
-        },
-        {
-          icon: ShieldCheck,
-          title: 'Gestión activa de riesgos y cambios',
-          title_en: 'Active risk and change management',
-          description:
-            'Gestionamos activamente riesgos y cambios, anticipando desvíos y adaptándonos con agilidad para mantener el foco en el valor de negocio.',
-          description_en:
-            'We actively manage risks and changes, anticipating deviations and adapting with agility to keep the focus on business value.',
-          bullets: [
-            'Identificación temprana de riesgos',
-            'Plan de mitigación por riesgo crítico',
-            'Comité de cambios con governance',
-            'Re-baseline cuando el contexto lo amerita',
-            'Foco en valor, no en el plan original',
-          ],
-          bullets_en: [
-            'Early identification of risks',
-            'Mitigation plan per critical risk',
-            'Change committee with governance',
-            'Re-baselining when context demands it',
-            'Focus on value, not on the original plan',
-          ],
-        },
+        { icon: Target, title: 'Metodología SAP Activate', title_en: 'SAP Activate methodology' },
+        { icon: ShieldCheck, title: 'Gestión de riesgos y stakeholders', title_en: 'Risk and stakeholder management' },
+        { icon: Briefcase, title: 'PMO para proyectos complejos', title_en: 'PMO for complex projects' },
+        { icon: Users, title: 'Coordinación de equipos multidisciplinarios', title_en: 'Coordination of multidisciplinary teams' },
+        { icon: GitMerge, title: 'Gestión del cambio organizacional', title_en: 'Organizational change management' },
+        { icon: BarChart3, title: 'Reporting ejecutivo', title_en: 'Executive reporting' },
       ],
       approach: {
         title: 'Cómo lideramos los proyectos',
@@ -2543,6 +1848,12 @@ export const SERVICES: Service[] = [
           technologies: ['PMO', 'Risk Management'],
         },
       ],
+      horizonte: {
+        text:
+          'El Asistente de Gestión de Proyectos de Joule coordina agentes para la configuración inicial, asignación de recursos y control del ciclo de vida del proyecto, usando datos de proyectos anteriores como referencia. Los nuevos asistentes para migración y modernización en RISE with SAP analizan entornos, detectan código customizado y automatizan pruebas y validaciones para acelerar la transición a SAP Cloud ERP con menor riesgo.',
+        text_en:
+          'Joule\'s Project Management Assistant coordinates agents for initial setup, resource assignment and project lifecycle control, using data from previous projects as a reference. The new migration and modernization assistants in RISE with SAP analyze environments, detect custom code and automate tests and validations to accelerate the transition to SAP Cloud ERP with lower risk.',
+      },
       relatedTechIds: ['signavio', 'leanix', 'basis', 'btp'],
       faq: [
         {
@@ -2588,6 +1899,172 @@ export const SERVICES: Service[] = [
         'PMO experto para implementaciones SAP, rollouts y transformaciones — SAP Activate, ágil, gestión de riesgos y entregas predecibles por GoTechy.',
       metaDescription_en:
         'Expert PMO for SAP implementations, rollouts and transformations — SAP Activate, agile, risk management and predictable deliveries by GoTechy.',
+    },
+  },
+  {
+    id: 'cloudalm',
+    slug: 'sap-cloud-alm',
+    title: 'SAP Cloud ALM',
+    title_en: 'SAP Cloud ALM',
+    short: 'SolMan + Cloud ALM · Ciclo de vida',
+    short_en: 'SolMan + Cloud ALM · Lifecycle',
+    description:
+      'Implementamos y operamos SAP Solution Manager y SAP Cloud ALM para monitorear, gestionar incidentes y controlar el ciclo de vida completo de tu solución SAP.',
+    description_en:
+      'We implement and operate SAP Solution Manager and SAP Cloud ALM to monitor, manage incidents and control the full lifecycle of your SAP solution.',
+    icon: Activity,
+    accent: 'secondary',
+    tags: ['Cloud ALM', 'Solution Manager', 'Monitoring', 'ITSM'],
+    detail: {
+      tagline:
+        'Control total del ciclo de vida de tu solución SAP.',
+      tagline_en:
+        'Full control of your SAP solution\'s lifecycle.',
+      overviewParagraphs: [
+        'Implementamos y operamos SAP Solution Manager y SAP Cloud ALM para monitorear sistemas y gestionar incidentes.',
+        'Mantenemos tu infraestructura SAP en estado óptimo a lo largo de todo su ciclo de vida.',
+        'Centralizamos monitoreo, documentación y gestión de cambios en una sola vista, y acompañamos la transición de Solution Manager a Cloud ALM sin perder control.',
+      ],
+      overviewParagraphs_en: [
+        'We implement and operate SAP Solution Manager and SAP Cloud ALM to monitor systems and manage incidents.',
+        'We keep your SAP infrastructure in optimal shape throughout its entire lifecycle.',
+        'We centralize monitoring, documentation and change management in a single view, and support the move from Solution Manager to Cloud ALM without losing control.',
+      ],
+      features: [
+        { icon: Activity, title: 'Monitoreo de sistemas y alertas', title_en: 'System monitoring and alerts' },
+        { icon: Database, title: 'Gestión de volumen de datos (DVM)', title_en: 'Data Volume Management (DVM)' },
+        { icon: Search, title: 'Análisis de causa raíz', title_en: 'Root cause analysis' },
+        { icon: BarChart3, title: 'Reportes Early Watch Alert', title_en: 'Early Watch Alert reports' },
+        { icon: FileText, title: 'Documentación de procesos', title_en: 'Process documentation' },
+        { icon: Cloud, title: 'Transición a SAP Cloud ALM', title_en: 'Transition to SAP Cloud ALM' },
+      ],
+      benefits: [
+        {
+          metric: '24/7',
+          metric_en: '24/7',
+          title: 'Monitoreo continuo',
+          title_en: 'Continuous monitoring',
+          description:
+            'Detección temprana de incidentes y alertas proactivas antes de que impacten la operación.',
+          description_en:
+            'Early incident detection and proactive alerts before they impact operations.',
+        },
+        {
+          metric: 'Causa raíz',
+          metric_en: 'Root cause',
+          title: 'Resolución más rápida',
+          title_en: 'Faster resolution',
+          description:
+            'Análisis de causa raíz y trazabilidad end-to-end para acortar los tiempos de resolución.',
+          description_en:
+            'Root cause analysis and end-to-end traceability to shorten resolution times.',
+        },
+        {
+          metric: 'Fuente única',
+          metric_en: 'Single source',
+          title: 'Visibilidad del ciclo de vida',
+          title_en: 'Lifecycle visibility',
+          description:
+            'Documentación de procesos, configuración y cambios centralizada y siempre actualizada.',
+          description_en:
+            'Centralized, always-up-to-date documentation of processes, configuration and changes.',
+        },
+        {
+          metric: 'Cloud-ready',
+          metric_en: 'Cloud-ready',
+          title: 'Transición ordenada',
+          title_en: 'Orderly transition',
+          description:
+            'Migración de Solution Manager a SAP Cloud ALM sin perder visibilidad ni control.',
+          description_en:
+            'Migration from Solution Manager to SAP Cloud ALM without losing visibility or control.',
+        },
+      ],
+      useCases: [
+        {
+          title: 'Monitoreo de sistemas productivos',
+          title_en: 'Monitoring of production systems',
+          description:
+            'Monitoreo proactivo de disponibilidad, performance e interfaces con alertas accionables.',
+          description_en:
+            'Proactive monitoring of availability, performance and interfaces with actionable alerts.',
+          industry: 'Cross-industry',
+          industry_en: 'Cross-industry',
+          technologies: ['Cloud ALM', 'SolMan', 'Monitoring'],
+        },
+        {
+          title: 'Gestión de incidentes e ITSM',
+          title_en: 'Incident management and ITSM',
+          description:
+            'Gestión centralizada de tickets, cambios y problemas integrada con la operación SAP.',
+          description_en:
+            'Centralized management of tickets, changes and problems integrated with SAP operations.',
+          industry: 'IT & Operaciones',
+          industry_en: 'IT & Operations',
+          technologies: ['ITSM', 'ChaRM'],
+        },
+        {
+          title: 'Early Watch y salud del sistema',
+          title_en: 'Early Watch and system health',
+          description:
+            'Reportes Early Watch Alert periódicos con recomendaciones de optimización.',
+          description_en:
+            'Periodic Early Watch Alert reports with optimization recommendations.',
+          industry: 'SAP customers',
+          industry_en: 'SAP customers',
+          technologies: ['EWA', 'HANA'],
+        },
+        {
+          title: 'Migración de SolMan a Cloud ALM',
+          title_en: 'SolMan to Cloud ALM migration',
+          description:
+            'Transición planificada de Solution Manager a SAP Cloud ALM con cero pérdida de control.',
+          description_en:
+            'Planned transition from Solution Manager to SAP Cloud ALM with zero loss of control.',
+          industry: 'SAP customers',
+          industry_en: 'SAP customers',
+          technologies: ['Cloud ALM', 'SolMan'],
+        },
+      ],
+      horizonte: {
+        text:
+          'SAP Cloud ALM incorpora agentes de IA para la resolución de casos: analizan nuevos incidentes, detectan duplicados, sugieren rutas de resolución y redactan respuestas. Para casos prioritarios, los agentes recomiendan acciones que reducen el trabajo manual y acortan los tiempos de resolución con mayor precisión y trazabilidad.',
+        text_en:
+          'SAP Cloud ALM is adding AI agents for case resolution: they analyze new incidents, detect duplicates, suggest resolution paths and draft responses. For priority cases, the agents recommend actions that reduce manual work and shorten resolution times with greater precision and traceability.',
+      },
+      relatedTechIds: ['basis', 'leanix', 'signavio', 'pm'],
+      faq: [
+        {
+          q: '¿Cuál es la diferencia entre Solution Manager y SAP Cloud ALM?',
+          q_en: 'What\'s the difference between Solution Manager and SAP Cloud ALM?',
+          a: 'Solution Manager es la plataforma on-premise de ALM; SAP Cloud ALM es su evolución cloud-native, más liviana y orientada a entornos RISE y cloud. Operamos ambas y acompañamos la transición.',
+          a_en: 'Solution Manager is the on-premise ALM platform; SAP Cloud ALM is its cloud-native evolution — lighter and geared toward RISE and cloud environments. We operate both and support the transition.',
+        },
+        {
+          q: '¿Cloud ALM reemplaza a Solution Manager?',
+          q_en: 'Does Cloud ALM replace Solution Manager?',
+          a: 'SAP posiciona Cloud ALM como la plataforma central de operaciones para entornos cloud. Para muchos clientes conviven durante la transición; te ayudamos a definir el momento y la estrategia.',
+          a_en: 'SAP positions Cloud ALM as the central operations platform for cloud environments. For many customers both coexist during the transition; we help you define the timing and strategy.',
+        },
+        {
+          q: '¿Pueden operar el monitoreo por nosotros?',
+          q_en: 'Can you run the monitoring for us?',
+          a: 'Sí. Ofrecemos operación gestionada con SLAs claros, alertas accionables y reporting ejecutivo — integrado con nuestro servicio de SAP Basis.',
+          a_en: 'Yes. We offer managed operations with clear SLAs, actionable alerts and executive reporting — integrated with our SAP Basis service.',
+        },
+        {
+          q: '¿Se integra con el resto del ecosistema SAP?',
+          q_en: 'Does it integrate with the rest of the SAP ecosystem?',
+          a: 'Sí. Cloud ALM se alinea con SAP LeanIX, Signavio y los procesos de cambio para dar trazabilidad de punta a punta.',
+          a_en: 'Yes. Cloud ALM aligns with SAP LeanIX, Signavio and change processes to provide end-to-end traceability.',
+        },
+      ],
+      metaTitle: 'SAP Cloud ALM y Solution Manager: operación y ciclo de vida',
+      metaTitle_en: 'SAP Cloud ALM and Solution Manager: operations and lifecycle',
+      metaDescription:
+        'Implementación y operación de SAP Solution Manager y SAP Cloud ALM: monitoreo, gestión de incidentes y ciclo de vida de tu solución SAP, por GoTechy.',
+      metaDescription_en:
+        'Implementation and operation of SAP Solution Manager and SAP Cloud ALM: monitoring, incident management and the lifecycle of your SAP solution, by GoTechy.',
     },
   },
 ];
@@ -2675,6 +2152,9 @@ export function localizeServiceDetail(detail: ServiceDetail, isEn: boolean): Ser
       : undefined,
     techStack: detail.techStack
       ? detail.techStack.map((tech) => ({ ...tech, label: pick(tech.label_en, tech.label) }))
+      : undefined,
+    horizonte: detail.horizonte
+      ? { ...detail.horizonte, text: pick(detail.horizonte.text_en, detail.horizonte.text) }
       : undefined,
     faq: detail.faq.map((item) => ({
       ...item,

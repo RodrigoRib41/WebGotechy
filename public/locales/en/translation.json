@@ -156,10 +156,14 @@
       "titleHighlight": "rest of the ecosystem"
     },
     "features": {
-      "eyebrow": "Features",
-      "titleStart": "What",
-      "titleHighlight": "this solution",
-      "titleEnd": "includes"
+      "eyebrow": "Capabilities",
+      "titleStart": "What we",
+      "titleHighlight": "can do",
+      "titleEnd": ""
+    },
+    "horizonte": {
+      "label": "SAP Horizon",
+      "disclaimer": "These capabilities are being adopted across the SAP ecosystem. We help you get ready."
     },
     "faq": {
       "eyebrow": "Frequently asked questions",
@@ -177,7 +181,7 @@
       "breadcrumbServices": "Services"
     },
     "overview": {
-      "eyebrow": "What it is"
+      "eyebrow": "The solution"
     },
     "cta": {
       "titleStart": "Ready to transform your business with",
@@ -187,7 +191,11 @@
       "viewCases": "View case studies",
       "email": "Email",
       "phone": "Phone",
-      "trustStrip": "Companies that trust GoTechy"
+      "trustStrip": "Why GoTechy",
+      "trustPoint1": "20+ years in SAP",
+      "trustPoint2": "24/7 support",
+      "trustPoint3": "SAP-certified team",
+      "trustPoint4": "Clean Core methodology"
     }
   },
   "clients": {

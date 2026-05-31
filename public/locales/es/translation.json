@@ -156,9 +156,14 @@
       "titleHighlight": "resto del ecosistema"
     },
     "features": {
-      "eyebrow": "Características",
-      "titleStart": "Qué incluye",
-      "titleHighlight": "esta solución"
+      "eyebrow": "Capacidades",
+      "titleStart": "Lo que",
+      "titleHighlight": "podemos hacer",
+      "titleEnd": ""
+    },
+    "horizonte": {
+      "label": "Horizonte SAP",
+      "disclaimer": "Estas capacidades están en proceso de adopción. Te ayudamos a prepararte."
     },
     "faq": {
       "eyebrow": "Preguntas frecuentes",
@@ -176,7 +181,7 @@
       "breadcrumbServices": "Servicios"
     },
     "overview": {
-      "eyebrow": "Qué es"
+      "eyebrow": "La solución"
     },
     "cta": {
       "titleStart": "¿Listo para transformar tu negocio con",
@@ -186,7 +191,11 @@
       "viewCases": "Ver casos de éxito",
       "email": "Email",
       "phone": "Teléfono",
-      "trustStrip": "Empresas que confían en GoTechy"
+      "trustStrip": "Por qué GoTechy",
+      "trustPoint1": "+20 años en SAP",
+      "trustPoint2": "Soporte 24/7",
+      "trustPoint3": "Equipo certificado SAP",
+      "trustPoint4": "Metodología Clean Core"
     }
   },
   "clients": {

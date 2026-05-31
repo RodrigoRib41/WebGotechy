@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Mail, Phone } from 'lucide-react';
+import { ArrowRight, Award, BadgeCheck, Clock, Mail, Phone, ShieldCheck } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SITE } from '../../data/site';
@@ -10,15 +11,15 @@ interface ServiceCTAProps {
 }
 
 /**
- * Selección curada de logos reales que viven en /public/images/.
- * 5 marcas reconocibles del portfolio de clientes.
+ * Razones para elegir GoTechy (prueba social que no depende de imágenes).
+ * Reemplaza el muro de logos de clientes — esos archivos ya no viven en
+ * /public/images. Cada label se localiza por i18n.
  */
-const TRUST_LOGOS = [
-  { src: '/images/Tenaris.png', alt: 'Tenaris' },
-  { src: '/images/gerdau.png', alt: 'Gerdau' },
-  { src: '/images/ledesma.png', alt: 'Ledesma' },
-  { src: '/images/roemmers.jpg', alt: 'Roemmers' },
-  { src: '/images/molinos.webp', alt: 'Molinos' },
+const TRUST_POINTS: { icon: LucideIcon; key: string }[] = [
+  { icon: Award, key: 'services.cta.trustPoint1' },
+  { icon: Clock, key: 'services.cta.trustPoint2' },
+  { icon: BadgeCheck, key: 'services.cta.trustPoint3' },
+  { icon: ShieldCheck, key: 'services.cta.trustPoint4' },
 ];
 
 export function ServiceCTA({ serviceName }: ServiceCTAProps) {
@@ -115,30 +116,35 @@ export function ServiceCTA({ serviceName }: ServiceCTAProps) {
             </motion.div>
           </div>
 
-          {/* Trust strip: logos reales de clientes en grayscale */}
+          {/* Razones para elegirnos (prueba social) */}
           <div className="mt-10 border-t border-white/10 pt-8">
             <motion.div
-              initial={{ opacity: 0, scale: 0.5, y: 24 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.05 }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="mb-5 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45"
             >
               {t('services.cta.trustStrip')}
             </motion.div>
-            <div className="grid grid-cols-3 items-center gap-6 sm:grid-cols-5">
-              {TRUST_LOGOS.map((logo) => (
-                <div key={logo.alt} className="flex items-center justify-center">
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-7 max-w-[110px] object-contain opacity-60 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0 sm:h-8"
-                  />
-                </div>
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
+              className="grid grid-cols-2 gap-4 sm:grid-cols-4"
+            >
+              {TRUST_POINTS.map(({ icon: Icon, key }) => (
+                <motion.div
+                  key={key}
+                  variants={approachItem}
+                  className="flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 transition-colors hover:border-secondary/40 hover:bg-white/[0.06]"
+                >
+                  <Icon className="h-4 w-4 shrink-0 text-secondary" />
+                  <span className="text-xs font-medium text-white/80">{t(key)}</span>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

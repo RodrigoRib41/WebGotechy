@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { approachItem } from '../effects/ApproachReveal';
+import { AnimatedCounter } from './AnimatedCounter';
 
 export interface ServiceStatItem {
   value: string;
@@ -84,7 +85,9 @@ export function ServiceStats({ eyebrow, title, items }: ServiceStatsProps) {
                 className="text-center"
               >
                 <div className="font-display text-4xl font-extrabold leading-none sm:text-5xl">
-                  <span className="text-gradient">{item.value}</span>
+                  <span className="text-gradient">
+                    <AnimatedCounter value={item.value} />
+                  </span>
                 </div>
                 <div className="mt-3 text-xs font-medium uppercase tracking-wider text-white/65 sm:text-sm sm:normal-case sm:tracking-normal">
                   {item.label}

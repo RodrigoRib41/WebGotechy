@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import Tilt from 'react-parallax-tilt';
+import { useInView } from 'react-intersection-observer';
 import { useTranslation } from 'react-i18next';
 import { SectionHeader } from '../SectionHeader';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
@@ -19,6 +20,14 @@ interface ServiceBenefitsProps {
 export function ServiceBenefits({ benefits }: ServiceBenefitsProps) {
   const reduced = usePrefersReducedMotion();
   const { t } = useTranslation();
+  // useInView de react-intersection-observer es más confiable que el whileInView
+  // interno de framer-motion (que en algunos navegadores dejaba las tarjetas en
+  // opacity:0 sin dispararse). triggerOnce + fallbackInView garantiza el reveal.
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.05,
+    fallbackInView: true,
+  });
 
   return (
     <section
@@ -43,9 +52,9 @@ export function ServiceBenefits({ benefits }: ServiceBenefitsProps) {
         />
 
         <motion.div
+          ref={ref}
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.05 }}
+          animate={inView ? 'show' : 'hidden'}
           variants={approachContainer}
           className="mt-14 grid gap-5 sm:grid-cols-2"
         >

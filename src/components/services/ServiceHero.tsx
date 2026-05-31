@@ -37,6 +37,7 @@ export function ServiceHero({
         aria-hidden="true"
       />
       <div className="absolute inset-0 -z-10 bg-gradient-mesh opacity-40" aria-hidden="true" />
+      <div className="animated-mesh absolute inset-0 -z-10 opacity-70" aria-hidden="true" />
       <div
         className="absolute inset-0 -z-10 grid-bg [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_70%)]"
         aria-hidden="true"
@@ -127,40 +128,52 @@ export function ServiceHero({
             </motion.div>
           </motion.div>
 
-          {/* Imagen / decoración */}
+          {/* Imagen / decoración — glow celeste + flotación sutil + duotono brandbook */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative hidden h-full min-h-[280px] lg:block"
+            className="relative hidden h-full min-h-[300px] lg:block"
           >
-            <div className="absolute inset-0 rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur shadow-card overflow-hidden">
-              {showImage ? (
-                <img
-                  src={image}
-                  alt=""
-                  loading="eager"
-                  decoding="async"
-                  onError={() => setImageOk(false)}
-                  className="absolute inset-0 h-full w-full object-cover opacity-85"
-                />
-              ) : (
-                <>
-                  <div className="absolute inset-0 bg-gradient-mesh opacity-60" aria-hidden="true" />
-                  <div
-                    className="absolute inset-0 grid-bg opacity-50"
-                    aria-hidden="true"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Icon className="h-32 w-32 text-secondary/20" />
-                  </div>
-                </>
-              )}
+            {/* Glow celeste detrás */}
+            <div
+              className="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-secondary/15 blur-3xl"
+              aria-hidden="true"
+            />
+            <motion.div
+              animate={{ y: [0, -12, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              className="group absolute inset-0"
+            >
               <div
-                className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"
-                aria-hidden="true"
-              />
-            </div>
+                className={`absolute inset-0 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-glow-md backdrop-blur ${
+                  showImage ? 'img-duotone img-duotone-hover' : ''
+                }`}
+              >
+                {showImage ? (
+                  <img
+                    src={image}
+                    alt=""
+                    loading="eager"
+                    decoding="async"
+                    onError={() => setImageOk(false)}
+                    className="absolute inset-0 h-full w-full object-contain object-center p-4 transition-transform duration-700 ease-smooth group-hover:scale-[1.03]"
+                  />
+                ) : (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-mesh opacity-60" aria-hidden="true" />
+                    <div className="absolute inset-0 grid-bg opacity-50" aria-hidden="true" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Icon className="h-32 w-32 text-secondary/20" />
+                    </div>
+                  </>
+                )}
+                <div
+                  className="absolute inset-x-0 bottom-0 z-[5] h-1/3 bg-gradient-to-t from-primary/40 to-transparent transition-opacity duration-500 group-hover:opacity-40"
+                  aria-hidden="true"
+                />
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

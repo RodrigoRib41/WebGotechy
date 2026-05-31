@@ -16,10 +16,12 @@ export function AnimatedCounter({ value, durationMs = 1500 }: AnimatedCounterPro
   const inView = useInView(ref, { once: true, margin: '-60px' });
   const [displayed, setDisplayed] = useState(0);
 
-  // Parse "15+", "120+", "40" → numérico + sufijo. "24/7" → no animable.
-  const match = /^(\d+)(.*)$/.exec(value.trim());
-  const target = match ? parseInt(match[1], 10) : null;
-  const suffix = match ? match[2] : '';
+  // Parse "+90", "15+", "99.9%", "40" → prefijo + numérico + sufijo.
+  // "24/7" → no animable (se renderiza tal cual).
+  const match = /^(\D*?)(\d+)(.*)$/.exec(value.trim());
+  const prefix = match ? match[1] : '';
+  const target = match ? parseInt(match[2], 10) : null;
+  const suffix = match ? match[3] : '';
   const animatable = target !== null && !value.includes('/');
 
   useEffect(() => {
@@ -48,6 +50,7 @@ export function AnimatedCounter({ value, durationMs = 1500 }: AnimatedCounterPro
 
   return (
     <span ref={ref}>
+      {prefix}
       {displayed}
       {suffix}
     </span>

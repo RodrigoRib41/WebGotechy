@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import type { LucideIcon } from 'lucide-react';
 import { ServiceOverviewIllustration } from './ServiceOverviewIllustration';
@@ -26,8 +26,16 @@ export function ServiceOverview({
   const { t } = useTranslation();
   const showImage = Boolean(image) && imageOk;
 
+  // Parallax sutil: la imagen se desplaza levemente más lento que el scroll.
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], [20, -20]);
+
   return (
-    <section className="relative py-20 sm:py-28" aria-label="Descripción del servicio">
+    <section ref={sectionRef} className="relative py-20 sm:py-28" aria-label="Descripción del servicio">
       <div className="container-x">
         <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Texto con "approach reveal" stagger — cada párrafo se acerca desde lejos */}
@@ -61,34 +69,47 @@ export function ServiceOverview({
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative aspect-[5/4] overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-card backdrop-blur"
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="relative"
           >
-            {showImage ? (
-              <>
-                <img
-                  src={image}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  onError={() => setImageOk(false)}
-                  className="absolute inset-0 h-full w-full object-cover"
+            {/* Glow celeste detrás */}
+            <div
+              className="pointer-events-none absolute -inset-5 rounded-[2.25rem] bg-secondary/10 blur-3xl"
+              aria-hidden="true"
+            />
+            <div
+              className={`group relative aspect-[5/4] overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-glow-md backdrop-blur ${
+                showImage ? 'img-duotone img-duotone-hover' : ''
+              }`}
+            >
+              {showImage ? (
+                <>
+                  <motion.div style={{ y: imageY }} className="absolute inset-0">
+                    <img
+                      src={image}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      onError={() => setImageOk(false)}
+                      className="h-full w-full object-contain object-center p-3 transition-transform duration-700 ease-smooth group-hover:scale-[1.03]"
+                    />
+                  </motion.div>
+                  <div
+                    className="pointer-events-none absolute inset-0 z-[5] bg-gradient-to-tr from-primary/25 via-transparent to-secondary/10"
+                    aria-hidden="true"
+                  />
+                </>
+              ) : (
+                <ServiceOverviewIllustration
+                  Icon={Icon}
+                  featureIcons={featureIcons}
+                  accent={accent}
                 />
-                <div
-                  className="absolute inset-0 bg-gradient-to-tr from-primary/70 via-transparent to-secondary/10"
-                  aria-hidden="true"
-                />
-              </>
-            ) : (
-              <ServiceOverviewIllustration
-                Icon={Icon}
-                featureIcons={featureIcons}
-                accent={accent}
-              />
-            )}
+              )}
+            </div>
           </motion.div>
         </div>
       </div>
