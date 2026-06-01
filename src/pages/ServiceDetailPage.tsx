@@ -13,6 +13,7 @@ import { ServiceCTA } from '../components/services/ServiceCTA';
 import { AnimatedDivider } from '../components/effects/AnimatedDivider';
 import { HomeBackgroundCurve, type CurveVariant } from '../components/effects/HomeBackgroundCurve';
 import { SITE } from '../data/site';
+import { useServiceHorizonteOverride } from '../hooks/useCatalog';
 
 /**
  * Picker determinístico de variant — el mismo slug siempre devuelve la misma
@@ -51,6 +52,11 @@ export function ServiceDetailPage() {
   const { t, i18n } = useTranslation();
   const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
 
+  // Override editable del bloque "Horizonte SAP" (gestionado desde /admin).
+  // Si no hay override (o Supabase no está configurado), se usa el texto estático.
+  const { override: horizonteOverride, settled: horizonteSettled } =
+    useServiceHorizonteOverride(rawService?.id);
+
   // Versión localizada para render. Mantiene rawService para la URL canónica.
   const service = rawService ? localizeService(rawService, isEn) : undefined;
 
@@ -87,6 +93,22 @@ export function ServiceDetailPage() {
   // Helper para usos auxiliares (suprime lint warnings, deja la API disponible si se necesita)
   void getRelatedServices;
   void localizeServiceDetail;
+
+  // Texto efectivo del "Horizonte SAP": el override del admin tiene prioridad.
+  //  - override oculto o vacío → no se muestra el bloque
+  //  - override con texto      → reemplaza al estático (localizado)
+  //  - sin override            → texto estático del catálogo (ya localizado)
+  const resolveHorizonteText = (): string | null => {
+    if (horizonteOverride) {
+      if (horizonteOverride.hidden) return null;
+      const es = horizonteOverride.text?.trim() ?? '';
+      if (!es) return null;
+      const en = horizonteOverride.text_en?.trim();
+      return isEn && en ? en : es;
+    }
+    return detail.horizonte?.text ?? null;
+  };
+  const horizonteText = resolveHorizonteText();
 
   return (
     <div ref={pageRef} className="relative">
@@ -133,8 +155,8 @@ export function ServiceDetailPage() {
       {/* Casos: dónde aplica */}
       <ServiceUseCases useCases={detail.useCases} />
       <AnimatedDivider />
-      {/* Diferenciador: Horizonte SAP */}
-      {detail.horizonte && <ServiceHorizonte text={detail.horizonte.text} />}
+      {/* Diferenciador: Horizonte SAP (editable desde /admin) */}
+      {horizonteSettled && horizonteText && <ServiceHorizonte text={horizonteText} />}
       {/* CTA final */}
       <ServiceCTA serviceName={service.title} />
     </div>

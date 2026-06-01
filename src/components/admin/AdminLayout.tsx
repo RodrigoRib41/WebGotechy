@@ -11,6 +11,7 @@ import {
   Handshake,
   Quote,
   CalendarDays,
+  Telescope,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../hooks/useAuth';
@@ -57,6 +58,10 @@ const NAV: NavGroup[] = [
       { to: '/admin/testimonials', label: 'Testimonios', icon: Quote },
       { to: '/admin/events', label: 'Eventos', icon: CalendarDays },
     ],
+  },
+  {
+    title: 'Servicios',
+    items: [{ to: '/admin/horizonte', label: 'Horizonte SAP', icon: Telescope }],
   },
 ];
 

@@ -147,3 +147,56 @@ alter table public.blog_posts
 Después de correr esto, podés entrar al admin y empezar a llenar los campos
 EN proyecto por proyecto y post por post. El sitio público los va a usar
 automáticamente cuando el usuario selecciona EN en el header.
+
+---
+
+## 2026-06-01 — Tabla `service_horizonte`
+
+Hace editable el bloque **"Horizonte SAP"** de cada página de servicio desde
+`/admin/horizonte`. El texto por defecto sigue viviendo en
+`src/data/services.ts` (estático): esta tabla sólo guarda los servicios cuyo
+Horizonte fue **editado** u **ocultado** desde el panel.
+
+- Sin fila para un `service_id` → el sitio usa el texto estático original.
+- Fila con `text` → reemplaza al texto estático.
+- Fila con `hidden = true` → el bloque NO aparece en la página del servicio.
+
+El `service_id` coincide con `Service.id` del catálogo estático (ej: `ia`,
+`btp`, `desarrollo`). Es la PK, así que el upsert resuelve por `service_id`.
+
+```sql
+create table if not exists public.service_horizonte (
+  service_id text primary key,
+  text text,
+  text_en text,
+  hidden boolean not null default false,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+-- Reusa el trigger set_updated_at creado en la migración de testimonials
+drop trigger if exists service_horizonte_set_updated_at on public.service_horizonte;
+create trigger service_horizonte_set_updated_at
+  before update on public.service_horizonte
+  for each row execute function public.set_updated_at();
+
+-- RLS: lectura pública (el flag `hidden` decide la visibilidad en el cliente);
+-- escritura sólo authenticated.
+alter table public.service_horizonte enable row level security;
+
+drop policy if exists "Public can read service horizonte" on public.service_horizonte;
+create policy "Public can read service horizonte"
+  on public.service_horizonte for select
+  using (true);
+
+drop policy if exists "Authenticated can manage service horizonte" on public.service_horizonte;
+create policy "Authenticated can manage service horizonte"
+  on public.service_horizonte for all
+  to authenticated
+  using (true)
+  with check (true);
+```
+
+Sin correr esta migración, el admin muestra el error "relation does not exist"
+y el sitio público sigue mostrando los textos estáticos sin romperse (el fetch
+del override falla en silencio y cae al default).

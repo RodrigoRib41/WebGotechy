@@ -57,6 +57,11 @@ const AdminTestimonials = lazy(() =>
 const AdminEvents = lazy(() =>
   import('./pages/admin/AdminEvents').then((m) => ({ default: m.AdminEvents })),
 );
+const AdminServiceHorizonte = lazy(() =>
+  import('./pages/admin/AdminServiceHorizonte').then((m) => ({
+    default: m.AdminServiceHorizonte,
+  })),
+);
 
 function RouteFallback() {
   return (
@@ -212,6 +217,16 @@ export const router = createBrowserRouter([
       <AdminShell>
         <ProtectedRoute>
           <AdminEvents />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/horizonte',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminServiceHorizonte />
         </ProtectedRoute>
       </AdminShell>
     ),

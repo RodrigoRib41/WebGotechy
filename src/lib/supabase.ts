@@ -9,6 +9,7 @@ import type {
 } from '../types/catalog';
 import type { NewTestimonial, TestimonialRow } from '../types/testimonials';
 import type { EventRow, NewEvent } from '../types/events';
+import type { ServiceHorizonteRow, ServiceHorizonteUpsert } from '../types/serviceHorizonte';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -306,6 +307,53 @@ export const eventsService = {
 
   async remove(id: string): Promise<void> {
     const { error } = await supabase.from(EVENTS_TABLE).delete().eq('id', id);
+    if (error) throw error;
+  },
+};
+
+// ============================================================
+//  Service Horizonte — overrides editables del bloque "Horizonte SAP"
+// ============================================================
+const SERVICE_HORIZONTE_TABLE = 'service_horizonte';
+
+export const serviceHorizonteService = {
+  /** Lista todos los overrides cargados (admin). */
+  async list(): Promise<ServiceHorizonteRow[]> {
+    const { data, error } = await supabase
+      .from(SERVICE_HORIZONTE_TABLE)
+      .select('*');
+    if (error) throw error;
+    return (data ?? []) as ServiceHorizonteRow[];
+  },
+
+  /** Trae el override de un servicio puntual (uso público). */
+  async get(serviceId: string): Promise<ServiceHorizonteRow | null> {
+    const { data, error } = await supabase
+      .from(SERVICE_HORIZONTE_TABLE)
+      .select('*')
+      .eq('service_id', serviceId)
+      .maybeSingle();
+    if (error) throw error;
+    return (data ?? null) as ServiceHorizonteRow | null;
+  },
+
+  /** Crea o actualiza el override de un servicio (clave: service_id). */
+  async upsert(payload: ServiceHorizonteUpsert): Promise<ServiceHorizonteRow> {
+    const { data, error } = await supabase
+      .from(SERVICE_HORIZONTE_TABLE)
+      .upsert(payload, { onConflict: 'service_id' })
+      .select()
+      .single();
+    if (error) throw error;
+    return data as ServiceHorizonteRow;
+  },
+
+  /** Elimina el override → el servicio vuelve a usar el texto estático. */
+  async remove(serviceId: string): Promise<void> {
+    const { error } = await supabase
+      .from(SERVICE_HORIZONTE_TABLE)
+      .delete()
+      .eq('service_id', serviceId);
     if (error) throw error;
   },
 };

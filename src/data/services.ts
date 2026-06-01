@@ -190,9 +190,9 @@ export const SERVICES: Service[] = [
     tags: ['Joule', 'Agents', 'Industry AI', 'GenAI'],
     detail: {
       tagline:
-        'IA aplicada al negocio. No al hype, sí a los resultados.',
+        'IA aplicada al negocio. Tecnología que genera resultados reales.',
       tagline_en:
-        'AI applied to business. Not to the hype — to results.',
+        'AI applied to business. Technology that drives real results.',
       heroImage: '/images/IA-1.png',
       overviewImage: '/images/IA-2.png',
       overviewParagraphs: [
