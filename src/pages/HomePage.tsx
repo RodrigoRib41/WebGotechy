@@ -16,7 +16,7 @@ import { HomeBackgroundCurve } from '../components/effects/HomeBackgroundCurve';
  *   1. Hero               (DARK)   — Full viewport, video sutil + partículas
  *   2. ServicesPreview    (LIGHT)  — Grid 3x3, cards minimal
  *   3. StatsHighlight     (DARK)   — Counters + geometría
- *   4. ClientsLight       (LIGHT)  — Marquee, logos grayscale → color
+ *   4. ClientsLight       (LIGHT)  — Marquee, logos a color
  *   5. CaseStudies        (DARK)   — Cards premium con projects
  *   6. Testimonials       (LIGHT)  — Quote grande + dots (admin CRUD)
  *   7. Events             (LIGHT)  — Tabla de eventos/webinars (admin CRUD)

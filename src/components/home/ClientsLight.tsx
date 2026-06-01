@@ -6,8 +6,8 @@ import { useLogos } from '../../hooks/useCatalog';
 import { cloudinaryService } from '../../lib/cloudinary';
 
 /**
- * Sección "Clientes" — fondo BLANCO, sin bordes, logos grayscale que se
- * colorean al hover. Clean look estilo Stripe.
+ * Sección "Clientes" — fondo BLANCO, sin bordes, logos a color que
+ * brillan/escalan al hover. Clean look estilo Stripe.
  */
 export function ClientsLight() {
   const { t } = useTranslation();
@@ -47,7 +47,7 @@ export function ClientsLight() {
                     alt={client.alt ?? `Logo de ${client.name}`}
                     loading="lazy"
                     decoding="async"
-                    className="h-12 w-auto max-w-[160px] object-contain opacity-60 grayscale transition-all duration-500 hover:scale-110 hover:opacity-100 hover:grayscale-0"
+                    className="h-12 w-auto max-w-[160px] object-contain opacity-90 transition-all duration-500 hover:scale-110 hover:opacity-100"
                   />
                 </div>
               ))}

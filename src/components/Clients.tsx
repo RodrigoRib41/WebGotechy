@@ -58,7 +58,7 @@ export function Clients() {
                       alt={client.alt ?? `Logo - ${client.name}`}
                       loading="lazy"
                       decoding="async"
-                      className="h-16 w-auto max-w-[180px] object-contain opacity-70 grayscale transition-all duration-500 group-hover:scale-110 group-hover:opacity-100 group-hover:grayscale-0"
+                      className="h-16 w-auto max-w-[180px] object-contain opacity-90 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100"
                       style={{ mixBlendMode: 'lighten' }}
                     />
                   </div>

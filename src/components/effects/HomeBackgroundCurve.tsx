@@ -111,8 +111,8 @@ export function HomeBackgroundCurve({
 
   // Ghost path — silueta tenue siempre visible
   const ghostStroke = thickenWithScroll
-    ? 'rgba(0, 243, 255, 0.18)'
-    : 'rgba(0, 243, 255, 0.08)';
+    ? 'rgba(255, 109, 0, 0.18)'
+    : 'rgba(255, 109, 0, 0.08)';
   const ghostWidth = thickenWithScroll ? '1.0' : '0.5';
 
   // Gradient opacities — moderadas para que se sienta más como background
@@ -145,11 +145,11 @@ export function HomeBackgroundCurve({
       >
         <defs>
           <linearGradient id={`curve-grad-${variant}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#00F3FF" stopOpacity={stopStart} />
-            <stop offset="8%" stopColor="#00F3FF" stopOpacity={stopEarly} />
-            <stop offset="50%" stopColor="#2EF1FF" stopOpacity={stopMid} />
-            <stop offset="92%" stopColor="#00FF92" stopOpacity={stopLate} />
-            <stop offset="100%" stopColor="#00FF92" stopOpacity={thickenWithScroll ? '0.4' : '0'} />
+            <stop offset="0%" stopColor="#FF6D00" stopOpacity={stopStart} />
+            <stop offset="8%" stopColor="#FF6D00" stopOpacity={stopEarly} />
+            <stop offset="50%" stopColor="#FF6D00" stopOpacity={stopMid} />
+            <stop offset="92%" stopColor="#FF6D00" stopOpacity={stopLate} />
+            <stop offset="100%" stopColor="#FF6D00" stopOpacity={thickenWithScroll ? '0.4' : '0'} />
           </linearGradient>
           <filter id={`curve-glow-${variant}`} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation={thickenWithScroll ? '1.5' : '1.0'} result="blur" />
