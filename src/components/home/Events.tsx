@@ -4,6 +4,7 @@ import { format, type Locale } from 'date-fns';
 import { es, enUS } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
 import { useEvents } from '../../hooks/useCatalog';
+import { safeExternalUrl } from '../../utils/url';
 import type { EventKind, EventRow } from '../../types/events';
 
 const KIND_LABEL_ES: Record<EventKind, string> = { event: 'Event', webinar: 'Webinar' };
@@ -91,13 +92,16 @@ interface EventCardProps {
 
 function EventCard({ event, locale, kindLabel }: EventCardProps) {
   const { month, dayRange } = splitDateRange(event.start_date, event.end_date, locale);
-  const hasCta = Boolean(event.cta_url);
+  // Solo aceptamos http/https: el cta_url viene de la BD y no debe poder ser
+  // un href `javascript:` (XSS almacenado en la home pública).
+  const safeCta = safeExternalUrl(event.cta_url);
+  const hasCta = Boolean(safeCta);
 
   // El card es un <a> si hay CTA URL, sino un <div>. Hace que toda la fila
   // sea clickeable cuando hay link.
   const Wrapper: React.ElementType = hasCta ? 'a' : 'div';
   const wrapperProps = hasCta
-    ? { href: event.cta_url!, target: '_blank', rel: 'noreferrer' }
+    ? { href: safeCta!, target: '_blank', rel: 'noreferrer' }
     : {};
 
   return (

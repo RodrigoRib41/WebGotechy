@@ -21,6 +21,7 @@ import { useEvents } from '../../hooks/useCatalog';
 import { eventsService } from '../../lib/supabase';
 import { type EventKind, type EventRow } from '../../types/events';
 import { cn } from '../../utils/cn';
+import { safeExternalUrl } from '../../utils/url';
 
 const KIND_LABEL: Record<EventKind, string> = {
   event: 'Event',
@@ -142,9 +143,9 @@ export function AdminEvents() {
                         <Globe className="h-3 w-3" /> {ev.languages.join(', ')}
                       </span>
                     )}
-                    {ev.cta_url && (
+                    {safeExternalUrl(ev.cta_url) && (
                       <a
-                        href={ev.cta_url}
+                        href={safeExternalUrl(ev.cta_url)!}
                         target="_blank"
                         rel="noreferrer"
                         className="inline-flex items-center gap-1 text-secondary-300 hover:text-secondary"
