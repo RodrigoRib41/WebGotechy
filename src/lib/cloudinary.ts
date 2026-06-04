@@ -1,3 +1,5 @@
+import { supabase } from './supabase';
+
 export interface CloudinaryUploadResponse {
   secure_url: string;
   public_id: string;
@@ -7,26 +9,45 @@ export interface CloudinaryUploadResponse {
   bytes: number;
 }
 
-const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+interface UploadSignature {
+  signature: string;
+  timestamp: number;
+  apiKey: string;
+  cloudName: string;
+  uploadPreset: string;
+}
 
-export const isCloudinaryConfigured = Boolean(cloudName && uploadPreset);
+// El cloud name no es secreto: se usa para construir URLs de lectura/transform.
+const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+
+// Las subidas ya NO dependen de un preset público en el bundle: se firman
+// server-side vía la Edge Function `sign-upload` (solo admins logueados).
+export const isCloudinaryConfigured = Boolean(cloudName);
 
 export const cloudinaryService = {
   async uploadImage(file: File): Promise<CloudinaryUploadResponse> {
-    if (!cloudName || !uploadPreset) {
+    // 1. Pedir la firma a la Edge Function: valida sesión + rol admin del lado
+    //    servidor y firma con el API secret (que nunca toca el cliente).
+    const { data: sig, error: sigErr } = await supabase.functions.invoke<UploadSignature>(
+      'sign-upload',
+    );
+    if (sigErr || !sig?.signature) {
       throw new Error(
-        'Cloudinary no está configurado. Definí VITE_CLOUDINARY_CLOUD_NAME y VITE_CLOUDINARY_UPLOAD_PRESET en .env.',
+        sigErr?.message ??
+          'No se pudo autorizar la subida. Iniciá sesión como administrador e intentá de nuevo.',
       );
     }
 
+    // 2. Subir directo a Cloudinary con los params firmados (sin preset público).
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', uploadPreset);
-    formData.append('folder', 'blog-posts');
+    formData.append('api_key', sig.apiKey);
+    formData.append('timestamp', String(sig.timestamp));
+    formData.append('signature', sig.signature);
+    formData.append('upload_preset', sig.uploadPreset);
 
     const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+      `https://api.cloudinary.com/v1_1/${sig.cloudName}/image/upload`,
       { method: 'POST', body: formData },
     );
 

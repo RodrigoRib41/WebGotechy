@@ -200,3 +200,101 @@ create policy "Authenticated can manage service horizonte"
 Sin correr esta migración, el admin muestra el error "relation does not exist"
 y el sitio público sigue mostrando los textos estáticos sin romperse (el fetch
 del override falla en silencio y cae al default).
+
+---
+
+## 2026-06-03 — Hardening de seguridad: allowlist de admins + RPC de vistas
+
+Cierra dos hallazgos de la auditoría OWASP:
+
+1. **Autorización admin (A01/A07):** las policies originales daban CRUD a
+   cualquier rol `authenticated` (`using (true)`). Es decir, **cualquier usuario
+   registrado** podía gestionar TODO el contenido. Ahora la escritura se
+   restringe a una allowlist explícita (`admin_users`) vía `is_admin()`.
+2. **Conteo de vistas (A03):** se elimina el fallback de UPDATE directo desde el
+   cliente y se centraliza en un RPC `SECURITY DEFINER`.
+
+> ⚠️ Recomendado además: Authentication → Providers → Email → desactivar
+> "Allow new users to sign up" (defensa en profundidad).
+
+```sql
+-- 1) Allowlist de administradores (sin policies = nadie la lee/escribe desde el cliente)
+create table if not exists public.admin_users (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now()
+);
+alter table public.admin_users enable row level security;
+
+-- 2) Helper que usan todas las policies de escritura
+create or replace function public.is_admin()
+returns boolean language sql security definer set search_path = public stable
+as $$ select exists (select 1 from public.admin_users where user_id = auth.uid()); $$;
+revoke all on function public.is_admin() from public;
+grant execute on function public.is_admin() to authenticated;
+
+-- 3) Cargar el/los admin(s) por email
+insert into public.admin_users (user_id)
+select id from auth.users where email = 'rodrigo.riboldi@gotechy.com'
+on conflict do nothing;
+
+-- 4) blog_posts: reemplazar las 4 policies de authenticated por admin-only
+drop policy if exists "Authenticated can delete"   on public.blog_posts;
+drop policy if exists "Authenticated can update"   on public.blog_posts;
+drop policy if exists "Authenticated can insert"   on public.blog_posts;
+drop policy if exists "Authenticated can read all" on public.blog_posts;
+create policy "Admins manage blog_posts" on public.blog_posts
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+-- ("Public can read published posts" se mantiene)
+
+-- 5) Resto de tablas: misma sustitución
+drop policy if exists "Authenticated can manage logos" on public.logos;
+create policy "Admins manage logos" on public.logos
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
+drop policy if exists "Authenticated can manage projects" on public.projects;
+create policy "Admins manage projects" on public.projects
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
+drop policy if exists "Authenticated can manage testimonials" on public.testimonials;
+create policy "Admins manage testimonials" on public.testimonials
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
+drop policy if exists "Authenticated can manage events" on public.events;
+create policy "Admins manage events" on public.events
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
+drop policy if exists "Authenticated can manage service horizonte" on public.service_horizonte;
+create policy "Admins manage service_horizonte" on public.service_horizonte
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
+-- 6) RPC de vistas (reemplaza el UPDATE directo del cliente, que ya no tiene permiso)
+create or replace function public.increment_views(post_id uuid)
+returns void language sql security definer set search_path = public as $$
+  update public.blog_posts set views = views + 1 where id = post_id;
+$$;
+revoke all on function public.increment_views(uuid) from public;
+grant execute on function public.increment_views(uuid) to anon, authenticated;
+```
+
+---
+
+## 2026-06-03 — Edge Function `sign-upload` (subidas firmadas a Cloudinary)
+
+Cierra el hallazgo A04/A05: el preset *unsigned* viajaba en el bundle, así que
+cualquiera podía subir a la cuenta Cloudinary. Ahora las subidas se **firman
+server-side** y solo para admins logueados. Ver `supabase/functions/sign-upload/`.
+
+Pasos de despliegue:
+
+```bash
+# Secrets (el API SECRET nunca toca el front)
+supabase secrets set CLOUDINARY_CLOUD_NAME=...
+supabase secrets set CLOUDINARY_API_KEY=...
+supabase secrets set CLOUDINARY_API_SECRET=...
+supabase secrets set CLOUDINARY_UPLOAD_PRESET=gotechy-blog
+
+supabase functions deploy sign-upload
+```
+
+Además: en Cloudinary, poner el preset `gotechy-blog` en **Signing Mode: Signed**
+(si queda Unsigned, el vector sigue abierto) + restringir formatos/tamaño/folder.

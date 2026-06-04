@@ -136,6 +136,19 @@ function Toolbar({ editor, onPickImage }: ToolbarProps) {
       editor.chain().focus().extendMarkRange('link').unsetLink().run();
       return;
     }
+    // Solo protocolos seguros: bloquea javascript:, data:, vbscript:, etc.
+    const ALLOWED = ['http:', 'https:', 'mailto:', 'tel:'];
+    let parsed: URL;
+    try {
+      parsed = new URL(url, window.location.origin);
+    } catch {
+      toast.error('URL inválida.');
+      return;
+    }
+    if (!ALLOWED.includes(parsed.protocol)) {
+      toast.error('Protocolo no permitido. Usá http(s), mailto o tel.');
+      return;
+    }
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   };
 

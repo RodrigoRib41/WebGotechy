@@ -107,13 +107,10 @@ export const blogService = {
   },
 
   async incrementViews(id: string): Promise<void> {
-    // RPC opcional: si la función `increment_views` no existe, hacemos un update best-effort.
-    const { error: rpcError } = await supabase.rpc('increment_views', { post_id: id });
-    if (!rpcError) return;
-    // Fallback sin RPC
-    const { data } = await supabase.from(TABLE).select('views').eq('id', id).maybeSingle();
-    const current = (data?.views as number | undefined) ?? 0;
-    await supabase.from(TABLE).update({ views: current + 1 }).eq('id', id);
+    // El conteo se hace vía RPC `increment_views` (SECURITY DEFINER) para no
+    // requerir permisos de UPDATE directos sobre la tabla desde el cliente anónimo.
+    // Si la función no existe, el error se ignora (best-effort, no rompe el render).
+    await supabase.rpc('increment_views', { post_id: id });
   },
 };
 
