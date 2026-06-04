@@ -13,7 +13,13 @@ export function LoginForm() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = (location.state as LocationState | null)?.from ?? '/admin/dashboard';
+  const rawFrom = (location.state as LocationState | null)?.from;
+  // Solo permitimos rutas internas del panel para evitar open redirect
+  // (p. ej. //evil.com o javascript:). Cualquier otra cosa → dashboard.
+  const from =
+    typeof rawFrom === 'string' && /^\/admin(\/|$)/.test(rawFrom)
+      ? rawFrom
+      : '/admin/dashboard';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
