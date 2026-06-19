@@ -93,16 +93,6 @@
   <body style="background-color: #0A0E1A; color: #FFFFFF; font-family: 'Plus Jakarta Sans', system-ui, sans-serif;">
     <div id="root"></div>
 
-    <!-- Formulario oculto para que Netlify detecte el form en el build estático -->
-    <form name="contacto" data-netlify="true" netlify-honeypot="bot-field" hidden>
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <input type="text" name="company" />
-      <input type="tel" name="phone" />
-      <textarea name="message"></textarea>
-      <input type="text" name="bot-field" />
-    </form>
-
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

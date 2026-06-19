@@ -21,7 +21,7 @@ import { HomeBackgroundCurve } from '../components/effects/HomeBackgroundCurve';
  *   6. Testimonials       (LIGHT)  — Quote grande + dots (admin CRUD)
  *   7. Events             (LIGHT)  — Tabla de eventos/webinars (admin CRUD)
  *   8. LatestPosts        (DARK)   — Grid 3 últimos artículos
- *   9. FinalCtaForm       (LIGHT)  — Form inline → Netlify
+ *   9. FinalCtaForm       (LIGHT)  — Form inline → Edge Function submit-contact
  *
  * Las secciones 5/6/7/8 son condicionales: si no hay data, no renderizan.
  *

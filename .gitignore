@@ -33,9 +33,6 @@ build
 .env.*
 !.env.example
 
-# Netlify
-.netlify
-
 # Supabase CLI (archivos temporales locales del link/deploy)
 supabase/.temp
 supabase/.branches

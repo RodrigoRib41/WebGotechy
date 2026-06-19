@@ -6,7 +6,14 @@
       "Bash(npm run *)",
       "WebFetch(domain:gotechy.com)",
       "Bash([ -f \"public/images/$f\" ])",
-      "Bash(grep -E \"noUnused|strict\" tsconfig*.json)"
+      "Bash(grep -E \"noUnused|strict\" tsconfig*.json)",
+      "Bash(npm audit *)",
+      "Bash(node -e \"console.log\\('installed dompurify:', require\\('dompurify/package.json'\\).version\\)\")",
+      "Bash(npm view *)",
+      "Bash(node -e \"const l=require\\('./package-lock.json'\\); const p=l.packages['node_modules/dompurify']; console.log\\('locked dompurify:', p && p.version\\);\")",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('vercel.json','utf8'\\)\\); console.log\\('vercel.json: JSON válido'\\)\")",
+      "Bash(git --no-pager diff -- vercel.json netlify.toml src/pages/BlogPostPage.tsx package.json)",
+      "Bash(git rm *)"
     ]
   }
 }

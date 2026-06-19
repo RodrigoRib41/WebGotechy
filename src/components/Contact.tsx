@@ -15,6 +15,7 @@ import { SectionHeader } from './SectionHeader';
 import { OfficesMap } from './OfficesMap';
 import { OFFICES, SITE } from '../data/site';
 import { cn } from '../utils/cn';
+import { supabase } from '../lib/supabase';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -42,12 +43,6 @@ function validate(
   return errors;
 }
 
-function encode(data: Record<string, string>) {
-  return Object.keys(data)
-    .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
-    .join('&');
-}
-
 export function Contact() {
   const { t } = useTranslation();
   const [fields, setFields] = useState<Fields>(initial);
@@ -71,17 +66,19 @@ export function Contact() {
 
     setState('submitting');
     try {
-      const formData = new FormData(e.currentTarget);
-      const body = encode({
-        'form-name': 'contacto',
-        ...Object.fromEntries(formData.entries()) as Record<string, string>,
+      // El honeypot vive como input oculto (`bot-field`); lo leemos del form.
+      const botField = (new FormData(e.currentTarget).get('bot-field') as string) ?? '';
+      const { error } = await supabase.functions.invoke('submit-contact', {
+        body: {
+          name: fields.name,
+          email: fields.email,
+          company: fields.company,
+          phone: fields.phone,
+          message: fields.message,
+          botField,
+        },
       });
-
-      await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body,
-      });
+      if (error) throw error;
       setState('success');
       setFields(initial);
     } catch {
@@ -151,16 +148,11 @@ export function Contact() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  name="contacto"
-                  method="POST"
-                  data-netlify="true"
-                  netlify-honeypot="bot-field"
                   onSubmit={handleSubmit}
                   className="grid gap-5"
                   noValidate
                 >
-                  {/* Netlify fields */}
-                  <input type="hidden" name="form-name" value="contacto" />
+                  {/* Honeypot anti-bot: oculto para humanos, lo valida la Edge Function */}
                   <p className="hidden">
                     <label>
                       {t('contact.form.botField')}:

@@ -241,18 +241,26 @@ Andá a http://localhost:5173/admin, ingresá con el usuario creado en 2.3 y deb
 
 ---
 
-## 5. Deploy en Netlify
+## 5. Deploy en Vercel
 
-En **Site settings → Environment variables**, agregá las mismas 4 variables del `.env`:
+En **Project Settings → Environment Variables**, agregá las variables `VITE_*`
+del `.env` (son las únicas que llegan al cliente):
 
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_ANON_KEY`
 - `VITE_CLOUDINARY_CLOUD_NAME`
-- `VITE_CLOUDINARY_UPLOAD_PRESET`
+- `VITE_CONTACT_PHONE`, `VITE_WHATSAPP_NUMBER`, `VITE_CONTACT_EMAIL`, `VITE_SITE_URL` (opcionales)
 
-Cualquier push a main dispara un nuevo build con las envs aplicadas.
+Vercel detecta Vite y usa `npm run build` → `dist`. El `vercel.json` ya define el
+rewrite SPA y las cabeceras de seguridad. Cualquier push a `main` dispara un build.
 
-> **CORS:** Supabase ya permite tu dominio de Netlify por defecto. Si lo bloquea, andá a **Project Settings → API → CORS** y agregá la URL de producción.
+> **Subidas y contacto (server-side):** los secrets de las Edge Functions
+> (`CLOUDINARY_*`, `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`)
+> **NO** son variables de Vercel: viven en Supabase (`supabase secrets set ...`).
+> Ver `supabase/MIGRATIONS.md` para desplegar `sign-upload` y `submit-contact`.
+
+> **CORS:** Supabase permite tu dominio por defecto. Si lo bloquea, andá a
+> **Project Settings → API → CORS** y agregá la URL de producción de Vercel.
 
 ---
 
@@ -262,7 +270,8 @@ Cualquier push a main dispara un nuevo build con las envs aplicadas.
 |---|---|
 | `Supabase no está configurado` en login | Faltan `VITE_SUPABASE_*` en `.env`. Reiniciá el dev server después de tocarlo. |
 | "Invalid login credentials" | El usuario no existe, o no marcaste **Auto Confirm User** al crearlo. |
-| Imágenes no suben | Verificá que el upload preset es **Unsigned** y el nombre coincide con `VITE_CLOUDINARY_UPLOAD_PRESET`. |
+| Imágenes no suben | La Edge Function `sign-upload` no está desplegada o le faltan secrets. El preset debe estar en **Signed** en Cloudinary. Ver `supabase/MIGRATIONS.md`. |
+| El formulario de contacto da error al enviar | Falta desplegar la Edge Function `submit-contact` o cargar `RESEND_API_KEY`/`CONTACT_TO_EMAIL`. Ver `supabase/MIGRATIONS.md`. |
 | `permission denied for table blog_posts` | Las policies de RLS no se aplicaron. Re-ejecutá el bloque SQL completo. |
 | Vistas no incrementan | La función `increment_views` no existe — el fallback en `supabase.ts` igual hace el update. |
 | Blog público vacío después de publicar | Verificá que el post tenga `status = 'published'` Y `published_at` no nulo. |

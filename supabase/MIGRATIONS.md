@@ -298,3 +298,42 @@ supabase functions deploy sign-upload
 
 Además: en Cloudinary, poner el preset `gotechy-blog` en **Signing Mode: Signed**
 (si queda Unsigned, el vector sigue abierto) + restringir formatos/tamaño/folder.
+
+---
+
+## 2026-06-19 — Edge Function `submit-contact` (formularios de contacto por email)
+
+El sitio se despliega en **Vercel** (no Netlify), así que los formularios ya no
+pueden usar Netlify Forms. Ahora la página de Contacto y el CTA final del Home
+envían a la Edge Function `submit-contact`, que valida server-side, frena bots
+(honeypot + rate-limit por IP), escapa el HTML del input y manda el lead por
+email vía **Resend**. Ver `supabase/functions/submit-contact/`.
+
+**Hasta no desplegar esto + cargar los secrets, los formularios fallan** (el
+visitante ve el estado de error; ninguna consulta se pierde en silencio).
+
+Pasos de despliegue:
+
+```bash
+# 1. Crear cuenta en https://resend.com y una API key.
+#    Para producción, verificar el dominio gotechy.com en Resend y usar un
+#    remitente de ese dominio (ej. "GoTechy Web <web@gotechy.com>").
+#    Para probar rápido: dejá el default (onboarding@resend.dev), que solo
+#    entrega al email dueño de la cuenta Resend.
+
+# 2. Secrets (el API key nunca toca el bundle del front)
+supabase secrets set RESEND_API_KEY=re_xxx
+supabase secrets set CONTACT_TO_EMAIL=contacto@gotechy.com
+supabase secrets set CONTACT_FROM_EMAIL="GoTechy Web <web@gotechy.com>"
+
+# 3. Deploy (la función es pública: la anon key que manda supabase-js alcanza
+#    para pasar la verificación JWT por defecto, no hace falta --no-verify-jwt)
+supabase functions deploy submit-contact
+```
+
+Notas:
+- El rate-limit es best-effort (memoria por isolate en Deno Deploy): frena floods
+  comunes, no es un límite distribuido. Para anti-spam fuerte, sumar a futuro un
+  challenge tipo Cloudflare Turnstile.
+- El `connect-src` de la CSP ya permite `https://*.supabase.co`, así que la
+  llamada `functions.invoke('submit-contact')` no requiere tocar `vercel.json`.

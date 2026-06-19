@@ -9,6 +9,17 @@ import { PageHeader } from '../components/PageHeader';
 import { blogService } from '../lib/supabase';
 import { localizeBlogPost, type BlogPost } from '../types/blog';
 
+// Defensa en profundidad sobre el HTML del artículo (que vive en la BD):
+// DOMPurify ya neutraliza `javascript:`/handlers, pero además forzamos
+// rel="noopener noreferrer" en los enlaces que abren en una pestaña nueva
+// para cerrar el reverse-tabnabbing. El hook es global a DOMPurify, así que
+// se registra una sola vez a nivel módulo (no en cada render).
+DOMPurify.addHook('afterSanitizeAttributes', (node) => {
+  if (node.tagName === 'A' && node.getAttribute('target') === '_blank') {
+    node.setAttribute('rel', 'noopener noreferrer');
+  }
+});
+
 export function BlogPostPage() {
   const { t, i18n } = useTranslation();
   const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');

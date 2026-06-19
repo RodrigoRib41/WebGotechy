@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../../utils/cn';
 import { ArrowMark } from '../brand';
+import { supabase } from '../../lib/supabase';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -25,20 +26,10 @@ function validate(f: Fields): Partial<Record<keyof Fields, string>> {
   return e;
 }
 
-function encode(data: Record<string, string>) {
-  return Object.keys(data)
-    .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
-    .join('&');
-}
-
 /**
- * Sección "CTA Final" — fondo BLANCO. Form inline minimalista que se envía
- * al mismo endpoint de Netlify Forms que usa /contacto (form-name=contacto),
- * así todas las consultas caen en la misma bandeja en el dashboard.
- *
- * Nota: para que Netlify detecte el form también debe existir una declaración
- * estática en index.html (o un mirror del form en el HTML). Ya está
- * declarado para /contacto, así que reusar form-name=contacto basta.
+ * Sección "CTA Final" — fondo BLANCO. Form inline minimalista que envía la
+ * consulta a la Edge Function `submit-contact` (misma bandeja que /contacto),
+ * la cual valida, frena bots y manda el email vía Resend.
  */
 export function FinalCtaForm() {
   const { t } = useTranslation();
@@ -60,19 +51,19 @@ export function FinalCtaForm() {
 
     setState('submitting');
     try {
-      const body = encode({
-        'form-name': 'contacto',
-        name: fields.name,
-        email: fields.email,
-        company: fields.company,
-        phone: '',
-        message: fields.message,
+      // El honeypot vive como input oculto (`bot-field`); lo leemos del form.
+      const botField = (new FormData(e.currentTarget).get('bot-field') as string) ?? '';
+      const { error } = await supabase.functions.invoke('submit-contact', {
+        body: {
+          name: fields.name,
+          email: fields.email,
+          company: fields.company,
+          phone: '',
+          message: fields.message,
+          botField,
+        },
       });
-      await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body,
-      });
+      if (error) throw error;
       setState('success');
       setFields(initial);
     } catch {
@@ -144,18 +135,13 @@ export function FinalCtaForm() {
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             onSubmit={onSubmit}
-            name="contacto"
-            method="POST"
-            data-netlify="true"
-            netlify-honeypot="bot-field"
             className="mx-auto mt-14 max-w-2xl rounded-3xl border border-black/5 bg-white p-7 shadow-[0_10px_40px_-15px_rgba(15,20,25,0.12)] sm:p-10"
             noValidate
           >
-            {/* Netlify hidden fields */}
-            <input type="hidden" name="form-name" value="contacto" />
+            {/* Honeypot anti-bot: oculto para humanos, lo valida la Edge Function */}
             <p className="hidden">
               <label>
-                No completar: <input name="bot-field" />
+                No completar: <input name="bot-field" tabIndex={-1} autoComplete="off" />
               </label>
             </p>
 
