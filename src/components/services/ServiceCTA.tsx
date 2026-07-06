@@ -52,23 +52,23 @@ export function ServiceCTA({ serviceName }: ServiceCTAProps) {
                 id="service-cta"
                 className="text-display-3 font-display font-bold text-white"
               >
-                {t('services.cta.titleStart')}{' '}
+                {t('services.ctaSection.titleStart')}{' '}
                 <span className="text-secondary">{serviceName}</span>
-                {t('services.cta.titleEnd')}
+                {t('services.ctaSection.titleEnd')}
               </motion.h2>
               <motion.p variants={approachItem} className="mt-3 max-w-xl text-base text-white/80">
-                {t('services.cta.subtitle')}
+                {t('services.ctaSection.subtitle')}
               </motion.p>
               <motion.div
                 variants={approachItem}
                 className="mt-6 flex flex-wrap items-center gap-3"
               >
                 <Link to="/contacto" className="btn-primary">
-                  {t('services.cta.scheduleMeeting')}
+                  {t('services.ctaSection.scheduleMeeting')}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link to="/proyectos" className="btn-secondary">
-                  {t('services.cta.viewCases')}
+                  {t('services.ctaSection.viewCases')}
                 </Link>
               </motion.div>
             </motion.div>
@@ -92,7 +92,7 @@ export function ServiceCTA({ serviceName }: ServiceCTAProps) {
                   <Mail className="h-5 w-5" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-xs uppercase tracking-wider text-white/55">{t('services.cta.email')}</div>
+                  <div className="text-xs uppercase tracking-wider text-white/55">{t('services.ctaSection.email')}</div>
                   <div className="truncate text-sm font-semibold text-white group-hover:text-secondary-200">
                     {SITE.email}
                   </div>
@@ -107,7 +107,7 @@ export function ServiceCTA({ serviceName }: ServiceCTAProps) {
                   <Phone className="h-5 w-5" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-xs uppercase tracking-wider text-white/55">{t('services.cta.phone')}</div>
+                  <div className="text-xs uppercase tracking-wider text-white/55">{t('services.ctaSection.phone')}</div>
                   <div className="truncate text-sm font-semibold text-white group-hover:text-secondary-200">
                     {SITE.phone}
                   </div>
@@ -125,7 +125,7 @@ export function ServiceCTA({ serviceName }: ServiceCTAProps) {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="mb-5 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45"
             >
-              {t('services.cta.trustStrip')}
+              {t('services.ctaSection.trustStrip')}
             </motion.div>
             <motion.div
               initial="hidden"

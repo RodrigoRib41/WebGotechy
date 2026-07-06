@@ -13,7 +13,8 @@
       "Bash(node -e \"const l=require\\('./package-lock.json'\\); const p=l.packages['node_modules/dompurify']; console.log\\('locked dompurify:', p && p.version\\);\")",
       "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('vercel.json','utf8'\\)\\); console.log\\('vercel.json: JSON válido'\\)\")",
       "Bash(git --no-pager diff -- vercel.json netlify.toml src/pages/BlogPostPage.tsx package.json)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "mcp__codegraph__codegraph_files"
     ]
   }
 }
