@@ -1,5 +1,6 @@
 import { RouterProvider } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { Analytics } from '@vercel/analytics/react';
 import { router } from './router';
 import { ScrollProgress } from './components/effects/ScrollProgress';
 
@@ -32,6 +33,7 @@ export default function App() {
           },
         }}
       />
+      <Analytics />
     </>
   );
 }
