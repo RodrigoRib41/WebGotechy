@@ -5,9 +5,11 @@ import { getServiceBySlug, localizeService, getRelatedServices, localizeServiceD
 import { ServiceHero } from '../components/services/ServiceHero';
 import { ServiceOverview } from '../components/services/ServiceOverview';
 import { ServiceFeatures } from '../components/services/ServiceFeatures';
+import { ServiceApproach } from '../components/services/ServiceApproach';
 import { ServiceStats } from '../components/services/ServiceStats';
 import { ServiceBenefits } from '../components/services/ServiceBenefits';
 import { ServiceUseCases } from '../components/services/ServiceUseCases';
+import { ServiceTechStack } from '../components/services/ServiceTechStack';
 import { ServiceHorizonte } from '../components/services/ServiceHorizonte';
 import { ServiceCTA } from '../components/services/ServiceCTA';
 import { AnimatedDivider } from '../components/effects/AnimatedDivider';
@@ -152,10 +154,34 @@ export function ServiceDetailPage() {
       <ServiceBenefits benefits={detail.benefits} />
       {/* Capacidades clave */}
       <ServiceFeatures features={detail.features} />
+      {/* Cómo trabajamos (metodología) — solo si el servicio la define */}
+      {detail.approach && (
+        <ServiceApproach
+          eyebrow={detail.approach.eyebrow}
+          title={detail.approach.title}
+          subtitle={detail.approach.subtitle}
+          items={detail.approach.items}
+          image={detail.approach.image}
+        />
+      )}
       {/* Casos: dónde aplica */}
       <ServiceUseCases useCases={detail.useCases} />
       <AnimatedDivider />
-      {/* Diferenciador: Horizonte SAP (editable desde /admin) */}
+      {/* Ecosistema tecnológico agrupado — solo si el servicio lo define */}
+      {detail.techStack && detail.techStack.length > 0 && (
+        <ServiceTechStack items={detail.techStack} />
+      )}
+      {/* Sección complementaria breve al final (ej: Cloud ALM en SAP Basis) */}
+      {detail.extraSection && (
+        <ServiceApproach
+          eyebrow={detail.extraSection.eyebrow}
+          title={detail.extraSection.title}
+          subtitle={detail.extraSection.subtitle}
+          items={detail.extraSection.items}
+          image={detail.extraSection.image}
+        />
+      )}
+      {/* Diferenciador: Horizonte SAP (editable desde /admin) — cierre editorial */}
       {horizonteSettled && horizonteText && <ServiceHorizonte text={horizonteText} />}
       {/* CTA final */}
       <ServiceCTA serviceName={service.title} />

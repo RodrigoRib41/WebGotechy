@@ -2,7 +2,7 @@
   "meta": {
     "siteName": "GoTechy",
     "tagline": "Consultora SAP de clase mundial",
-    "description": "Transformamos empresas con tecnología SAP. Signavio, BTP, LeanIX, Basis, Fiori, ABAP, IA y Next Gen Development."
+    "description": "Transformamos empresas con tecnología SAP. IA, Next Gen Solutions, BTP, Business Data Cloud, Signavio, LeanIX y Basis."
   },
   "header": {
     "home": "Inicio",
@@ -39,6 +39,36 @@
       "subtitle": "Acompañamos organizaciones en su transformación digital con soluciones SAP end-to-end, automatización e innovación continua.",
       "primaryCta": "Conocé nuestros servicios",
       "secondaryCta": "Ver casos de éxito"
+    },
+    "heroCarousel": {
+      "label": "Banners destacados",
+      "prev": "Banner anterior",
+      "next": "Banner siguiente",
+      "goTo": "Ir al banner {{index}}",
+      "banners": {
+        "transformation": {
+          "eyebrow": "Transformación digital",
+          "title": "La tecnología que tu negocio necesita para",
+          "titleHighlight": "dar el salto",
+          "subtitle": "Estrategia, implementación y acompañamiento end-to-end: convertimos la complejidad tecnológica en resultados concretos.",
+          "cta": "Conocé nuestros servicios",
+          "secondaryCta": "Hablemos"
+        },
+        "ai": {
+          "eyebrow": "Innovación & IA",
+          "title": "La innovación",
+          "titleHighlight": "no duerme",
+          "subtitle": "Automatización, datos e inteligencia artificial trabajando 24/7 para que tu operación nunca se detenga.",
+          "cta": "Descubrí cómo"
+        },
+        "cases": {
+          "eyebrow": "Automatización inteligente",
+          "title": "Proyectos que se miden en",
+          "titleHighlight": "resultados",
+          "subtitle": "Más de 20 años ejecutando proyectos críticos junto a empresas líderes de LATAM, con equipos que se integran al tuyo.",
+          "cta": "Ver casos de éxito"
+        }
+      }
     },
     "highlights": {
       "eyebrow": "Servicios",

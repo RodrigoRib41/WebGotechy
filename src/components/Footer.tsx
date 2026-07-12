@@ -1,8 +1,8 @@
-import { Linkedin, Youtube, Mail, Phone } from 'lucide-react';
+import { Linkedin, Youtube, Mail, Phone, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Logo } from './Logo';
-import { SITE, NAV_LINKS } from '../data/site';
+import { SITE, NAV_LINKS, OFFICES } from '../data/site';
 import { ArrowMark, ArrowPattern } from './brand';
 
 export function Footer() {
@@ -35,7 +35,7 @@ export function Footer() {
       </div>
 
       <div className="container-x relative py-10">
-        <div className="grid gap-8 md:grid-cols-3 md:gap-10">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {/* Col 1 - Brand */}
           <div>
             <Logo light />
@@ -101,6 +101,38 @@ export function Footer() {
                   {SITE.email}
                 </a>
               </li>
+            </ul>
+          </div>
+
+          {/* Col 4 - Oficinas */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-white/55">
+              {t('footer.officesTitle')}
+            </h3>
+            <ul className="mt-3 space-y-3">
+              {OFFICES.map((office) => (
+                <li key={office.id}>
+                  <a
+                    href={office.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex gap-2 text-sm text-white/75"
+                  >
+                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
+                    <span className="not-italic leading-relaxed">
+                      <span className="font-semibold text-white/85 transition group-hover:text-secondary">
+                        {office.city}
+                      </span>
+                      <br />
+                      {office.address}
+                      <br />
+                      <span className="text-white/55">
+                        {office.postal} — {office.country}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

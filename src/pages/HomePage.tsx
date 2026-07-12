@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Hero } from '../components/Hero';
+import { HeroCarousel } from '../components/HeroCarousel';
 import { ServicesPreview } from '../components/home/ServicesPreview';
 import { StatsHighlight } from '../components/home/StatsHighlight';
 import { ClientsLight } from '../components/home/ClientsLight';
@@ -13,7 +13,7 @@ import { HomeBackgroundCurve } from '../components/effects/HomeBackgroundCurve';
 /**
  * Home — 8 secciones con alternancia dark/light al estilo Stripe/Linear.
  *
- *   1. Hero               (DARK)   — Full viewport, video sutil + partículas
+ *   1. HeroCarousel       (DARK)   — Carrusel full-bleed de 3 banners (autoplay)
  *   2. ServicesPreview    (LIGHT)  — Grid 3x3, cards minimal
  *   3. StatsHighlight     (DARK)   — Counters + geometría
  *   4. ClientsLight       (LIGHT)  — Marquee, logos a color
@@ -34,7 +34,7 @@ export function HomePage() {
   return (
     <div ref={pageRef} className="relative">
       <HomeBackgroundCurve targetRef={pageRef} thickenWithScroll />
-      <Hero />
+      <HeroCarousel />
       <ServicesPreview />
       <StatsHighlight />
       <ClientsLight />

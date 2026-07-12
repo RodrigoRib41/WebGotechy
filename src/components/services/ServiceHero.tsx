@@ -159,9 +159,7 @@ export function ServiceHero({
               className="group absolute inset-0"
             >
               <div
-                className={`absolute inset-0 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-glow-md backdrop-blur ${
-                  showImage ? 'img-duotone img-duotone-hover' : ''
-                }`}
+                className="absolute inset-0 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-glow-md backdrop-blur"
               >
                 {showImage ? (
                   <img

@@ -2,7 +2,7 @@
   "meta": {
     "siteName": "GoTechy",
     "tagline": "World-class SAP consultancy",
-    "description": "We transform companies with SAP technology. Signavio, BTP, LeanIX, Basis, Fiori, ABAP, AI and Next Gen Development."
+    "description": "We transform companies with SAP technology. AI, Next Gen Solutions, BTP, Business Data Cloud, Signavio, LeanIX and Basis."
   },
   "header": {
     "home": "Home",
@@ -39,6 +39,36 @@
       "subtitle": "We guide organizations through digital transformation with end-to-end SAP solutions, automation and continuous innovation.",
       "primaryCta": "Explore our services",
       "secondaryCta": "View case studies"
+    },
+    "heroCarousel": {
+      "label": "Featured banners",
+      "prev": "Previous banner",
+      "next": "Next banner",
+      "goTo": "Go to banner {{index}}",
+      "banners": {
+        "transformation": {
+          "eyebrow": "Digital transformation",
+          "title": "The technology your business needs to",
+          "titleHighlight": "take the leap",
+          "subtitle": "Strategy, implementation and end-to-end support: we turn technological complexity into tangible results.",
+          "cta": "Explore our services",
+          "secondaryCta": "Let's talk"
+        },
+        "ai": {
+          "eyebrow": "Innovation & AI",
+          "title": "Innovation",
+          "titleHighlight": "never sleeps",
+          "subtitle": "Automation, data and artificial intelligence working 24/7 so your operation never stops.",
+          "cta": "Discover how"
+        },
+        "cases": {
+          "eyebrow": "Smart automation",
+          "title": "Projects measured in",
+          "titleHighlight": "results",
+          "subtitle": "Over 20 years delivering critical projects with LATAM's leading companies, alongside teams that integrate with yours.",
+          "cta": "View case studies"
+        }
+      }
     },
     "highlights": {
       "eyebrow": "Services",

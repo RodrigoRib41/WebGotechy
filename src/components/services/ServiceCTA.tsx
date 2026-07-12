@@ -16,10 +16,10 @@ interface ServiceCTAProps {
  * /public/images. Cada label se localiza por i18n.
  */
 const TRUST_POINTS: { icon: LucideIcon; key: string }[] = [
-  { icon: Award, key: 'services.cta.trustPoint1' },
-  { icon: Clock, key: 'services.cta.trustPoint2' },
-  { icon: BadgeCheck, key: 'services.cta.trustPoint3' },
-  { icon: ShieldCheck, key: 'services.cta.trustPoint4' },
+  { icon: Award, key: 'services.ctaSection.trustPoint1' },
+  { icon: Clock, key: 'services.ctaSection.trustPoint2' },
+  { icon: BadgeCheck, key: 'services.ctaSection.trustPoint3' },
+  { icon: ShieldCheck, key: 'services.ctaSection.trustPoint4' },
 ];
 
 export function ServiceCTA({ serviceName }: ServiceCTAProps) {

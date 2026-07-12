@@ -92,9 +92,7 @@ export function ServiceOverview({
               aria-hidden="true"
             />
             <div
-              className={`group relative ${aspectClass} overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-glow-md backdrop-blur ${
-                showImage ? 'img-duotone img-duotone-hover' : ''
-              }`}
+              className={`group relative ${aspectClass} overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-glow-md backdrop-blur`}
             >
               {showImage ? (
                 <>
