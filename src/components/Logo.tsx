@@ -2,37 +2,33 @@ import { cn } from '../utils/cn';
 
 interface LogoProps {
   className?: string;
-  /** Wordmark blanco para fondos oscuros (default en tema oscuro) */
+  /** Variante blanca para fondos oscuros (default). `false` usa el logo negro. */
   light?: boolean;
-  /** Tamaño del logo en px (cuadrado). Default: 36px */
+  /** Alto del logo en px. El ancho se deriva del aspect ratio (1016:245). */
   size?: number;
 }
 
 /**
- * Logo GoTechy.
- * Usa el isotipo oficial (G + flecha cyan) servido desde /public/images
- * y el wordmark en blanco para que destaque sobre el fondo oscuro.
+ * Logo GoTechy — wordmark completo oficial.
+ * `logo-gotechy-blanco.png`: blanco con la flecha del G en cyan (fondos oscuros).
+ * `Principal-Negro-...png`: negro (fondos claros).
  */
-export function Logo({ className, light = true, size = 40 }: LogoProps) {
+const RATIO = 1016 / 245;
+
+export function Logo({ className, light = true, size = 36 }: LogoProps) {
   return (
-    <div className={cn('inline-flex items-center gap-2.5', className)}>
-      <img
-        src="/images/Secundario-Color_Logo-SortIcon.jpg"
-        width={size}
-        height={size}
-        alt=""
-        aria-hidden="true"
-        className="shrink-0 object-contain"
-        style={{ width: size, height: size, mixBlendMode: 'lighten' }}
-      />
-      <span
-        className={cn(
-          'font-display text-xl font-bold tracking-tight',
-          light ? 'text-white' : 'text-primary',
-        )}
-      >
-        Go<span className="text-secondary">Techy</span>
-      </span>
-    </div>
+    <img
+      src={
+        light
+          ? '/images/logo-gotechy-blanco.png'
+          : '/images/Principal-Negro-FondoBlanco_Logo-removebg-preview.png'
+      }
+      alt="GoTechy"
+      width={Math.round(size * RATIO)}
+      height={size}
+      decoding="async"
+      className={cn('w-auto object-contain', className)}
+      style={{ height: size }}
+    />
   );
 }

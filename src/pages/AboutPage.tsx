@@ -25,6 +25,9 @@ export function AboutPage() {
         eyebrow={t('header.about')}
         title={t('about.pageTitle')}
         subtitle={t('about.pageSubtitle')}
+        videoMp4="/videos/tech-network.mp4"
+        videoWebm="/videos/tech-network.webm"
+        videoPoster="/videos/tech-network-poster.webp"
       />
 
       <SapPartnerBadge />

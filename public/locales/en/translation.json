@@ -374,6 +374,10 @@
     "backToBlog": "Back to the blog",
     "loadingTitle": "Loading…"
   },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you're looking for doesn't exist or was moved. One of these might help:"
+  },
   "common": {
     "loading": "Loading…",
     "error": "Something went wrong",

@@ -10,6 +10,9 @@ export function ProjectsPage() {
         eyebrow={t('header.projects')}
         title={t('projects.pageTitle')}
         subtitle={t('projects.pageSubtitle')}
+        videoMp4="/videos/tech-network.mp4"
+        videoWebm="/videos/tech-network.webm"
+        videoPoster="/videos/tech-network-poster.webp"
       />
       <Projects />
     </>

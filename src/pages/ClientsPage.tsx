@@ -13,6 +13,9 @@ export function ClientsPage() {
         eyebrow={t('header.clients')}
         title={t('clients.pageTitle')}
         subtitle={t('clients.pageSubtitle')}
+        videoMp4="/videos/tech-network.mp4"
+        videoWebm="/videos/tech-network.webm"
+        videoPoster="/videos/tech-network-poster.webp"
       />
       <Clients />
 

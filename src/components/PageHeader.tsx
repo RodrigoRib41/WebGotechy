@@ -15,9 +15,12 @@ interface PageHeaderProps {
   /**
    * Video de fondo opcional (loop sutil, opacity baja). Degrada limpio si el
    * archivo no existe y respeta prefers-reduced-motion (VideoBackground).
+   * `videoPoster` se muestra mientras carga y para usuarios con
+   * prefers-reduced-motion (que no reproducen el video).
    */
   videoMp4?: string;
   videoWebm?: string;
+  videoPoster?: string;
 }
 
 /**
@@ -29,7 +32,15 @@ interface PageHeaderProps {
  *   - Grid sutil + mesh gradient como textura de fondo
  *   - Fade-in stagger en la entrada
  */
-export function PageHeader({ eyebrow, title, highlight, subtitle, videoMp4, videoWebm }: PageHeaderProps) {
+export function PageHeader({
+  eyebrow,
+  title,
+  highlight,
+  subtitle,
+  videoMp4,
+  videoWebm,
+  videoPoster,
+}: PageHeaderProps) {
   // Renderiza el título dividido si hay `highlight` que aparece en el título.
   const renderedTitle = (() => {
     if (!highlight || !title.includes(highlight)) {
@@ -55,7 +66,13 @@ export function PageHeader({ eyebrow, title, highlight, subtitle, videoMp4, vide
         aria-hidden="true"
       />
       {videoMp4 && (
-        <VideoBackground mp4={videoMp4} webm={videoWebm} opacity={0.2} className="-z-10" />
+        <VideoBackground
+          mp4={videoMp4}
+          webm={videoWebm}
+          poster={videoPoster}
+          opacity={0.2}
+          className="-z-10"
+        />
       )}
       <div className="absolute inset-0 -z-10 bg-gradient-mesh opacity-40" aria-hidden="true" />
       <div

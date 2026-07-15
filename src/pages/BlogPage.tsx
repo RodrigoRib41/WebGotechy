@@ -20,6 +20,9 @@ export function BlogPage() {
         eyebrow={t('header.blog')}
         title={t('blog.pageTitle')}
         subtitle={t('blog.pageSubtitle')}
+        videoMp4="/videos/tech-network.mp4"
+        videoWebm="/videos/tech-network.webm"
+        videoPoster="/videos/tech-network-poster.webp"
       />
       <section className="pb-28">
         <div className="container-x">

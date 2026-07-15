@@ -12,6 +12,7 @@ export function ContactPage() {
         subtitle={t('contact.pageSubtitle')}
         videoMp4="/videos/tech-network.mp4"
         videoWebm="/videos/tech-network.webm"
+        videoPoster="/videos/tech-network-poster.webp"
       />
       <Contact />
     </>

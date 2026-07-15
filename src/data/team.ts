@@ -19,26 +19,26 @@ export interface TeamMember {
 export const TEAM: TeamMember[] = [
   {
     name: 'Nombre Apellido',
-    role: 'CEO & Co-founder',
-    role_en: 'CEO & Co-founder',
+    role: 'CEO',
+    role_en: 'CEO',
     photo: '/images/team/ceo.jpg',
   },
   {
     name: 'Nombre Apellido',
-    role: 'CTO & Co-founder',
-    role_en: 'CTO & Co-founder',
+    role: 'Gerente General',
+    role_en: 'General Manager',
+    photo: '/images/team/gerente-general.jpg',
+  },
+  {
+    name: 'Nombre Apellido',
+    role: 'CTO',
+    role_en: 'CTO',
     photo: '/images/team/cto.jpg',
   },
   {
     name: 'Nombre Apellido',
-    role: 'Head of Delivery SAP',
-    role_en: 'Head of SAP Delivery',
-    photo: '/images/team/delivery.jpg',
-  },
-  {
-    name: 'Nombre Apellido',
-    role: 'Head of IA & Data',
-    role_en: 'Head of AI & Data',
-    photo: '/images/team/ia.jpg',
+    role: 'PMO',
+    role_en: 'PMO',
+    photo: '/images/team/pmo.jpg',
   },
 ];

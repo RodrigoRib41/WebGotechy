@@ -374,6 +374,10 @@
     "backToBlog": "Volver al blog",
     "loadingTitle": "Cargando…"
   },
+  "notFound": {
+    "title": "Página no encontrada",
+    "body": "La ruta que buscás no existe o fue movida. Quizás alguno de estos caminos te sirva:"
+  },
   "common": {
     "loading": "Cargando…",
     "error": "Algo salió mal",

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home } from 'lucide-react';
+import { Home, LayoutGrid, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function NotFoundPage() {
@@ -20,15 +20,25 @@ export function NotFoundPage() {
             404
           </div>
           <h1 className="mt-6 text-display-2 font-display font-bold text-white">
-            Página no encontrada
+            {t('notFound.title')}
           </h1>
           <p className="mt-4 text-base text-white/70">
-            La ruta que buscás no existe o fue movida.
+            {t('notFound.body')}
           </p>
-          <Link to="/" className="btn-primary mt-8 inline-flex">
-            <Home className="h-4 w-4" />
-            {t('header.home')}
-          </Link>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link to="/" className="btn-primary w-full sm:w-auto">
+              <Home className="h-4 w-4" />
+              {t('header.home')}
+            </Link>
+            <Link to="/servicios" className="btn-secondary w-full sm:w-auto">
+              <LayoutGrid className="h-4 w-4" />
+              {t('header.services')}
+            </Link>
+            <Link to="/contacto" className="btn-secondary w-full sm:w-auto">
+              <Mail className="h-4 w-4" />
+              {t('header.contact')}
+            </Link>
+          </div>
         </motion.div>
       </div>
     </section>

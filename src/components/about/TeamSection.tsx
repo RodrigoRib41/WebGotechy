@@ -82,10 +82,24 @@ export function TeamSection() {
 
   return (
     <section
-      className="relative overflow-hidden bg-surface-soft py-20 sm:py-28"
+      className="relative overflow-hidden py-20 sm:py-28"
       aria-labelledby="team-title"
     >
-      <div className="geo-circle-cyan right-[-10%] top-[15%] h-[380px] w-[380px]" />
+      {/* Fondo: red de nodos (Hero6) + velos para legibilidad y transición
+          suave hacia las secciones oscuras vecinas */}
+      <img
+        src="/images/Hero6.webp"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-primary/60" aria-hidden="true" />
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-primary via-transparent to-primary"
+        aria-hidden="true"
+      />
 
       <div className="container-x relative">
         <motion.div

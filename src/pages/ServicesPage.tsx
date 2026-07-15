@@ -12,6 +12,9 @@ export function ServicesPage() {
         eyebrow={t('header.services')}
         title={t('services.pageTitle')}
         subtitle={t('services.pageSubtitle')}
+        videoMp4="/videos/tech-network.mp4"
+        videoWebm="/videos/tech-network.webm"
+        videoPoster="/videos/tech-network-poster.webp"
       />
       <Services />
       <section className="pb-24 sm:pb-32">

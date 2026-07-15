@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../../utils/cn';
-import { ArrowMark } from '../brand';
 import { supabase } from '../../lib/supabase';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
@@ -27,9 +26,16 @@ function validate(f: Fields): Partial<Record<keyof Fields, string>> {
 }
 
 /**
- * Sección "CTA Final" — fondo BLANCO. Form inline minimalista que envía la
- * consulta a la Edge Function `submit-contact` (misma bandeja que /contacto),
- * la cual valida, frena bots y manda el email vía Resend.
+ * Sección "CTA Final" — banner fotográfico + form superpuesto.
+ *
+ * Composición (espejo de ServicesPreview, para dar ritmo al Home):
+ *  1. Banner full-bleed con Hero5 (persona trabajando, centro-derecha).
+ *     El copy va a la IZQUIERDA sobre scrim blanco degradado. Línea de
+ *     marca cyan→mint como remate inferior.
+ *  2. El form card se superpone al borde inferior del banner (-mt).
+ *
+ * El form envía la consulta a la Edge Function `submit-contact` (misma
+ * bandeja que /contacto), que valida, frena bots y manda el email vía Resend.
  */
 export function FinalCtaForm() {
   const { t } = useTranslation();
@@ -72,46 +78,67 @@ export function FinalCtaForm() {
   };
 
   return (
-    <section className="section-light relative overflow-hidden" aria-labelledby="final-cta-title">
-      {/* Iluminaciones circulares brandbook (pág. 26): cyan + verde sutiles */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,243,255,0.08), transparent 60%), radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0,255,146,0.06), transparent 60%)',
-        }}
-      />
+    <section className="relative bg-white text-[#0F1419]" aria-labelledby="final-cta-title">
+      {/* ---- Banner fotográfico ---- */}
+      <div className="relative overflow-hidden">
+        <img
+          src="/images/Hero5.webp"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-[62%_30%]"
+        />
+        {/* Scrims: velo base + degradado hacia el lado del texto (izquierda) */}
+        <div className="absolute inset-0 bg-white/30" aria-hidden="true" />
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/25 sm:via-white/75 sm:to-transparent"
+          aria-hidden="true"
+        />
+        {/* Línea de marca en el borde inferior del banner */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-secondary to-accent"
+          aria-hidden="true"
+        />
 
-      {/* Flecha ornamental brandbook — esquina superior derecha */}
-      <div className="pointer-events-none absolute right-4 top-12 opacity-[0.07] sm:right-12" aria-hidden="true">
-        <ArrowMark size={160} outline color="#0A0E1A" strokeWidth={3} />
+        <div className="container-x relative">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+            className="mr-auto flex max-w-xl flex-col items-start pb-40 pt-16 sm:pb-48 sm:pt-24"
+          >
+            <span className="eyebrow-light">{t('home.finalCta.eyebrow')}</span>
+            <h2 id="final-cta-title" className="h2-display mt-5 text-[#0F1419]">
+              {t('home.finalCta.titleStart')}{' '}
+              <span className="text-brand-600">{t('home.finalCta.titleHighlight')}</span>
+            </h2>
+            <p className="body-lg mt-5 max-w-lg text-[#0F1419]/70">
+              {t('home.finalCta.subtitleAlt')}
+            </p>
+          </motion.div>
+        </div>
       </div>
 
-      <div className="container-x relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto max-w-2xl text-center"
-        >
-          <span className="eyebrow-light">{t('home.finalCta.eyebrow')}</span>
-          <h2 id="final-cta-title" className="h1-display mt-5 text-[#0F1419]">
-            {t('home.finalCta.titleStart')}{' '}
-            <span className="text-brand-600">{t('home.finalCta.titleHighlight')}</span>
-          </h2>
-          <p className="body-lg mx-auto mt-5 max-w-xl text-[#0F1419]/65">
-            {t('home.finalCta.subtitleAlt')}
-          </p>
-        </motion.div>
+      {/* ---- Form superpuesto al banner ---- */}
+      <div className="relative bg-gradient-to-b from-transparent via-[#F7FAFC] to-white pb-20 sm:pb-28">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0,255,146,0.06), transparent 60%)',
+          }}
+        />
 
-        {state === 'success' ? (
+        <div className="container-x relative -mt-28 sm:-mt-32">
+          {state === 'success' ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="mx-auto mt-14 max-w-xl rounded-3xl border border-brand-200 bg-white p-10 text-center shadow-lg"
+            className="mx-auto max-w-xl rounded-3xl border border-brand-200 bg-white p-10 text-center shadow-lg"
           >
             <CheckCircle2 className="mx-auto h-14 w-14 text-brand-500" />
             <h3 className="mt-5 font-display text-2xl font-semibold text-[#0F1419]">
@@ -135,7 +162,7 @@ export function FinalCtaForm() {
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             onSubmit={onSubmit}
-            className="mx-auto mt-14 max-w-2xl rounded-3xl border border-black/5 bg-white p-7 shadow-[0_10px_40px_-15px_rgba(15,20,25,0.12)] sm:p-10"
+            className="mx-auto max-w-2xl rounded-3xl border border-black/5 bg-white p-7 shadow-[0_10px_40px_-15px_rgba(15,20,25,0.12)] sm:p-10"
             noValidate
           >
             {/* Honeypot anti-bot: oculto para humanos, lo valida la Edge Function */}
@@ -217,6 +244,7 @@ export function FinalCtaForm() {
             </div>
           </motion.form>
         )}
+        </div>
       </div>
     </section>
   );
