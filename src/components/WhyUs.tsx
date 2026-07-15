@@ -51,7 +51,7 @@ export function WhyUs() {
           />
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PILLARS.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (

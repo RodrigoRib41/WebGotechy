@@ -10,6 +10,8 @@ export function ContactPage() {
         eyebrow={t('header.contact')}
         title={t('contact.pageTitle')}
         subtitle={t('contact.pageSubtitle')}
+        videoMp4="/videos/tech-network.mp4"
+        videoWebm="/videos/tech-network.webm"
       />
       <Contact />
     </>

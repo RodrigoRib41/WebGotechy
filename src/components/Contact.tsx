@@ -11,7 +11,6 @@ import {
   Loader2,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { SectionHeader } from './SectionHeader';
 import { OfficesMap } from './OfficesMap';
 import { OFFICES, SITE } from '../data/site';
 import { cn } from '../utils/cn';
@@ -97,18 +96,7 @@ export function Contact() {
       aria-labelledby="contact-title"
     >
       <div className="container-x">
-        <SectionHeader
-          eyebrow={t('contactSection.eyebrow')}
-          title={
-            <>
-              {t('contactSection.titleStart')}{' '}
-              <span className="text-secondary">{t('contactSection.titleHighlight')}</span>
-            </>
-          }
-          description={t('contactSection.description')}
-        />
-
-        <div className="mt-16 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Formulario */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

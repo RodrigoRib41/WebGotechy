@@ -163,7 +163,12 @@ export function HeroCarousel({ banners = heroBanners, autoplayMs = 5000 }: HeroC
             <span className="text-gradient">{t(banner.titleHighlightKey)}</span>
           </motion.h1>
 
-          <motion.p variants={contentItem} className="body-lg mt-6 max-w-xl text-white/85">
+          {/* Subtítulo: solo visible desde desktop (sm+). En teléfonos se oculta
+              para dar aire al título + CTA sobre la foto. */}
+          <motion.p
+            variants={contentItem}
+            className="body-lg mt-6 hidden max-w-xl text-white/85 sm:block"
+          >
             {t(banner.subtitleKey)}
           </motion.p>
 

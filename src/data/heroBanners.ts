@@ -51,7 +51,7 @@ export const heroBanners: HeroBanner[] = [
   //    Foto clara ⇒ tone 'light' (scrim lateral fuerte para asegurar contraste).
   {
     id: 'transformation',
-    image: '/images/Hero1.png',
+    image: '/images/Hero1.webp',
     align: 'left',
     tone: 'light',
     ctaVariant: 'primary',
@@ -68,7 +68,7 @@ export const heroBanners: HeroBanner[] = [
   //    Foto oscura ⇒ tone 'dark' (overlay mínimo). CTA verde para máximo punch.
   {
     id: 'ai',
-    image: '/images/Hero2.png',
+    image: '/images/Hero2.webp',
     align: 'right',
     tone: 'dark',
     ctaVariant: 'accent',
@@ -83,7 +83,7 @@ export const heroBanners: HeroBanner[] = [
   //    sobre gradiente desde abajo. Foto clara ⇒ tone 'light'.
   {
     id: 'cases',
-    image: '/images/Hero3.png',
+    image: '/images/Hero3.webp',
     align: 'center',
     tone: 'light',
     ctaVariant: 'primary',

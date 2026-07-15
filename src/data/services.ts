@@ -1,30 +1,59 @@
 import type { LucideIcon } from 'lucide-react';
 import {
-  Activity,
-  BarChart3,
+  AppWindow,
+  ArrowUpCircle,
+  BadgeCheck,
+  Blocks,
   Bot,
   Boxes,
+  Braces,
   Brain,
+  BrainCircuit,
+  Cable,
   Cloud,
-  Code2,
+  CloudCog,
+  Combine,
+  Compass,
   Database,
+  DatabaseZap,
+  FileBarChart,
   FileText,
-  GitBranch,
-  GitMerge,
+  Fingerprint,
+  FlaskConical,
+  Gauge,
+  GitCompare,
+  Globe2,
+  HeartHandshake,
+  HeartPulse,
+  Infinity,
+  LayoutDashboard,
   LayoutGrid,
-  Lock,
-  MonitorSmartphone,
-  Network,
+  Layers3,
+  LineChart,
+  Map,
+  MessagesSquare,
+  PackageCheck,
   Plug,
+  PlugZap,
+  Presentation,
+  Puzzle,
+  RefreshCw,
   Rocket,
-  Search,
+  Route,
+  ScanSearch,
+  ScanText,
   Server,
-  ShieldCheck,
+  ServerCog,
+  Shapes,
+  Share2,
   Sparkles,
   Target,
-  Users,
-  Wrench,
+  TrendingUp,
+  UploadCloud,
+  Waypoints,
+  Webhook,
   Workflow,
+  Zap,
 } from 'lucide-react';
 
 // ===== Types ====================================================
@@ -33,7 +62,10 @@ import {
 // hacer fallback al español si la EN no está cargada.
 
 export interface ServiceFeature {
+  /** Icono lucide — se usa en la ilustración fallback del overview. */
   icon: LucideIcon;
+  /** Icono ilustrado on-brand (SVG en /public/icons/capabilities). Tiene prioridad en las cards de Capacidades. */
+  image?: string;
   title: string;
   title_en?: string;
   /** Opcional: las tarjetas de "Capacidades" pueden ser solo título + icono. */
@@ -199,8 +231,8 @@ export const SERVICES: Service[] = [
         'IA aplicada al negocio. Tecnología que genera resultados reales.',
       tagline_en:
         'AI applied to business. Technology that drives real results.',
-      heroImage: '/images/IA-1.png',
-      overviewImage: '/images/IA-2.png',
+      heroImage: '/images/IA-1.webp',
+      overviewImage: '/images/IA-2.webp',
       overviewParagraphs: [
         'Desarrollamos soluciones avanzadas basadas en Inteligencia Artificial diseñadas para generar impacto real en el negocio. No implementamos IA como tendencia: la integramos estratégicamente en procesos, sistemas y productos para optimizar operaciones, reducir costos y mejorar la toma de decisiones.',
         'Diseñamos, construimos e integramos soluciones de IA de extremo a extremo, desde la arquitectura hasta la puesta en producción y evolución continua.',
@@ -210,12 +242,12 @@ export const SERVICES: Service[] = [
         'We design, build and integrate end-to-end AI solutions, from architecture to production deployment and continuous evolution.',
       ],
       features: [
-        { icon: Workflow, title: 'Automatización inteligente de procesos', title_en: 'Intelligent process automation' },
-        { icon: BarChart3, title: 'Modelos predictivos', title_en: 'Predictive models' },
-        { icon: FileText, title: 'Document processing con IA (facturas, órdenes)', title_en: 'AI document processing (invoices, orders)' },
-        { icon: Bot, title: 'Chatbots y agentes empresariales', title_en: 'Enterprise chatbots and agents' },
-        { icon: Plug, title: 'Integración con sistemas empresariales', title_en: 'Integration with enterprise systems' },
-        { icon: Brain, title: 'Consultoría de adopción de IA', title_en: 'AI adoption consulting' },
+        { icon: Zap, image: '/icons/capabilities/ia-automatizacion.svg', title: 'Automatización inteligente de procesos', title_en: 'Intelligent process automation' },
+        { icon: TrendingUp, image: '/icons/capabilities/ia-predictivos.svg', title: 'Modelos predictivos', title_en: 'Predictive models' },
+        { icon: ScanText, image: '/icons/capabilities/ia-documentos.svg', title: 'Document processing con IA (facturas, órdenes)', title_en: 'AI document processing (invoices, orders)' },
+        { icon: MessagesSquare, image: '/icons/capabilities/ia-chatbots.svg', title: 'Chatbots y agentes empresariales', title_en: 'Enterprise chatbots and agents' },
+        { icon: Cable, image: '/icons/capabilities/ia-integracion.svg', title: 'Integración con sistemas empresariales', title_en: 'Integration with enterprise systems' },
+        { icon: BrainCircuit, image: '/icons/capabilities/ia-adopcion.svg', title: 'Consultoría de adopción de IA', title_en: 'AI adoption consulting' },
       ],
       approach: {
         title: 'Cómo trabajamos la IA',
@@ -444,7 +476,7 @@ export const SERVICES: Service[] = [
         'Soluciones a medida que se integran con tus sistemas y escalan con tu negocio.',
       tagline_en:
         'Custom solutions that integrate with your systems and scale with your business.',
-      heroImage: '/images/NEXTGEN-1.png',
+      heroImage: '/images/NEXTGEN-1.webp',
       overviewImage: '/images/NEXTGEN-2.webp',
       overviewParagraphs: [
         'Desarrollamos aplicaciones modernas que extienden o complementan tus sistemas actuales.',
@@ -457,12 +489,12 @@ export const SERVICES: Service[] = [
         'We work with clean, tested and observable code — CI/CD and cloud-native architectures designed to scale and last.',
       ],
       features: [
-        { icon: Server, title: 'Desarrollo Java / Spring Boot', title_en: 'Java / Spring Boot development' },
-        { icon: GitBranch, title: 'APIs REST y microservicios', title_en: 'REST APIs and microservices' },
-        { icon: Plug, title: 'Integración con ERP, CRM y APIs de terceros', title_en: 'Integration with ERP, CRM and third-party APIs' },
-        { icon: MonitorSmartphone, title: 'Portales y aplicaciones web', title_en: 'Portals and web applications' },
-        { icon: Workflow, title: 'Automatización de procesos', title_en: 'Process automation' },
-        { icon: Cloud, title: 'Arquitecturas cloud-native', title_en: 'Cloud-native architectures' },
+        { icon: Braces, image: '/icons/capabilities/dev-java.svg', title: 'Desarrollo Java / Spring Boot', title_en: 'Java / Spring Boot development' },
+        { icon: Webhook, image: '/icons/capabilities/dev-apis.svg', title: 'APIs REST y microservicios', title_en: 'REST APIs and microservices' },
+        { icon: Blocks, image: '/icons/capabilities/dev-integracion.svg', title: 'Integración con ERP, CRM y APIs de terceros', title_en: 'Integration with ERP, CRM and third-party APIs' },
+        { icon: AppWindow, image: '/icons/capabilities/dev-portales.svg', title: 'Portales y aplicaciones web', title_en: 'Portals and web applications' },
+        { icon: Waypoints, image: '/icons/capabilities/dev-automatizacion.svg', title: 'Automatización de procesos', title_en: 'Process automation' },
+        { icon: CloudCog, image: '/icons/capabilities/dev-cloud.svg', title: 'Arquitecturas cloud-native', title_en: 'Cloud-native architectures' },
       ],
       benefits: [
         {
@@ -633,8 +665,8 @@ export const SERVICES: Service[] = [
       tagline_en:
         'The platform that connects, automates and extends your SAP ecosystem.',
       heroImage:
-        '/images/SAPBTP-1.png',
-      overviewImage: '/images/SAPBTP-2.png',
+        '/images/SAPBTP-1.webp',
+      overviewImage: '/images/SAPBTP-2.webp',
       overviewParagraphs: [
         'SAP Business Technology Platform (SAP BTP) es una plataforma integral que unifica la gestión de datos, análisis avanzados, inteligencia artificial, desarrollo de aplicaciones, automatización e integración en un entorno cohesivo. Esta plataforma está diseñada para impulsar la innovación y la transformación digital en las empresas, permitiendo experiencias consistentes y conectadas a lo largo de los procesos de negocio, y proporcionando información estratégica en tiempo real.',
       ],
@@ -642,12 +674,12 @@ export const SERVICES: Service[] = [
         'SAP Business Technology Platform (SAP BTP) is a comprehensive platform that unifies data management, advanced analytics, artificial intelligence, application development, automation and integration in a cohesive environment. This platform is designed to drive innovation and digital transformation in enterprises, enabling consistent and connected experiences across business processes, and providing real-time strategic insights.',
       ],
       features: [
-        { icon: Plug, title: 'Integración de sistemas y APIs', title_en: 'System and API integration' },
-        { icon: Code2, title: 'Desarrollo de extensiones y apps custom', title_en: 'Custom extensions and app development' },
-        { icon: Workflow, title: 'Automatización con SAP Build Process Automation', title_en: 'Automation with SAP Build Process Automation' },
-        { icon: BarChart3, title: 'Gestión de datos y analíticas', title_en: 'Data management and analytics' },
-        { icon: Network, title: 'Conectividad con sistemas externos', title_en: 'Connectivity with external systems' },
-        { icon: Wrench, title: 'Soporte y evolución continua', title_en: 'Ongoing support and evolution' },
+        { icon: PlugZap, image: '/icons/capabilities/btp-integracion.svg', title: 'Integración de sistemas y APIs', title_en: 'System and API integration' },
+        { icon: Puzzle, image: '/icons/capabilities/btp-extensiones.svg', title: 'Desarrollo de extensiones y apps custom', title_en: 'Custom extensions and app development' },
+        { icon: Bot, image: '/icons/capabilities/btp-automatizacion.svg', title: 'Automatización con SAP Build Process Automation', title_en: 'Automation with SAP Build Process Automation' },
+        { icon: DatabaseZap, image: '/icons/capabilities/btp-datos.svg', title: 'Gestión de datos y analíticas', title_en: 'Data management and analytics' },
+        { icon: Globe2, image: '/icons/capabilities/btp-conectividad.svg', title: 'Conectividad con sistemas externos', title_en: 'Connectivity with external systems' },
+        { icon: Infinity, image: '/icons/capabilities/btp-soporte.svg', title: 'Soporte y evolución continua', title_en: 'Ongoing support and evolution' },
       ],
       benefits: [
         {
@@ -814,12 +846,12 @@ export const SERVICES: Service[] = [
         'With SAP Databricks built in and zero-copy sharing, your teams work on trusted, governed information — the foundation any serious data and AI strategy needs.',
       ],
       features: [
-        { icon: Database, title: 'Data products gestionados con semántica de negocio', title_en: 'Managed data products with business semantics' },
-        { icon: LayoutGrid, title: 'Insight apps preconstruidas por línea de negocio', title_en: 'Prebuilt insight apps per line of business' },
-        { icon: Brain, title: 'SAP Databricks: notebooks, ML e IA sobre datos SAP', title_en: 'SAP Databricks: notebooks, ML and AI on SAP data' },
-        { icon: GitBranch, title: 'Compartición zero-copy con Delta Sharing', title_en: 'Zero-copy sharing with Delta Sharing' },
-        { icon: BarChart3, title: 'Analítica y planificación con SAP Analytics Cloud', title_en: 'Analytics and planning with SAP Analytics Cloud' },
-        { icon: GitMerge, title: 'Modernización de SAP BW hacia la nube', title_en: 'SAP BW modernization to the cloud' },
+        { icon: PackageCheck, image: '/icons/capabilities/bdc-dataproducts.svg', title: 'Data products gestionados con semántica de negocio', title_en: 'Managed data products with business semantics' },
+        { icon: LayoutDashboard, image: '/icons/capabilities/bdc-insightapps.svg', title: 'Insight apps preconstruidas por línea de negocio', title_en: 'Prebuilt insight apps per line of business' },
+        { icon: FlaskConical, image: '/icons/capabilities/bdc-databricks.svg', title: 'SAP Databricks: notebooks, ML e IA sobre datos SAP', title_en: 'SAP Databricks: notebooks, ML and AI on SAP data' },
+        { icon: Share2, image: '/icons/capabilities/bdc-sharing.svg', title: 'Compartición zero-copy con Delta Sharing', title_en: 'Zero-copy sharing with Delta Sharing' },
+        { icon: LineChart, image: '/icons/capabilities/bdc-analitica.svg', title: 'Analítica y planificación con SAP Analytics Cloud', title_en: 'Analytics and planning with SAP Analytics Cloud' },
+        { icon: UploadCloud, image: '/icons/capabilities/bdc-bw.svg', title: 'Modernización de SAP BW hacia la nube', title_en: 'SAP BW modernization to the cloud' },
       ],
       benefits: [
         {
@@ -976,8 +1008,8 @@ export const SERVICES: Service[] = [
       tagline_en:
         'Total visibility into your processes. Improve what actually happens.',
       heroImage:
-        '/images/SAPSignavio-1.png',
-      overviewImage: '/images/SAPSignavio-2.png',
+        '/images/SAPSignavio-1.webp',
+      overviewImage: '/images/SAPSignavio-2.webp',
       overviewParagraphs: [
         'Implementamos soluciones de Process Intelligence diseñadas para generar impacto real en el negocio. No modelamos procesos por cumplir un formalismo: usamos minería de datos, simulación y gobernanza para identificar cuellos de botella, reducir costos operativos y sostener las mejoras en el tiempo.',
         'Conectamos el modelado con la ejecución de punta a punta — desde el descubrimiento del proceso real hasta el monitoreo continuo y la mejora iterativa — con métricas auditables y trazabilidad completa.',
@@ -987,12 +1019,12 @@ export const SERVICES: Service[] = [
         'We connect modeling with end-to-end execution — from discovering the real process to continuous monitoring and iterative improvement — with auditable metrics and full traceability.',
       ],
       features: [
-        { icon: Search, title: 'Process Mining sobre datos SAP', title_en: 'Process Mining on SAP data' },
-        { icon: Workflow, title: 'Modelado colaborativo BPMN 2.0', title_en: 'Collaborative BPMN 2.0 modeling' },
-        { icon: Activity, title: 'Simulación de escenarios de mejora', title_en: 'Improvement scenario simulation' },
-        { icon: BarChart3, title: 'KPIs y dashboards en tiempo real', title_en: 'Real-time KPIs and dashboards' },
-        { icon: GitBranch, title: 'Journey Modeler end-to-end', title_en: 'End-to-end Journey Modeler' },
-        { icon: Users, title: 'Gestión del cambio organizacional', title_en: 'Organizational change management' },
+        { icon: ScanSearch, image: '/icons/capabilities/sig-mining.svg', title: 'Process Mining sobre datos SAP', title_en: 'Process Mining on SAP data' },
+        { icon: Shapes, image: '/icons/capabilities/sig-bpmn.svg', title: 'Modelado colaborativo BPMN 2.0', title_en: 'Collaborative BPMN 2.0 modeling' },
+        { icon: GitCompare, image: '/icons/capabilities/sig-simulacion.svg', title: 'Simulación de escenarios de mejora', title_en: 'Improvement scenario simulation' },
+        { icon: Gauge, image: '/icons/capabilities/sig-kpis.svg', title: 'KPIs y dashboards en tiempo real', title_en: 'Real-time KPIs and dashboards' },
+        { icon: Route, image: '/icons/capabilities/sig-journey.svg', title: 'Journey Modeler end-to-end', title_en: 'End-to-end Journey Modeler' },
+        { icon: HeartHandshake, image: '/icons/capabilities/sig-cambio.svg', title: 'Gestión del cambio organizacional', title_en: 'Organizational change management' },
       ],
       benefits: [
         {
@@ -1155,8 +1187,8 @@ export const SERVICES: Service[] = [
       tagline_en:
         'Know your technology architecture. Decide with clarity.',
       heroImage:
-        '/images/LEANIX-1.png',
-      overviewImage: '/images/LEANIX-2.png',
+        '/images/LEANIX-1.webp',
+      overviewImage: '/images/LEANIX-2.webp',
       overviewParagraphs: [
         'SAP LeanIX es una plataforma de gestión de arquitectura empresarial que permite a las organizaciones visualizar, analizar y optimizar su ecosistema de TI, facilitando decisiones estratégicas y acelerando la transformación digital. Al proporcionar una visión integral de las aplicaciones, tecnologías y procesos, SAP LeanIX ayuda a las empresas a identificar redundancias, mitigar riesgos y alinear su infraestructura tecnológica con los objetivos corporativos.',
       ],
@@ -1164,12 +1196,12 @@ export const SERVICES: Service[] = [
         'SAP LeanIX is an enterprise architecture management platform that enables organizations to visualize, analyze and optimize their IT ecosystem, facilitating strategic decisions and accelerating digital transformation. By providing a comprehensive view of applications, technologies and processes, SAP LeanIX helps companies identify redundancies, mitigate risks and align their technology infrastructure with corporate objectives.',
       ],
       features: [
-        { icon: LayoutGrid, title: 'Application Portfolio Management', title_en: 'Application Portfolio Management' },
-        { icon: Network, title: 'Mapeo de arquitectura empresarial', title_en: 'Enterprise architecture mapping' },
-        { icon: Cloud, title: 'Evaluación de cloud readiness', title_en: 'Cloud readiness assessment' },
-        { icon: GitBranch, title: 'Gestión del ciclo de vida de aplicaciones', title_en: 'Application lifecycle management' },
-        { icon: Plug, title: 'Integración nativa con Signavio y BTP', title_en: 'Native integration with Signavio and BTP' },
-        { icon: BarChart3, title: 'Reporting para CIOs y equipos técnicos', title_en: 'Reporting for CIOs and technical teams' },
+        { icon: Layers3, image: '/icons/capabilities/lean-apm.svg', title: 'Application Portfolio Management', title_en: 'Application Portfolio Management' },
+        { icon: Map, image: '/icons/capabilities/lean-mapeo.svg', title: 'Mapeo de arquitectura empresarial', title_en: 'Enterprise architecture mapping' },
+        { icon: Compass, image: '/icons/capabilities/lean-readiness.svg', title: 'Evaluación de cloud readiness', title_en: 'Cloud readiness assessment' },
+        { icon: RefreshCw, image: '/icons/capabilities/lean-lifecycle.svg', title: 'Gestión del ciclo de vida de aplicaciones', title_en: 'Application lifecycle management' },
+        { icon: Combine, image: '/icons/capabilities/lean-integracion.svg', title: 'Integración nativa con Signavio y BTP', title_en: 'Native integration with Signavio and BTP' },
+        { icon: Presentation, image: '/icons/capabilities/lean-reporting.svg', title: 'Reporting para CIOs y equipos técnicos', title_en: 'Reporting for CIOs and technical teams' },
       ],
       benefits: [
         {
@@ -1326,8 +1358,8 @@ export const SERVICES: Service[] = [
       tagline_en:
         'Your SAP infrastructure — stable, secure and in good hands.',
       heroImage:
-        '/images/SAPBASIS-1.png',
-      overviewImage: '/images/SAPBASIS-2.png',
+        '/images/SAPBASIS-1.webp',
+      overviewImage: '/images/SAPBASIS-2.webp',
       overviewParagraphs: [
         'Administramos y monitoreamos tu entorno SAP de punta a punta.',
         'Desde la operación diaria hasta upgrades y migraciones complejas, garantizamos disponibilidad, seguridad y rendimiento óptimo con SLAs adaptados a los requerimientos de tu negocio.',
@@ -1339,12 +1371,12 @@ export const SERVICES: Service[] = [
         'We run active on-call for critical production environments, backed by 20+ years in the ecosystem, so your team focuses on the business instead of firefighting.',
       ],
       features: [
-        { icon: Server, title: 'Administración SAP (ECC, S/4HANA, BTP)', title_en: 'SAP administration (ECC, S/4HANA, BTP)' },
-        { icon: Activity, title: 'Monitoreo proactivo y soporte continuo', title_en: 'Proactive monitoring and ongoing support' },
-        { icon: Lock, title: 'Gestión de seguridad y perfiles de usuario', title_en: 'Security and user profile management' },
-        { icon: GitMerge, title: 'Upgrades, migraciones y aplicación de patches', title_en: 'Upgrades, migrations and patching' },
-        { icon: ShieldCheck, title: 'SLAs personalizados', title_en: 'Customized SLAs' },
-        { icon: BarChart3, title: 'Reportes técnicos y ejecutivos', title_en: 'Technical and executive reporting' },
+        { icon: ServerCog, image: '/icons/capabilities/basis-admin.svg', title: 'Administración SAP (ECC, S/4HANA, BTP)', title_en: 'SAP administration (ECC, S/4HANA, BTP)' },
+        { icon: HeartPulse, image: '/icons/capabilities/basis-monitoreo.svg', title: 'Monitoreo proactivo y soporte continuo', title_en: 'Proactive monitoring and ongoing support' },
+        { icon: Fingerprint, image: '/icons/capabilities/basis-seguridad.svg', title: 'Gestión de seguridad y perfiles de usuario', title_en: 'Security and user profile management' },
+        { icon: ArrowUpCircle, image: '/icons/capabilities/basis-upgrades.svg', title: 'Upgrades, migraciones y aplicación de patches', title_en: 'Upgrades, migrations and patching' },
+        { icon: BadgeCheck, image: '/icons/capabilities/basis-slas.svg', title: 'SLAs personalizados', title_en: 'Customized SLAs' },
+        { icon: FileBarChart, image: '/icons/capabilities/basis-reportes.svg', title: 'Reportes técnicos y ejecutivos', title_en: 'Technical and executive reporting' },
       ],
       benefits: [
         {
@@ -1459,7 +1491,7 @@ export const SERVICES: Service[] = [
           'Process and change documentation',
           'Transition from Solution Manager to Cloud ALM',
         ],
-        image: '/images/ALM-1.png',
+        image: '/images/ALM-1.webp',
       },
       horizonte: {
         text:

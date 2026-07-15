@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Award, BadgeCheck, Clock, Mail, Phone, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Award, BadgeCheck, Mail, Phone, Rocket, ShieldCheck } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -17,9 +17,9 @@ interface ServiceCTAProps {
  */
 const TRUST_POINTS: { icon: LucideIcon; key: string }[] = [
   { icon: Award, key: 'services.ctaSection.trustPoint1' },
-  { icon: Clock, key: 'services.ctaSection.trustPoint2' },
-  { icon: BadgeCheck, key: 'services.ctaSection.trustPoint3' },
-  { icon: ShieldCheck, key: 'services.ctaSection.trustPoint4' },
+  { icon: BadgeCheck, key: 'services.ctaSection.trustPoint2' },
+  { icon: ShieldCheck, key: 'services.ctaSection.trustPoint3' },
+  { icon: Rocket, key: 'services.ctaSection.trustPoint4' },
 ];
 
 export function ServiceCTA({ serviceName }: ServiceCTAProps) {

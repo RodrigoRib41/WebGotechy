@@ -8,6 +8,8 @@ import { approachItem, approachContainer } from '../effects/ApproachReveal';
 
 export interface ServiceFeature {
   icon: LucideIcon;
+  /** Icono ilustrado on-brand (SVG en /public). Si está presente, tiene prioridad sobre `icon`. */
+  image?: string;
   title: string;
   description?: string;
   bullets?: string[];
@@ -61,8 +63,26 @@ export function ServiceFeatures({ features }: ServiceFeaturesProps) {
                   className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_top_left,rgba(0,243,255,0.12),transparent_60%)]"
                   aria-hidden="true"
                 />
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-secondary/10 text-secondary ring-1 ring-secondary/20 transition-all duration-300 ease-smooth group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-secondary/20 group-hover:ring-secondary/50">
-                  <Icon className="h-6 w-6" />
+                <div className="relative inline-flex">
+                  {/* Halo suave detrás del tile — se enciende al hover */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -inset-2 rounded-2xl bg-gradient-to-br from-secondary/40 to-accent/30 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-60"
+                  />
+                  <div className="relative inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-secondary/20 via-secondary/[0.06] to-accent/20 text-secondary ring-1 ring-inset ring-secondary/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-300 ease-smooth group-hover:scale-110 group-hover:-rotate-6 group-hover:from-secondary/40 group-hover:to-accent/40 group-hover:text-white group-hover:ring-secondary/60">
+                    {feature.image ? (
+                      <img
+                        src={feature.image}
+                        alt=""
+                        aria-hidden="true"
+                        loading="lazy"
+                        decoding="async"
+                        className="h-7 w-7 transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(0,243,255,0.65)]"
+                      />
+                    ) : (
+                      <Icon className="h-6 w-6" strokeWidth={1.75} />
+                    )}
+                  </div>
                 </div>
                 <h3 className="mt-5 font-display text-lg font-semibold text-white">
                   {feature.title}

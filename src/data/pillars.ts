@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Award, ShieldCheck, Users, HeadphonesIcon } from 'lucide-react';
+import { Award, ShieldCheck, Users } from 'lucide-react';
 
 export interface Pillar {
   icon: LucideIcon;
@@ -15,9 +15,9 @@ export const PILLARS: Pillar[] = [
     title: 'Experiencia comprobada',
     titleEn: 'Proven experience',
     description:
-      'Más de 20 años entregando proyectos SAP críticos en empresas líderes de Argentina y la región.',
+      'Más de 20 años entregando proyectos críticos en empresas líderes de Argentina y la región.',
     descriptionEn:
-      'Over 20 years delivering mission-critical SAP projects for leading companies in Argentina and the region.',
+      'Over 20 years delivering mission-critical projects for leading companies in Argentina and the region.',
   },
   {
     icon: ShieldCheck,
@@ -36,14 +36,5 @@ export const PILLARS: Pillar[] = [
       'Funcionales, técnicos, arquitectos cloud, científicos de datos e ingenieros de software trabajando como un solo equipo.',
     descriptionEn:
       'Functional, technical, cloud architects, data scientists and software engineers working as one team.',
-  },
-  {
-    icon: HeadphonesIcon,
-    title: 'Soporte continuo 24/7',
-    titleEn: '24/7 continuous support',
-    description:
-      'Operación gestionada, SLAs definidos y guardia activa para procesos de negocio críticos.',
-    descriptionEn:
-      'Managed operations, defined SLAs and active on-call for mission-critical business processes.',
   },
 ];

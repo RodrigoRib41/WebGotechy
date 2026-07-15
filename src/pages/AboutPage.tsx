@@ -5,6 +5,7 @@ import Tilt from 'react-parallax-tilt';
 import { PageHeader } from '../components/PageHeader';
 import { WhyUs } from '../components/WhyUs';
 import { SapPartnerBadge } from '../components/about/SapPartnerBadge';
+import { TeamSection } from '../components/about/TeamSection';
 import { OFFICES } from '../data/site';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
@@ -151,6 +152,9 @@ export function AboutPage() {
       </section>
 
       <WhyUs />
+
+      {/* Nuestro equipo */}
+      <TeamSection />
 
       {/* Oficinas */}
       <section className="relative overflow-hidden py-20 sm:py-28" aria-labelledby="offices-title">

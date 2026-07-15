@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { HeroCarousel } from '../components/HeroCarousel';
+import { ClientsStrip } from '../components/home/ClientsStrip';
 import { ServicesPreview } from '../components/home/ServicesPreview';
 import { StatsHighlight } from '../components/home/StatsHighlight';
 import { ClientsLight } from '../components/home/ClientsLight';
@@ -35,6 +36,8 @@ export function HomePage() {
     <div ref={pageRef} className="relative">
       <HomeBackgroundCurve targetRef={pageRef} thickenWithScroll />
       <HeroCarousel />
+      {/* Prueba social inmediata: franja fina de logos bajo el hero */}
+      <ClientsStrip />
       <ServicesPreview />
       <StatsHighlight />
       <ClientsLight />

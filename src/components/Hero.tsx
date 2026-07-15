@@ -218,7 +218,6 @@ export function Hero() {
                 'automation',
                 'innovación continua',
                 'continuous innovation',
-                'SAP',
               ];
               const pattern = new RegExp(`(${keyTerms.join('|')})`, 'gi');
               const parts = subtitle.split(pattern);

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
+import { VideoBackground } from './effects/VideoBackground';
 
 interface PageHeaderProps {
   eyebrow?: string;
@@ -11,6 +12,12 @@ interface PageHeaderProps {
    */
   highlight?: string;
   subtitle?: ReactNode;
+  /**
+   * Video de fondo opcional (loop sutil, opacity baja). Degrada limpio si el
+   * archivo no existe y respeta prefers-reduced-motion (VideoBackground).
+   */
+  videoMp4?: string;
+  videoWebm?: string;
 }
 
 /**
@@ -22,7 +29,7 @@ interface PageHeaderProps {
  *   - Grid sutil + mesh gradient como textura de fondo
  *   - Fade-in stagger en la entrada
  */
-export function PageHeader({ eyebrow, title, highlight, subtitle }: PageHeaderProps) {
+export function PageHeader({ eyebrow, title, highlight, subtitle, videoMp4, videoWebm }: PageHeaderProps) {
   // Renderiza el título dividido si hay `highlight` que aparece en el título.
   const renderedTitle = (() => {
     if (!highlight || !title.includes(highlight)) {
@@ -47,6 +54,9 @@ export function PageHeader({ eyebrow, title, highlight, subtitle }: PageHeaderPr
         className="absolute inset-0 -z-10 bg-gradient-to-b from-primary via-primary-700 to-primary"
         aria-hidden="true"
       />
+      {videoMp4 && (
+        <VideoBackground mp4={videoMp4} webm={videoWebm} opacity={0.2} className="-z-10" />
+      )}
       <div className="absolute inset-0 -z-10 bg-gradient-mesh opacity-40" aria-hidden="true" />
       <div
         className="absolute inset-0 -z-10 grid-bg [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_70%)]"

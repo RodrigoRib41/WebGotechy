@@ -17,7 +17,7 @@ export function WhatsAppButton() {
   }, []);
 
   const href = `https://wa.me/${SITE.phoneRaw}?text=${encodeURIComponent(
-    'Hola GoTechy 👋 Me gustaría conversar sobre un proyecto SAP.',
+    'Hola GoTechy 👋 Me gustaría conversar sobre un proyecto.',
   )}`;
 
   return (

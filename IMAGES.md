@@ -59,7 +59,7 @@ Actualmente se renderizan como **wordmarks** SVG inline (en `src/data/clients.ts
 ### `public/og-image.jpg` (1200×630)
 - Fondo: gradiente diagonal `#0A2540 → #00B4FF`
 - Logo GoTechy centrado, escala 25-30% del canvas
-- Tagline: "Consultora SAP de clase mundial"
+- Tagline: "Consultora tecnológica de clase mundial"
 - Footer: gotechy.com
 - Formato: JPG optimizado (TinyJPG / Squoosh), < 200 KB.
 

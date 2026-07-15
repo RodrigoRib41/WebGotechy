@@ -65,10 +65,6 @@ export function Clients() {
                 ))}
               </Marquee>
             </div>
-
-            <p className="mt-8 text-center text-sm text-ink-muted">
-              {t('clients.section.andMore')}
-            </p>
           </>
         )}
       </div>

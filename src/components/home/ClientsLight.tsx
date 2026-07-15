@@ -26,7 +26,13 @@ export function ClientsLight() {
           <span className="eyebrow-light">{t('home.clients.eyebrow')}</span>
           <h2 id="clients-light-title" className="h2-display mt-5 text-[#0F1419]">
             {t('home.clients.titleStart')}{' '}
-            <span className="text-brand-600">{t('home.clients.titleHighlight')}</span>
+            <img
+              src="/images/Principal-Negro-FondoBlanco_Logo-removebg-preview.png"
+              alt={t('home.clients.titleHighlight')}
+              className="ml-1 inline-block h-12 w-auto align-middle sm:h-14"
+              loading="lazy"
+              decoding="async"
+            />
           </h2>
         </motion.div>
 
@@ -40,14 +46,14 @@ export function ClientsLight() {
               {clients.map((client, idx) => (
                 <div
                   key={`${client.id}-${idx}`}
-                  className="mx-6 flex h-20 min-w-[160px] items-center justify-center sm:min-w-[200px]"
+                  className="mx-7 flex h-24 min-w-[180px] items-center justify-center sm:min-w-[220px]"
                 >
                   <img
-                    src={cloudinaryService.padLogoUrl(client.logo_url, { h: 64, w: 200 })}
+                    src={cloudinaryService.padLogoUrl(client.logo_url, { h: 96, w: 240 })}
                     alt={client.alt ?? `Logo de ${client.name}`}
                     loading="lazy"
                     decoding="async"
-                    className="h-12 w-auto max-w-[160px] object-contain opacity-90 transition-all duration-500 hover:scale-110 hover:opacity-100"
+                    className="h-16 w-auto max-w-[200px] object-contain opacity-90 transition-all duration-500 hover:scale-110 hover:opacity-100"
                   />
                 </div>
               ))}

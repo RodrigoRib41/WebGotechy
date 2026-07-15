@@ -20,9 +20,9 @@ function toRawDigits(value: string): string {
 
 export const SITE = {
   name: 'GoTechy',
-  tagline: 'Consultora SAP de clase mundial',
+  tagline: 'Consultora tecnológica de clase mundial',
   description:
-    'Transformamos empresas con tecnología SAP. IA, Next Gen Solutions, BTP, Business Data Cloud, Signavio, LeanIX y Basis.',
+    'Transformamos empresas con tecnología de vanguardia: SAP, IA, Next Gen Solutions, BTP, Business Data Cloud, Signavio, LeanIX y Basis.',
   url: 'https://gotechy.com',
   /** Texto que se muestra al usuario. */
   phone: envPhone?.trim() || DEFAULT_PHONE_DISPLAY,

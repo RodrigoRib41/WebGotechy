@@ -1,8 +1,8 @@
 {
   "meta": {
     "siteName": "GoTechy",
-    "tagline": "Consultora SAP de clase mundial",
-    "description": "Transformamos empresas con tecnología SAP. IA, Next Gen Solutions, BTP, Business Data Cloud, Signavio, LeanIX y Basis."
+    "tagline": "Consultora tecnológica de clase mundial",
+    "description": "Transformamos empresas con tecnología de vanguardia: SAP, IA, Next Gen Solutions, BTP, Business Data Cloud, Signavio, LeanIX y Basis."
   },
   "header": {
     "home": "Inicio",
@@ -19,7 +19,7 @@
     "viewAll": "Ver todos"
   },
   "footer": {
-    "tagline": "Consultora SAP especializada en transformar empresas con tecnología de clase mundial.",
+    "tagline": "Consultora tecnológica especializada en transformar empresas con soluciones de clase mundial.",
     "services": "Servicios",
     "links": "Enlaces rápidos",
     "blog": "Últimos del blog",
@@ -32,11 +32,11 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Partner SAP · 20+ años en LATAM",
-      "title": "Tecnología SAP para empresas que quieren",
+      "eyebrow": "Consultoría tecnológica · 20+ años en LATAM",
+      "title": "Tecnología para empresas que quieren",
       "titleHighlight": "escalar",
       "titleEnd": "",
-      "subtitle": "Acompañamos organizaciones en su transformación digital con soluciones SAP end-to-end, automatización e innovación continua.",
+      "subtitle": "Acompañamos organizaciones en su transformación digital con soluciones end-to-end, automatización e innovación continua.",
       "primaryCta": "Conocé nuestros servicios",
       "secondaryCta": "Ver casos de éxito"
     },
@@ -72,7 +72,7 @@
     },
     "highlights": {
       "eyebrow": "Servicios",
-      "title": "Soluciones SAP que",
+      "title": "Soluciones que",
       "titleHighlight": "impulsan resultados",
       "subtitle": "Cuatro pilares para una transformación digital sin fricción.",
       "cta": "Ver todos los servicios",
@@ -117,7 +117,7 @@
       "titleStart": "Lo último en",
       "titleHighlight": "nuestro blog",
       "title": "Últimos artículos",
-      "subtitle": "Insights, tendencias y mejores prácticas SAP",
+      "subtitle": "Insights, tendencias y mejores prácticas tecnológicas",
       "cta": "Ver todo el blog",
       "viewAll": "Ver todo",
       "viewBlog": "Ver BlogTechy",
@@ -126,9 +126,9 @@
     },
     "finalCta": {
       "eyebrow": "Conversemos",
-      "title": "¿Listo para tu próximo proyecto SAP?",
+      "title": "¿Listo para tu próximo proyecto?",
       "titleStart": "¿Listo para tu próximo",
-      "titleHighlight": "proyecto SAP?",
+      "titleHighlight": "proyecto?",
       "subtitle": "Hablemos sobre cómo podemos acelerar tu transformación digital.",
       "subtitleAlt": "Contanos qué necesitás. Un consultor senior te responde dentro de 24 horas.",
       "cta": "Conversemos",
@@ -148,7 +148,7 @@
   },
   "services": {
     "pageTitle": "Servicios",
-    "pageSubtitle": "Soluciones SAP de extremo a extremo para empresas de clase mundial",
+    "pageSubtitle": "Soluciones tecnológicas de extremo a extremo para empresas de clase mundial",
     "cta": "Hablemos de tu proyecto",
     "learnMore": "Conocer más",
     "viewMore": "Ver más",
@@ -158,7 +158,7 @@
       "titleStart": "Una",
       "titleHighlight": "stack completa",
       "titleEnd": "al servicio de tu negocio",
-      "description": "Desde la arquitectura empresarial hasta la operación diaria. Cubrimos cada capa del ecosistema SAP con equipos certificados y metodología propia."
+      "description": "Desde la arquitectura empresarial hasta la operación diaria. Cubrimos cada capa del ecosistema tecnológico con equipos certificados y metodología propia."
     },
     "approach": {
       "eyebrow": "Metodología"
@@ -223,9 +223,9 @@
       "phone": "Teléfono",
       "trustStrip": "Por qué GoTechy",
       "trustPoint1": "+20 años en SAP",
-      "trustPoint2": "Soporte 24/7",
-      "trustPoint3": "Equipo certificado SAP",
-      "trustPoint4": "Metodología Clean Core"
+      "trustPoint2": "Equipo certificado SAP",
+      "trustPoint3": "Metodología Clean Core",
+      "trustPoint4": "+120 proyectos entregados"
     }
   },
   "clients": {
@@ -240,7 +240,6 @@
       "titleEnd": "confían en nosotros",
       "description": "Operamos junto a los principales jugadores de industria en Argentina y la región. Performance probada en producción.",
       "loadFromAdmin": "Cargá clientes desde el panel /admin para que aparezcan acá.",
-      "andMore": "Y muchas más empresas top de Argentina, Brasil, Chile y México.",
       "marqueeLabel": "Carrusel de logos de clientes"
     }
   },
@@ -248,7 +247,7 @@
     "eyebrow": "Partners",
     "titleStart": "Trabajamos junto a",
     "titleHighlight": "los mejores",
-    "description": "Nuestra red de partners estratégicos amplifica el valor que entregamos. Alianzas seleccionadas para cubrir cada capa del ecosistema SAP.",
+    "description": "Nuestra red de partners estratégicos amplifica el valor que entregamos. Alianzas seleccionadas para cubrir cada capa del ecosistema tecnológico.",
     "loadFromAdmin": "Cargá partners desde el panel /admin para que aparezcan acá.",
     "marqueeLabel": "Carrusel de logos de partners"
   },
@@ -276,10 +275,6 @@
     }
   },
   "contactSection": {
-    "eyebrow": "Contacto",
-    "titleStart": "Hablemos de tu próximo",
-    "titleHighlight": "proyecto SAP",
-    "description": "Contanos qué necesitás y te respondemos en menos de 24 horas hábiles. Sin compromiso.",
     "successTitle": "¡Gracias por escribirnos!",
     "successBody": "Recibimos tu mensaje. Un consultor de GoTechy se va a contactar en las próximas horas hábiles.",
     "sendAnother": "Enviar otro mensaje",
@@ -300,30 +295,31 @@
   "whyUs": {
     "eyebrow": "Por qué elegirnos",
     "titleStart": "Profundidad técnica,",
-    "titleHighlight": "obsesión por resultados",
-    "description": "No vendemos consultoría: entregamos transformación medible. Equipos senior, metodología validada y soporte continuo."
+    "titleHighlight": "foco en resultados",
+    "description": "Equipos senior, metodología propia y acompañamiento en cada etapa. Convertimos la complejidad tecnológica en transformación medible para tu negocio."
   },
   "about": {
     "pageTitle": "Nosotros",
     "pageSubtitle": "Conocé al equipo y la historia detrás de GoTechy",
     "mission": {
       "title": "Misión",
-      "body": "Acelerar la transformación digital de empresas líderes en LATAM con soluciones SAP de clase mundial, combinando expertise técnico, IA y desarrollo de vanguardia."
+      "body": "Acelerar la transformación digital de empresas líderes en LATAM con soluciones tecnológicas de clase mundial, combinando expertise técnico, IA y desarrollo de vanguardia."
     },
     "vision": {
       "title": "Visión",
-      "body": "Ser el partner SAP de referencia en LATAM, reconocido por la calidad de nuestras entregas, la innovación de nuestras soluciones y el impacto medible en cada cliente."
+      "body": "Ser el partner tecnológico de referencia en LATAM, reconocido por la calidad de nuestras entregas, la innovación de nuestras soluciones y el impacto medible en cada cliente."
     },
     "values": {
       "title": "Valores",
       "items": [
-        { "title": "Excelencia técnica", "body": "Profundidad real en la stack SAP, no consultoría superficial." },
+        { "title": "Excelencia técnica", "body": "Profundidad real en cada tecnología que dominamos, no consultoría superficial." },
         { "title": "Resultados medibles", "body": "Cada proyecto se mide en valor de negocio entregado." },
         { "title": "Colaboración cercana", "body": "Trabajamos como una extensión del equipo del cliente." },
         { "title": "Innovación responsable", "body": "Adoptamos lo último que aporta valor, no novedad por novedad." }
       ]
     },
     "team": "Nuestro equipo",
+    "teamSubtitle": "Las personas detrás de cada proyecto: seniority real, compromiso y cero rotación en cuentas clave.",
     "certifications": "Certificaciones y partners",
     "timeline": "Hitos",
     "offices": "Oficinas",
@@ -335,7 +331,7 @@
   },
   "contact": {
     "pageTitle": "Contacto",
-    "pageSubtitle": "Hablemos sobre tu próximo proyecto SAP",
+    "pageSubtitle": "Contanos qué necesitás y te respondemos en menos de 24 horas hábiles. Sin compromiso.",
     "form": {
       "name": "Nombre completo",
       "email": "Email corporativo",
@@ -364,7 +360,7 @@
   },
   "blog": {
     "pageTitle": "BlogTechy",
-    "pageSubtitle": "Insights, tendencias y mejores prácticas del mundo SAP",
+    "pageSubtitle": "Insights, tendencias y mejores prácticas del mundo tecnológico",
     "search": "Buscar artículos…",
     "allTags": "Todos los temas",
     "readTime": "{{minutes}} min de lectura",

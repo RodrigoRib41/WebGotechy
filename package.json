@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "GoTechy - Consultora SAP de clase mundial. Landing page moderna.",
+  "description": "GoTechy - Consultora tecnológica de clase mundial. Landing page moderna.",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
