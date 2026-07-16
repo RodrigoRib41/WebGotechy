@@ -12,6 +12,9 @@ import {
   Quote,
   CalendarDays,
   Telescope,
+  Video,
+  Bot,
+  Gauge,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../hooks/useAuth';
@@ -62,6 +65,17 @@ const NAV: NavGroup[] = [
   {
     title: 'Servicios',
     items: [{ to: '/admin/horizonte', label: 'Horizonte SAP', icon: Telescope }],
+  },
+  {
+    title: 'Agenda',
+    items: [{ to: '/admin/meetings', label: 'Reuniones (Meet)', icon: Video }],
+  },
+  {
+    title: 'Asistente IA',
+    items: [
+      { to: '/admin/chatbot', label: 'Chatbot (Techy)', icon: Bot, exact: true },
+      { to: '/admin/chatbot/consumo', label: 'Consumo Gemini', icon: Gauge },
+    ],
   },
 ];
 

@@ -233,6 +233,12 @@
     "pageSubtitle": "Más de 40 empresas líderes en LATAM confían en nosotros",
     "industries": "Industrias",
     "metricsTitle": "Impacto global",
+    "impactBanner": {
+      "eyebrow": "En números",
+      "titleStart": "Impacto",
+      "titleHighlight": "global",
+      "subtitle": "Dos décadas construyendo relaciones de largo plazo con empresas líderes de la región."
+    },
     "section": {
       "eyebrow": "Clientes",
       "titleStart": "Empresas",
@@ -263,6 +269,13 @@
     "solution": "Solución",
     "results": "Resultados",
     "viewDetails": "Ver detalles",
+    "ctaBanner": {
+      "eyebrow": "Tu proyecto",
+      "titleStart": "¿Listo para ser el próximo",
+      "titleHighlight": "caso de éxito?",
+      "subtitle": "Contanos tu desafío. Un consultor senior te responde en menos de 24 horas hábiles.",
+      "cta": "Conversemos"
+    },
     "section": {
       "eyebrow": "Casos de éxito",
       "titleStart": "Proyectos que",
@@ -301,6 +314,18 @@
   "about": {
     "pageTitle": "Nosotros",
     "pageSubtitle": "Conocé al equipo y la historia detrás de GoTechy",
+    "essence": {
+      "eyebrow": "Nuestra esencia",
+      "titleStart": "Lo que",
+      "titleHighlight": "nos mueve",
+      "subtitle": "La misión que nos ordena y la visión que nos empuja hacia adelante."
+    },
+    "officesBanner": {
+      "eyebrow": "Argentina",
+      "titleStart": "Nuestras",
+      "titleHighlight": "oficinas",
+      "subtitle": "Buenos Aires y Santa Fe como base — proyectos en toda la región."
+    },
     "mission": {
       "title": "Misión",
       "body": "Acelerar la transformación digital de empresas líderes en LATAM con soluciones tecnológicas de clase mundial, combinando expertise técnico, IA y desarrollo de vanguardia."
@@ -373,6 +398,47 @@
     "by": "Por",
     "backToBlog": "Volver al blog",
     "loadingTitle": "Cargando…"
+  },
+  "meeting": {
+    "eyebrow": "Agendá por Google Meet",
+    "titleStart": "Reservá una",
+    "titleHighlight": "reunión",
+    "subtitle": "Elegí el día y horario que te quede cómodo. Te llega la invitación con el link de Google Meet al instante.",
+    "pickDay": "Elegí el día",
+    "pickTime": "Elegí el horario",
+    "yourData": "Tus datos",
+    "timezoneNote": "Horarios en tu zona horaria ({{tz}})",
+    "duration": "{{min}} min",
+    "fieldName": "Nombre completo *",
+    "fieldEmail": "Email corporativo *",
+    "fieldCompany": "Empresa",
+    "fieldNotes": "¿Sobre qué te gustaría hablar? (opcional)",
+    "confirm": "Confirmar reunión",
+    "booking": "Agendando…",
+    "successTitle": "¡Reunión confirmada!",
+    "successBody": "Te enviamos la confirmación por email con todos los detalles.",
+    "joinLink": "Link de Google Meet",
+    "slotTaken": "Ese horario acaba de ocuparse. Elegí otro, por favor.",
+    "errorGeneric": "No pudimos agendar la reunión. Probá de nuevo o escribinos por el formulario."
+  },
+  "chatbot": {
+    "tooltip": "Chateá con Techy",
+    "title": "Techy — Asistente de GoTechy",
+    "online": "En línea",
+    "close": "Cerrar chat",
+    "welcome": "¡Hola! 👋 Soy Techy, el asistente virtual de GoTechy. ¿En qué te puedo ayudar?",
+    "suggestions": [
+      "¿Qué servicios ofrecen?",
+      "¿Dónde tienen oficinas?",
+      "Quiero agendar una reunión"
+    ],
+    "placeholder": "Escribí tu pregunta…",
+    "send": "Enviar",
+    "typing": "Techy está escribiendo…",
+    "busy": "Estoy recibiendo muchas consultas ahora mismo. Probá de nuevo en unos segundos.",
+    "error": "No pude responder en este momento. Probá de nuevo, o escribinos desde /contacto.",
+    "disclaimer": "Respuestas generadas con IA — pueden contener errores.",
+    "talkHuman": "Hablar con una persona"
   },
   "notFound": {
     "title": "Página no encontrada",

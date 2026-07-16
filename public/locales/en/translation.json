@@ -233,6 +233,12 @@
     "pageSubtitle": "More than 40 leading companies in LATAM trust us",
     "industries": "Industries",
     "metricsTitle": "Global impact",
+    "impactBanner": {
+      "eyebrow": "By the numbers",
+      "titleStart": "Global",
+      "titleHighlight": "impact",
+      "subtitle": "Two decades building long-term relationships with the region's leading companies."
+    },
     "section": {
       "eyebrow": "Clients",
       "titleStart": "",
@@ -263,6 +269,13 @@
     "solution": "Solution",
     "results": "Results",
     "viewDetails": "View details",
+    "ctaBanner": {
+      "eyebrow": "Your project",
+      "titleStart": "Ready to be the next",
+      "titleHighlight": "success story?",
+      "subtitle": "Tell us your challenge. A senior consultant replies within 24 business hours.",
+      "cta": "Let's talk"
+    },
     "section": {
       "eyebrow": "Case studies",
       "titleStart": "Projects that",
@@ -301,6 +314,18 @@
   "about": {
     "pageTitle": "About us",
     "pageSubtitle": "Meet the team and story behind GoTechy",
+    "essence": {
+      "eyebrow": "Our essence",
+      "titleStart": "What",
+      "titleHighlight": "drives us",
+      "subtitle": "The mission that grounds us and the vision that pushes us forward."
+    },
+    "officesBanner": {
+      "eyebrow": "Argentina",
+      "titleStart": "Our",
+      "titleHighlight": "offices",
+      "subtitle": "Based in Buenos Aires and Santa Fe — delivering across the region."
+    },
     "mission": {
       "title": "Mission",
       "body": "Accelerate the digital transformation of leading companies in LATAM with world-class technology solutions, combining technical expertise, AI and cutting-edge development."
@@ -373,6 +398,47 @@
     "by": "By",
     "backToBlog": "Back to the blog",
     "loadingTitle": "Loading…"
+  },
+  "meeting": {
+    "eyebrow": "Book via Google Meet",
+    "titleStart": "Book a",
+    "titleHighlight": "meeting",
+    "subtitle": "Pick the day and time that works for you. You'll get the invitation with the Google Meet link right away.",
+    "pickDay": "Pick a day",
+    "pickTime": "Pick a time",
+    "yourData": "Your details",
+    "timezoneNote": "Times shown in your timezone ({{tz}})",
+    "duration": "{{min}} min",
+    "fieldName": "Full name *",
+    "fieldEmail": "Corporate email *",
+    "fieldCompany": "Company",
+    "fieldNotes": "What would you like to talk about? (optional)",
+    "confirm": "Confirm meeting",
+    "booking": "Booking…",
+    "successTitle": "Meeting confirmed!",
+    "successBody": "We sent you a confirmation email with all the details.",
+    "joinLink": "Google Meet link",
+    "slotTaken": "That time was just taken. Please pick another one.",
+    "errorGeneric": "We couldn't book the meeting. Try again or reach us through the form."
+  },
+  "chatbot": {
+    "tooltip": "Chat with Techy",
+    "title": "Techy — GoTechy Assistant",
+    "online": "Online",
+    "close": "Close chat",
+    "welcome": "Hi! 👋 I'm Techy, GoTechy's virtual assistant. How can I help you?",
+    "suggestions": [
+      "What services do you offer?",
+      "Where are your offices?",
+      "I want to book a meeting"
+    ],
+    "placeholder": "Type your question…",
+    "send": "Send",
+    "typing": "Techy is typing…",
+    "busy": "I'm getting a lot of questions right now. Please try again in a few seconds.",
+    "error": "I couldn't answer right now. Try again, or write to us at /contacto.",
+    "disclaimer": "AI-generated answers — they may contain mistakes.",
+    "talkHuman": "Talk to a human"
   },
   "notFound": {
     "title": "Page not found",

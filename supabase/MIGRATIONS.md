@@ -337,3 +337,287 @@ Notas:
   challenge tipo Cloudflare Turnstile.
 - El `connect-src` de la CSP ya permite `https://*.supabase.co`, así que la
   llamada `functions.invoke('submit-contact')` no requiere tocar `vercel.json`.
+
+---
+
+## 2026-07-15 — Agenda de reuniones con Google Meet (`meeting_settings` + `meeting_bookings`)
+
+Sistema de agendado en /contacto: el visitante elige día y horario libre y se
+crea una reunión de Google Meet automáticamente. La franja horaria, los días
+permitidos, la duración del slot y el margen mínimo se configuran desde
+`/admin/meetings`.
+
+```sql
+-- Configuración de la agenda (una sola fila, id=1).
+-- allowed_weekdays usa la convención JS: 0=domingo … 6=sábado.
+create table if not exists public.meeting_settings (
+  id int primary key default 1 check (id = 1),
+  enabled boolean not null default true,
+  timezone text not null default 'America/Argentina/Buenos_Aires',
+  start_time time not null default '09:00',
+  end_time time not null default '18:00',
+  slot_minutes int not null default 30 check (slot_minutes between 15 and 240),
+  allowed_weekdays int[] not null default '{1,2,3,4,5}',
+  min_notice_hours int not null default 24 check (min_notice_hours >= 0),
+  max_days_ahead int not null default 30 check (max_days_ahead between 1 and 90),
+  updated_at timestamptz not null default now()
+);
+
+insert into public.meeting_settings (id) values (1) on conflict do nothing;
+
+alter table public.meeting_settings enable row level security;
+
+drop policy if exists "Admins manage meeting_settings" on public.meeting_settings;
+create policy "Admins manage meeting_settings" on public.meeting_settings
+  for all using (public.is_admin()) with check (public.is_admin());
+
+-- Reservas. SIN acceso público: el sitio anónimo nunca lee ni escribe esta
+-- tabla. Las reservas entran solo por la Edge Function `book-meeting`
+-- (service role) y la disponibilidad sale por `meeting-availability`, que
+-- expone únicamente horarios ocupados agregados (sin datos personales).
+create table if not exists public.meeting_bookings (
+  id uuid primary key default gen_random_uuid(),
+  starts_at timestamptz not null,
+  ends_at timestamptz not null,
+  name text not null,
+  email text not null,
+  company text,
+  notes text,
+  meet_link text,
+  gcal_event_id text,
+  status text not null default 'confirmed' check (status in ('confirmed','cancelled')),
+  created_at timestamptz not null default now()
+);
+
+-- Anti doble-reserva: dos clientes no pueden confirmar el mismo horario.
+create unique index if not exists meeting_bookings_slot_unique
+  on public.meeting_bookings (starts_at) where (status = 'confirmed');
+
+create index if not exists meeting_bookings_starts_at
+  on public.meeting_bookings (starts_at);
+
+alter table public.meeting_bookings enable row level security;
+
+drop policy if exists "Admins manage meeting_bookings" on public.meeting_bookings;
+create policy "Admins manage meeting_bookings" on public.meeting_bookings
+  for all using (public.is_admin()) with check (public.is_admin());
+```
+
+Despliegue de las Edge Functions:
+
+```bash
+supabase functions deploy meeting-availability
+supabase functions deploy book-meeting
+```
+
+Secrets de Google (opcionales — sin ellos el sistema reserva y avisa por
+email, pero no crea el link de Meet). Guía completa paso a paso en
+`supabase/SETUP-GOOGLE-MEET.md`:
+
+```bash
+supabase secrets set GOOGLE_CLIENT_ID=xxx.apps.googleusercontent.com
+supabase secrets set GOOGLE_CLIENT_SECRET=GOCSPX-xxx
+supabase secrets set GOOGLE_REFRESH_TOKEN=1//xxx
+supabase secrets set GOOGLE_CALENDAR_ID=primary   # o la casilla del calendario
+```
+
+Notas:
+- El margen mínimo de 24 h es `min_notice_hours` (configurable).
+- Con Google configurado, el freeBusy del calendario también bloquea slots →
+  las reuniones agendadas a mano por el equipo no se pisan con las de la web.
+- Cancelar desde /admin/meetings libera el slot en la web; el evento de
+  Google Calendar hay que borrarlo a mano (el panel lo recuerda con un toast).
+
+---
+
+## 2026-07-15 — Chatbot IA "Techy" (`chatbot_settings` + `chatbot_articles` + `chatbot_messages`)
+
+Asistente de IA (Google Gemini) que responde a los visitantes en base a la
+base de conocimientos cargada desde `/admin/chatbot`. Se activa/desactiva
+site-wide desde el mismo panel. El widget aparece como un muñequito arriba
+del botón de WhatsApp.
+
+```sql
+-- Configuración del bot (una sola fila, id=1).
+-- El flag `enabled` es público (el widget lo lee con la anon key para saber
+-- si mostrarse); solo admins lo modifican.
+create table if not exists public.chatbot_settings (
+  id int primary key default 1 check (id = 1),
+  enabled boolean not null default false,
+  updated_at timestamptz not null default now()
+);
+
+insert into public.chatbot_settings (id) values (1) on conflict do nothing;
+
+alter table public.chatbot_settings enable row level security;
+
+drop policy if exists "Anyone reads chatbot_settings" on public.chatbot_settings;
+create policy "Anyone reads chatbot_settings" on public.chatbot_settings
+  for select using (true);
+
+drop policy if exists "Admins manage chatbot_settings" on public.chatbot_settings;
+create policy "Admins manage chatbot_settings" on public.chatbot_settings
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
+-- Base de conocimientos. SIN lectura pública: el contenido solo viaja al
+-- modelo vía la Edge Function `chat-assistant` (service role).
+create table if not exists public.chatbot_articles (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  content text not null,
+  active boolean not null default true,
+  sort_order int not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.chatbot_articles enable row level security;
+
+drop policy if exists "Admins manage chatbot_articles" on public.chatbot_articles;
+create policy "Admins manage chatbot_articles" on public.chatbot_articles
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
+-- Log de conversaciones (para revisar en /admin/chatbot y mejorar la base).
+-- Los INSERT entran solo por la Edge Function (service role, bypassa RLS);
+-- los admins pueden leer y borrar.
+create table if not exists public.chatbot_messages (
+  id uuid primary key default gen_random_uuid(),
+  session_id text not null,
+  role text not null check (role in ('user','assistant')),
+  content text not null,
+  lang text,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists chatbot_messages_session
+  on public.chatbot_messages (session_id, created_at);
+create index if not exists chatbot_messages_created
+  on public.chatbot_messages (created_at desc);
+
+alter table public.chatbot_messages enable row level security;
+
+drop policy if exists "Admins read chatbot_messages" on public.chatbot_messages;
+create policy "Admins read chatbot_messages" on public.chatbot_messages
+  for select to authenticated using (public.is_admin());
+
+drop policy if exists "Admins delete chatbot_messages" on public.chatbot_messages;
+create policy "Admins delete chatbot_messages" on public.chatbot_messages
+  for delete to authenticated using (public.is_admin());
+```
+
+Despliegue de la Edge Function + secrets (guía completa en
+`supabase/SETUP-CHATBOT.md` — la API key de Gemini se crea gratis en
+https://aistudio.google.com):
+
+```bash
+supabase secrets set GEMINI_API_KEY=AIzaSy...
+# Opcional: cambiar el modelo (default: gemini-flash-lite-latest — usar los
+# alias *-latest; los nombres con versión fija se retiran para keys nuevas).
+supabase secrets set GEMINI_MODEL=gemini-flash-lite-latest
+
+supabase functions deploy chat-assistant
+```
+
+Notas:
+- El bot arranca **deshabilitado** (`enabled=false`): se prende desde
+  `/admin/chatbot` cuando la base de conocimientos esté cargada.
+- Rate-limit por IP en la función (best-effort, memoria por isolate) +
+  límites de longitud, para proteger la cuota gratuita de Gemini.
+- En el tier gratuito de Gemini, Google puede usar las conversaciones para
+  mejorar sus modelos. El bot solo maneja info pública del sitio.
+- Seed inicial de la base de conocimientos: `supabase/seed-chatbot-kb.sql`
+  (aplicado el 2026-07-16; se mantiene desde `/admin/chatbot`).
+
+Retención de conversaciones — **14 días** (aplicado el 2026-07-16 vía
+pg_cron; job `chatbot-messages-retention`, corre a diario a las 03:00 UTC):
+
+```sql
+create extension if not exists pg_cron;
+
+select cron.schedule(
+  'chatbot-messages-retention',
+  '0 3 * * *',
+  $$delete from public.chatbot_messages where created_at < now() - interval '14 days'$$
+);
+
+-- Para cambiar la ventana: re-correr cron.schedule con otro interval
+-- (mismo nombre = reemplaza el job). Para eliminarla:
+--   select cron.unschedule('chatbot-messages-retention');
+```
+
+---
+
+## 2026-07-16 — Medidor de consumo de Gemini (`chatbot_usage` + RPC `chatbot_usage_daily`)
+
+La Edge Function `chat-assistant` registra cada llamada a Gemini (tokens y
+resultado) para poder ver en `/admin/chatbot/consumo` cuánto se consumió del
+tier gratuito. Los INSERT entran solo por la función (service role, bypassa
+RLS); los admins solo leen.
+
+```sql
+-- Una fila por llamada a la API de Gemini (ok, rechazada por cuota o error).
+create table if not exists public.chatbot_usage (
+  id uuid primary key default gen_random_uuid(),
+  model text not null,
+  status text not null check (status in ('ok','rate_limited','error')),
+  prompt_tokens int not null default 0,
+  output_tokens int not null default 0,
+  total_tokens int not null default 0,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists chatbot_usage_created
+  on public.chatbot_usage (created_at desc);
+
+alter table public.chatbot_usage enable row level security;
+
+drop policy if exists "Admins read chatbot_usage" on public.chatbot_usage;
+create policy "Admins read chatbot_usage" on public.chatbot_usage
+  for select to authenticated using (public.is_admin());
+
+-- Agregado diario para el panel (evita traer miles de filas al navegador).
+-- El "día de cuota" de Google se reinicia a medianoche hora del Pacífico,
+-- por eso se agrupa en ese huso y no en UTC.
+-- SECURITY INVOKER (default): la RLS aplica → solo admins ven datos.
+create or replace function public.chatbot_usage_daily(days int default 14)
+returns table (
+  day date,
+  total bigint,
+  ok_count bigint,
+  rate_limited_count bigint,
+  error_count bigint,
+  prompt_tokens bigint,
+  output_tokens bigint
+)
+language sql
+stable
+as $$
+  select
+    (created_at at time zone 'America/Los_Angeles')::date as day,
+    count(*) as total,
+    count(*) filter (where status = 'ok') as ok_count,
+    count(*) filter (where status = 'rate_limited') as rate_limited_count,
+    count(*) filter (where status = 'error') as error_count,
+    coalesce(sum(prompt_tokens), 0) as prompt_tokens,
+    coalesce(sum(output_tokens), 0) as output_tokens
+  from public.chatbot_usage
+  where (created_at at time zone 'America/Los_Angeles')::date
+        >= (now() at time zone 'America/Los_Angeles')::date - (days - 1)
+  group by 1
+  order by 1;
+$$;
+
+-- Retención: 90 días alcanza para mirar tendencia sin acumular basura.
+select cron.schedule(
+  'chatbot-usage-retention',
+  '30 3 * * *',
+  $$delete from public.chatbot_usage where created_at < now() - interval '90 days'$$
+);
+```
+
+Notas:
+- Requiere **re-desplegar** la Edge Function: `npx supabase functions deploy chat-assistant`
+  (la versión nueva es la que escribe en `chatbot_usage`).
+- Los límites del tier gratuito (requests/día, etc.) viven como constantes en
+  `src/pages/admin/AdminGeminiUsage.tsx` — si Google los cambia
+  (https://ai.google.dev/gemini-api/docs/rate-limits), se actualizan ahí.

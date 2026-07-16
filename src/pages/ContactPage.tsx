@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { PageHeader } from '../components/PageHeader';
 import { Contact } from '../components/Contact';
+import { MeetingScheduler } from '../components/contact/MeetingScheduler';
 
 export function ContactPage() {
   const { t } = useTranslation();
@@ -15,6 +16,8 @@ export function ContactPage() {
         videoPoster="/videos/tech-network-poster.webp"
       />
       <Contact />
+      {/* Agenda de reuniones por Google Meet (si está habilitada en /admin) */}
+      <MeetingScheduler />
     </>
   );
 }

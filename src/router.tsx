@@ -62,6 +62,21 @@ const AdminServiceHorizonte = lazy(() =>
     default: m.AdminServiceHorizonte,
   })),
 );
+const AdminMeetings = lazy(() =>
+  import('./pages/admin/AdminMeetings').then((m) => ({ default: m.AdminMeetings })),
+);
+const AdminChatbot = lazy(() =>
+  import('./pages/admin/AdminChatbot').then((m) => ({ default: m.AdminChatbot })),
+);
+const AdminGeminiUsage = lazy(() =>
+  import('./pages/admin/AdminGeminiUsage').then((m) => ({ default: m.AdminGeminiUsage })),
+);
+
+// El widget del chatbot es lazy para no arrastrar supabase-js al bundle
+// inicial; si el bot está apagado no renderiza nada.
+const ChatWidget = lazy(() =>
+  import('./components/chatbot/ChatWidget').then((m) => ({ default: m.ChatWidget })),
+);
 
 function RouteFallback() {
   return (
@@ -86,6 +101,9 @@ function PublicLayout() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <Suspense fallback={null}>
+        <ChatWidget />
+      </Suspense>
     </>
   );
 }
@@ -227,6 +245,36 @@ export const router = createBrowserRouter([
       <AdminShell>
         <ProtectedRoute>
           <AdminServiceHorizonte />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/meetings',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminMeetings />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/chatbot',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminChatbot />
+        </ProtectedRoute>
+      </AdminShell>
+    ),
+  },
+  {
+    path: '/admin/chatbot/consumo',
+    element: (
+      <AdminShell>
+        <ProtectedRoute>
+          <AdminGeminiUsage />
         </ProtectedRoute>
       </AdminShell>
     ),

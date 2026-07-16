@@ -30,7 +30,27 @@
       "WebFetch(domain:www.pexels.com)",
       "Bash(node -e \"console.log\\(require\\('ffmpeg-static'\\)\\)\")",
       "Bash('C:/Users/rodri/OneDrive/Documentos/Visual Studio Code/WebGotechy/node_modules/ffmpeg-static/ffmpeg.exe' -i C:/Users/rodri/AppData/Local/Temp/claude/c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy/5549ca3a-9283-4f95-941d-494f6ea2970d/scratchpad/v3129671.mp4)",
-      "Bash(node \"C:/Users/rodri/AppData/Local/Temp/claude/c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy/5549ca3a-9283-4f95-941d-494f6ea2970d/scratchpad/make-logo-white.js\" \"c:/Users/rodri/OneDrive/Documentos/Visual Studio Code/WebGotechy\" \"58,80 185,80 185,200 95,200 58,163\")"
+      "Bash(node \"C:/Users/rodri/AppData/Local/Temp/claude/c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy/5549ca3a-9283-4f95-941d-494f6ea2970d/scratchpad/make-logo-white.js\" \"c:/Users/rodri/OneDrive/Documentos/Visual Studio Code/WebGotechy\" \"58,80 185,80 185,200 95,200 58,163\")",
+      "Bash(curl -s --max-time 60 -o C:/Users/rodri/AppData/Local/Temp/claude/c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy/5549ca3a-9283-4f95-941d-494f6ea2970d/scratchpad/banner-meeting-raw.jpg 'https://images.pexels.com/photos/5439137/pexels-photo-5439137.jpeg?auto=compress&cs=tinysrgb&w=1920')",
+      "Bash(curl -s --max-time 60 -o C:/Users/rodri/AppData/Local/Temp/claude/c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy/5549ca3a-9283-4f95-941d-494f6ea2970d/scratchpad/banner-handshake-raw.jpg 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920')",
+      "Bash(curl -s --max-time 60 -o C:/Users/rodri/AppData/Local/Temp/claude/c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy/5549ca3a-9283-4f95-941d-494f6ea2970d/scratchpad/banner-team-raw.jpg 'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920')",
+      "Bash(curl -s --max-time 60 -o C:/Users/rodri/AppData/Local/Temp/claude/c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy/5549ca3a-9283-4f95-941d-494f6ea2970d/scratchpad/banner-office-raw.jpg 'https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?auto=compress&cs=tinysrgb&w=1920')",
+      "Bash(curl -s --max-time 60 -o C:/Users/rodri/AppData/Local/Temp/claude/c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy/5549ca3a-9283-4f95-941d-494f6ea2970d/scratchpad/banner-impact-raw.jpg 'https://images.pexels.com/photos/2190282/pexels-photo-2190282.jpeg?auto=compress&cs=tinysrgb&w=1920')",
+      "PowerShell(\\(Get-Content \"supabase\\\\MIGRATIONS.md\" | Measure-Object -Line\\).Lines; \\(Get-Content \"public\\\\locales\\\\es\\\\translation.json\" | Measure-Object -Line\\).Lines)",
+      "PowerShell(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('public/locales/es/translation.json','utf8'\\)\\); JSON.parse\\(require\\('fs'\\).readFileSync\\('public/locales/en/translation.json','utf8'\\)\\); console.log\\('JSON OK'\\)\")",
+      "PowerShell(npx tsc --noEmit)",
+      "PowerShell(npx vite build)",
+      "PowerShell($paths = @\\(\"$env:APPDATA\\\\supabase\\\\access-token\", \"$env:USERPROFILE\\\\.supabase\\\\access-token\"\\); foreach \\($p in $paths\\) { Write-Output \"$p => $\\(Test-Path $p\\)\" }; npx supabase projects list 2>&1 | Select-Object -First 6)",
+      "PowerShell(npx supabase link --project-ref pwiihrbwrilyarzbjmuz 2>&1)",
+      "PowerShell(npx supabase secrets list 2>&1)",
+      "PowerShell(npx supabase functions deploy chat-assistant 2>&1)",
+      "PowerShell(npx supabase secrets set GEMINI_MODEL=gemini-flash-lite-latest 2>&1)",
+      "PowerShell(\\(Get-Content \"src\\\\data\\\\services.ts\" | Measure-Object -Line\\).Lines)",
+      "PowerShell($scratch = \"C:\\\\Users\\\\rodri\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy\\\\5549ca3a-9283-4f95-941d-494f6ea2970d\\\\scratchpad\"; Set-Content -Path \"$scratch\\\\list-articles.sql\" -Value \"select id, title, active, sort_order, length\\(content\\) as chars from public.chatbot_articles order by sort_order, created_at;\" -Encoding utf8; & \"$scratch\\\\sb-query.ps1\" -SqlFile \"$scratch\\\\list-articles.sql\")",
+      "PowerShell($scratch = \"C:\\\\Users\\\\rodri\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy\\\\5549ca3a-9283-4f95-941d-494f6ea2970d\\\\scratchpad\"; & \"$scratch\\\\sb-query.ps1\" -SqlFile \"c:\\\\Users\\\\rodri\\\\OneDrive\\\\Documentos\\\\Visual Studio Code\\\\WebGotechy\\\\supabase\\\\seed-chatbot-kb.sql\"; Set-Content -Path \"$scratch\\\\check.sql\" -Value \"select title, active, sort_order, length\\(content\\) as chars from public.chatbot_articles order by sort_order;\" -Encoding ascii; & \"$scratch\\\\sb-query.ps1\" -SqlFile \"$scratch\\\\check.sql\")",
+      "PowerShell($scratch = \"C:\\\\Users\\\\rodri\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy\\\\5549ca3a-9283-4f95-941d-494f6ea2970d\\\\scratchpad\"; Set-Content -Path \"$scratch\\\\check-cron.sql\" -Value \"select jobid, jobname, schedule, command, active from cron.job;\" -Encoding ascii; & \"$scratch\\\\sb-query.ps1\" -SqlFile \"$scratch\\\\check-cron.sql\")",
+      "PowerShell(npm run build)",
+      "PowerShell(npx eslint src/pages/admin/AdminGeminiUsage.tsx src/components/admin/AdminLayout.tsx src/router.tsx src/lib/supabase.ts src/types/chatbot.ts)"
     ]
   }
 }

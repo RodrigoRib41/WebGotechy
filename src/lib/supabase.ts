@@ -10,6 +10,23 @@ import type {
 import type { NewTestimonial, TestimonialRow } from '../types/testimonials';
 import type { EventRow, NewEvent } from '../types/events';
 import type { ServiceHorizonteRow, ServiceHorizonteUpsert } from '../types/serviceHorizonte';
+import type {
+  AvailabilityResponse,
+  BookMeetingPayload,
+  BookMeetingResponse,
+  MeetingBookingRow,
+  MeetingSettingsRow,
+  MeetingSettingsUpdate,
+} from '../types/meetings';
+import type {
+  ChatbotArticleRow,
+  ChatbotMessageRow,
+  ChatbotSettingsRow,
+  ChatbotUsageDailyRow,
+  ChatMessage,
+  ChatReplyResponse,
+  NewChatbotArticle,
+} from '../types/chatbot';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -352,5 +369,212 @@ export const serviceHorizonteService = {
       .delete()
       .eq('service_id', serviceId);
     if (error) throw error;
+  },
+};
+
+// ============================================================
+//  Meetings — agenda de reuniones con Google Meet
+//  Público: Edge Functions (la tabla de reservas no es accesible
+//  con la anon key). Admin: settings + listado vía RLS is_admin().
+// ============================================================
+const MEETING_SETTINGS_TABLE = 'meeting_settings';
+const MEETING_BOOKINGS_TABLE = 'meeting_bookings';
+
+export const meetingsService = {
+  /** Slots disponibles, computados server-side (sin datos de terceros). */
+  async availability(): Promise<AvailabilityResponse> {
+    const { data, error } = await supabase.functions.invoke('meeting-availability', {
+      body: {},
+    });
+    if (error) throw error;
+    return data as AvailabilityResponse;
+  },
+
+  /** Reserva un slot. Errores de negocio vienen en `data.error`/`code`. */
+  async book(payload: BookMeetingPayload): Promise<BookMeetingResponse> {
+    const { data, error } = await supabase.functions.invoke('book-meeting', {
+      body: payload,
+    });
+    if (error) {
+      // FunctionsHttpError: el body con el detalle viene en error.context.
+      const ctx = (error as { context?: Response }).context;
+      if (ctx) {
+        const parsed = (await ctx.json().catch(() => null)) as BookMeetingResponse | null;
+        if (parsed?.error) return parsed;
+      }
+      throw error;
+    }
+    return data as BookMeetingResponse;
+  },
+
+  // ---- Admin ----
+  async getSettings(): Promise<MeetingSettingsRow | null> {
+    const { data, error } = await supabase
+      .from(MEETING_SETTINGS_TABLE)
+      .select('*')
+      .eq('id', 1)
+      .maybeSingle();
+    if (error) throw error;
+    return (data ?? null) as MeetingSettingsRow | null;
+  },
+
+  async updateSettings(updates: MeetingSettingsUpdate): Promise<MeetingSettingsRow> {
+    const { data, error } = await supabase
+      .from(MEETING_SETTINGS_TABLE)
+      .upsert({ id: 1, ...updates, updated_at: new Date().toISOString() })
+      .select()
+      .single();
+    if (error) throw error;
+    return data as MeetingSettingsRow;
+  },
+
+  async listBookings(): Promise<MeetingBookingRow[]> {
+    const { data, error } = await supabase
+      .from(MEETING_BOOKINGS_TABLE)
+      .select('*')
+      .order('starts_at', { ascending: true });
+    if (error) throw error;
+    return (data ?? []) as MeetingBookingRow[];
+  },
+
+  /** Cancela (libera el slot en la web; el evento de GCal se borra a mano). */
+  async cancelBooking(id: string): Promise<void> {
+    const { error } = await supabase
+      .from(MEETING_BOOKINGS_TABLE)
+      .update({ status: 'cancelled' })
+      .eq('id', id);
+    if (error) throw error;
+  },
+};
+
+// ============================================================
+//  Chatbot IA "Techy"
+//  Público: flag `enabled` (lectura anónima) + Edge Function
+//  `chat-assistant`. Admin: settings + base de conocimientos +
+//  log de conversaciones vía RLS is_admin().
+// ============================================================
+const CHATBOT_SETTINGS_TABLE = 'chatbot_settings';
+const CHATBOT_ARTICLES_TABLE = 'chatbot_articles';
+const CHATBOT_MESSAGES_TABLE = 'chatbot_messages';
+
+export const chatbotService = {
+  /** ¿El bot está activado site-wide? (false ante cualquier error). */
+  async isEnabled(): Promise<boolean> {
+    const { data, error } = await supabase
+      .from(CHATBOT_SETTINGS_TABLE)
+      .select('enabled')
+      .eq('id', 1)
+      .maybeSingle();
+    if (error) return false;
+    return Boolean(data?.enabled);
+  },
+
+  /** Envía el hilo al asistente. Errores de negocio en `error`/`code`. */
+  async send(
+    messages: ChatMessage[],
+    sessionId: string,
+    lang: string,
+  ): Promise<ChatReplyResponse> {
+    const { data, error } = await supabase.functions.invoke('chat-assistant', {
+      body: {
+        // Los errores locales del widget no forman parte del historial real.
+        messages: messages
+          .filter((m) => !m.error)
+          .map((m) => ({ role: m.role, content: m.content })),
+        sessionId,
+        lang,
+      },
+    });
+    if (error) {
+      // FunctionsHttpError: el body con el detalle viene en error.context.
+      const ctx = (error as { context?: Response }).context;
+      if (ctx) {
+        const parsed = (await ctx.json().catch(() => null)) as ChatReplyResponse | null;
+        if (parsed?.error) return parsed;
+      }
+      throw error;
+    }
+    return data as ChatReplyResponse;
+  },
+
+  // ---- Admin ----
+  async getSettings(): Promise<ChatbotSettingsRow | null> {
+    const { data, error } = await supabase
+      .from(CHATBOT_SETTINGS_TABLE)
+      .select('*')
+      .eq('id', 1)
+      .maybeSingle();
+    if (error) throw error;
+    return (data ?? null) as ChatbotSettingsRow | null;
+  },
+
+  async setEnabled(enabled: boolean): Promise<ChatbotSettingsRow> {
+    const { data, error } = await supabase
+      .from(CHATBOT_SETTINGS_TABLE)
+      .upsert({ id: 1, enabled, updated_at: new Date().toISOString() })
+      .select()
+      .single();
+    if (error) throw error;
+    return data as ChatbotSettingsRow;
+  },
+
+  async listArticles(): Promise<ChatbotArticleRow[]> {
+    const { data, error } = await supabase
+      .from(CHATBOT_ARTICLES_TABLE)
+      .select('*')
+      .order('sort_order')
+      .order('created_at');
+    if (error) throw error;
+    return (data ?? []) as ChatbotArticleRow[];
+  },
+
+  async createArticle(article: NewChatbotArticle): Promise<ChatbotArticleRow> {
+    const { data, error } = await supabase
+      .from(CHATBOT_ARTICLES_TABLE)
+      .insert(article)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as ChatbotArticleRow;
+  },
+
+  async updateArticle(
+    id: string,
+    updates: Partial<NewChatbotArticle>,
+  ): Promise<ChatbotArticleRow> {
+    const { data, error } = await supabase
+      .from(CHATBOT_ARTICLES_TABLE)
+      .update({ ...updates, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as ChatbotArticleRow;
+  },
+
+  async removeArticle(id: string): Promise<void> {
+    const { error } = await supabase.from(CHATBOT_ARTICLES_TABLE).delete().eq('id', id);
+    if (error) throw error;
+  },
+
+  /** Últimos mensajes logueados (para agrupar por sesión en el admin). */
+  async listMessages(limit = 300): Promise<ChatbotMessageRow[]> {
+    const { data, error } = await supabase
+      .from(CHATBOT_MESSAGES_TABLE)
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(limit);
+    if (error) throw error;
+    return (data ?? []) as ChatbotMessageRow[];
+  },
+
+  /**
+   * Consumo de Gemini agregado por día de cuota (RPC, solo admins).
+   * Días sin llamadas no vienen en el resultado: el panel los rellena.
+   */
+  async listUsageDaily(days = 14): Promise<ChatbotUsageDailyRow[]> {
+    const { data, error } = await supabase.rpc('chatbot_usage_daily', { days });
+    if (error) throw error;
+    return (data ?? []) as ChatbotUsageDailyRow[];
   },
 };

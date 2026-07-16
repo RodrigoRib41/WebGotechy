@@ -3,6 +3,7 @@ import { MapPin, Target, Eye, Heart } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Tilt from 'react-parallax-tilt';
 import { PageHeader } from '../components/PageHeader';
+import { PhotoBanner } from '../components/PhotoBanner';
 import { WhyUs } from '../components/WhyUs';
 import { SapPartnerBadge } from '../components/about/SapPartnerBadge';
 import { TeamSection } from '../components/about/TeamSection';
@@ -32,57 +33,73 @@ export function AboutPage() {
 
       <SapPartnerBadge />
 
-      {/* Misión y Visión */}
-      <section className="relative overflow-hidden py-20 sm:py-28" aria-labelledby="mission-vision">
-        <div className="geo-circle-cyan left-[-10%] top-[10%] h-[400px] w-[400px]" />
-        <div className="container-x relative">
-          <div className="grid gap-6 md:grid-cols-2">
-            {[
-              { icon: Target, key: 'mission' },
-              { icon: Eye, key: 'vision' },
-            ].map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={item.key}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                >
-                  <Tilt
-                    tiltEnable={!reduced}
-                    tiltMaxAngleX={5}
-                    tiltMaxAngleY={5}
-                    glareEnable={!reduced}
-                    glareMaxOpacity={0.15}
-                    glareColor="#00F3FF"
-                    glarePosition="all"
-                    scale={1.02}
-                    transitionSpeed={1100}
-                    className="h-full"
+      {/* Lo que nos mueve — banner fotográfico + Misión/Visión superpuestas
+          (patrón del Home: sección clara con overlap) */}
+      <section className="relative bg-white text-[#0F1419]" aria-labelledby="essence-title">
+        <PhotoBanner
+          image="/images/banner-team.webp"
+          align="left"
+          overlap
+          titleId="essence-title"
+          eyebrow={t('about.essence.eyebrow')}
+          title={
+            <>
+              {t('about.essence.titleStart')}{' '}
+              <span className="text-brand-600">{t('about.essence.titleHighlight')}</span>
+            </>
+          }
+          subtitle={t('about.essence.subtitle')}
+        />
+        <div className="relative bg-gradient-to-b from-transparent via-[#F7FAFC] to-white pb-20 sm:pb-28">
+          <div className="container-x relative -mt-28 sm:-mt-32">
+            <div className="grid gap-6 md:grid-cols-2">
+              {[
+                { icon: Target, key: 'mission' },
+                { icon: Eye, key: 'vision' },
+              ].map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.key}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
                   >
-                    <article className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-8 shadow-card backdrop-blur transition-all duration-300 hover:border-secondary/40 hover:bg-white/[0.06] hover:shadow-glow-md sm:p-10">
-                      <div
-                        style={{ transform: 'translateZ(40px)' }}
-                        className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand text-primary shadow-glow-sm"
-                      >
-                        <Icon className="h-7 w-7" />
-                      </div>
-                      <h2
-                        style={{ transform: 'translateZ(20px)' }}
-                        className="mt-6 font-display text-2xl font-bold text-white"
-                      >
-                        {t(`about.${item.key}.title`)}
-                      </h2>
-                      <p className="mt-3 text-base leading-relaxed text-white/75">
-                        {t(`about.${item.key}.body`)}
-                      </p>
-                    </article>
-                  </Tilt>
-                </motion.div>
-              );
-            })}
+                    <Tilt
+                      tiltEnable={!reduced}
+                      tiltMaxAngleX={5}
+                      tiltMaxAngleY={5}
+                      glareEnable={!reduced}
+                      glareMaxOpacity={0.1}
+                      glareColor="#00F3FF"
+                      glarePosition="all"
+                      scale={1.02}
+                      transitionSpeed={1100}
+                      className="h-full"
+                    >
+                      <article className="group relative h-full overflow-hidden rounded-3xl border border-black/5 bg-white p-8 shadow-[0_10px_40px_-15px_rgba(15,20,25,0.15)] transition-all duration-300 hover:border-brand-200 sm:p-10">
+                        <div
+                          style={{ transform: 'translateZ(40px)' }}
+                          className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand text-primary shadow-glow-sm"
+                        >
+                          <Icon className="h-7 w-7" />
+                        </div>
+                        <h2
+                          style={{ transform: 'translateZ(20px)' }}
+                          className="mt-6 font-display text-2xl font-bold text-[#0F1419]"
+                        >
+                          {t(`about.${item.key}.title`)}
+                        </h2>
+                        <p className="mt-3 text-base leading-relaxed text-[#0F1419]/70">
+                          {t(`about.${item.key}.body`)}
+                        </p>
+                      </article>
+                    </Tilt>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -159,66 +176,81 @@ export function AboutPage() {
       {/* Nuestro equipo */}
       <TeamSection />
 
-      {/* Oficinas */}
-      <section className="relative overflow-hidden py-20 sm:py-28" aria-labelledby="offices-title">
-        <div className="geo-circle-cyan right-[-10%] top-[5%] h-[360px] w-[360px]" />
-
-        <div className="container-x relative">
-          <motion.h2
-            id="offices-title"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.5 }}
-            className="text-center text-display-2 font-display font-bold text-white"
-          >
-            {t('about.offices')}
-          </motion.h2>
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
-            variants={{
-              hidden: { opacity: 0 },
-              show: { opacity: 1, transition: { staggerChildren: 0.08 } },
-            }}
-            className="mx-auto mt-12 grid max-w-3xl gap-5 md:grid-cols-2"
-          >
-            {OFFICES.map((o) => (
-              <motion.div
-                key={o.id}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-                }}
-              >
-                <Tilt
-                  tiltEnable={!reduced}
-                  tiltMaxAngleX={4}
-                  tiltMaxAngleY={4}
-                  glareEnable={!reduced}
-                  glareMaxOpacity={0.1}
-                  glareColor="#00F3FF"
-                  glarePosition="all"
-                  scale={1.02}
-                  transitionSpeed={1100}
-                  className="h-full"
+      {/* Oficinas — banner fotográfico de cierre + cards superpuestas
+          con link "Cómo llegar" a Google Maps */}
+      <section className="relative bg-white text-[#0F1419]" aria-labelledby="offices-title">
+        <PhotoBanner
+          image="/images/banner-office.webp"
+          align="right"
+          overlap
+          titleId="offices-title"
+          eyebrow={t('about.officesBanner.eyebrow')}
+          title={
+            <>
+              {t('about.officesBanner.titleStart')}{' '}
+              <span className="text-brand-600">{t('about.officesBanner.titleHighlight')}</span>
+            </>
+          }
+          subtitle={t('about.officesBanner.subtitle')}
+        />
+        <div className="relative bg-gradient-to-b from-transparent via-[#F7FAFC] to-white pb-20 sm:pb-28">
+          <div className="container-x relative -mt-28 sm:-mt-32">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.1 }}
+              variants={{
+                hidden: { opacity: 0 },
+                show: { opacity: 1, transition: { staggerChildren: 0.08 } },
+              }}
+              className="mx-auto grid max-w-3xl gap-5 md:grid-cols-2"
+            >
+              {OFFICES.map((o) => (
+                <motion.div
+                  key={o.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                  }}
                 >
-                  <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-card backdrop-blur transition hover:border-secondary/40 hover:bg-white/[0.06]">
-                    <div className="flex items-center gap-2 text-secondary-300">
-                      <MapPin className="h-5 w-5" />
-                      <span className="text-sm font-semibold uppercase tracking-wider">{o.city}</span>
+                  <Tilt
+                    tiltEnable={!reduced}
+                    tiltMaxAngleX={4}
+                    tiltMaxAngleY={4}
+                    glareEnable={!reduced}
+                    glareMaxOpacity={0.08}
+                    glareColor="#00F3FF"
+                    glarePosition="all"
+                    scale={1.02}
+                    transitionSpeed={1100}
+                    className="h-full"
+                  >
+                    <div className="flex h-full flex-col rounded-3xl border border-black/5 bg-white p-6 shadow-[0_10px_40px_-15px_rgba(15,20,25,0.15)] transition hover:border-brand-200">
+                      <div className="flex items-center gap-2 text-brand-600">
+                        <MapPin className="h-5 w-5" />
+                        <span className="text-sm font-semibold uppercase tracking-wider">
+                          {o.city}
+                        </span>
+                      </div>
+                      <p className="mt-3 flex-1 text-sm leading-relaxed text-[#0F1419]/75">
+                        {o.address}
+                        <br />
+                        {o.postal} — {o.country}
+                      </p>
+                      <a
+                        href={o.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 transition hover:text-brand-700"
+                      >
+                        {t('contactSection.directions')}
+                      </a>
                     </div>
-                    <p className="mt-3 text-sm leading-relaxed text-white/80">
-                      {o.address}
-                      <br />
-                      {o.postal} — {o.country}
-                    </p>
-                  </div>
-                </Tilt>
-              </motion.div>
-            ))}
-          </motion.div>
+                  </Tilt>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
     </>
