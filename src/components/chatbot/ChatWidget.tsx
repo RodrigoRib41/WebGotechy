@@ -11,9 +11,11 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { chatbotService, isSupabaseConfigured } from '../../lib/supabase';
+import { chatbotService } from '../../lib/supabase';
 import type { ChatMessage } from '../../types/chatbot';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { useChatbotEnabled } from '../../hooks/useChatbotEnabled';
+import { WhatsAppIcon, WHATSAPP_HREF } from '../WhatsAppIcon';
 import { cn } from '../../utils/cn';
 
 const SESSION_KEY = 'gt-chat-session';
@@ -179,7 +181,8 @@ export function ChatWidget() {
   const { t, i18n } = useTranslation();
   const reduced = usePrefersReducedMotion();
 
-  const [enabled, setEnabled] = useState(false);
+  // Activado desde /admin/chatbot (flag público, compartido con WhatsAppButton).
+  const enabled = useChatbotEnabled();
   const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -194,22 +197,7 @@ export function ChatWidget() {
   const sessionId = useMemo(getSessionId, []);
   const lang = i18n.resolvedLanguage?.startsWith('en') ? 'en' : 'es';
 
-  // Activado desde /admin/chatbot (flag público en chatbot_settings).
-  useEffect(() => {
-    if (!isSupabaseConfigured) return;
-    let cancelled = false;
-    void chatbotService
-      .isEnabled()
-      .then((on) => {
-        if (!cancelled) setEnabled(on);
-      })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  // Igual que el botón de WhatsApp: aparece tras un pequeño scroll.
+  // Aparece tras un pequeño scroll para no obstruir el hero.
   useEffect(() => {
     const handler = () => setVisible(window.scrollY > 200);
     handler();
@@ -293,7 +281,7 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* Launcher — arriba del botón de WhatsApp */}
+      {/* Launcher — ocupa el lugar del botón de WhatsApp (que ahora vive dentro del chat) */}
       <AnimatePresence>
         {visible && !open && (
           <motion.div
@@ -301,7 +289,7 @@ export function ChatWidget() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="fixed bottom-[5.25rem] right-5 z-[60] sm:bottom-[6.75rem] sm:right-7"
+            className="fixed bottom-5 right-5 z-[1200] sm:bottom-7 sm:right-7"
           >
             <div className="relative flex items-center">
               <AnimatePresence>
@@ -355,7 +343,7 @@ export function ChatWidget() {
             onKeyDown={(e) => {
               if (e.key === 'Escape') closePanel();
             }}
-            className="fixed bottom-4 right-4 z-[70] flex h-[min(34rem,calc(100dvh-5rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-white/10 bg-primary/95 shadow-elevated backdrop-blur-xl sm:bottom-7 sm:right-7"
+            className="fixed bottom-4 right-4 z-[1300] flex h-[min(34rem,calc(100dvh-5rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-white/10 bg-primary/95 shadow-elevated backdrop-blur-xl sm:bottom-7 sm:right-7"
           >
             {/* Header */}
             <div className="flex items-center gap-3 border-b border-white/10 bg-white/[0.03] px-4 py-3">
@@ -371,6 +359,16 @@ export function ChatWidget() {
                   {t('chatbot.online')}
                 </div>
               </div>
+              <a
+                href={WHATSAPP_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('contact.whatsapp')}
+                title={t('contact.whatsapp')}
+                className="rounded-full border border-whatsapp/40 bg-whatsapp/15 p-1.5 text-whatsapp transition hover:bg-whatsapp/25"
+              >
+                <WhatsAppIcon className="h-4 w-4" />
+              </a>
               <button
                 type="button"
                 onClick={closePanel}
@@ -416,6 +414,15 @@ export function ChatWidget() {
                       {s}
                     </button>
                   ))}
+                  <a
+                    href={WHATSAPP_HREF}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-whatsapp/40 bg-whatsapp/10 px-3 py-1.5 text-xs font-medium text-whatsapp transition hover:bg-whatsapp/20"
+                  >
+                    <WhatsAppIcon className="h-3.5 w-3.5" />
+                    {t('contact.whatsapp')}
+                  </a>
                 </div>
               )}
 

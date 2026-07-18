@@ -405,6 +405,7 @@
     "titleHighlight": "meeting",
     "subtitle": "Pick the day and time that works for you. You'll get the invitation with the Google Meet link right away.",
     "pickDay": "Pick a day",
+    "loadingSlots": "Loading available times…",
     "pickTime": "Pick a time",
     "yourData": "Your details",
     "timezoneNote": "Times shown in your timezone ({{tz}})",

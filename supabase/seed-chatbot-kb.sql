@@ -41,7 +41,7 @@ GoTechy ofrece 7 líneas de servicio (catálogo completo en /servicios):
 
 6. SAP LeanIX (/servicios/sap-leanix): arquitectura empresarial — visibilidad de capabilities, aplicaciones y dependencias, y gobernanza del inventario de agentes de IA de toda la empresa. Casos de uso: Cloud Readiness Assessment, consolidación por M&A, preparación para S/4HANA, gestión de deuda técnica.
 
-7. SAP Basis (/servicios/sap-basis): operación, performance y migraciones a Cloud ERP, con los asistentes Joule de migración y modernización que aceleran la adopción del Clean Core. Casos de uso: operación delegada de SAP (AMS), migración a S/4HANA, setup de alta disponibilidad y disaster recovery, performance tuning y troubleshooting. SLA personalizados y ciclo de vida con SAP Cloud ALM.
+7. SAP Basis (/servicios/sap-basis): operación, performance y migraciones a Cloud ERP, con los asistentes Joule de migración y modernización que aceleran la adopción del Clean Core. Casos de uso: operación delegada de SAP (AMS), migración a S/4HANA, patching y actualizaciones técnicas, performance tuning y troubleshooting. SLA personalizados y ciclo de vida con SAP Cloud ALM.
 $kb$, true, 1),
 
 ('Especialización SAP y partnership', $kb$

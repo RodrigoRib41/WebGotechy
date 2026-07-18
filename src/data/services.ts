@@ -1001,7 +1001,7 @@ export const SERVICES: Service[] = [
       'End-to-end process discovery, governance and transformation — now powered by Joule, continuous-improvement agents and atomized business rules.',
     icon: Workflow,
     accent: 'secondary',
-    tags: ['Process Mining', 'Joule', 'Governance', 'Atoms'],
+    tags: ['Process Mining', 'BPMN 2.0', 'Governance', 'Process Insights'],
     detail: {
       tagline:
         'Visibilidad total de tus procesos. Mejora lo que realmente ocurre.',
@@ -1011,12 +1011,12 @@ export const SERVICES: Service[] = [
         '/images/SAPSignavio-1.webp',
       overviewImage: '/images/SAPSignavio-2.webp',
       overviewParagraphs: [
-        'Implementamos soluciones de Process Intelligence diseñadas para generar impacto real en el negocio. No modelamos procesos por cumplir un formalismo: usamos minería de datos, simulación y gobernanza para identificar cuellos de botella, reducir costos operativos y sostener las mejoras en el tiempo.',
-        'Conectamos el modelado con la ejecución de punta a punta — desde el descubrimiento del proceso real hasta el monitoreo continuo y la mejora iterativa — con métricas auditables y trazabilidad completa.',
+        'Implementamos SAP Signavio, la suite integral de transformación de procesos de SAP, diseñada para generar impacto real en el negocio. Aprovechamos sus módulos para descubrir, optimizar y transformar tus procesos de negocio con una visión end-to-end y mejora continua.',
+        'Combinamos las herramientas que tu negocio realmente necesita — desde Process Insights y Process Intelligence, para la minería y el análisis de tus flujos con recomendaciones de mejora ágiles, hasta Process Manager, para el modelado colaborativo y la gobernanza BPMN — con métricas auditables y trazabilidad completa de punta a punta.',
       ],
       overviewParagraphs_en: [
-        'We implement Process Intelligence solutions designed to generate real business impact. We don\'t model processes to check a box: we use process mining, simulation and governance to identify bottlenecks, cut operational costs and sustain improvement over time.',
-        'We connect modeling with end-to-end execution — from discovering the real process to continuous monitoring and iterative improvement — with auditable metrics and full traceability.',
+        'We implement SAP Signavio, SAP\'s comprehensive process transformation suite, designed to generate real business impact. We leverage its modules to discover, optimize and transform your business processes with an end-to-end view and continuous improvement.',
+        'We combine the tools your business actually needs — from Process Insights and Process Intelligence, for mining and analyzing your flows with agile improvement recommendations, to Process Manager, for collaborative modeling and BPMN governance — with auditable metrics and full end-to-end traceability.',
       ],
       features: [
         { icon: ScanSearch, image: '/icons/capabilities/sig-mining.svg', title: 'Process Mining sobre datos SAP', title_en: 'Process Mining on SAP data' },
@@ -1180,7 +1180,7 @@ export const SERVICES: Service[] = [
       'Visibility into capabilities, applications and dependencies — also the place to govern the AI agent inventory of the entire enterprise.',
     icon: LayoutGrid,
     accent: 'accent',
-    tags: ['EA', 'AI Agent Hub', 'Fact Sheets', 'Governance'],
+    tags: ['Enterprise Architecture', 'AI Agent Hub', 'Fact Sheets', 'Governance'],
     detail: {
       tagline:
         'Conocé tu arquitectura tecnológica. Decidí con claridad.',
@@ -1247,48 +1247,48 @@ export const SERVICES: Service[] = [
       ],
       useCases: [
         {
-          title: 'Cloud Readiness Assessment',
-          title_en: 'Cloud Readiness Assessment',
+          title: 'Racionalización del portfolio (APM)',
+          title_en: 'Portfolio rationalization (APM)',
           description:
-            'Evaluamos el portfolio completo y priorizamos qué aplicaciones migrar, refactorizar o retirar antes del move to cloud.',
+            'Application Portfolio Management: inventariamos todas las aplicaciones con su ciclo de vida, costo y redundancias para decidir qué mantener, consolidar o retirar.',
           description_en:
-            'We evaluate the full portfolio and prioritize which applications to migrate, refactor or retire before moving to cloud.',
+            'Application Portfolio Management: we inventory every application with its lifecycle, cost and redundancies to decide what to keep, consolidate or retire.',
           industry: 'Cross-industry',
           industry_en: 'Cross-industry',
-          technologies: ['LeanIX', 'AWS', 'Azure'],
+          technologies: ['LeanIX', 'APM', 'TCO'],
         },
         {
-          title: 'M&A consolidation',
-          title_en: 'M&A consolidation',
+          title: 'Roadmap de arquitectura (EAM)',
+          title_en: 'Architecture roadmap (EAM)',
           description:
-            'Mergers y adquisiciones: identificamos overlap funcional, dependencias y duplicación para acelerar la consolidación post-deal.',
+            'Enterprise Architecture Management: modelamos la arquitectura actual y objetivo, sus dependencias y el roadmap de transformación — clave para preparar el landscape hacia S/4HANA.',
           description_en:
-            'Mergers and acquisitions: we identify functional overlap, dependencies and duplication to accelerate post-deal consolidation.',
-          industry: 'Corporate',
-          industry_en: 'Corporate',
-          technologies: ['APM', 'EA'],
-        },
-        {
-          title: 'Preparación para S/4HANA',
-          title_en: 'S/4HANA preparation',
-          description:
-            'Antes del proyecto de migración: foto completa del landscape, dependencias y custom code a refactorizar.',
-          description_en:
-            'Before the migration project: a complete snapshot of the landscape, dependencies and custom code to refactor.',
+            'Enterprise Architecture Management: we model the current and target architecture, its dependencies and the transformation roadmap — key to preparing the landscape toward S/4HANA.',
           industry: 'SAP customers',
           industry_en: 'SAP customers',
-          technologies: ['LeanIX', 'Signavio', 'S/4HANA'],
+          technologies: ['LeanIX', 'EAM', 'S/4HANA'],
         },
         {
-          title: 'Gestión de deuda técnica',
-          title_en: 'Technical debt management',
+          title: 'Riesgo tecnológico y obsolescencia (TRC)',
+          title_en: 'Technology risk and obsolescence (TRC)',
           description:
-            'Identificación, cuantificación y plan de pago de la deuda técnica con visibilidad ejecutiva.',
+            'Technology Risk & Compliance: identificamos componentes en end-of-life, riesgos de seguridad y brechas de compliance para anticipar el plan de remediación.',
           description_en:
-            'Identification, quantification and pay-down plan for technical debt with executive visibility.',
+            'Technology Risk & Compliance: we identify end-of-life components, security risks and compliance gaps to anticipate the remediation plan.',
+          industry: 'Industria & Banca',
+          industry_en: 'Industry & Banking',
+          technologies: ['LeanIX', 'TRC', 'IT Governance'],
+        },
+        {
+          title: 'Gestión de SaaS y shadow IT (SMP)',
+          title_en: 'SaaS and shadow IT management (SMP)',
+          description:
+            'SaaS Management Platform: descubrimos las suscripciones SaaS en uso, detectamos shadow IT y optimizamos licencias y gasto recurrente.',
+          description_en:
+            'SaaS Management Platform: we discover the SaaS subscriptions in use, detect shadow IT and optimize licenses and recurring spend.',
           industry: 'Cross-industry',
           industry_en: 'Cross-industry',
-          technologies: ['LeanIX', 'TBM'],
+          technologies: ['LeanIX', 'SMP', 'FinOps'],
         },
       ],
       horizonte: {
@@ -1361,14 +1361,10 @@ export const SERVICES: Service[] = [
         '/images/SAPBASIS-1.webp',
       overviewImage: '/images/SAPBASIS-2.webp',
       overviewParagraphs: [
-        'Administramos y monitoreamos tu entorno SAP de punta a punta.',
-        'Desde la operación diaria hasta upgrades y migraciones complejas, garantizamos disponibilidad, seguridad y rendimiento óptimo con SLAs adaptados a los requerimientos de tu negocio.',
-        'Operamos con guardia activa para los entornos productivos críticos y más de 20 años de experiencia en el ecosistema, para que tu equipo se enfoque en el negocio y no en apagar incendios.',
+        'En GoTechy, nos especializamos en brindar servicios integrales de SAP Basis, acompañando a nuestros clientes a lo largo de todo el ciclo de vida de sus sistemas SAP. Desde la implementación inicial hasta las actualizaciones, soporte y mantenimiento continuo, nuestro objetivo es asegurar el óptimo funcionamiento de sus sistemas y atender a las necesidades de negocio que puedan surgir.',
       ],
       overviewParagraphs_en: [
-        'We administer and monitor your SAP environment end to end.',
-        'From daily operations to complex upgrades and migrations, we guarantee availability, security and optimal performance with SLAs adapted to your business requirements.',
-        'We run active on-call for critical production environments, backed by 20+ years in the ecosystem, so your team focuses on the business instead of firefighting.',
+        'At GoTechy, we specialize in providing comprehensive SAP Basis services, supporting our clients throughout the entire lifecycle of their SAP systems. From initial implementation to updates, support and ongoing maintenance, our goal is to ensure the optimal performance of their systems and address the business needs that may arise.',
       ],
       features: [
         { icon: ServerCog, image: '/icons/capabilities/basis-admin.svg', title: 'Administración SAP (ECC, S/4HANA, BTP)', title_en: 'SAP administration (ECC, S/4HANA, BTP)' },
@@ -1410,14 +1406,14 @@ export const SERVICES: Service[] = [
             'We apply the five Clean Core principles and SAP\'s official methodologies — ensuring quality, certifiability and compatibility with future releases.',
         },
         {
-          metric: '99.9% uptime',
-          metric_en: '99.9% uptime',
-          title: 'Confiabilidad y sustentabilidad',
-          title_en: 'Reliability and sustainability',
+          metric: 'Menos incidentes',
+          metric_en: 'Fewer incidents',
+          title: 'Reducción de incidentes críticos',
+          title_en: 'Reduction of critical incidents',
           description:
-            'Operación continua de infraestructura SAP crítica con alta disponibilidad, planes de DR, monitoreo proactivo y mantenimiento preventivo.',
+            'Monitoreo proactivo y mantenimiento preventivo que anticipan problemas antes de que impacten la operación.',
           description_en:
-            'Continuous operation of critical SAP infrastructure with high availability, DR plans, proactive monitoring and preventive maintenance.',
+            'Proactive monitoring and preventive maintenance that anticipate issues before they impact operations.',
         },
       ],
       useCases: [
@@ -1444,15 +1440,15 @@ export const SERVICES: Service[] = [
           technologies: ['S/4HANA', 'HANA', 'Basis'],
         },
         {
-          title: 'Setup de alta disponibilidad y DR',
-          title_en: 'High availability and DR setup',
+          title: 'Patching y actualizaciones técnicas',
+          title_en: 'Patching and technical updates',
           description:
-            'Arquitecturas de HA y DR para sistemas críticos. Pruebas de failover periódicas como parte del SLA.',
+            'Aplicación de support packages, kernel upgrades y mantenimiento técnico periódico con ventanas de downtime controladas.',
           description_en:
-            'HA and DR architectures for critical systems. Periodic failover testing as part of the SLA.',
-          industry: 'Industria & Banca',
-          industry_en: 'Industry & Banking',
-          technologies: ['HANA', 'Replication', 'DR'],
+            'Application of support packages, kernel upgrades and periodic technical maintenance with controlled downtime windows.',
+          industry: 'Cross-industry',
+          industry_en: 'Cross-industry',
+          technologies: ['Basis', 'SPAM/SAINT', 'Kernel upgrade'],
         },
         {
           title: 'Performance tuning y troubleshooting',

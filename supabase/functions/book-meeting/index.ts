@@ -95,12 +95,13 @@ Deno.serve(async (req) => {
     Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
   );
 
-  // 1. Settings + validación del slot.
-  const { data: settings, error: sErr } = await supabase
-    .from('meeting_settings')
-    .select('*')
-    .eq('id', 1)
-    .maybeSingle();
+  // 1. Settings + token de Google en paralelo (el token después también se
+  //    usa para crear el evento de Meet); luego validación del slot.
+  const [settingsRes, token] = await Promise.all([
+    supabase.from('meeting_settings').select('*').eq('id', 1).maybeSingle(),
+    getGoogleAccessToken(),
+  ]);
+  const { data: settings, error: sErr } = settingsRes;
   if (sErr || !settings) {
     console.error('[book-meeting] settings error', sErr);
     return json({ error: 'El agendado no está configurado.' }, 500);
@@ -114,13 +115,19 @@ Deno.serve(async (req) => {
   }
   const endsAt = new Date(startsAt.getTime() + cfg.slot_minutes * 60_000);
 
-  // 2. Colisiones (reservas de la web + Google Calendar).
-  const { data: nearby, error: nErr } = await supabase
-    .from('meeting_bookings')
-    .select('starts_at, ends_at')
-    .eq('status', 'confirmed')
-    .gte('ends_at', startsAt.toISOString())
-    .lte('starts_at', endsAt.toISOString());
+  // 2. Colisiones (reservas de la web + Google Calendar), en paralelo.
+  const [nearbyRes, googleBusy] = await Promise.all([
+    supabase
+      .from('meeting_bookings')
+      .select('starts_at, ends_at')
+      .eq('status', 'confirmed')
+      .gte('ends_at', startsAt.toISOString())
+      .lte('starts_at', endsAt.toISOString()),
+    token
+      ? googleBusyIntervals(token, startsAt, endsAt)
+      : Promise.resolve([] as BusyInterval[]),
+  ]);
+  const { data: nearby, error: nErr } = nearbyRes;
   if (nErr) {
     console.error('[book-meeting] collision query error', nErr);
     return json({ error: 'No se pudo verificar la disponibilidad.' }, 500);
@@ -129,10 +136,7 @@ Deno.serve(async (req) => {
     start: new Date(b.starts_at).getTime(),
     end: new Date(b.ends_at).getTime(),
   }));
-  const token = await getGoogleAccessToken();
-  if (token) {
-    busy.push(...(await googleBusyIntervals(token, startsAt, endsAt)));
-  }
+  busy.push(...googleBusy);
   if (overlaps(startsAt.getTime(), endsAt.getTime(), busy)) {
     return json({ error: 'Ese horario acaba de ocuparse. Elegí otro.', code: 'slot_taken' }, 409);
   }

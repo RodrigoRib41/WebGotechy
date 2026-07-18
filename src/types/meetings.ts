@@ -11,6 +11,9 @@ export interface MeetingSettingsRow {
   /** 'HH:MM:SS' (Postgres time). */
   start_time: string;
   end_time: string;
+  /** Segunda franja opcional (p. ej. 10-12 y 14-18). Null = una sola franja. */
+  start_time2: string | null;
+  end_time2: string | null;
   slot_minutes: number;
   allowed_weekdays: number[];
   min_notice_hours: number;

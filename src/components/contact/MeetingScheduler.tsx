@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   AlertCircle,
@@ -67,11 +67,14 @@ export function MeetingScheduler() {
   }, [load]);
 
   // El layout scrollea al top en cada navegación (useScrollToTop) y esta
-  // sección carga async → honramos el ancla #agendar recién cuando existe.
+  // sección carga async → honramos el ancla #agendar apenas la sección
+  // existe (con el esqueleto ya renderizado, no hace falta esperar la data).
+  const anchoredRef = useRef(false);
   useEffect(() => {
-    if (step === 'idle' && window.location.hash === '#agendar') {
-      document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (step !== 'loading' && step !== 'idle') return;
+    if (anchoredRef.current || window.location.hash !== '#agendar') return;
+    anchoredRef.current = true;
+    document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' });
   }, [step]);
 
   const visitorTz = useMemo(
@@ -137,7 +140,10 @@ export function MeetingScheduler() {
     }
   };
 
-  if (step === 'hidden' || step === 'loading') return null;
+  // Solo 'hidden' oculta la sección; durante 'loading' se muestra el banner
+  // al instante + un esqueleto del card (la disponibilidad tarda ~1-3 s
+  // porque consulta Google Calendar en vivo).
+  if (step === 'hidden') return null;
 
   return (
     <section
@@ -145,11 +151,13 @@ export function MeetingScheduler() {
       className="relative bg-white text-[#0F1419]"
       aria-labelledby="meeting-title"
     >
-      {/* ---- Banner fotográfico (reunión en oficina) ---- */}
+      {/* ---- Banner fotográfico (videollamada — foto propia de esta sección,
+           Pexels 4226140, licencia libre comercial) ---- */}
       <PhotoBanner
-        image="/images/banner-meeting.webp"
+        image="/images/banner-videocall.webp"
         align="left"
         overlap
+        objectPosition="center 40%"
         titleId="meeting-title"
         eyebrow={t('meeting.eyebrow')}
         title={
@@ -165,6 +173,9 @@ export function MeetingScheduler() {
       <div className="relative bg-gradient-to-b from-transparent via-[#F7FAFC] to-white pb-20 sm:pb-28">
         <div className="container-x relative -mt-28 sm:-mt-32">
           <div className="mx-auto max-w-3xl">
+            {step === 'loading' ? (
+              <SkeletonCard label={t('meeting.loadingSlots')} />
+            ) : (
             <AnimatePresence mode="wait">
               {step === 'success' ? (
                 <motion.div
@@ -365,10 +376,40 @@ export function MeetingScheduler() {
                 </motion.div>
               )}
             </AnimatePresence>
+            )}
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * Placeholder del card mientras llega la disponibilidad — replica las
+ * proporciones del picker real (chips de días + grilla de horarios) para
+ * que no haya salto de layout cuando aparece la data.
+ */
+function SkeletonCard({ label }: { label: string }) {
+  return (
+    <div
+      role="status"
+      aria-label={label}
+      className="animate-pulse rounded-3xl border border-black/5 bg-white p-6 shadow-[0_10px_40px_-15px_rgba(15,20,25,0.12)] sm:p-8"
+    >
+      <div className="h-6 w-40 rounded-full bg-black/[0.07]" />
+      <div className="mt-3 flex gap-2 overflow-hidden pb-2">
+        {Array.from({ length: 7 }).map((_, i) => (
+          <div key={i} className="h-[84px] min-w-[76px] shrink-0 rounded-2xl bg-black/[0.05]" />
+        ))}
+      </div>
+      <div className="mt-6 h-6 w-48 rounded-full bg-black/[0.07]" />
+      <div className="mt-2 h-3.5 w-64 max-w-full rounded-full bg-black/[0.04]" />
+      <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-5">
+        {Array.from({ length: 10 }).map((_, i) => (
+          <div key={i} className="h-[42px] rounded-xl bg-black/[0.05]" />
+        ))}
+      </div>
+    </div>
   );
 }
 

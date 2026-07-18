@@ -621,3 +621,27 @@ Notas:
 - Los límites del tier gratuito (requests/día, etc.) viven como constantes en
   `src/pages/admin/AdminGeminiUsage.tsx` — si Google los cambia
   (https://ai.google.dev/gemini-api/docs/rate-limits), se actualizan ahí.
+
+---
+
+## 2026-07-16 — Agenda: segunda franja horaria opcional (`meeting_settings.start_time2/end_time2`)
+
+Permite partir el día en dos franjas de atención (p. ej. 10:00-12:00 y
+14:00-18:00) desde `/admin/meetings`. Con `NULL` (default) todo sigue como
+antes, con una sola franja. Cada franja genera su propia grilla de slots de
+`slot_minutes` desde su hora de inicio; reservar un slot no corre a los
+demás (con slots de 60, una reserva a las 10:00 deja libre la de 11:00).
+
+```sql
+alter table public.meeting_settings
+  add column if not exists start_time2 time,
+  add column if not exists end_time2 time;
+```
+
+Requiere **re-desplegar** las Edge Functions de la agenda (comparten el
+motor de slots en `_shared/meetings.ts`):
+
+```bash
+npx supabase functions deploy meeting-availability
+npx supabase functions deploy book-meeting
+```

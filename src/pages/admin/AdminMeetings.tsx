@@ -161,6 +161,11 @@ function SettingsCard({
   const [enabled, setEnabled] = useState(settings?.enabled ?? true);
   const [startTime, setStartTime] = useState((settings?.start_time ?? '09:00').slice(0, 5));
   const [endTime, setEndTime] = useState((settings?.end_time ?? '18:00').slice(0, 5));
+  const [hasSecond, setHasSecond] = useState(
+    Boolean(settings?.start_time2 && settings?.end_time2),
+  );
+  const [startTime2, setStartTime2] = useState((settings?.start_time2 ?? '14:00').slice(0, 5));
+  const [endTime2, setEndTime2] = useState((settings?.end_time2 ?? '18:00').slice(0, 5));
   const [slotMinutes, setSlotMinutes] = useState(settings?.slot_minutes ?? 30);
   const [weekdays, setWeekdays] = useState<number[]>(settings?.allowed_weekdays ?? [1, 2, 3, 4, 5]);
   const [minNotice, setMinNotice] = useState(settings?.min_notice_hours ?? 24);
@@ -171,7 +176,14 @@ function SettingsCard({
     setWeekdays((prev) => (prev.includes(d) ? prev.filter((x) => x !== d) : [...prev, d]));
 
   const save = async () => {
-    if (startTime >= endTime) return toast.error('La franja horaria es inválida (inicio ≥ fin).');
+    if (startTime >= endTime) return toast.error('La franja 1 es inválida (inicio ≥ fin).');
+    if (hasSecond) {
+      if (startTime2 >= endTime2)
+        return toast.error('La franja 2 es inválida (inicio ≥ fin).');
+      // Sin solapamiento entre franjas (en cualquier orden).
+      if (startTime2 < endTime && endTime2 > startTime)
+        return toast.error('Las dos franjas no pueden solaparse.');
+    }
     if (weekdays.length === 0) return toast.error('Habilitá al menos un día.');
     setSaving(true);
     try {
@@ -179,6 +191,8 @@ function SettingsCard({
         enabled,
         start_time: startTime,
         end_time: endTime,
+        start_time2: hasSecond ? startTime2 : null,
+        end_time2: hasSecond ? endTime2 : null,
         slot_minutes: slotMinutes,
         allowed_weekdays: weekdays,
         min_notice_hours: minNotice,
@@ -212,7 +226,7 @@ function SettingsCard({
       </div>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Field label="Franja — desde">
+        <Field label="Franja 1 — desde">
           <input
             type="time"
             value={startTime}
@@ -220,7 +234,7 @@ function SettingsCard({
             className="input-base"
           />
         </Field>
-        <Field label="Franja — hasta">
+        <Field label="Franja 1 — hasta">
           <input
             type="time"
             value={endTime}
@@ -251,6 +265,42 @@ function SettingsCard({
             className="input-base"
           />
         </Field>
+      </div>
+
+      {/* Segunda franja opcional (p. ej. cortar al mediodía: 10-12 y 14-18) */}
+      <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.02] p-4">
+        <label className="flex cursor-pointer flex-wrap items-center gap-2 text-sm text-white">
+          <input
+            type="checkbox"
+            checked={hasSecond}
+            onChange={(e) => setHasSecond(e.target.checked)}
+            className="h-4 w-4 accent-secondary"
+          />
+          Segunda franja horaria
+          <span className="text-xs text-white/45">
+            p. ej. para cortar al mediodía: 10:00-12:00 y 14:00-18:00
+          </span>
+        </label>
+        {hasSecond && (
+          <div className="mt-3 grid max-w-md gap-4 sm:grid-cols-2">
+            <Field label="Franja 2 — desde">
+              <input
+                type="time"
+                value={startTime2}
+                onChange={(e) => setStartTime2(e.target.value)}
+                className="input-base"
+              />
+            </Field>
+            <Field label="Franja 2 — hasta">
+              <input
+                type="time"
+                value={endTime2}
+                onChange={(e) => setEndTime2(e.target.value)}
+                className="input-base"
+              />
+            </Field>
+          </div>
+        )}
       </div>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">

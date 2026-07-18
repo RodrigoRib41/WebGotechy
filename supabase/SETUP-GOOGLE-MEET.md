@@ -70,7 +70,9 @@ supabase functions deploy book-meeting
 
 1. Corré la migración SQL de `MIGRATIONS.md` (sección "Agenda de reuniones")
    en el SQL Editor de Supabase, si aún no lo hiciste.
-2. Entrá a `/admin/meetings` → revisá la franja horaria y guardá.
+2. Entrá a `/admin/meetings` → revisá la franja horaria y guardá. Se puede
+   activar una **segunda franja** opcional (p. ej. 10:00-12:00 y 14:00-18:00)
+   para cortar al mediodía; cada franja genera su propia grilla de slots.
 3. Abrí `/contacto` → debería aparecer la sección "Reservá una reunión".
 4. Agendá una prueba con tu email personal: te tiene que llegar la invitación
    de Google Calendar con el link de Meet + el email de confirmación.

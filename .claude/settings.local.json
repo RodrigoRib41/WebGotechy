@@ -50,7 +50,16 @@
       "PowerShell($scratch = \"C:\\\\Users\\\\rodri\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy\\\\5549ca3a-9283-4f95-941d-494f6ea2970d\\\\scratchpad\"; & \"$scratch\\\\sb-query.ps1\" -SqlFile \"c:\\\\Users\\\\rodri\\\\OneDrive\\\\Documentos\\\\Visual Studio Code\\\\WebGotechy\\\\supabase\\\\seed-chatbot-kb.sql\"; Set-Content -Path \"$scratch\\\\check.sql\" -Value \"select title, active, sort_order, length\\(content\\) as chars from public.chatbot_articles order by sort_order;\" -Encoding ascii; & \"$scratch\\\\sb-query.ps1\" -SqlFile \"$scratch\\\\check.sql\")",
       "PowerShell($scratch = \"C:\\\\Users\\\\rodri\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-rodri-OneDrive-Documentos-Visual-Studio-Code-WebGotechy\\\\5549ca3a-9283-4f95-941d-494f6ea2970d\\\\scratchpad\"; Set-Content -Path \"$scratch\\\\check-cron.sql\" -Value \"select jobid, jobname, schedule, command, active from cron.job;\" -Encoding ascii; & \"$scratch\\\\sb-query.ps1\" -SqlFile \"$scratch\\\\check-cron.sql\")",
       "PowerShell(npm run build)",
-      "PowerShell(npx eslint src/pages/admin/AdminGeminiUsage.tsx src/components/admin/AdminLayout.tsx src/router.tsx src/lib/supabase.ts src/types/chatbot.ts)"
+      "PowerShell(npx eslint src/pages/admin/AdminGeminiUsage.tsx src/components/admin/AdminLayout.tsx src/router.tsx src/lib/supabase.ts src/types/chatbot.ts)",
+      "PowerShell(node -v)",
+      "PowerShell(Select-String -Path \"dist\\\\assets\\\\index-DmafQ1fE.css\" -Pattern 'input-base option' -SimpleMatch | ForEach-Object { $_.Line.Substring\\(0, [Math]::Min\\(140, $_.Line.Length\\)\\) })",
+      "PowerShell($css = Get-Content \"dist\\\\assets\\\\index-DmafQ1fE.css\" -Raw; $i = $css.IndexOf\\('input-base option'\\); if \\($i -ge 0\\) { $css.Substring\\($i - 12, 90\\) } else { 'NO ENCONTRADO' })",
+      "PowerShell(Get-ChildItem public\\\\images | Select-Object Name, @{N='KB';E={[math]::Round\\($_.Length/1KB\\)}} | Format-Table -AutoSize)",
+      "PowerShell(Get-ChildItem public\\\\images\\\\team, public\\\\images\\\\tech | Select-Object Name, @{N='KB';E={[math]::Round\\($_.Length/1KB\\)}} | Format-Table -AutoSize)",
+      "PowerShell(npm run dev)",
+      "WebSearch",
+      "Bash(node _tmp_update_project.mjs)",
+      "Bash(echo \"EXIT=$?\")"
     ]
   }
 }

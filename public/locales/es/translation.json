@@ -405,6 +405,7 @@
     "titleHighlight": "reunión",
     "subtitle": "Elegí el día y horario que te quede cómodo. Te llega la invitación con el link de Google Meet al instante.",
     "pickDay": "Elegí el día",
+    "loadingSlots": "Cargando horarios disponibles…",
     "pickTime": "Elegí el horario",
     "yourData": "Tus datos",
     "timezoneNote": "Horarios en tu zona horaria ({{tz}})",

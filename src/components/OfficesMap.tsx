@@ -38,7 +38,9 @@ export function OfficesMap() {
   );
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-card">
+    // `isolate`: Leaflet usa z-index internos de hasta 1000; sin un stacking
+    // context propio se escapan y tapan overlays del sitio (header, Techy).
+    <div className="relative isolate overflow-hidden rounded-3xl border border-white/10 shadow-card">
       <MapContainer
         bounds={bounds}
         boundsOptions={{ padding: [40, 40] }}

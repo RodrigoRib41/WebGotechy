@@ -36,12 +36,13 @@ Deno.serve(async (req) => {
     Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
   );
 
-  // 1. Configuración de agenda.
-  const { data: settings, error: sErr } = await supabase
-    .from('meeting_settings')
-    .select('*')
-    .eq('id', 1)
-    .maybeSingle();
+  // 1. Configuración + token de Google en paralelo (el token no depende de
+  //    los settings, y con el caché en memoria suele resolver al instante).
+  const [settingsRes, token] = await Promise.all([
+    supabase.from('meeting_settings').select('*').eq('id', 1).maybeSingle(),
+    getGoogleAccessToken(),
+  ]);
+  const { data: settings, error: sErr } = settingsRes;
   if (sErr) {
     console.error('[meeting-availability] settings error', sErr);
     return json({ error: 'No se pudo cargar la configuración.' }, 500);
@@ -54,13 +55,18 @@ Deno.serve(async (req) => {
   const now = new Date();
   const windowEnd = new Date(now.getTime() + cfg.max_days_ahead * 86400_000);
 
-  // 2. Ocupado: reservas confirmadas de la web.
-  const { data: bookings, error: bErr } = await supabase
-    .from('meeting_bookings')
-    .select('starts_at, ends_at')
-    .eq('status', 'confirmed')
-    .gte('starts_at', now.toISOString())
-    .lte('starts_at', windowEnd.toISOString());
+  // 2. Ocupado: reservas confirmadas de la web + freeBusy de Google
+  //    Calendar (best-effort), también en paralelo.
+  const [bookingsRes, googleBusy] = await Promise.all([
+    supabase
+      .from('meeting_bookings')
+      .select('starts_at, ends_at')
+      .eq('status', 'confirmed')
+      .gte('starts_at', now.toISOString())
+      .lte('starts_at', windowEnd.toISOString()),
+    token ? googleBusyIntervals(token, now, windowEnd) : Promise.resolve([] as BusyInterval[]),
+  ]);
+  const { data: bookings, error: bErr } = bookingsRes;
   if (bErr) {
     console.error('[meeting-availability] bookings error', bErr);
     return json({ error: 'No se pudo calcular la disponibilidad.' }, 500);
@@ -69,14 +75,9 @@ Deno.serve(async (req) => {
     start: new Date(b.starts_at).getTime(),
     end: new Date(b.ends_at).getTime(),
   }));
+  busy.push(...googleBusy);
 
-  // 3. Ocupado: Google Calendar (si está configurado). Best-effort.
-  const token = await getGoogleAccessToken();
-  if (token) {
-    busy.push(...(await googleBusyIntervals(token, now, windowEnd)));
-  }
-
-  // 4. Computar slots libres.
+  // 3. Computar slots libres.
   const days = computeAvailability(cfg, busy, now);
 
   return json({

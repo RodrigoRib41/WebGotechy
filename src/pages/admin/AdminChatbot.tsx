@@ -113,9 +113,9 @@ function ToggleCard({
             Chatbot "Techy" en el sitio público
           </h2>
           <p className="mt-1 max-w-xl text-sm text-white/55">
-            Al activarlo, el muñequito aparece arriba del botón de WhatsApp en todas las
-            páginas. Responde solo en base a la base de conocimientos de abajo — cargala
-            antes de prenderlo.
+            Al activarlo, el muñequito reemplaza al botón flotante de WhatsApp en todas
+            las páginas (WhatsApp queda integrado dentro del chat). Responde solo en base
+            a la base de conocimientos de abajo — cargala antes de prenderlo.
           </p>
         </div>
         <button

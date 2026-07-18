@@ -61,7 +61,10 @@ contactar al equipo.
 ## 5. Activarlo
 
 En `/admin/chatbot`, prender el switch **"Chatbot Techy en el sitio público"**.
-El muñequito aparece arriba del botón de WhatsApp en todas las páginas.
+El muñequito reemplaza al botón flotante de WhatsApp en todas las páginas:
+WhatsApp queda integrado dentro del chat (ícono en el header del panel y chip
+"Hablemos por WhatsApp" junto a las sugerencias). Con el bot apagado, vuelve
+el botón flotante de WhatsApp de siempre.
 Se puede apagar en cualquier momento desde el mismo lugar (efecto inmediato,
 los visitantes con la página abierta dejan de poder consultar).
 
