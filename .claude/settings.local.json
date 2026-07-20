@@ -59,7 +59,9 @@
       "PowerShell(npm run dev)",
       "WebSearch",
       "Bash(node _tmp_update_project.mjs)",
-      "Bash(echo \"EXIT=$?\")"
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('./public/locales/es/translation.json','utf8'\\)\\); JSON.parse\\(require\\('fs'\\).readFileSync\\('./public/locales/en/translation.json','utf8'\\)\\); console.log\\('JSON OK'\\)\")",
+      "PowerShell(npm run lint)"
     ]
   }
 }

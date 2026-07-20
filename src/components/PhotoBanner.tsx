@@ -21,6 +21,12 @@ interface PhotoBannerProps {
   titleId?: string;
   /** Posición del encuadre de la foto (object-position). */
   objectPosition?: string;
+  /**
+   * `true` → tratamiento OSCURO: velo + scrim oscuros y textos claros (para
+   * secciones sobre fondo oscuro). Default `false` → velo claro y textos
+   * oscuros (el patrón de las secciones CLARAS del Home).
+   */
+  dark?: boolean;
 }
 
 /**
@@ -39,9 +45,18 @@ export function PhotoBanner({
   overlap = false,
   titleId,
   objectPosition,
+  dark = false,
 }: PhotoBannerProps) {
-  const gradient =
-    align === 'left'
+  // Scrim direccional hacia el lado del texto. En claro tira a blanco; en
+  // oscuro, al oscuro oficial del brandbook (#0A0E1A). Clases literales
+  // completas (no interpoladas) para que Tailwind las extraiga en build.
+  const gradient = dark
+    ? align === 'left'
+      ? 'bg-gradient-to-r from-[#0A0E1A] via-[rgba(10,14,26,0.85)] to-[rgba(10,14,26,0.25)] sm:via-[rgba(10,14,26,0.75)] sm:to-transparent'
+      : align === 'right'
+        ? 'bg-gradient-to-l from-[#0A0E1A] via-[rgba(10,14,26,0.85)] to-[rgba(10,14,26,0.25)] sm:via-[rgba(10,14,26,0.75)] sm:to-transparent'
+        : 'bg-gradient-to-t from-[#0A0E1A] via-[rgba(10,14,26,0.8)] to-[rgba(10,14,26,0.3)]'
+    : align === 'left'
       ? 'bg-gradient-to-r from-white via-white/85 to-white/25 sm:via-white/75 sm:to-transparent'
       : align === 'right'
         ? 'bg-gradient-to-l from-white via-white/85 to-white/25 sm:via-white/75 sm:to-transparent'
@@ -65,7 +80,10 @@ export function PhotoBanner({
         className="absolute inset-0 h-full w-full object-cover"
         style={objectPosition ? { objectPosition } : undefined}
       />
-      <div className="absolute inset-0 bg-white/30" aria-hidden="true" />
+      <div
+        className={cn('absolute inset-0', dark ? 'bg-[#0A0E1A]/55' : 'bg-white/30')}
+        aria-hidden="true"
+      />
       <div className={cn('absolute inset-0', gradient)} aria-hidden="true" />
       {/* Línea de marca — firma visual compartida con los banners del Home */}
       <div
@@ -85,12 +103,24 @@ export function PhotoBanner({
             block,
           )}
         >
-          {eyebrow && <span className="eyebrow-light">{eyebrow}</span>}
-          <h2 id={titleId} className="h2-display mt-5 text-[#0F1419]">
+          {eyebrow && (
+            <span className={dark ? 'eyebrow-dark' : 'eyebrow-light'}>{eyebrow}</span>
+          )}
+          <h2
+            id={titleId}
+            className={cn('h2-display mt-5', dark ? 'text-white' : 'text-[#0F1419]')}
+          >
             {title}
           </h2>
           {subtitle && (
-            <p className="body-lg mt-5 max-w-lg text-[#0F1419]/70">{subtitle}</p>
+            <p
+              className={cn(
+                'body-lg mt-5 max-w-lg',
+                dark ? 'text-white/75' : 'text-[#0F1419]/70',
+              )}
+            >
+              {subtitle}
+            </p>
           )}
           {cta && <div className="mt-8 flex flex-wrap items-center gap-3">{cta}</div>}
         </motion.div>

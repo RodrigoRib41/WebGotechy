@@ -165,6 +165,11 @@ Deno.serve(async (req) => {
   }
 
   // 4. Evento en Google Calendar con Meet (best-effort).
+  // MEETING_HOST_EMAIL (opcional): se agrega como invitado a CADA reunión, así
+  // esa casilla (p. ej. la del comercial a cargo) queda vinculada al evento y
+  // al Meet aunque el token OAuth pertenezca a otra cuenta. El "organizador"
+  // real lo sigue definiendo la cuenta del GOOGLE_REFRESH_TOKEN.
+  const hostEmail = Deno.env.get('MEETING_HOST_EMAIL');
   let meetLink: string | null = null;
   if (token) {
     try {
@@ -191,7 +196,7 @@ Deno.serve(async (req) => {
               .join('\n'),
             start: { dateTime: startsAt.toISOString(), timeZone: cfg.timezone },
             end: { dateTime: endsAt.toISOString(), timeZone: cfg.timezone },
-            attendees: [{ email }],
+            attendees: hostEmail ? [{ email }, { email: hostEmail }] : [{ email }],
             conferenceData: {
               createRequest: {
                 requestId: booking.id,

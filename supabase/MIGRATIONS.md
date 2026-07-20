@@ -645,3 +645,120 @@ motor de slots en `_shared/meetings.ts`):
 npx supabase functions deploy meeting-availability
 npx supabase functions deploy book-meeting
 ```
+
+---
+
+## 2026-07-18 — Google OAuth para el admin (`admin_allowed_emails` + triggers)
+
+Segunda opción de acceso al panel: "Continuar con Google" en `/admin`, junto
+al login con email/contraseña. Solo pueden entrar los emails cargados en la
+allowlist `admin_allowed_emails`:
+
+- **Gate (before insert):** si alguien intenta crear cuenta (Google o lo que
+  sea) con un email que NO está en la lista, la base rechaza el alta. El
+  login le muestra "Esa cuenta de Google no está autorizada para el panel."
+- **Auto-promote (after insert):** si el email SÍ está en la lista, en su
+  primer login se agrega solo a `admin_users` → `is_admin()` pasa y todas
+  las policies existentes siguen funcionando sin cambios.
+- Los usuarios que ya existían (ej. el owner con email/contraseña) no pasan
+  por el gate: al entrar con Google con el mismo email, Supabase **linkea**
+  la identidad a la cuenta existente (requiere email confirmado).
+
+El front además chequea `is_admin()` en `ProtectedRoute`: una sesión sin
+permisos ve un aviso "Cuenta sin acceso" en lugar de un panel roto. La
+autorización real sigue viviendo en RLS.
+
+```sql
+-- 1) Allowlist de emails autorizados (en minúsculas).
+--    Sin policies = solo se gestiona desde el SQL editor / service role.
+create table if not exists public.admin_allowed_emails (
+  email text primary key check (email = lower(email)),
+  note text,
+  created_at timestamptz not null default now()
+);
+alter table public.admin_allowed_emails enable row level security;
+
+-- 2) Gate: bloquea el alta de usuarios cuyo email no esté autorizado.
+create or replace function public.auth_user_gate()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  if new.email is null
+     or not exists (
+       select 1 from public.admin_allowed_emails where email = lower(new.email)
+     ) then
+    raise exception 'signup_not_allowed: %', new.email;
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists auth_user_gate on auth.users;
+create trigger auth_user_gate before insert on auth.users
+  for each row execute function public.auth_user_gate();
+
+-- 3) Auto-promote: el usuario autorizado entra a admin_users en su 1er login.
+create or replace function public.auth_user_autopromote()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  if exists (
+    select 1 from public.admin_allowed_emails where email = lower(new.email)
+  ) then
+    insert into public.admin_users (user_id) values (new.id)
+    on conflict do nothing;
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists auth_user_autopromote on auth.users;
+create trigger auth_user_autopromote after insert on auth.users
+  for each row execute function public.auth_user_autopromote();
+
+-- 4) Cargar los emails autorizados (agregar los que hagan falta)
+insert into public.admin_allowed_emails (email, note) values
+  ('rodrigo.riboldi@gotechy.com', 'Owner')
+on conflict do nothing;
+```
+
+Para **autorizar** a alguien más (antes de que intente entrar):
+
+```sql
+insert into public.admin_allowed_emails (email, note)
+values ('persona@gotechy.com', 'Marketing') on conflict do nothing;
+```
+
+Para **revocar** el acceso:
+
+```sql
+delete from public.admin_users
+  where user_id = (select id from auth.users where email = 'persona@gotechy.com');
+delete from public.admin_allowed_emails where email = 'persona@gotechy.com';
+-- Opcional: borrar el usuario desde Authentication → Users en el dashboard.
+```
+
+Configuración manual (una sola vez):
+
+1. **Google Cloud Console** (https://console.cloud.google.com → APIs &
+   Services → Credentials): crear **OAuth client ID** tipo *Web application*.
+   - Authorized redirect URI: `https://<project-ref>.supabase.co/auth/v1/callback`
+     (el project-ref está en `supabase/.temp/project-ref` o en el dashboard).
+   - En la pantalla de consentimiento (OAuth consent screen): si todos los
+     admins van a ser cuentas `@gotechy.com` (Google Workspace), elegir User
+     Type **Internal** — capa extra gratis: Google ni siquiera deja loguear a
+     cuentas de fuera de la organización.
+2. **Supabase Dashboard** → Authentication → Sign In / Providers → **Google**:
+   habilitar y pegar Client ID + Client Secret.
+3. **Authentication → URL Configuration**:
+   - Site URL: `https://gotechy.com`
+   - Redirect URLs: agregar `http://localhost:5173/**` y `https://gotechy.com/**`
+     (sin esto, el `redirectTo` del front se ignora y el OAuth vuelve al Site URL).
+4. **Authentication → Sign In / Providers → "Allow new users to sign up"**:
+   dejarlo **habilitado** — el gate del punto 2 ya rechaza en la base a
+   cualquier email fuera de la allowlist, y con signups deshabilitados los
+   emails autorizados nuevos no podrían crear su cuenta al entrar con Google.
+
+Notas:
+- ⚠️ El gate aplica a TODA alta de usuario, incluso "Add user" desde el
+  dashboard: primero agregar el email a `admin_allowed_emails`, después crear.
+- No requiere cambios en `vercel.json` (la CSP no bloquea redirects de página
+  completa) ni en las Edge Functions.
+- El botón vive en `src/components/admin/LoginForm.tsx`; el flujo OAuth vuelve
+  a `/admin` y el login redirige solo al dashboard si la sesión quedó creada.

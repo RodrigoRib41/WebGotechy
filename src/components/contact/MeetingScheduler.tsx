@@ -1,4 +1,12 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type FormEvent,
+  type ReactNode,
+} from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   AlertCircle,
@@ -16,6 +24,21 @@ import { cn } from '../../utils/cn';
 
 type Step = 'loading' | 'idle' | 'submitting' | 'success' | 'hidden';
 
+interface MeetingSchedulerProps {
+  /**
+   * Se renderiza cuando el agendado está deshabilitado desde /admin o falla
+   * la carga de disponibilidad. Sin fallback (default) la sección no renderiza
+   * nada — el comportamiento histórico de /contacto.
+   */
+  fallback?: ReactNode;
+  /**
+   * `true` → superficie standalone /agenda: banner OSCURO (velo + scrim
+   * oscuros, texto claro), SIN subtítulo y con la etiqueta de zona horaria
+   * abreviada. Default `false` → el patrón CLARO de /contacto.
+   */
+  standalone?: boolean;
+}
+
 /**
  * Agendador de reuniones (Google Meet) — página de Contacto.
  *
@@ -31,7 +54,7 @@ type Step = 'loading' | 'idle' | 'submitting' | 'success' | 'hidden';
  * Si el agendado está deshabilitado o falla la carga, la sección no se
  * renderiza (la página de contacto sigue completa con el formulario).
  */
-export function MeetingScheduler() {
+export function MeetingScheduler({ fallback = null, standalone = false }: MeetingSchedulerProps) {
   const { t, i18n } = useTranslation();
   const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
   const locale = isEn ? 'en-US' : 'es-AR';
@@ -140,10 +163,10 @@ export function MeetingScheduler() {
     }
   };
 
-  // Solo 'hidden' oculta la sección; durante 'loading' se muestra el banner
-  // al instante + un esqueleto del card (la disponibilidad tarda ~1-3 s
-  // porque consulta Google Calendar en vivo).
-  if (step === 'hidden') return null;
+  // Solo 'hidden' reemplaza la sección por el fallback (null en /contacto);
+  // durante 'loading' se muestra el banner al instante + un esqueleto del card
+  // (la disponibilidad tarda ~1-3 s porque consulta Google Calendar en vivo).
+  if (step === 'hidden') return <>{fallback}</>;
 
   return (
     <section
@@ -157,16 +180,19 @@ export function MeetingScheduler() {
         image="/images/banner-videocall.webp"
         align="left"
         overlap
+        dark={standalone}
         objectPosition="center 40%"
         titleId="meeting-title"
         eyebrow={t('meeting.eyebrow')}
         title={
           <>
             {t('meeting.titleStart')}{' '}
-            <span className="text-brand-600">{t('meeting.titleHighlight')}</span>
+            <span className={standalone ? 'text-secondary' : 'text-brand-600'}>
+              {t('meeting.titleHighlight')}
+            </span>
           </>
         }
-        subtitle={t('meeting.subtitle')}
+        subtitle={standalone ? undefined : t('meeting.subtitle')}
       />
 
       {/* ---- Agendador superpuesto al banner ---- */}
@@ -253,7 +279,9 @@ export function MeetingScheduler() {
                   <StepLabel n={2} label={t('meeting.pickTime')} className="mt-6" />
                   <p className="mt-1 flex items-center gap-1.5 text-xs text-[#0F1419]/45">
                     <Clock className="h-3 w-3" />
-                    {t('meeting.timezoneNote', { tz: visitorTz })}
+                    {t(standalone ? 'meeting.timezone' : 'meeting.timezoneNote', {
+                      tz: visitorTz,
+                    })}
                     {availability?.slotMinutes &&
                       ` · ${t('meeting.duration', { min: availability.slotMinutes })}`}
                   </p>

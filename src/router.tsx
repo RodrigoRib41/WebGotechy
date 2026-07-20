@@ -31,6 +31,9 @@ const BlogPostPage = lazy(() =>
 const NotFoundPage = lazy(() =>
   import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 );
+const AgendaPage = lazy(() =>
+  import('./pages/AgendaPage').then((m) => ({ default: m.AgendaPage })),
+);
 
 // Admin (también lazy)
 const AdminLogin = lazy(() =>
@@ -86,8 +89,23 @@ function RouteFallback() {
   );
 }
 
+// En producción, agenda.gotechy.com apunta al mismo deploy: cualquier path en
+// ese host sirve la página de agenda standalone, sin el chrome del sitio.
+// Comparación exacta de hostname (no regex) para no matchear otros subdominios.
+const IS_AGENDA_HOST =
+  typeof window !== 'undefined' && window.location.hostname === 'agenda.gotechy.com';
+
 function PublicLayout() {
   useScrollToTop();
+
+  if (IS_AGENDA_HOST) {
+    return (
+      <Suspense fallback={<RouteFallback />}>
+        <AgendaPage />
+      </Suspense>
+    );
+  }
+
   return (
     <>
       <a href="#main" className="skip-to-content">
@@ -113,6 +131,12 @@ function AdminShell({ children }: { children: ReactNode }) {
   return <Suspense fallback={<RouteFallback />}>{children}</Suspense>;
 }
 
+// Wrapper liviano para la agenda standalone (sin chrome público ni admin).
+function AgendaShell({ children }: { children: ReactNode }) {
+  useScrollToTop();
+  return <Suspense fallback={<RouteFallback />}>{children}</Suspense>;
+}
+
 export const router = createBrowserRouter([
   // Rutas públicas con Header/Footer
   {
@@ -129,6 +153,16 @@ export const router = createBrowserRouter([
       { path: '/blogtechy/:slug', element: <BlogPostPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
+  },
+  // Agenda standalone — acceso directo en local/staging; en producción vive
+  // detrás del subdominio agenda.gotechy.com (ver gate en PublicLayout).
+  {
+    path: '/agenda',
+    element: (
+      <AgendaShell>
+        <AgendaPage />
+      </AgendaShell>
+    ),
   },
   // Admin (sin Header/Footer públicos)
   {

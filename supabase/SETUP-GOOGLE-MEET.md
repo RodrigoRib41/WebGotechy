@@ -79,6 +79,41 @@ supabase functions deploy book-meeting
 5. El evento aparece en el calendario de la cuenta configurada, y ese horario
    deja de ofrecerse en la web.
 
+## ¿A qué cuenta de Gmail queda vinculada la reunión?
+
+Hay dos roles distintos, y se controlan por separado:
+
+1. **Organizador / dueño del evento y del Meet** = la cuenta de Google que
+   generó el `GOOGLE_REFRESH_TOKEN` (Paso 4). El evento vive en SU calendario y
+   ella hostea el Meet. **Para que las reuniones sean de otra persona** (p. ej.
+   `myriam.parola@gotechy.com` en lugar de la actual), repetí el **Paso 4
+   logueado con esa cuenta** y actualizá el secret:
+
+   ```bash
+   supabase secrets set GOOGLE_REFRESH_TOKEN=1//nuevo-token-de-esa-cuenta
+   # Opcional: apuntar a un calendario puntual de esa cuenta
+   supabase secrets set GOOGLE_CALENDAR_ID=primary
+   ```
+
+   > El Client ID / Secret pueden seguir siendo los mismos; lo que cambia el
+   > "dueño" es con qué cuenta autorizás en el OAuth Playground. Es un cambio
+   > de secret + no requiere tocar el código.
+
+2. **Invitado fijo en cada reunión** (opcional) = `MEETING_HOST_EMAIL`. Si lo
+   seteás, esa casilla se agrega como invitado a **todas** las reuniones (le
+   llega la invitación de Calendar con el link de Meet y el evento le aparece en
+   su agenda), sin importar de quién sea el token. Útil para que el comercial a
+   cargo quede siempre vinculado sin re-generar el token:
+
+   ```bash
+   supabase secrets set MEETING_HOST_EMAIL=myriam.parola@gotechy.com
+   supabase functions deploy book-meeting
+   ```
+
+Además, el **aviso interno por email** de cada reserva va a `CONTACT_TO_EMAIL`
+(el mismo de los formularios). Si querés que las notificaciones también le
+lleguen a esa persona, cambiá ese secret o usá un alias que la incluya.
+
 ## Cosas que conviene saber
 
 - **Reuniones manuales**: si el equipo agenda algo directamente en ese Google

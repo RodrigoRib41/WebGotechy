@@ -409,6 +409,7 @@
     "pickTime": "Pick a time",
     "yourData": "Your details",
     "timezoneNote": "Times shown in your timezone ({{tz}})",
+    "timezone": "Timezone: {{tz}}",
     "duration": "{{min}} min",
     "fieldName": "Full name *",
     "fieldEmail": "Corporate email *",
@@ -421,6 +422,15 @@
     "joinLink": "Google Meet link",
     "slotTaken": "That time was just taken. Please pick another one.",
     "errorGeneric": "We couldn't book the meeting. Try again or reach us through the form."
+  },
+  "agendaPage": {
+    "docTitle": "Book a meeting · GoTechy",
+    "backToSite": "Go to gotechy.com",
+    "footerNote": "World-class technology consulting",
+    "unavailableTitle": "Scheduling isn't available right now",
+    "unavailableBody": "We're adjusting our meeting availability. Reach out and we'll set up a time for you.",
+    "unavailableCtaEmail": "Email {{email}}",
+    "unavailableCtaWhatsApp": "Chat on WhatsApp"
   },
   "chatbot": {
     "tooltip": "Chat with Techy",

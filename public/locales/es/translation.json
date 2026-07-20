@@ -409,6 +409,7 @@
     "pickTime": "Elegí el horario",
     "yourData": "Tus datos",
     "timezoneNote": "Horarios en tu zona horaria ({{tz}})",
+    "timezone": "Zona horaria: {{tz}}",
     "duration": "{{min}} min",
     "fieldName": "Nombre completo *",
     "fieldEmail": "Email corporativo *",
@@ -421,6 +422,15 @@
     "joinLink": "Link de Google Meet",
     "slotTaken": "Ese horario acaba de ocuparse. Elegí otro, por favor.",
     "errorGeneric": "No pudimos agendar la reunión. Probá de nuevo o escribinos por el formulario."
+  },
+  "agendaPage": {
+    "docTitle": "Agendá una reunión · GoTechy",
+    "backToSite": "Ir a gotechy.com",
+    "footerNote": "Consultora tecnológica de clase mundial",
+    "unavailableTitle": "La agenda no está disponible en este momento",
+    "unavailableBody": "Estamos ajustando la disponibilidad de reuniones. Escribinos y coordinamos un horario a mano.",
+    "unavailableCtaEmail": "Escribir a {{email}}",
+    "unavailableCtaWhatsApp": "Hablar por WhatsApp"
   },
   "chatbot": {
     "tooltip": "Chateá con Techy",
