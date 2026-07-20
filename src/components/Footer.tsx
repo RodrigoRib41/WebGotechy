@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Logo } from './Logo';
 import { SITE, NAV_LINKS, OFFICES } from '../data/site';
+import { ADMIN_URL } from '../config/hosts';
 import { ArrowMark, ArrowPattern } from './brand';
 
 export function Footer() {
@@ -141,14 +142,15 @@ export function Footer() {
           <p>
             © {year} {SITE.name}. {t('footer.rights')}
           </p>
-          {/* Link discreto al admin */}
-          <Link
-            to="/admin"
+          {/* Link discreto al admin — en producción vive en el subdominio
+              administracion.gotechy.com (por eso <a> y no <Link>). */}
+          <a
+            href={ADMIN_URL}
             className="text-white/30 transition hover:text-secondary"
             aria-label="Admin"
           >
             ·
-          </Link>
+          </a>
         </div>
       </div>
     </footer>

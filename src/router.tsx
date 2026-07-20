@@ -1,10 +1,16 @@
 import { lazy, Suspense, type ReactNode } from 'react';
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { ProtectedRoute } from './components/admin/ProtectedRoute';
 import { useScrollToTop } from './hooks/useScrollToTop';
+import {
+  ADMIN_PATH_ENABLED,
+  AGENDA_PATH_ENABLED,
+  IS_ADMIN_HOST,
+  IS_AGENDA_HOST,
+} from './config/hosts';
 
 // Code splitting por ruta — cada página se carga on-demand.
 const HomePage = lazy(() => import('./pages/HomePage').then((m) => ({ default: m.HomePage })));
@@ -89,21 +95,27 @@ function RouteFallback() {
   );
 }
 
-// En producción, agenda.gotechy.com apunta al mismo deploy: cualquier path en
-// ese host sirve la página de agenda standalone, sin el chrome del sitio.
-// Comparación exacta de hostname (no regex) para no matchear otros subdominios.
-const IS_AGENDA_HOST =
-  typeof window !== 'undefined' && window.location.hostname === 'agenda.gotechy.com';
+// Ruteo por host (agenda.gotechy.com / administracion.gotechy.com / público):
+// constantes centralizadas en ./config/hosts.
 
 function PublicLayout() {
   useScrollToTop();
 
+  // agenda.gotechy.com: cualquier path sirve el agendador standalone, sin el
+  // chrome del sitio.
   if (IS_AGENDA_HOST) {
     return (
       <Suspense fallback={<RouteFallback />}>
         <AgendaPage />
       </Suspense>
     );
+  }
+
+  // administracion.gotechy.com: el sitio público no se sirve acá; todo se
+  // manda al panel (login). Las rutas /admin/* son top-level y no pasan por
+  // este layout, así que solo redirige lo que caería en el sitio público.
+  if (IS_ADMIN_HOST) {
+    return <Navigate to="/admin" replace />;
   }
 
   return (
@@ -154,17 +166,28 @@ export const router = createBrowserRouter([
       { path: '*', element: <NotFoundPage /> },
     ],
   },
-  // Agenda standalone — acceso directo en local/staging; en producción vive
-  // detrás del subdominio agenda.gotechy.com (ver gate en PublicLayout).
-  {
-    path: '/agenda',
-    element: (
-      <AgendaShell>
-        <AgendaPage />
-      </AgendaShell>
-    ),
-  },
-  // Admin (sin Header/Footer públicos)
+  // Agenda standalone por path — SOLO en local/staging/previews (sin
+  // subdominio). En el dominio público de producción NO se registra:
+  // gotechy.com/agenda cae al 404 del layout público. La agenda de producción
+  // vive únicamente en agenda.gotechy.com (ver gate IS_AGENDA_HOST arriba).
+  ...(AGENDA_PATH_ENABLED
+    ? [
+        {
+          path: '/agenda',
+          element: (
+            <AgendaShell>
+              <AgendaPage />
+            </AgendaShell>
+          ),
+        },
+      ]
+    : []),
+  // Panel de administración (sin Header/Footer públicos) — SOLO en
+  // administracion.gotechy.com (+ local y previews de Vercel). En gotechy.com
+  // NO se registran → gotechy.com/admin cae al 404 del layout público. El
+  // panel de producción vive únicamente en administracion.gotechy.com.
+  ...(ADMIN_PATH_ENABLED
+    ? [
   {
     path: '/admin',
     element: (
@@ -313,4 +336,6 @@ export const router = createBrowserRouter([
       </AdminShell>
     ),
   },
+      ]
+    : []),
 ]);

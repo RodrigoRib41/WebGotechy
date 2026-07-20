@@ -748,8 +748,10 @@ Configuración manual (una sola vez):
    habilitar y pegar Client ID + Client Secret.
 3. **Authentication → URL Configuration**:
    - Site URL: `https://gotechy.com`
-   - Redirect URLs: agregar `http://localhost:5173/**` y `https://gotechy.com/**`
-     (sin esto, el `redirectTo` del front se ignora y el OAuth vuelve al Site URL).
+   - Redirect URLs: agregar `http://localhost:5173/**`, `https://gotechy.com/**`
+     y **`https://administracion.gotechy.com/**`** (el panel vive en ese
+     subdominio y el `redirectTo` del front usa el origin del host — sin esta
+     entrada el login con Google desde el subdominio vuelve al Site URL).
 4. **Authentication → Sign In / Providers → "Allow new users to sign up"**:
    dejarlo **habilitado** — el gate del punto 2 ya rechaza en la base a
    cualquier email fuera de la allowlist, y con signups deshabilitados los
