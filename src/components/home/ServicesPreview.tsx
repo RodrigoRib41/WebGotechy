@@ -9,13 +9,22 @@ import { cn } from '../../utils/cn';
  * Sección "Servicios" del Home — banner fotográfico + grid superpuesto.
  *
  * Composición:
- *  1. Banner full-bleed con Hero4 (persona + ventana luminosa). La persona
- *     vive a la izquierda, así que el copy va a la DERECHA sobre un scrim
- *     blanco degradado que garantiza contraste. Línea de marca cyan→mint
- *     como remate inferior del banner.
- *  2. Las cards de servicios se superponen al borde inferior del banner
- *     (-mt) — el overlap elimina el aire muerto y le da profundidad al
- *     layout, estilo Stripe.
+ *  1. Banner full-bleed con Hero7 (dos personas revisando una tablet contra el
+ *     ventanal). Los protagonistas viven a la DERECHA y los dos tercios
+ *     restantes son cielo/ciudad sin detalle, así que el copy va a la
+ *     IZQUIERDA sobre un scrim blanco degradado hacia ese lado.
+ *     object-position al 30%: arriba de ~900px de ancho la foto entra completa
+ *     y el eje X es indistinto, pero por debajo (mobile/tablet) el recorte se
+ *     queda en el ventanal — ahí el copy ocupa todo el ancho y los
+ *     protagonistas le quedarían justo debajo del texto.
+ *  2. Las cards se superponen al borde inferior del banner (-mt) y usan la
+ *     variante `card-glass-light`: vidrio esmerilado que sobre la foto se lee
+ *     como los paneles del ventanal y sobre el fondo claro queda casi blanco.
+ *     Cada card es flex-col con el "Ver más" pineado abajo (mt-auto), así el
+ *     pie se alinea entre columnas aunque los textos midan distinto.
+ *  3. El grid es flex-wrap centrado en vez de `grid-cols-3`: con 7 servicios
+ *     la última fila queda incompleta, y así el sobrante se centra solo sin
+ *     depender de la cantidad exacta de items.
  */
 export function ServicesPreview() {
   const { t, i18n } = useTranslation();
@@ -27,17 +36,19 @@ export function ServicesPreview() {
       {/* ---- Banner fotográfico ---- */}
       <div className="relative overflow-hidden">
         <img
-          src="/images/Hero4.webp"
+          src="/images/Hero7.webp"
           alt=""
           aria-hidden="true"
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-[25%_30%]"
+          className="absolute inset-0 h-full w-full object-cover object-[30%_42%]"
         />
-        {/* Scrims: velo base + degradado hacia el lado del texto (derecha) */}
-        <div className="absolute inset-0 bg-white/30" aria-hidden="true" />
+        {/* Scrims: velo base + degradado hacia el lado del texto (izquierda).
+            Más suave que en otros banners porque el ventanal ya es casi blanco
+            de por sí: con un scrim fuerte ese lado se volvía una mancha lisa. */}
+        <div className="absolute inset-0 bg-white/15" aria-hidden="true" />
         <div
-          className="absolute inset-0 bg-gradient-to-l from-white via-white/85 to-white/25 sm:via-white/75 sm:to-transparent"
+          className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-white/20 sm:via-white/65 sm:to-transparent"
           aria-hidden="true"
         />
         {/* Línea de marca en el borde inferior del banner */}
@@ -52,7 +63,7 @@ export function ServicesPreview() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className="ml-auto flex max-w-xl flex-col items-start pb-40 pt-16 sm:pb-48 sm:pt-24"
+            className="flex max-w-xl flex-col items-start pb-40 pt-16 sm:pb-48 sm:pt-24"
           >
             <span className="eyebrow-light">{t('home.highlights.eyebrow')}</span>
             <h2 id="services-preview-title" className="h2-display mt-5 text-[#0F1419]">
@@ -72,7 +83,7 @@ export function ServicesPreview() {
 
       {/* ---- Grid de cards superpuesto al banner ---- */}
       <div className="relative bg-gradient-to-b from-transparent via-[#F7FAFC] to-white pb-20 sm:pb-28">
-        <div className="geo-soft-cyan -top-10 left-[-12%] h-[380px] w-[380px]" />
+        <div className="geo-soft-cyan -top-10 right-[-12%] h-[380px] w-[380px]" />
 
         <div className="container-x relative -mt-28 sm:-mt-32">
           <motion.div
@@ -83,7 +94,7 @@ export function ServicesPreview() {
               hidden: { opacity: 0 },
               show: { opacity: 1, transition: { staggerChildren: 0.06 } },
             }}
-            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className="flex flex-wrap justify-center gap-5"
           >
             {items.map((service) => {
               const Icon = service.icon;
@@ -94,14 +105,15 @@ export function ServicesPreview() {
                     hidden: { opacity: 0, y: 20 },
                     show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
                   }}
+                  className="w-full sm:w-[calc(50%_-_0.625rem)] lg:w-[calc(33.333%_-_0.834rem)]"
                 >
                   <Link
                     to={`/servicios/${service.slug}`}
-                    className="card-light card-light-hover group block h-full"
+                    className="card-glass-light group flex h-full flex-col"
                   >
                     <div
                       className={cn(
-                        'inline-flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110',
+                        'inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110',
                         service.accent === 'accent'
                           ? 'bg-accent/15 text-accent ring-1 ring-accent/30'
                           : 'bg-brand-50 text-brand-600 ring-1 ring-brand-200',
@@ -113,9 +125,11 @@ export function ServicesPreview() {
                       {service.title}
                     </h3>
                     <p className="mt-2 text-[15px] leading-relaxed text-[#0F1419]/60">
-                      {service.short}
+                      {service.pitch ?? service.short}
                     </p>
-                    <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
+                    {/* mt-auto: pinea el pie abajo para que se alinee entre
+                        columnas aunque el pitch mida distinto en cada card. */}
+                    <span className="mt-auto inline-flex items-center gap-1 self-start pt-5 text-sm font-semibold text-brand-600 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
                       {t('home.highlights.viewMore')}
                       <ArrowRight className="h-3.5 w-3.5" />
                     </span>

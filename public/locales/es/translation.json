@@ -28,7 +28,8 @@
     "subscribed": "¡Gracias! Te sumamos a la lista.",
     "emailPlaceholder": "tu@empresa.com",
     "rights": "Todos los derechos reservados.",
-    "officesTitle": "Oficinas"
+    "officesTitle": "Oficinas",
+    "sapPartnerAlt": "SAP Silver Partner — insignia oficial del programa SAP PartnerEdge"
   },
   "home": {
     "hero": {
@@ -87,9 +88,7 @@
       "eyebrow": "Clientes",
       "title": "Confían en nosotros",
       "subtitle": "Empresas líderes en LATAM y el mundo",
-      "titleStart": "Empresas líderes confían en",
-      "titleHighlight": "GoTechy",
-      "titleEnd": ""
+      "titleFull": "Empresas líderes confían en nosotros"
     },
     "cases": {
       "eyebrow": "Casos de éxito",

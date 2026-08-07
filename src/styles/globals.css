@@ -191,6 +191,22 @@
       0 24px 60px -22px rgba(0, 229, 255, 0.22);
   }
 
+  /* Variante vidrio esmerilado — para cards que se SUPERPONEN a una foto
+     (Home → Servicios). Sobre la imagen se leen como los paneles del ventanal
+     del banner; sobre el fondo claro quedan prácticamente blancas. */
+  .card-glass-light {
+    @apply rounded-3xl border border-white/70 bg-white/80 p-7 backdrop-blur-xl transition-all duration-300 ease-smooth;
+    box-shadow:
+      0 1px 2px rgba(15, 20, 25, 0.04),
+      0 18px 45px -20px rgba(15, 20, 25, 0.18);
+  }
+  .card-glass-light:hover {
+    @apply -translate-y-1 border-brand-200 bg-white;
+    box-shadow:
+      0 1px 2px rgba(15, 20, 25, 0.04),
+      0 28px 65px -24px rgba(0, 229, 255, 0.28);
+  }
+
   /* CTA en sección clara */
   .btn-primary-light {
     @apply btn bg-brand-500 text-white hover:bg-brand-600 hover:-translate-y-0.5 active:translate-y-0;

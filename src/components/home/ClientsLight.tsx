@@ -25,14 +25,7 @@ export function ClientsLight() {
         >
           <span className="eyebrow-light">{t('home.clients.eyebrow')}</span>
           <h2 id="clients-light-title" className="h2-display mt-5 text-[#0F1419]">
-            {t('home.clients.titleStart')}{' '}
-            <img
-              src="/images/Principal-Negro-FondoBlanco_Logo-removebg-preview.png"
-              alt={t('home.clients.titleHighlight')}
-              className="ml-1 inline-block h-12 w-auto align-middle sm:h-14"
-              loading="lazy"
-              decoding="async"
-            />
+            {t('home.clients.titleFull')}
           </h2>
         </motion.div>
 

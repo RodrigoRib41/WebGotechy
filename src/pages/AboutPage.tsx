@@ -6,7 +6,6 @@ import { PageHeader } from '../components/PageHeader';
 import { PhotoBanner } from '../components/PhotoBanner';
 import { WhyUs } from '../components/WhyUs';
 import { SapPartnerBadge } from '../components/about/SapPartnerBadge';
-import { TeamSection } from '../components/about/TeamSection';
 import { OFFICES } from '../data/site';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
@@ -172,9 +171,6 @@ export function AboutPage() {
       </section>
 
       <WhyUs />
-
-      {/* Nuestro equipo */}
-      <TeamSection />
 
       {/* Oficinas — banner fotográfico de cierre + cards superpuestas
           con link "Cómo llegar" a Google Maps */}

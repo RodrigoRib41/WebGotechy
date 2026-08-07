@@ -28,7 +28,8 @@
     "subscribed": "Thanks! You've been added to the list.",
     "emailPlaceholder": "you@company.com",
     "rights": "All rights reserved.",
-    "officesTitle": "Offices"
+    "officesTitle": "Offices",
+    "sapPartnerAlt": "SAP Silver Partner — official SAP PartnerEdge badge"
   },
   "home": {
     "hero": {
@@ -87,9 +88,7 @@
       "eyebrow": "Clients",
       "title": "Trusted by",
       "subtitle": "Leading companies across LATAM and beyond",
-      "titleStart": "Leading companies trust",
-      "titleHighlight": "GoTechy",
-      "titleEnd": ""
+      "titleFull": "Leading companies trust us"
     },
     "cases": {
       "eyebrow": "Case studies",

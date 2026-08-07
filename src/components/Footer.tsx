@@ -36,14 +36,16 @@ export function Footer() {
       </div>
 
       <div className="container-x relative py-10">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+        {/* Anchos por columna: Oficinas y Brand necesitan más aire que Contacto
+            (2 líneas cortas). Con 4 columnas iguales las direcciones wrapeaban. */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.15fr_0.95fr_0.8fr_1.1fr] lg:gap-10">
           {/* Col 1 - Brand */}
           <div>
             <Logo light />
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/65">
               {t('footer.tagline')}
             </p>
-            <div className="mt-4 flex gap-2">
+            <div className="mt-4 flex items-center gap-2">
               <a
                 href={SITE.social.linkedin}
                 target="_blank"
@@ -62,6 +64,26 @@ export function Footer() {
               >
                 <Youtube className="h-4 w-4" />
               </a>
+
+              {/* Badge SAP Silver Partner — va en la misma fila que los sociales
+                  (misma altura h-9) para no sumarle alto al footer. El PNG es
+                  transparente con texto blanco, así que lee sobre el fondo oscuro. */}
+              <span className="mx-1 h-6 w-px bg-white/15" aria-hidden="true" />
+              <Link
+                to="/nosotros"
+                title={t('footer.sapPartnerAlt')}
+                className="inline-flex transition hover:opacity-75"
+              >
+                <img
+                  src="/images/sap-silver-partner.png"
+                  alt={t('footer.sapPartnerAlt')}
+                  width={498}
+                  height={294}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-9 w-auto"
+                />
+              </Link>
             </div>
           </div>
 

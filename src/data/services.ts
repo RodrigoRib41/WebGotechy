@@ -198,8 +198,21 @@ export interface Service {
   slug: string;
   title: string;
   title_en?: string;
+  /**
+   * Descriptor COMPACTO (una línea). Se usa donde el espacio es mínimo:
+   * dropdown del header, cards de tecnologías relacionadas (truncadas) y
+   * el listado de /servicios.
+   */
   short: string;
   short_en?: string;
+  /**
+   * Frase comercial COMPLETA — qué le resuelve el servicio al cliente.
+   * Es la que se muestra en las cards del Home; si falta, se cae a `short`.
+   * No reemplaza a `short` porque los otros lugares que lo consumen no
+   * toleran una oración larga (ver comentario de `short`).
+   */
+  pitch?: string;
+  pitch_en?: string;
   description: string;
   description_en?: string;
   icon: LucideIcon;
@@ -219,6 +232,8 @@ export const SERVICES: Service[] = [
     title_en: 'Artificial Intelligence',
     short: 'Empresa Autónoma · Joule · Agentes',
     short_en: 'Autonomous Enterprise · Joule · Agents',
+    pitch: 'Automatizá, optimizá y escalá tu negocio con inteligencia artificial.',
+    pitch_en: 'Automate, optimize and scale your business with artificial intelligence.',
     description:
       'Implementamos la visión de Empresa Autónoma de SAP: Joule Assistants y Agentes que coordinan procesos end-to-end sobre tus sistemas SAP y no SAP.',
     description_en:
@@ -464,6 +479,10 @@ export const SERVICES: Service[] = [
     title_en: 'Next Gen Solutions',
     short: 'Full-stack + Agentic + Cloud-native',
     short_en: 'Full-stack + Agentic + Cloud-native',
+    pitch:
+      'Es la forma de crear hoy las soluciones digitales del mañana: más inteligentes, escalables y listas para evolucionar con tu negocio.',
+    pitch_en:
+      'It\'s how you build today the digital solutions of tomorrow: smarter, scalable and ready to evolve with your business.',
     description:
       'Desarrollo full-stack y agentico: aplicaciones a medida, protocolos MCP/A2A y un ecosistema abierto para conectar todos tus sistemas.',
     description_en:
@@ -652,6 +671,10 @@ export const SERVICES: Service[] = [
     title_en: 'SAP BTP',
     short: 'Plataforma de IA, datos e integración',
     short_en: 'AI, data and integration platform',
+    pitch:
+      'Construya, gestione, implemente y conecte datos y procesos en una única plataforma.',
+    pitch_en:
+      'Build, manage, deploy and connect data and processes on a single platform.',
     description:
       'La base sobre la que vive SAP Business AI Platform, Joule Studio, Integration Suite y Business Data Cloud. Donde se construye el futuro de SAP.',
     description_en:
@@ -823,6 +846,10 @@ export const SERVICES: Service[] = [
     title_en: 'SAP Business Data Cloud',
     short: 'Datos unificados para analítica e IA',
     short_en: 'Unified data for analytics and AI',
+    pitch:
+      'Unifique, gobierne y active todos sus datos —SAP y no SAP— en una única plataforma lista para analítica e IA.',
+    pitch_en:
+      'Unify, govern and activate all your data —SAP and non-SAP— on a single platform ready for analytics and AI.',
     description:
       'Unificamos todos tus datos — SAP y de terceros — en una sola plataforma gestionada: data products con semántica de negocio, SAP Databricks e insight apps listas para usar.',
     description_en:
@@ -995,6 +1022,10 @@ export const SERVICES: Service[] = [
     title_en: 'SAP Signavio',
     short: 'Process Intelligence con IA',
     short_en: 'AI-powered Process Intelligence',
+    pitch:
+      'Identifique, modele y mejore sus procesos a través de la minería de datos.',
+    pitch_en:
+      'Identify, model and improve your processes through data mining.',
     description:
       'Descubrimiento, gobernanza y transformación de procesos end-to-end — ahora potenciada con Joule, agentes de mejora continua y atomización de reglas de negocio.',
     description_en:
@@ -1174,6 +1205,10 @@ export const SERVICES: Service[] = [
     title_en: 'SAP LeanIX',
     short: 'Enterprise Architecture + IA Agent Hub',
     short_en: 'Enterprise Architecture + AI Agent Hub',
+    pitch:
+      'Visualice, gestione y optimice su arquitectura empresarial para decisiones tecnológicas más ágiles.',
+    pitch_en:
+      'Visualize, manage and optimize your enterprise architecture for faster technology decisions.',
     description:
       'Visibilidad de capabilities, aplicaciones y dependencias — el lugar desde donde se gobierna también el inventario de agentes de IA de toda la empresa.',
     description_en:
@@ -1345,6 +1380,10 @@ export const SERVICES: Service[] = [
     title_en: 'SAP Basis',
     short: 'Cloud ERP, RISE y Clean Core',
     short_en: 'Cloud ERP, RISE and Clean Core',
+    pitch:
+      'Asesoramiento personalizado para administrar una infraestructura sólida.',
+    pitch_en:
+      'Tailored advisory to run a solid, reliable infrastructure.',
     description:
       'Operación, performance y migraciones a Cloud ERP — con los nuevos asistentes Joule de migración y modernización que aceleran la adopción del Clean Core.',
     description_en:
@@ -1569,6 +1608,7 @@ export function localizeService(service: Service, isEn: boolean): Service {
     ...service,
     title: pick(service.title_en, service.title),
     short: pick(service.short_en, service.short),
+    pitch: service.pitch ? pick(service.pitch_en, service.pitch) : undefined,
     description: pick(service.description_en, service.description),
     tags: pick(service.tags_en, service.tags),
     detail: service.detail ? localizeServiceDetail(service.detail, true) : undefined,

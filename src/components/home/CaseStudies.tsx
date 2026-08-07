@@ -109,18 +109,23 @@ export function CaseStudies() {
                   <h3 className="mt-2 font-display text-xl font-semibold text-white">
                     {p.title}
                   </h3>
-                  <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-white/65">
+                  {/* El resumen es lo que se lee primero: cuerpo más grande y
+                      más contraste que los indicadores de abajo. */}
+                  <p className="mt-3 line-clamp-4 text-[15px] leading-relaxed text-white/80">
                     {p.challenge || p.solution}
                   </p>
 
+                  {/* Indicadores — dato de apoyo, no titular: caja liviana, sin
+                      mayúsculas en el label y con menos peso visual que el
+                      resumen de arriba. */}
                   {p.metrics && p.metrics.length > 0 && (
-                    <div className="mt-5 grid grid-cols-3 gap-2 border-t border-white/5 pt-5">
+                    <div className="mt-5 grid grid-cols-3 gap-2 border-t border-white/5 pt-4">
                       {p.metrics.slice(0, 3).map((m, i) => (
                         <div key={i}>
-                          <div className="font-mono text-lg font-bold text-secondary-200">
+                          <div className="font-mono text-base font-semibold text-secondary-200/85">
                             {m.value}
                           </div>
-                          <div className="text-[11px] uppercase tracking-wider text-white/45">
+                          <div className="mt-0.5 text-xs leading-snug text-white/45">
                             {m.label}
                           </div>
                         </div>
