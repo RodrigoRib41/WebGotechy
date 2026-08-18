@@ -1603,8 +1603,8 @@ export const SERVICES: Service[] = [
     tags_en: ['Digital adoption', 'Change management', 'UX', 'Analytics'],
     visibility: {
       home: true,
-      menu: false,
-      listing: false,
+      menu: true,
+      listing: true,
     },
   },
   {
@@ -1627,8 +1627,8 @@ export const SERVICES: Service[] = [
     tags: ['RISE with SAP', 'Brownfield', 'S/4HANA', 'Cutover'],
     visibility: {
       home: true,
-      menu: false,
-      listing: false,
+      menu: true,
+      listing: true,
     },
   },
 ];
