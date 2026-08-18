@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { SERVICES, localizeService } from '../../data/services';
+import { getHomeServices, localizeService } from '../../data/services';
 import { cn } from '../../utils/cn';
 
 /**
@@ -29,7 +29,7 @@ import { cn } from '../../utils/cn';
 export function ServicesPreview() {
   const { t, i18n } = useTranslation();
   const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
-  const items = SERVICES.slice(0, 9).map((s) => localizeService(s, isEn));
+  const items = getHomeServices().map((s) => localizeService(s, isEn));
 
   return (
     <section className="relative bg-white text-[#0F1419]" aria-labelledby="services-preview-title">

@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Tilt from 'react-parallax-tilt';
 import { useTranslation } from 'react-i18next';
-import { SERVICES, localizeService } from '../data/services';
+import { getListingServices, localizeService } from '../data/services';
 import { SectionHeader } from './SectionHeader';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { cn } from '../utils/cn';
@@ -47,7 +47,7 @@ export function Services() {
           viewport={{ once: true, amount: 0.05 }}
           className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {SERVICES.map((rawService) => {
+          {getListingServices().map((rawService) => {
             const service = localizeService(rawService, isEn);
             const Icon = service.icon;
             const accentColor = service.accent === 'secondary' ? 'secondary' : 'accent';

@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { SERVICES, localizeService } from '../../data/services';
+import { getMenuServices, localizeService } from '../../data/services';
 import { cn } from '../../utils/cn';
 
 const HOVER_OPEN_DELAY_MS = 150;
@@ -151,7 +151,7 @@ export function ServiceDropdown({ label }: ServiceDropdownProps) {
             </div>
 
             <ul className="max-h-[70vh] overflow-y-auto py-2">
-              {SERVICES.map((rawService) => {
+              {getMenuServices().map((rawService) => {
                 const service = localizeService(rawService, isEn);
                 const Icon = service.icon;
                 return (

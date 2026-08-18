@@ -192,6 +192,12 @@ export interface ServiceDetail {
   metaDescription_en?: string;
 }
 
+export interface ServiceVisibility {
+  home?: boolean;
+  menu?: boolean;
+  listing?: boolean;
+}
+
 export interface Service {
   id: string;
   /** URL slug usado por la ruta /servicios/:slug. Kebab-case. */
@@ -219,6 +225,7 @@ export interface Service {
   accent: 'secondary' | 'accent';
   tags: string[];
   tags_en?: string[];
+  visibility?: ServiceVisibility;
   detail?: ServiceDetail;
 }
 
@@ -1575,9 +1582,74 @@ export const SERVICES: Service[] = [
         '24/7 SAP systems operation and support — Basis, S/4HANA migrations, HA and DR. Over 20 years with customized SLAs by GoTechy.',
     },
   },
+  {
+    id: 'walkme',
+    slug: 'walkme',
+    title: 'WalkMe',
+    title_en: 'WalkMe',
+    short: 'Digital Adoption Platform',
+    short_en: 'Digital Adoption Platform',
+    pitch:
+      'Aceleramos la adopción digital con guías en pantalla, automatización y analítica de uso.',
+    pitch_en:
+      'We accelerate digital adoption with in-app guidance, automation and usage analytics.',
+    description:
+      'Implementamos WalkMe para simplificar la experiencia de usuario, reducir fricción operativa y acompañar cambios en plataformas empresariales.',
+    description_en:
+      'We implement WalkMe to simplify user experience, reduce operational friction and support change across enterprise platforms.',
+    icon: Route,
+    accent: 'accent',
+    tags: ['Adopción digital', 'Change management', 'UX', 'Analytics'],
+    tags_en: ['Digital adoption', 'Change management', 'UX', 'Analytics'],
+    visibility: {
+      home: true,
+      menu: false,
+      listing: false,
+    },
+  },
+  {
+    id: 'rise-brownfield',
+    slug: 'migraciones-rise-brownfield',
+    title: 'Migraciones a RISE Brownfield',
+    title_en: 'RISE Brownfield Migrations',
+    short: 'ECC/S/4HANA hacia RISE',
+    short_en: 'ECC/S/4HANA to RISE',
+    pitch:
+      'Migramos tu landscape SAP a RISE preservando procesos, historia y continuidad operativa.',
+    pitch_en:
+      'We migrate your SAP landscape to RISE while preserving processes, history and operational continuity.',
+    description:
+      'Acompañamos conversiones brownfield hacia RISE with SAP con diagnóstico, preparación técnica, pruebas, cutover y estabilización post go-live.',
+    description_en:
+      'We support brownfield conversions to RISE with SAP with assessment, technical preparation, testing, cutover and post go-live stabilization.',
+    icon: CloudCog,
+    accent: 'secondary',
+    tags: ['RISE with SAP', 'Brownfield', 'S/4HANA', 'Cutover'],
+    visibility: {
+      home: true,
+      menu: false,
+      listing: false,
+    },
+  },
 ];
 
 // ===== Helpers ==================================================
+
+function isVisibleIn(service: Service, area: keyof ServiceVisibility): boolean {
+  return service.visibility?.[area] ?? true;
+}
+
+export function getHomeServices(): Service[] {
+  return SERVICES.filter((service) => isVisibleIn(service, 'home'));
+}
+
+export function getMenuServices(): Service[] {
+  return SERVICES.filter((service) => isVisibleIn(service, 'menu'));
+}
+
+export function getListingServices(): Service[] {
+  return SERVICES.filter((service) => isVisibleIn(service, 'listing'));
+}
 
 export function getServiceBySlug(slug: string): Service | undefined {
   return SERVICES.find((s) => s.slug === slug);

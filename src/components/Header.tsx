@@ -7,7 +7,7 @@ import { Logo } from './Logo';
 import { LanguageToggle } from './LanguageToggle';
 import { ServiceDropdown } from './header/ServiceDropdown';
 import { NAV_LINKS } from '../data/site';
-import { SERVICES, localizeService } from '../data/services';
+import { getMenuServices, localizeService } from '../data/services';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { cn } from '../utils/cn';
 
@@ -185,7 +185,7 @@ export function Header() {
                                       {t('header.viewAll')}
                                     </NavLink>
                                   </li>
-                                  {SERVICES.map((rawSvc) => {
+                                  {getMenuServices().map((rawSvc) => {
                                     const service = localizeService(rawSvc, isEn);
                                     const Icon = service.icon;
                                     return (
