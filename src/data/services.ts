@@ -1606,6 +1606,182 @@ export const SERVICES: Service[] = [
       menu: true,
       listing: true,
     },
+    detail: {
+      tagline:
+        'Adopción digital en el flujo de trabajo, con guías, automatización y datos reales de uso.',
+      tagline_en:
+        'Digital adoption in the flow of work, with guidance, automation and real usage data.',
+      heroImage: '/images/banner-team.webp',
+      overviewImage: '/images/banner-office.webp',
+      overviewParagraphs: [
+        'WalkMe permite acompañar a los usuarios dentro de las aplicaciones que ya usan, con guías contextuales, automatizaciones, validaciones y mensajes que reducen la fricción en procesos críticos.',
+        'En GoTechy lo implementamos con mirada de negocio: identificamos dónde se traban los usuarios, diseñamos experiencias dentro de SAP y aplicaciones satélite, medimos adopción y ajustamos continuamente para mejorar productividad, calidad de datos y autonomía.',
+      ],
+      overviewParagraphs_en: [
+        'WalkMe helps users inside the applications they already use, with contextual guidance, automations, validations and messages that reduce friction in critical processes.',
+        'At GoTechy we implement it with a business lens: we identify where users struggle, design in-app experiences across SAP and satellite applications, measure adoption and continuously tune the experience to improve productivity, data quality and autonomy.',
+      ],
+      features: [
+        { icon: Route, title: 'Smart Walk-Thrus y guías paso a paso', title_en: 'Smart Walk-Thrus and step-by-step guidance' },
+        { icon: Zap, title: 'Automatización de tareas repetitivas', title_en: 'Repetitive task automation' },
+        { icon: BadgeCheck, title: 'Validaciones para reducir errores', title_en: 'Validations to reduce errors' },
+        { icon: Gauge, title: 'Analítica de adopción y fricción', title_en: 'Adoption and friction analytics' },
+        { icon: Target, title: 'Segmentación por rol, proceso y país', title_en: 'Segmentation by role, process and country' },
+        { icon: Workflow, title: 'Adopción conectada a procesos SAP', title_en: 'Adoption connected to SAP processes' },
+      ],
+      benefits: [
+        {
+          metric: 'Menos tickets',
+          metric_en: 'Fewer tickets',
+          title: 'Soporte embebido en la aplicación',
+          title_en: 'Support embedded in the application',
+          description:
+            'Los usuarios reciben ayuda en el momento exacto de la tarea, sin depender de manuales, capacitaciones aisladas o consultas repetidas al equipo de soporte.',
+          description_en:
+            'Users get help at the exact moment of the task, without depending on manuals, isolated training sessions or repeated support requests.',
+        },
+        {
+          metric: 'Mayor adopción',
+          metric_en: 'Higher adoption',
+          title: 'Cambios que se sostienen en producción',
+          title_en: 'Changes that stick in production',
+          description:
+            'Acompañamos rollouts, upgrades y transformaciones SAP con mensajes, recorridos y automatizaciones que mantienen a los equipos alineados.',
+          description_en:
+            'We support rollouts, upgrades and SAP transformations with messages, walkthroughs and automations that keep teams aligned.',
+        },
+        {
+          metric: 'Datos confiables',
+          metric_en: 'Reliable data',
+          title: 'Menos errores operativos',
+          title_en: 'Fewer operational errors',
+          description:
+            'Validaciones y ayudas contextuales mejoran la calidad de carga, reducen retrabajo y protegen los puntos sensibles del proceso.',
+          description_en:
+            'Validations and contextual help improve input quality, reduce rework and protect sensitive process steps.',
+        },
+        {
+          metric: 'Mejora continua',
+          metric_en: 'Continuous improvement',
+          title: 'Decisiones basadas en uso real',
+          title_en: 'Decisions based on real usage',
+          description:
+            'La analítica de WalkMe permite ver adopción, abandono, errores y oportunidades para optimizar procesos con evidencia.',
+          description_en:
+            'WalkMe analytics shows adoption, drop-off, errors and opportunities to optimize processes with evidence.',
+        },
+      ],
+      useCases: [
+        {
+          title: 'Adopción de SAP S/4HANA',
+          title_en: 'SAP S/4HANA adoption',
+          description:
+            'Guías contextuales para transacciones, procesos Fiori y nuevos flujos de trabajo durante una migración o rollout.',
+          description_en:
+            'Contextual guidance for transactions, Fiori processes and new workflows during a migration or rollout.',
+          industry: 'SAP customers',
+          industry_en: 'SAP customers',
+          technologies: ['WalkMe', 'SAP S/4HANA', 'Fiori'],
+        },
+        {
+          title: 'Onboarding de usuarios',
+          title_en: 'User onboarding',
+          description:
+            'Recorridos por rol, checklists y mensajes dentro de la aplicación para acelerar la autonomía de nuevos usuarios.',
+          description_en:
+            'Role-based journeys, checklists and in-app messages to accelerate new user autonomy.',
+          industry: 'Cross-industry',
+          industry_en: 'Cross-industry',
+          technologies: ['WalkMe', 'DAP', 'Change'],
+        },
+        {
+          title: 'Reducción de errores en procesos críticos',
+          title_en: 'Error reduction in critical processes',
+          description:
+            'Validaciones, bloqueos y ayudas para evitar cargas incompletas o pasos fuera de política en compras, RRHH, finanzas y operaciones.',
+          description_en:
+            'Validations, blockers and help to prevent incomplete entries or off-policy steps in procurement, HR, finance and operations.',
+          industry: 'Operaciones',
+          industry_en: 'Operations',
+          technologies: ['Validations', 'Automation', 'Analytics'],
+        },
+        {
+          title: 'Medición de adopción post go-live',
+          title_en: 'Post go-live adoption measurement',
+          description:
+            'Dashboards de uso, embudos y objetivos para entender qué procesos se adoptan, dónde hay fricción y qué mejorar.',
+          description_en:
+            'Usage dashboards, funnels and goals to understand which processes are adopted, where friction appears and what to improve.',
+          industry: 'Transformación digital',
+          industry_en: 'Digital transformation',
+          technologies: ['WalkMe Insights', 'Goals', 'Funnels'],
+        },
+      ],
+      approach: {
+        title: 'Cómo implementamos WalkMe',
+        title_en: 'How we implement WalkMe',
+        subtitle:
+          'Combinamos análisis de procesos, diseño de experiencia y medición continua para que WalkMe sea una capacidad viva, no una capa de ayuda estática.',
+        subtitle_en:
+          'We combine process analysis, experience design and continuous measurement so WalkMe becomes a living capability, not a static help layer.',
+        image: '/images/banner-impact.webp',
+        items: [
+          'Priorización de procesos con mayor fricción o volumen',
+          'Diseño de recorridos, SmartTips, launchers y mensajes',
+          'Segmentación por roles, países, unidades y aplicaciones',
+          'Configuración de goals, funnels y eventos de medición',
+          'Testing con usuarios clave antes del rollout',
+          'Ciclo de optimización post go-live basado en datos',
+        ],
+        items_en: [
+          'Prioritization of high-friction or high-volume processes',
+          'Design of journeys, SmartTips, launchers and messages',
+          'Segmentation by roles, countries, units and applications',
+          'Configuration of goals, funnels and measurement events',
+          'Testing with key users before rollout',
+          'Post go-live optimization cycle based on data',
+        ],
+      },
+      horizonte: {
+        text:
+          'SAP está integrando la adopción digital como parte del camino de transformación empresarial: WalkMe suma guía, automatización y analítica dentro del flujo de trabajo para que los cambios de procesos y plataformas se adopten con menos fricción. Ayudamos a convertir esa capacidad en una práctica continua de mejora.',
+        text_en:
+          'SAP is integrating digital adoption into the enterprise transformation journey: WalkMe brings guidance, automation and analytics into the flow of work so process and platform changes are adopted with less friction. We help turn that capability into a continuous improvement practice.',
+      },
+      relatedTechIds: ['signavio', 'btp', 'leanix', 'ia'],
+      faq: [
+        {
+          q: '¿WalkMe sirve solo para SAP?',
+          q_en: 'Is WalkMe only for SAP?',
+          a: 'No. Puede acompañar experiencias en SAP y también en aplicaciones web, desktop y móviles. Donde más valor aporta es en procesos transversales que cruzan varias herramientas.',
+          a_en: 'No. It can support experiences in SAP and also across web, desktop and mobile applications. Its strongest value appears in cross-functional processes that span multiple tools.',
+        },
+        {
+          q: '¿Necesita desarrollo?',
+          q_en: 'Does it require development?',
+          a: 'La mayor parte del contenido se configura sin tocar el código de la aplicación. Puede requerir coordinación técnica para permisos, identidad, ambientes, tracking o integraciones.',
+          a_en: 'Most content is configured without touching the application code. Technical coordination may be needed for permissions, identity, environments, tracking or integrations.',
+        },
+        {
+          q: '¿Cómo se mide el éxito?',
+          q_en: 'How is success measured?',
+          a: 'Definimos objetivos por proceso: adopción, finalización de tareas, reducción de tickets, menor retrabajo, calidad de datos y tiempo de onboarding.',
+          a_en: 'We define goals by process: adoption, task completion, ticket reduction, less rework, data quality and onboarding time.',
+        },
+        {
+          q: '¿Cuándo conviene implementarlo?',
+          q_en: 'When is the right time to implement it?',
+          a: 'Es especialmente útil antes, durante y después de un rollout, migración, upgrade o rediseño de procesos. También funciona para optimizar plataformas ya productivas.',
+          a_en: 'It is especially useful before, during and after a rollout, migration, upgrade or process redesign. It also works to optimize platforms already in production.',
+        },
+      ],
+      metaTitle: 'WalkMe: Digital Adoption Platform para SAP y procesos empresariales',
+      metaTitle_en: 'WalkMe: Digital Adoption Platform for SAP and enterprise processes',
+      metaDescription:
+        'Implementación de WalkMe para adopción digital, guías in-app, automatización, analítica y reducción de fricción en procesos SAP y empresariales.',
+      metaDescription_en:
+        'WalkMe implementation for digital adoption, in-app guidance, automation, analytics and friction reduction across SAP and enterprise processes.',
+    },
   },
   {
     id: 'rise-brownfield',
@@ -1629,6 +1805,209 @@ export const SERVICES: Service[] = [
       home: true,
       menu: true,
       listing: true,
+    },
+    detail: {
+      tagline:
+        'Conversión brownfield hacia RISE with SAP, con control técnico, continuidad operativa y foco Clean Core.',
+      tagline_en:
+        'Brownfield conversion to RISE with SAP, with technical control, operational continuity and a Clean Core focus.',
+      heroImage: '/images/rise-brownfield-hero.png',
+      overviewImage: '/images/rise-brownfield-overview.png',
+      overviewParagraphs: [
+        'Una migración brownfield a RISE with SAP permite modernizar el landscape preservando procesos, configuraciones e historia operativa. El desafío está en mover con precisión: entender el punto de partida, reducir deuda técnica, ensayar el cutover y llegar a producción sin perder control.',
+        'En GoTechy combinamos experiencia Basis, arquitectura SAP, gestión de proyecto y metodología de transformación para acompañar el camino completo: assessment, preparación, conversión, migración, pruebas, salida en vivo y estabilización.',
+      ],
+      overviewParagraphs_en: [
+        'A brownfield migration to RISE with SAP lets organizations modernize their landscape while preserving processes, configuration and operational history. The challenge is precision: understanding the starting point, reducing technical debt, rehearsing cutover and going live without losing control.',
+        'At GoTechy we combine Basis expertise, SAP architecture, project management and transformation methodology to support the full path: assessment, preparation, conversion, migration, testing, go-live and stabilization.',
+      ],
+      features: [
+        { icon: ScanSearch, title: 'Assessment técnico y readiness', title_en: 'Technical assessment and readiness' },
+        { icon: GitCompare, title: 'Análisis de conversión brownfield', title_en: 'Brownfield conversion analysis' },
+        { icon: CloudCog, title: 'Preparación para RISE with SAP', title_en: 'Preparation for RISE with SAP' },
+        { icon: UploadCloud, title: 'Migración técnica y system move', title_en: 'Technical migration and system move' },
+        { icon: RefreshCw, title: 'Dry-runs, pruebas y regresión', title_en: 'Dry-runs, testing and regression' },
+        { icon: ServerCog, title: 'Cutover, go-live y estabilización', title_en: 'Cutover, go-live and stabilization' },
+      ],
+      benefits: [
+        {
+          metric: 'Menor riesgo',
+          metric_en: 'Lower risk',
+          title: 'Transición con ensayos reales',
+          title_en: 'Transition with real rehearsals',
+          description:
+            'Planificamos dry-runs, ventanas, dependencias y criterios de salida para reducir incertidumbre antes del go-live.',
+          description_en:
+            'We plan dry-runs, windows, dependencies and exit criteria to reduce uncertainty before go-live.',
+        },
+        {
+          metric: 'Continuidad',
+          metric_en: 'Continuity',
+          title: 'Preservación del core operativo',
+          title_en: 'Preservation of the operational core',
+          description:
+            'El enfoque brownfield permite conservar procesos y datos históricos mientras se moderniza la plataforma y se prepara la evolución futura.',
+          description_en:
+            'The brownfield approach preserves processes and historical data while modernizing the platform and preparing future evolution.',
+        },
+        {
+          metric: 'Clean Core',
+          metric_en: 'Clean Core',
+          title: 'Modernización sin arrastrar todo igual',
+          title_en: 'Modernization without carrying everything forward unchanged',
+          description:
+            'Identificamos custom code, integraciones, datos y operación que requieren remediación para que el landscape quede listo para innovar.',
+          description_en:
+            'We identify custom code, integrations, data and operations that require remediation so the landscape is ready to innovate.',
+        },
+        {
+          metric: 'Operación lista',
+          metric_en: 'Ready operations',
+          title: 'Handover y soporte post go-live',
+          title_en: 'Handover and post go-live support',
+          description:
+            'Acompañamos hypercare, monitoreo, runbooks y transferencia al modelo operativo para que la transición no termine el día del go-live.',
+          description_en:
+            'We support hypercare, monitoring, runbooks and transfer to the operating model so the transition does not end on go-live day.',
+        },
+      ],
+      useCases: [
+        {
+          title: 'ECC a RISE with SAP',
+          title_en: 'ECC to RISE with SAP',
+          description:
+            'Conversión y movimiento técnico desde entornos ECC hacia SAP Cloud ERP Private, con preparación funcional, técnica y operativa.',
+          description_en:
+            'Conversion and technical move from ECC environments to SAP Cloud ERP Private, with functional, technical and operational preparation.',
+          industry: 'SAP customers',
+          industry_en: 'SAP customers',
+          technologies: ['ECC', 'SUM', 'DMO', 'RISE'],
+        },
+        {
+          title: 'S/4HANA on-premise a RISE',
+          title_en: 'S/4HANA on-premise to RISE',
+          description:
+            'Migración de sistemas S/4HANA existentes hacia RISE, cuidando performance, conectividad, seguridad y modelo de operación.',
+          description_en:
+            'Migration of existing S/4HANA systems to RISE, taking care of performance, connectivity, security and the operating model.',
+          industry: 'Enterprise SAP',
+          industry_en: 'Enterprise SAP',
+          technologies: ['S/4HANA', 'RISE', 'Cloud ERP Private'],
+        },
+        {
+          title: 'Remediación técnica previa',
+          title_en: 'Pre-migration technical remediation',
+          description:
+            'Corrección de custom code, add-ons, integraciones, sizing, housekeeping y componentes que pueden bloquear o encarecer la migración.',
+          description_en:
+            'Remediation of custom code, add-ons, integrations, sizing, housekeeping and components that can block or increase migration cost.',
+          industry: 'Tecnología SAP',
+          industry_en: 'SAP technology',
+          technologies: ['ATC', 'Readiness checks', 'Custom code'],
+        },
+        {
+          title: 'Cutover y hypercare',
+          title_en: 'Cutover and hypercare',
+          description:
+            'Plan de cutover con responsables, tiempos, rollback, monitoreo y soporte reforzado para estabilizar la operación después de la salida en vivo.',
+          description_en:
+            'Cutover plan with owners, timing, rollback, monitoring and reinforced support to stabilize operations after go-live.',
+          industry: 'Operaciones críticas',
+          industry_en: 'Critical operations',
+          technologies: ['Runbooks', 'Cloud ALM', 'Monitoring'],
+        },
+      ],
+      approach: {
+        title: 'Cómo abordamos una migración brownfield',
+        title_en: 'How we approach a brownfield migration',
+        subtitle:
+          'Trabajamos por fases, con decisiones trazables y validaciones concretas en cada hito. La meta no es solo mover el sistema: es dejarlo operable, gobernado y preparado para innovación continua.',
+        subtitle_en:
+          'We work by phases, with traceable decisions and concrete validations at every milestone. The goal is not only to move the system: it is to leave it operable, governed and ready for continuous innovation.',
+        image: '/images/rise-brownfield-cutover.png',
+        items: [
+          'Discovery técnico, funcional y de integración',
+          'Readiness, sizing, dependencias y estrategia de conversión',
+          'Plan de remediación Clean Core y backlog priorizado',
+          'Preparación de ambientes, conectividad y seguridad',
+          'Dry-runs, pruebas de regresión y ajustes de performance',
+          'Cutover, go-live, hypercare y transferencia operativa',
+        ],
+        items_en: [
+          'Technical, functional and integration discovery',
+          'Readiness, sizing, dependencies and conversion strategy',
+          'Clean Core remediation plan and prioritized backlog',
+          'Environment, connectivity and security preparation',
+          'Dry-runs, regression testing and performance tuning',
+          'Cutover, go-live, hypercare and operational handover',
+        ],
+      },
+      extraSection: {
+        eyebrow: 'Clean Core',
+        eyebrow_en: 'Clean Core',
+        title: 'RISE no es solo infraestructura: es una oportunidad de ordenar el core',
+        title_en: 'RISE is not only infrastructure: it is an opportunity to clean up the core',
+        subtitle:
+          'Aprovechamos la migración para revisar extensiones, integraciones, datos y operación. Esto permite llegar a RISE con mejor gobierno técnico y mayor capacidad de adoptar innovación.',
+        subtitle_en:
+          'We use the migration to review extensions, integrations, data and operations. This helps arrive at RISE with stronger technical governance and greater ability to adopt innovation.',
+        items: [
+          'Evaluación de custom code y extensiones',
+          'Racionalización de integraciones y jobs críticos',
+          'Housekeeping y estrategia de volumen de datos',
+          'Alineación con calidad, seguridad y operaciones',
+          'Uso de SAP Cloud ALM para seguimiento y control',
+          'Plan de mejora continua posterior al go-live',
+        ],
+        items_en: [
+          'Custom code and extension assessment',
+          'Rationalization of integrations and critical jobs',
+          'Housekeeping and data volume strategy',
+          'Alignment with quality, security and operations',
+          'Use of SAP Cloud ALM for tracking and control',
+          'Continuous improvement plan after go-live',
+        ],
+        image: '/images/rise-brownfield-clean-core.png',
+      },
+      horizonte: {
+        text:
+          'SAP está reforzando RISE with SAP con metodología, quality gates, SAP Cloud ALM y herramientas de transición para estandarizar el camino hacia Cloud ERP Private. Acompañamos ese marco con ejecución técnica y gobierno cercano para que la migración sea una plataforma de evolución, no solo un cambio de hosting.',
+        text_en:
+          'SAP is reinforcing RISE with SAP with methodology, quality gates, SAP Cloud ALM and transition tools to standardize the path to Cloud ERP Private. We complement that framework with technical execution and close governance so the migration becomes a platform for evolution, not only a hosting change.',
+      },
+      relatedTechIds: ['basis', 'btp', 'signavio', 'leanix'],
+      faq: [
+        {
+          q: '¿Qué significa brownfield en una migración a RISE?',
+          q_en: 'What does brownfield mean in a RISE migration?',
+          a: 'Es un enfoque que parte del sistema existente y busca convertirlo o moverlo preservando procesos, configuración y datos históricos, en lugar de rediseñar todo desde cero.',
+          a_en: 'It starts from the existing system and seeks to convert or move it while preserving processes, configuration and historical data, instead of redesigning everything from scratch.',
+        },
+        {
+          q: '¿Cuánto dura un proyecto de este tipo?',
+          q_en: 'How long does this type of project take?',
+          a: 'Depende del tamaño del landscape, custom code, integraciones, volumen de datos y ventanas de negocio. Por eso arrancamos con assessment y plan de oleadas antes de comprometer fechas.',
+          a_en: 'It depends on landscape size, custom code, integrations, data volume and business windows. That is why we start with an assessment and wave plan before committing dates.',
+        },
+        {
+          q: '¿Qué rol tiene GoTechy frente a SAP?',
+          q_en: 'What is GoTechy\'s role alongside SAP?',
+          a: 'Coordinamos y ejecutamos la preparación técnica, conversión, pruebas, cutover y estabilización, alineados con las herramientas, responsables y quality gates del programa RISE.',
+          a_en: 'We coordinate and execute technical preparation, conversion, testing, cutover and stabilization, aligned with the tools, owners and quality gates of the RISE program.',
+        },
+        {
+          q: '¿Se puede aprovechar para limpiar custom code?',
+          q_en: 'Can the project be used to clean custom code?',
+          a: 'Sí. Es uno de los principales beneficios: identificar qué se conserva, qué se remedia, qué se mueve a extensiones side-by-side y qué conviene retirar.',
+          a_en: 'Yes. It is one of the main benefits: identifying what stays, what is remediated, what moves to side-by-side extensions and what should be retired.',
+        },
+      ],
+      metaTitle: 'Migraciones a RISE Brownfield: SAP Cloud ERP Private',
+      metaTitle_en: 'RISE Brownfield Migrations: SAP Cloud ERP Private',
+      metaDescription:
+        'Migraciones brownfield a RISE with SAP: assessment, conversión, system move, Clean Core, pruebas, cutover y estabilización post go-live.',
+      metaDescription_en:
+        'Brownfield migrations to RISE with SAP: assessment, conversion, system move, Clean Core, testing, cutover and post go-live stabilization.',
     },
   },
 ];
