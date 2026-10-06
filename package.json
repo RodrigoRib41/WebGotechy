@@ -1,7 +1,7 @@
 {
   "name": "gotechy-landing",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "GoTechy - Consultora tecnológica de clase mundial. Landing page moderna.",
   "scripts": {

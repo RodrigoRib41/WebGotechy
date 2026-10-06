@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Award, BadgeCheck, Mail, Phone, Rocket, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Award, BadgeCheck, Mail, Rocket, ShieldCheck } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -98,7 +98,7 @@ export function ServiceCTA({ serviceName }: ServiceCTAProps) {
                   </div>
                 </div>
               </motion.a>
-              <motion.a
+              {/* <motion.a
                 variants={approachItem}
                 href={`tel:+${SITE.phoneRaw}`}
                 className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 transition-colors hover:border-secondary/40 hover:bg-white/[0.06]"
@@ -112,7 +112,7 @@ export function ServiceCTA({ serviceName }: ServiceCTAProps) {
                     {SITE.phone}
                   </div>
                 </div>
-              </motion.a>
+              </motion.a> */}
             </motion.div>
           </div>
 

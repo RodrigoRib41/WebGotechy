@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { CalendarX2, Mail } from 'lucide-react';
 import { Logo } from '../components/Logo';
 import { LanguageToggle } from '../components/LanguageToggle';
-import { WhatsAppIcon, WHATSAPP_HREF } from '../components/WhatsAppIcon';
+// import { WhatsAppIcon, WHATSAPP_HREF } from '../components/WhatsAppIcon';
 import { MeetingScheduler } from '../components/contact/MeetingScheduler';
 import { SITE } from '../data/site';
 
@@ -86,12 +86,12 @@ function AgendaUnavailable() {
             {t('agendaPage.unavailableCtaEmail', { email: SITE.email })}
           </a>
           <a
-            href={WHATSAPP_HREF}
+            // href={WHATSAPP_HREF}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-secondary-light w-full sm:w-auto"
           >
-            <WhatsAppIcon className="h-4 w-4" />
+            {/* <WhatsAppIcon className="h-4 w-4" /> */}
             {t('agendaPage.unavailableCtaWhatsApp')}
           </a>
         </div>

@@ -15,7 +15,7 @@ import { chatbotService } from '../../lib/supabase';
 import type { ChatMessage } from '../../types/chatbot';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useChatbotEnabled } from '../../hooks/useChatbotEnabled';
-import { WhatsAppIcon, WHATSAPP_HREF } from '../WhatsAppIcon';
+// import { WhatsAppIcon, WHATSAPP_HREF } from '../WhatsAppIcon';
 import { cn } from '../../utils/cn';
 
 const SESSION_KEY = 'gt-chat-session';
@@ -360,14 +360,14 @@ export function ChatWidget() {
                 </div>
               </div>
               <a
-                href={WHATSAPP_HREF}
+                // href={WHATSAPP_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={t('contact.whatsapp')}
                 title={t('contact.whatsapp')}
                 className="rounded-full border border-whatsapp/40 bg-whatsapp/15 p-1.5 text-whatsapp transition hover:bg-whatsapp/25"
               >
-                <WhatsAppIcon className="h-4 w-4" />
+                {/* <WhatsAppIcon className="h-4 w-4" /> */}
               </a>
               <button
                 type="button"
@@ -415,13 +415,13 @@ export function ChatWidget() {
                     </button>
                   ))}
                   <a
-                    href={WHATSAPP_HREF}
+                    // href={WHATSAPP_HREF}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 rounded-full border border-whatsapp/40 bg-whatsapp/10 px-3 py-1.5 text-xs font-medium text-whatsapp transition hover:bg-whatsapp/20"
                   >
-                    <WhatsAppIcon className="h-3.5 w-3.5" />
-                    {t('contact.whatsapp')}
+                    {/* <WhatsAppIcon className="h-3.5 w-3.5" /> */}
+                    {/* {t('contact.whatsapp')} */}
                   </a>
                 </div>
               )}

@@ -137,7 +137,9 @@ function Toolbar({ editor, onPickImage }: ToolbarProps) {
       return;
     }
     // Solo protocolos seguros: bloquea javascript:, data:, vbscript:, etc.
-    const ALLOWED = ['http:', 'https:', 'mailto:', 'tel:'];
+    const ALLOWED = ['http:', 'https:', 'mailto:'
+      // , 'tel:'
+    ];
     let parsed: URL;
     try {
       parsed = new URL(url, window.location.origin);

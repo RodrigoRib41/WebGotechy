@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useChatbotEnabled } from '../hooks/useChatbotEnabled';
-import { WhatsAppIcon, WHATSAPP_HREF } from './WhatsAppIcon';
+// import { WhatsAppIcon, WHATSAPP_HREF } from './WhatsAppIcon';
 
 export function WhatsAppButton() {
   const { t } = useTranslation();
@@ -49,7 +49,7 @@ export function WhatsAppButton() {
             </AnimatePresence>
 
             <a
-              href={WHATSAPP_HREF}
+              // href={WHATSAPP_HREF}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Abrir conversación de WhatsApp con GoTechy"
@@ -64,7 +64,7 @@ export function WhatsAppButton() {
                 className="absolute inset-0 -z-10 rounded-full bg-whatsapp animate-pulse-ring"
                 aria-hidden="true"
               />
-              <WhatsAppIcon className="h-7 w-7 sm:h-8 sm:w-8" />
+              {/* <WhatsAppIcon className="h-7 w-7 sm:h-8 sm:w-8" /> */}
             </a>
           </div>
         </motion.div>
