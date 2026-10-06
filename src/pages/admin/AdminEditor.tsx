@@ -14,7 +14,7 @@ import { CloudinaryUpload } from '../../components/admin/CloudinaryUpload';
 import { DeleteConfirmation } from '../../components/admin/DeleteConfirmation';
 import { TagInput } from '../../components/admin/TagInput';
 import { TipTapEditor } from '../../components/admin/TipTapEditor';
-import { useAuth } from '../../hooks/useAuth';
+// import { useAuth } from '../../hooks/useAuth';
 import { usePostById } from '../../hooks/usePosts';
 import { blogService } from '../../lib/supabase';
 import { toSlug } from '../../utils/slugify';
@@ -29,7 +29,7 @@ interface AdminEditorProps {
 export function AdminEditor({ mode }: AdminEditorProps) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const { post, loading: loadingPost } = usePostById(mode === 'edit' ? id : undefined);
 
   const [form, setForm] = useState<BlogPostFormState>(EMPTY_POST);
@@ -40,15 +40,15 @@ export function AdminEditor({ mode }: AdminEditorProps) {
   const [deleting, setDeleting] = useState(false);
 
   // Pre-llenar autor con el email del usuario logueado en modo nuevo.
-  useEffect(() => {
-    if (mode === 'new' && user?.email) {
-      setForm((f) => ({
-        ...f,
-        author: f.author || (user.email?.split('@')[0] ?? ''),
-        author_email: f.author_email || (user.email ?? ''),
-      }));
-    }
-  }, [mode, user]);
+  // useEffect(() => {
+  //   if (mode === 'new' && user?.email) {
+  //     setForm((f) => ({
+  //       ...f,
+  //       author: f.author || (user.email?.split('@')[0] ?? ''),
+  //       author_email: f.author_email || (user.email ?? ''),
+  //     }));
+  //   }
+  // }, [mode, user]);
 
   // Cargar datos del post existente.
   useEffect(() => {
@@ -59,8 +59,8 @@ export function AdminEditor({ mode }: AdminEditorProps) {
       excerpt: post.excerpt ?? '',
       content: post.content,
       featured_image: post.featured_image ?? '',
-      author: post.author,
-      author_email: post.author_email ?? '',
+      // author: post.author,
+      // author_email: post.author_email ?? '',
       tags: post.tags ?? [],
       status: post.status,
       title_en: post.title_en ?? '',
@@ -105,8 +105,8 @@ export function AdminEditor({ mode }: AdminEditorProps) {
         excerpt: next.excerpt || null,
         content: next.content,
         featured_image: next.featured_image || null,
-        author: next.author,
-        author_email: next.author_email || null,
+        // author: next.author,
+        // author_email: next.author_email || null,
         tags: next.tags,
         status: targetStatus,
         published_at:
@@ -308,16 +308,16 @@ export function AdminEditor({ mode }: AdminEditorProps) {
             onChange={(url) => update('featured_image', url)}
           />
 
-          <Field label="Autor" error={errors.author} required>
+          {/* <Field label="Autor" error={errors.author} required>
             <input
               value={form.author}
               onChange={(e) => update('author', e.target.value)}
               placeholder="Nombre del autor"
               className="input-base"
             />
-          </Field>
+          </Field> */}
 
-          <Field label="Email del autor">
+          {/* <Field label="Email del autor">
             <input
               type="email"
               value={form.author_email}
@@ -325,7 +325,7 @@ export function AdminEditor({ mode }: AdminEditorProps) {
               placeholder="autor@gotechy.com"
               className="input-base"
             />
-          </Field>
+          </Field> */}
 
           <Field label="Tags" error={errors.tags} hint={`${form.tags.length}/10`}>
             <TagInput value={form.tags} onChange={(tags) => update('tags', tags)} />

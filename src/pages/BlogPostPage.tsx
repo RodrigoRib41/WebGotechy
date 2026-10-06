@@ -112,9 +112,9 @@ export function BlogPostPage() {
           </Link>
 
           <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-white/55">
-            <span>
+            {/* <span>
               {t('blog.by')} <span className="font-semibold text-white/80">{post.author}</span>
-            </span>
+            </span> */}
             <span className="text-white/25">·</span>
             <span>
               {format(

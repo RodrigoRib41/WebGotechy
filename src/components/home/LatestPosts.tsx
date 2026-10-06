@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, FileText } from 'lucide-react';
-import { format } from 'date-fns';
-import { es, enUS } from 'date-fns/locale';
+// import { format } from 'date-fns';
+// import { es, enUS } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
 import { usePublishedPosts } from '../../hooks/usePosts';
 import { localizeBlogPost } from '../../types/blog';
@@ -15,7 +15,7 @@ import { localizeBlogPost } from '../../types/blog';
 export function LatestPosts() {
   const { t, i18n } = useTranslation();
   const isEn = i18n.resolvedLanguage === 'en' || i18n.language?.startsWith('en');
-  const locale = isEn ? enUS : es;
+  // const locale = isEn ? enUS : es;
   const { posts: rawPosts, loading } = usePublishedPosts();
   const items = rawPosts.slice(0, 3).map((p) => localizeBlogPost(p, isEn));
 
@@ -71,14 +71,16 @@ export function LatestPosts() {
                 to={`/blogtechy/${post.slug}`}
                 className="group flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-secondary/40"
               >
-                <div className="relative h-48 overflow-hidden bg-primary-700">
+                {/* <div className="relative h-48 overflow-hidden bg-primary-700"> */}
+                <div className="relative aspect-video overflow-hidden bg-primary-700">
                   {post.featured_image ? (
                     <img
                       src={post.featured_image}
                       alt={post.title}
                       loading="lazy"
                       decoding="async"
-                      className="h-full w-full object-cover opacity-85 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
+                      // className="h-full w-full object-cover opacity-85 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
+                       className="h-full w-full object-cover object-top opacity-85 transition-all duration-700 group-hover:opacity-100"
                     />
                   ) : (
                     <div className="flex h-full items-center justify-center">
@@ -92,14 +94,15 @@ export function LatestPosts() {
                   )}
                 </div>
                 <div className="flex flex-1 flex-col p-6">
-                  {post.published_at && (
+                  {/* Quito mostrar fecha de post
+                   {post.published_at && (
                     <time
                       dateTime={post.published_at}
                       className="text-xs uppercase tracking-wider text-white/45"
                     >
                       {format(new Date(post.published_at), 'd MMM yyyy', { locale })}
                     </time>
-                  )}
+                  )} */}
                   <h3 className="mt-2 font-display text-lg font-semibold text-white group-hover:text-secondary-200">
                     {post.title}
                   </h3>

@@ -35,14 +35,14 @@ const PILLARS_ES: Pillar[] = [
     icon: BadgeCheck,
     title: 'Consultores certificados',
     description:
-      'Equipo formado oficialmente por SAP en S/4HANA, BTP, Signavio, Fiori, ABAP y módulos funcionales.',
+      'Equipo formado oficialmente por SAP en S/4HANA, BTP, Signavio, Lean IX,  Walk Me , Fiori, ABAP y módulos funcionales.',
     accent: 'secondary',
   },
   {
     icon: Rocket,
     title: 'Acceso temprano al roadmap',
     description:
-      'Llegamos primero a las nuevas releases de SAP. Te asesoramos con la hoja de ruta antes que el mercado.',
+      'Llegamos primero a los nuevos releases de SAP. Te asesoramos con la hoja de ruta antes que el mercado.',
     accent: 'accent',
   },
   {
@@ -56,7 +56,7 @@ const PILLARS_ES: Pillar[] = [
     icon: Handshake,
     title: 'Go-to-market conjunto',
     description:
-      'Trabajamos co-mano-a-mano con los equipos de SAP en pre-ventas, demos y arquitecturas de referencia.',
+      'Trabajamos mano a mano con los equipos de SAP en pre-ventas, demos y arquitecturas de referencia.',
     accent: 'accent',
   },
   {

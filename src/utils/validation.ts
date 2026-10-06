@@ -30,8 +30,8 @@ export function validatePost(form: BlogPostFormState): PostErrors {
   const contentLen = plainTextLength(form.content);
   if (contentLen < 100) errors.content = 'Mínimo 100 caracteres de contenido.';
 
-  if (!form.author.trim()) errors.author = 'El autor es requerido.';
-  else if (form.author.length > 100) errors.author = 'Máximo 100 caracteres.';
+  // if (!form.author.trim()) errors.author = 'El autor es requerido.';
+  // else if (form.author.length > 100) errors.author = 'Máximo 100 caracteres.';
 
   if (form.tags.length > 10) errors.tags = 'Máximo 10 tags.';
   if (form.tags.some((t) => t.length > 30))

@@ -7,8 +7,8 @@ export interface BlogPost {
   excerpt: string | null;
   content: string;
   featured_image: string | null;
-  author: string;
-  author_email: string | null;
+  // author: string;
+  // author_email: string | null;
   tags: string[];
   status: PostStatus;
   views: number;
@@ -46,8 +46,8 @@ export interface BlogPostFormState {
   excerpt: string;
   content: string;
   featured_image: string;
-  author: string;
-  author_email: string;
+  // author: string;
+  // author_email: string;
   tags: string[];
   status: PostStatus;
   /** Traducciones EN — opcionales. Vacías → fallback al español en el sitio. */
@@ -62,8 +62,8 @@ export const EMPTY_POST: BlogPostFormState = {
   excerpt: '',
   content: '',
   featured_image: '',
-  author: '',
-  author_email: '',
+  // author: '',
+  // author_email: '',
   tags: [],
   status: 'draft',
   title_en: '',

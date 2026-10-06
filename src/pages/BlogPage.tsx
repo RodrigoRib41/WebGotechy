@@ -85,9 +85,9 @@ export function BlogPage() {
                     {p.excerpt && (
                       <p className="mt-2 line-clamp-3 text-sm text-white/70">{p.excerpt}</p>
                     )}
-                    <div className="mt-4 text-xs text-white/55">
+                    {/* <div className="mt-4 text-xs text-white/55">
                       {t('blog.by')} <span className="font-semibold text-white/75">{p.author}</span>
-                    </div>
+                    </div> */}
                   </div>
                 </Link>
               ))}
