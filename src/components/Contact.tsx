@@ -121,7 +121,8 @@ export function Contact() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="flex flex-col items-center py-10 text-center"
+                  // className="flex flex-col items-center py-10 text-center"
+                  className="flex flex-col rounded-3xl border border-white/10 bg-white/[0.03] p-7 shadow-elevated backdrop-blur sm:p-10"
                 >
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent/15 text-accent">
                     <CheckCircle2 className="h-9 w-9" />
@@ -272,6 +273,25 @@ export function Contact() {
                 </motion.form>
               )}
             </AnimatePresence>
+            {/* Email dentro de la tarjeta, pegado al fondo */}
+            <div className="mt-auto pt-8">
+              <div className="flex items-center gap-3 border-t border-white/10 pt-6 text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent ring-1 ring-accent/30">
+                  <Mail className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-xs uppercase tracking-wider text-white/55">
+                    {t("contactSection.emailLabel")}
+                  </div>
+                  <a
+                    href={`mailto:${SITE.email}`}
+                    className="text-sm font-semibold hover:text-secondary"
+                  >
+                    {SITE.email}
+                  </a>
+                </div>
+              </div>
+            </div>
           </motion.div>
 
           {/* Mapa + oficinas */}
@@ -350,7 +370,8 @@ export function Contact() {
               </div>
             </div> */}
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
+            {/* //se pasa abajo del form de contacto */}
+            {/* <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
               <div className="flex items-center gap-3 text-white">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent ring-1 ring-accent/30">
                   <Mail className="h-5 w-5" />
@@ -367,7 +388,7 @@ export function Contact() {
                   </a>
                 </div>
               </div>
-            </div>
+            </div> */}
           </motion.div>
         </div>
       </div>
