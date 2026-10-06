@@ -1,12 +1,12 @@
-import { useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import { OFFICES } from '../data/site';
+import { useMemo } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { OFFICES } from "../data/site";
 
 /** Pin SVG cyan que combina con el tema oscuro (no requiere imagen externa). */
 const cyanPin = L.divIcon({
-  className: 'gotechy-pin',
+  className: "gotechy-pin",
   html: `
     <svg viewBox="0 0 32 40" width="32" height="40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
@@ -48,14 +48,23 @@ export function OfficesMap() {
         className="h-[420px] w-full"
         aria-label="Mapa con las oficinas de GoTechy"
       >
-        <TileLayer
+        {/* <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · <a href="https://carto.com/attributions">CARTO</a>'
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
           subdomains="abcd"
           maxZoom={19}
+        /> */}
+        <TileLayer
+          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          maxZoom={19}
         />
         {OFFICES.map((office) => (
-          <Marker key={office.id} position={[office.coords.lat, office.coords.lng]} icon={cyanPin}>
+          <Marker
+            key={office.id}
+            position={[office.coords.lat, office.coords.lng]}
+            icon={cyanPin}
+          >
             <Popup>
               <strong>{office.city}</strong>
               <br />
@@ -63,7 +72,11 @@ export function OfficesMap() {
               <br />
               {office.postal} — {office.country}
               <br />
-              <a href={office.mapsUrl} target="_blank" rel="noopener noreferrer">
+              <a
+                href={office.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Cómo llegar →
               </a>
             </Popup>
