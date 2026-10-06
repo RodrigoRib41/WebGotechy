@@ -3,10 +3,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   ArrowLeft,
   Loader2,
-  Plus,
+  // Plus,
   Save,
   Trash2,
-  X,
+  // X,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { AdminLayout } from '../../components/admin/AdminLayout';
@@ -18,7 +18,7 @@ import { toSlug, isValidSlug } from '../../utils/slugify';
 import {
   EMPTY_PROJECT,
   type ProjectFormState,
-  type ProjectMetric,
+  // type ProjectMetric,
 } from '../../types/catalog';
 
 interface AdminProjectEditorProps {
@@ -70,16 +70,16 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   };
 
-  const updateMetric = (idx: number, key: keyof ProjectMetric, value: string) => {
-    setForm((f) => ({
-      ...f,
-      metrics: f.metrics.map((m, i) => (i === idx ? { ...m, [key]: value } : m)),
-    }));
-  };
-  const addMetric = () =>
-    setForm((f) => ({ ...f, metrics: [...f.metrics, { value: '', label: '' }] }));
-  const removeMetric = (idx: number) =>
-    setForm((f) => ({ ...f, metrics: f.metrics.filter((_, i) => i !== idx) }));
+  // const updateMetric = (idx: number, key: keyof ProjectMetric, value: string) => {
+  //   setForm((f) => ({
+  //     ...f,
+  //     metrics: f.metrics.map((m, i) => (i === idx ? { ...m, [key]: value } : m)),
+  //   }));
+  // };
+  // const addMetric = () =>
+  //   setForm((f) => ({ ...f, metrics: [...f.metrics, { value: '', label: '' }] }));
+  // const removeMetric = (idx: number) =>
+  //   setForm((f) => ({ ...f, metrics: f.metrics.filter((_, i) => i !== idx) }));
 
   const validate = (): boolean => {
     const e: Partial<Record<keyof ProjectFormState, string>> = {};
@@ -89,8 +89,8 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
     else if (!isValidSlug(form.slug)) e.slug = 'Solo minúsculas, números, guiones';
     if (!form.client.trim()) e.client = 'Requerido';
     if (!form.industry.trim()) e.industry = 'Requerido';
-    if (form.challenge.trim().length < 30) e.challenge = 'Mínimo 30 caracteres';
-    if (form.solution.trim().length < 30) e.solution = 'Mínimo 30 caracteres';
+    // if (form.challenge.trim().length < 30) e.challenge = 'Mínimo 30 caracteres';
+    // if (form.solution.trim().length < 30) e.solution = 'Mínimo 30 caracteres';
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -232,7 +232,7 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
             </Field>
           </div>
 
-          <Field label="Desafío" required error={errors.challenge}>
+          {/* <Field label="Desafío" required error={errors.challenge}>
             <textarea
               value={form.challenge}
               onChange={(e) => update('challenge', e.target.value)}
@@ -250,7 +250,7 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
               rows={4}
               className="input-base resize-none"
             />
-          </Field>
+          </Field> */}
 
           {/* Traducciones EN — opcionales (fallback al ES si quedan vacías) */}
           <div className="rounded-2xl border border-secondary/20 bg-secondary/[0.04] p-5">
@@ -283,7 +283,7 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
                 />
               </Field>
 
-              <Field label="Challenge (EN)">
+              {/* <Field label="Challenge (EN)">
                 <textarea
                   value={form.challenge_en}
                   onChange={(e) => update('challenge_en', e.target.value)}
@@ -301,12 +301,12 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
                   rows={4}
                   className="input-base resize-none"
                 />
-              </Field>
+              </Field> */}
             </div>
           </div>
 
           {/* Métricas */}
-          <div>
+          {/* <div>
             <div className="mb-2 flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-white/55">
                 Métricas (hasta 3 recomendado)
@@ -353,7 +353,7 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
                 </div>
               )}
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Columna lateral */}

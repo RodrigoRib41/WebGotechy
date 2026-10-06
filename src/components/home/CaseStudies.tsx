@@ -111,14 +111,14 @@ export function CaseStudies() {
                   </h3>
                   {/* El resumen es lo que se lee primero: cuerpo más grande y
                       más contraste que los indicadores de abajo. */}
-                  <p className="mt-3 line-clamp-4 text-[15px] leading-relaxed text-white/80">
+                  {/* <p className="mt-3 line-clamp-4 text-[15px] leading-relaxed text-white/80">
                     {p.challenge || p.solution}
-                  </p>
+                  </p> */}
 
                   {/* Indicadores — dato de apoyo, no titular: caja liviana, sin
                       mayúsculas en el label y con menos peso visual que el
                       resumen de arriba. */}
-                  {p.metrics && p.metrics.length > 0 && (
+                  {/* {p.metrics && p.metrics.length > 0 && (
                     <div className="mt-5 grid grid-cols-3 gap-2 border-t border-white/5 pt-4">
                       {p.metrics.slice(0, 3).map((m, i) => (
                         <div key={i}>
@@ -139,7 +139,7 @@ export function CaseStudies() {
                   >
                     {t('home.cases.viewCase')}
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                  </Link>
+                  </Link> */}
                 </div>
               </motion.article>
             ))}
