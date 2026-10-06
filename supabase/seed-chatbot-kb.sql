@@ -66,7 +66,7 @@ $kb$, true, 3),
 Formas de contactar a GoTechy:
 - Formulario de contacto en /contacto — un consultor responde en menos de 24 horas hábiles, sin compromiso.
 - Email: contacto@gotechy.com
-- Teléfono / WhatsApp: +54 9 11 6753-3991
+-- - Teléfono / WhatsApp: +54 9 11 6753-3991
 - Horario de atención: lunes a viernes de 9:00 a 18:00 (hora Argentina).
 
 Reunión por Google Meet: en /contacto#agendar se puede reservar una reunión online directamente — se elige el día y horario disponible (con al menos 24 horas de anticipación) y la invitación con el link de Google Meet llega por email al instante.

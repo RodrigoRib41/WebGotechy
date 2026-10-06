@@ -112,12 +112,12 @@ export function Footer() {
               {t('footer.contact')}
             </h3>
             <ul className="mt-3 space-y-2">
-              <li className="flex items-center gap-2 text-sm text-white/80">
+              {/* <li className="flex items-center gap-2 text-sm text-white/80">
                 <Phone className="h-4 w-4 shrink-0 text-secondary" />
                 <a href={`tel:${SITE.phone}`} className="hover:text-secondary">
                   {SITE.phone}
                 </a>
-              </li>
+              </li> */}
               <li className="flex items-center gap-2 text-sm text-white/80">
                 <Mail className="h-4 w-4 shrink-0 text-secondary" />
                 <a href={`mailto:${SITE.email}`} className="hover:text-secondary">

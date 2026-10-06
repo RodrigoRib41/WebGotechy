@@ -5,18 +5,18 @@
  */
 
 // Defaults (se usan si las VITE_* no están definidas).
-const DEFAULT_PHONE_DISPLAY = '+54 9 11 6753-3991';
-const DEFAULT_WHATSAPP_RAW = '5491167533991';
+// const DEFAULT_PHONE_DISPLAY = '+54 9 11 6753-3991';
+// const DEFAULT_WHATSAPP_RAW = '5491167533991';
 const DEFAULT_EMAIL = 'contacto@gotechy.com';
 
-const envPhone = import.meta.env.VITE_CONTACT_PHONE as string | undefined;
-const envWhats = import.meta.env.VITE_WHATSAPP_NUMBER as string | undefined;
+// const envPhone = import.meta.env.VITE_CONTACT_PHONE as string | undefined;
+// const envWhats = import.meta.env.VITE_WHATSAPP_NUMBER as string | undefined;
 const envEmail = import.meta.env.VITE_CONTACT_EMAIL as string | undefined;
 
 /** Solo dígitos: lo que necesita wa.me. */
-function toRawDigits(value: string): string {
-  return value.replace(/\D+/g, '');
-}
+// function toRawDigits(value: string): string {
+//   return value.replace(/\D+/g, '');
+// }
 
 export const SITE = {
   name: 'GoTechy',
@@ -25,9 +25,9 @@ export const SITE = {
     'Transformamos empresas con tecnología de vanguardia: SAP, IA, Next Gen Solutions, BTP, Business Data Cloud, Signavio, LeanIX y Basis.',
   url: 'https://gotechy.com',
   /** Texto que se muestra al usuario. */
-  phone: envPhone?.trim() || DEFAULT_PHONE_DISPLAY,
-  /** Solo dígitos, listo para wa.me y tel:. */
-  phoneRaw: toRawDigits(envWhats?.trim() || envPhone?.trim() || DEFAULT_WHATSAPP_RAW),
+  // phone: envPhone?.trim() || DEFAULT_PHONE_DISPLAY,
+  // /** Solo dígitos, listo para wa.me y tel:. */
+  // phoneRaw: toRawDigits(envWhats?.trim() || envPhone?.trim() || DEFAULT_WHATSAPP_RAW),
   email: envEmail?.trim() || DEFAULT_EMAIL,
   social: {
     linkedin: 'https://www.linkedin.com/company/gotechy-consulting',

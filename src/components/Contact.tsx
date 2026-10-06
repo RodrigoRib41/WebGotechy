@@ -1,22 +1,22 @@
-import { useState, type FormEvent } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, type FormEvent } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
-  Phone,
+  // Phone,
   MapPin,
   Send,
   CheckCircle2,
   AlertCircle,
-  MessageCircle,
+  // MessageCircle,
   Loader2,
-} from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import { OfficesMap } from './OfficesMap';
-import { OFFICES, SITE } from '../data/site';
-import { cn } from '../utils/cn';
-import { supabase } from '../lib/supabase';
+} from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { OfficesMap } from "./OfficesMap";
+import { OFFICES, SITE } from "../data/site";
+import { cn } from "../utils/cn";
+import { supabase } from "../lib/supabase";
 
-type FormState = 'idle' | 'submitting' | 'success' | 'error';
+type FormState = "idle" | "submitting" | "success" | "error";
 
 interface Fields {
   name: string;
@@ -26,27 +26,35 @@ interface Fields {
   message: string;
 }
 
-const initial: Fields = { name: '', email: '', company: '', phone: '', message: '' };
+const initial: Fields = {
+  name: "",
+  email: "",
+  company: "",
+  phone: "",
+  message: "",
+};
 
 function validate(
   fields: Fields,
   t: (k: string) => string,
 ): Partial<Record<keyof Fields, string>> {
   const errors: Partial<Record<keyof Fields, string>> = {};
-  if (!fields.name.trim()) errors.name = t('contact.form.required');
-  if (!fields.email.trim()) errors.email = t('contact.form.required');
+  if (!fields.name.trim()) errors.name = t("contact.form.required");
+  if (!fields.email.trim()) errors.email = t("contact.form.required");
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email))
-    errors.email = t('contact.form.invalidEmail');
+    errors.email = t("contact.form.invalidEmail");
   if (fields.message.trim().length < 10)
-    errors.message = t('contact.form.required');
+    errors.message = t("contact.form.required");
   return errors;
 }
 
 export function Contact() {
   const { t } = useTranslation();
   const [fields, setFields] = useState<Fields>(initial);
-  const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({});
-  const [state, setState] = useState<FormState>('idle');
+  const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>(
+    {},
+  );
+  const [state, setState] = useState<FormState>("idle");
 
   const handleChange = (key: keyof Fields, value: string) => {
     setFields((prev) => ({ ...prev, [key]: value }));
@@ -63,11 +71,12 @@ export function Contact() {
     setErrors(validation);
     if (Object.keys(validation).length > 0) return;
 
-    setState('submitting');
+    setState("submitting");
     try {
       // El honeypot vive como input oculto (`bot-field`); lo leemos del form.
-      const botField = (new FormData(e.currentTarget).get('bot-field') as string) ?? '';
-      const { error } = await supabase.functions.invoke('submit-contact', {
+      const botField =
+        (new FormData(e.currentTarget).get("bot-field") as string) ?? "";
+      const { error } = await supabase.functions.invoke("submit-contact", {
         body: {
           name: fields.name,
           email: fields.email,
@@ -78,16 +87,16 @@ export function Contact() {
         },
       });
       if (error) throw error;
-      setState('success');
+      setState("success");
       setFields(initial);
     } catch {
-      setState('error');
+      setState("error");
     }
   };
 
-  const whatsappUrl = `https://wa.me/${SITE.phoneRaw}?text=${encodeURIComponent(
-    'Hola GoTechy, me gustaría conversar sobre un proyecto.',
-  )}`;
+  // const whatsappUrl = `https://wa.me/${SITE.phoneRaw}?text=${encodeURIComponent(
+  //   'Hola GoTechy, me gustaría conversar sobre un proyecto.',
+  //)}`;
 
   return (
     <section
@@ -106,7 +115,7 @@ export function Contact() {
             className="rounded-3xl border border-white/10 bg-white/[0.03] p-7 shadow-elevated backdrop-blur sm:p-10"
           >
             <AnimatePresence mode="wait">
-              {state === 'success' ? (
+              {state === "success" ? (
                 <motion.div
                   key="success"
                   initial={{ opacity: 0, y: 12 }}
@@ -118,16 +127,16 @@ export function Contact() {
                     <CheckCircle2 className="h-9 w-9" />
                   </div>
                   <h3 className="mt-5 font-display text-2xl font-bold text-white">
-                    {t('contactSection.successTitle')}
+                    {t("contactSection.successTitle")}
                   </h3>
                   <p className="mt-2 max-w-md text-white/70">
-                    {t('contactSection.successBody')}
+                    {t("contactSection.successBody")}
                   </p>
                   <button
-                    onClick={() => setState('idle')}
+                    onClick={() => setState("idle")}
                     className="btn-secondary mt-6"
                   >
-                    {t('contactSection.sendAnother')}
+                    {t("contactSection.sendAnother")}
                   </button>
                 </motion.div>
               ) : (
@@ -143,17 +152,21 @@ export function Contact() {
                   {/* Honeypot anti-bot: oculto para humanos, lo valida la Edge Function */}
                   <p className="hidden">
                     <label>
-                      {t('contact.form.botField')}:
-                      <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                      {t("contact.form.botField")}:
+                      <input
+                        name="bot-field"
+                        tabIndex={-1}
+                        autoComplete="off"
+                      />
                     </label>
                   </p>
 
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field
                       id="name"
-                      label={t('contactSection.fieldName')}
+                      label={t("contactSection.fieldName")}
                       value={fields.name}
-                      onChange={(v) => handleChange('name', v)}
+                      onChange={(v) => handleChange("name", v)}
                       error={errors.name}
                       autoComplete="name"
                       required
@@ -161,9 +174,9 @@ export function Contact() {
                     <Field
                       id="email"
                       type="email"
-                      label={t('contactSection.fieldEmail')}
+                      label={t("contactSection.fieldEmail")}
                       value={fields.email}
-                      onChange={(v) => handleChange('email', v)}
+                      onChange={(v) => handleChange("email", v)}
                       error={errors.email}
                       autoComplete="email"
                       required
@@ -172,40 +185,40 @@ export function Contact() {
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field
                       id="company"
-                      label={t('contactSection.fieldCompany')}
+                      label={t("contactSection.fieldCompany")}
                       value={fields.company}
-                      onChange={(v) => handleChange('company', v)}
+                      onChange={(v) => handleChange("company", v)}
                       error={errors.company}
                       autoComplete="organization"
                     />
                     <Field
                       id="phone"
                       type="tel"
-                      label={t('contactSection.fieldPhone')}
+                      label={t("contactSection.fieldPhone")}
                       value={fields.phone}
-                      onChange={(v) => handleChange('phone', v)}
+                      onChange={(v) => handleChange("phone", v)}
                       error={errors.phone}
                       autoComplete="tel"
                     />
                   </div>
                   <Field
                     id="message"
-                    label={t('contactSection.fieldMessage')}
+                    label={t("contactSection.fieldMessage")}
                     value={fields.message}
-                    onChange={(v) => handleChange('message', v)}
+                    onChange={(v) => handleChange("message", v)}
                     error={errors.message}
                     textarea
                     required
                   />
 
-                  {state === 'error' && (
+                  {state === "error" && (
                     <div className="flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
                       <AlertCircle className="h-4 w-4" />
-                      {t('contactSection.errorBody')}
+                      {t("contactSection.errorBody")}
                     </div>
                   )}
 
-                  <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+                  {/* <div className="flex flex-col gap-3 pt-2 sm:flex-row">
                     <button
                       type="submit"
                       disabled={state === 'submitting'}
@@ -232,10 +245,29 @@ export function Contact() {
                       <MessageCircle className="h-4 w-4 text-whatsapp" />
                       {t('contactSection.whatsapp')}
                     </a>
+                  </div> */}
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={state === "submitting"}
+                      className="btn-primary w-full disabled:opacity-70"
+                    >
+                      {state === "submitting" ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                          {t("contactSection.sending")}
+                        </>
+                      ) : (
+                        <>
+                          <Send className="h-4 w-4" />
+                          {t("contactSection.sendMessage")}
+                        </>
+                      )}
+                    </button>
                   </div>
 
                   <p className="text-xs text-white/55">
-                    {t('contactSection.privacyNote')}
+                    {t("contactSection.privacyNote")}
                   </p>
                 </motion.form>
               )}
@@ -271,7 +303,7 @@ export function Contact() {
                       rel="noopener noreferrer"
                       className="text-[11px] font-semibold text-white/55 underline-offset-2 hover:text-secondary hover:underline"
                     >
-                      {t('contactSection.directions')}
+                      {t("contactSection.directions")}
                     </a>
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-white/80">
@@ -283,14 +315,19 @@ export function Contact() {
               ))}
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
+            {/* <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
               <div className="flex items-center gap-3 text-white">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/15 text-secondary-300 ring-1 ring-secondary/30">
                   <Phone className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="text-xs uppercase tracking-wider text-white/55">{t('contactSection.phoneLabel')}</div>
-                  <a href={`tel:${SITE.phone}`} className="text-sm font-semibold hover:text-secondary">
+                  <div className="text-xs uppercase tracking-wider text-white/55">
+                    {t("contactSection.phoneLabel")}
+                  </div>
+                  <a
+                    href={`tel:${SITE.phone}`}
+                    className="text-sm font-semibold hover:text-secondary"
+                  >
                     {SITE.phone}
                   </a>
                 </div>
@@ -300,8 +337,32 @@ export function Contact() {
                   <Mail className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="text-xs uppercase tracking-wider text-white/55">{t('contactSection.emailLabel')}</div>
-                  <a href={`mailto:${SITE.email}`} className="text-sm font-semibold hover:text-secondary">
+                  <div className="text-xs uppercase tracking-wider text-white/55">
+                    {t("contactSection.emailLabel")}
+                  </div>
+                  <a
+                    href={`mailto:${SITE.email}`}
+                    className="text-sm font-semibold hover:text-secondary"
+                  >
+                    {SITE.email}
+                  </a>
+                </div>
+              </div>
+            </div> */}
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
+              <div className="flex items-center gap-3 text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent ring-1 ring-accent/30">
+                  <Mail className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-xs uppercase tracking-wider text-white/55">
+                    {t("contactSection.emailLabel")}
+                  </div>
+                  <a
+                    href={`mailto:${SITE.email}`}
+                    className="text-sm font-semibold hover:text-secondary"
+                  >
                     {SITE.email}
                   </a>
                 </div>
@@ -331,15 +392,17 @@ function Field({
   label,
   value,
   onChange,
-  type = 'text',
+  type = "text",
   error,
   textarea,
   required,
   autoComplete,
 }: FieldProps) {
   const baseClass = cn(
-    'peer w-full rounded-xl border bg-white/[0.04] px-4 pb-2.5 pt-5 text-sm text-white shadow-sm transition placeholder:text-transparent focus:outline-none focus:ring-2 focus:ring-secondary/40',
-    error ? 'border-red-400/60 focus:border-red-400' : 'border-white/10 focus:border-secondary',
+    "peer w-full rounded-xl border bg-white/[0.04] px-4 pb-2.5 pt-5 text-sm text-white shadow-sm transition placeholder:text-transparent focus:outline-none focus:ring-2 focus:ring-secondary/40",
+    error
+      ? "border-red-400/60 focus:border-red-400"
+      : "border-white/10 focus:border-secondary",
   );
 
   return (
@@ -353,7 +416,7 @@ function Field({
           required={required}
           rows={5}
           placeholder={label}
-          className={cn(baseClass, 'resize-none')}
+          className={cn(baseClass, "resize-none")}
           aria-invalid={!!error}
           aria-describedby={error ? `${id}-error` : undefined}
         />
@@ -380,7 +443,10 @@ function Field({
         {required && <span className="text-red-400"> *</span>}
       </label>
       {error && (
-        <div id={`${id}-error`} className="mt-1 flex items-center gap-1 text-xs text-red-600">
+        <div
+          id={`${id}-error`}
+          className="mt-1 flex items-center gap-1 text-xs text-red-600"
+        >
           <AlertCircle className="h-3 w-3" />
           {error}
         </div>
