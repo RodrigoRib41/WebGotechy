@@ -20,7 +20,7 @@ Valores:
 - Colaboración cercana: trabajamos como una extensión del equipo del cliente.
 - Innovación responsable: adoptamos lo último que aporta valor, no novedad por novedad.
 
-GoTechy en números: más de 20 años de experiencia, más de 120 proyectos entregados, más de 40 clientes enterprise y más de 25.000 horas de expertise.
+GoTechy en números: más de 20 años de experiencia, más de 120 proyectos entregados, más de 40 clientes y más de 25.000 horas de expertise.
 
 Redes: LinkedIn https://www.linkedin.com/company/gotechy-consulting — YouTube https://www.youtube.com/@Gotechy-Consulting
 Más información sobre la empresa en /nosotros.

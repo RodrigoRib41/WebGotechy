@@ -1427,9 +1427,9 @@ export const SERVICES: Service[] = [
           title: 'De experiencia en el ecosistema SAP',
           title_en: 'Of experience in the SAP ecosystem',
           description:
-            'Equipo de profesionales con experiencia probada operando ecosistemas SAP críticos en clientes enterprise.',
+            'Equipo de profesionales con experiencia probada operando ecosistemas SAP críticos en clientes.',
           description_en:
-            'A team of professionals with proven experience operating critical SAP ecosystems at enterprise customers.',
+            'A team of professionals with proven experience operating critical SAP ecosystems at customers.',
         },
         {
           metric: '24/7',

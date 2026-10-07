@@ -77,6 +77,6 @@ export const OFFICES = [
 export const STATS = [
   { value: '20+', count: 20, suffix: '+', label: 'Años de experiencia', labelEn: 'Years of experience' },
   { value: '120+', count: 120, suffix: '+', label: 'Proyectos entregados', labelEn: 'Projects delivered' },
-  { value: '40+', count: 40, suffix: '+', label: 'Clientes enterprise', labelEn: 'Enterprise clients' },
+  { value: '40+', count: 40, suffix: '+', label: 'Clientes', labelEn: 'Clients' },
   { value: '+25.000', count: null, suffix: '', label: 'Horas de expertise', labelEn: 'Hours of expertise' },
 ] as const;
