@@ -57,7 +57,7 @@ export function StatsHighlight() {
             hidden: { opacity: 0 },
             show: { opacity: 1, transition: { staggerChildren: 0.1 } },
           }}
-          className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur sm:grid-cols-4"
+          className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur lg:grid-cols-4"
         >
           {STATS.map((s, i) => {
             const Icon = ICONS[i] ?? Award;
@@ -68,12 +68,12 @@ export function StatsHighlight() {
                   hidden: { opacity: 0, y: 20 },
                   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
                 }}
-                className="group relative bg-white/[0.02] p-8 text-center transition-colors duration-300 hover:bg-white/[0.06]"
+              className="group relative bg-white/[0.02] px-3 py-8 text-center transition-colors duration-300 hover:bg-white/[0.06] sm:px-6"
               >
                 <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/15 text-secondary-300 ring-1 ring-secondary/30 transition-transform duration-300 group-hover:scale-110">
                   <Icon className="h-6 w-6" />
                 </div>
-                <div className="mt-5 font-mono text-4xl font-bold text-white sm:text-5xl">
+              <div className="mt-5 whitespace-nowrap font-mono text-2xl font-bold tracking-tight text-white min-[400px]:text-3xl sm:text-4xl xl:text-5xl">
                   {s.count !== null ? (
                     <AnimatedCounter end={s.count} suffix={s.suffix} duration={2.4} />
                   ) : (
