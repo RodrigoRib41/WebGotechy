@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ArrowLeft,
   Loader2,
@@ -7,39 +7,41 @@ import {
   Save,
   Trash2,
   // X,
-} from 'lucide-react';
-import toast from 'react-hot-toast';
-import { AdminLayout } from '../../components/admin/AdminLayout';
-import { CloudinaryUpload } from '../../components/admin/CloudinaryUpload';
-import { DeleteConfirmation } from '../../components/admin/DeleteConfirmation';
-import { useProjectById } from '../../hooks/useCatalog';
-import { projectsService } from '../../lib/supabase';
-import { toSlug, isValidSlug } from '../../utils/slugify';
+} from "lucide-react";
+import toast from "react-hot-toast";
+import { AdminLayout } from "../../components/admin/AdminLayout";
+import { CloudinaryUpload } from "../../components/admin/CloudinaryUpload";
+import { DeleteConfirmation } from "../../components/admin/DeleteConfirmation";
+import { useProjectById } from "../../hooks/useCatalog";
+import { projectsService } from "../../lib/supabase";
+import { toSlug, isValidSlug } from "../../utils/slugify";
 import {
   EMPTY_PROJECT,
   type ProjectFormState,
   // type ProjectMetric,
-} from '../../types/catalog';
+} from "../../types/catalog";
 
 interface AdminProjectEditorProps {
-  mode: 'new' | 'edit';
+  mode: "new" | "edit";
 }
 
 export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { project, loading } = useProjectById(mode === 'edit' ? id : undefined);
+  const { project, loading } = useProjectById(mode === "edit" ? id : undefined);
 
   const [form, setForm] = useState<ProjectFormState>(EMPTY_PROJECT);
   const [slugTouched, setSlugTouched] = useState(false);
   const [saving, setSaving] = useState(false);
   const [toDelete, setToDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const [errors, setErrors] = useState<Partial<Record<keyof ProjectFormState, string>>>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof ProjectFormState, string>>
+  >({});
 
   // Pre-cargar datos
   useEffect(() => {
-    if (mode !== 'edit' || !project) return;
+    if (mode !== "edit" || !project) return;
     setForm({
       slug: project.slug,
       client: project.client,
@@ -47,25 +49,31 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
       title: project.title,
       challenge: project.challenge,
       solution: project.solution,
-      metrics: project.metrics.length ? project.metrics : [{ value: '', label: '' }],
-      image_url: project.image_url ?? '',
-      image_alt: project.image_alt ?? '',
+      metrics: project.metrics.length
+        ? project.metrics
+        : [{ value: "", label: "" }],
+      image_url: project.image_url ?? "",
+      image_alt: project.image_alt ?? "",
       sort_order: project.sort_order,
-      title_en: project.title_en ?? '',
-      industry_en: project.industry_en ?? '',
-      challenge_en: project.challenge_en ?? '',
-      solution_en: project.solution_en ?? '',
+      title_en: project.title_en ?? "",
+      industry_en: project.industry_en ?? "",
+      challenge_en: project.challenge_en ?? "",
+      solution_en: project.solution_en ?? "",
+      client_en: project.client_en ?? "",
     });
     setSlugTouched(true);
   }, [mode, project]);
 
   // Auto-slug desde título cuando es nuevo
   useEffect(() => {
-    if (slugTouched || mode === 'edit') return;
+    if (slugTouched || mode === "edit") return;
     setForm((f) => ({ ...f, slug: toSlug(f.title) }));
   }, [form.title, slugTouched, mode]);
 
-  const update = <K extends keyof ProjectFormState>(key: K, value: ProjectFormState[K]) => {
+  const update = <K extends keyof ProjectFormState>(
+    key: K,
+    value: ProjectFormState[K],
+  ) => {
     setForm((f) => ({ ...f, [key]: value }));
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   };
@@ -83,12 +91,13 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
 
   const validate = (): boolean => {
     const e: Partial<Record<keyof ProjectFormState, string>> = {};
-    if (!form.title.trim()) e.title = 'Requerido';
-    else if (form.title.length > 200) e.title = 'Máximo 200 caracteres';
-    if (!form.slug.trim()) e.slug = 'Requerido';
-    else if (!isValidSlug(form.slug)) e.slug = 'Solo minúsculas, números, guiones';
-    if (!form.client.trim()) e.client = 'Requerido';
-    if (!form.industry.trim()) e.industry = 'Requerido';
+    if (!form.title.trim()) e.title = "Requerido";
+    else if (form.title.length > 200) e.title = "Máximo 200 caracteres";
+    if (!form.slug.trim()) e.slug = "Requerido";
+    else if (!isValidSlug(form.slug))
+      e.slug = "Solo minúsculas, números, guiones";
+    if (!form.client.trim()) e.client = "Requerido";
+    if (!form.industry.trim()) e.industry = "Requerido";
     // if (form.challenge.trim().length < 30) e.challenge = 'Mínimo 30 caracteres';
     // if (form.solution.trim().length < 30) e.solution = 'Mínimo 30 caracteres';
     setErrors(e);
@@ -97,7 +106,7 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
 
   const save = async () => {
     if (!validate()) {
-      toast.error('Revisá los campos en rojo.');
+      toast.error("Revisá los campos en rojo.");
       return;
     }
     setSaving(true);
@@ -120,17 +129,18 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
         industry_en: form.industry_en.trim() || null,
         challenge_en: form.challenge_en.trim() || null,
         solution_en: form.solution_en.trim() || null,
+        client_en: form.client_en.trim() || null,
       };
-      if (mode === 'new') {
+      if (mode === "new") {
         const created = await projectsService.create(payload);
-        toast.success('Proyecto creado.');
+        toast.success("Proyecto creado.");
         navigate(`/admin/projects/edit/${created.id}`, { replace: true });
       } else if (project) {
         await projectsService.update(project.id, payload);
-        toast.success('Cambios guardados.');
+        toast.success("Cambios guardados.");
       }
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Error al guardar.');
+      toast.error(e instanceof Error ? e.message : "Error al guardar.");
     } finally {
       setSaving(false);
     }
@@ -141,15 +151,15 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
     setDeleting(true);
     try {
       await projectsService.remove(project.id);
-      toast.success('Proyecto eliminado.');
-      navigate('/admin/projects', { replace: true });
+      toast.success("Proyecto eliminado.");
+      navigate("/admin/projects", { replace: true });
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Error al eliminar.');
+      toast.error(e instanceof Error ? e.message : "Error al eliminar.");
       setDeleting(false);
     }
   };
 
-  if (mode === 'edit' && loading) {
+  if (mode === "edit" && loading) {
     return (
       <AdminLayout>
         <div className="flex h-64 items-center justify-center">
@@ -159,7 +169,7 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
     );
   }
 
-  if (mode === 'edit' && !project) {
+  if (mode === "edit" && !project) {
     return (
       <AdminLayout title="Proyecto no encontrado">
         <Link to="/admin/projects" className="btn-secondary">
@@ -171,10 +181,13 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
 
   return (
     <AdminLayout
-      title={mode === 'new' ? 'Nuevo proyecto' : 'Editar proyecto'}
+      title={mode === "new" ? "Nuevo proyecto" : "Editar proyecto"}
       actions={
         <>
-          <Link to="/admin/projects" className="btn-secondary !px-4 !py-2.5 !text-sm">
+          <Link
+            to="/admin/projects"
+            className="btn-secondary !px-4 !py-2.5 !text-sm"
+          >
             <ArrowLeft className="h-4 w-4" /> Volver
           </Link>
           <button
@@ -183,7 +196,11 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
             disabled={saving}
             className="btn-primary !px-4 !py-2.5 !text-sm disabled:opacity-60"
           >
-            {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+            {saving ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Save className="h-4 w-4" />
+            )}
             Guardar
           </button>
         </>
@@ -195,18 +212,23 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
           <Field label="Título" required error={errors.title}>
             <input
               value={form.title}
-              onChange={(e) => update('title', e.target.value)}
+              onChange={(e) => update("title", e.target.value)}
               placeholder="Ej: Process Intelligence sobre SAP Signavio"
               className="input-base text-lg font-semibold"
             />
           </Field>
 
-          <Field label="Slug (URL interna)" required error={errors.slug} hint={form.slug || 'mi-proyecto'}>
+          <Field
+            label="Slug (URL interna)"
+            required
+            error={errors.slug}
+            hint={form.slug || "mi-proyecto"}
+          >
             <input
               value={form.slug}
               onChange={(e) => {
                 setSlugTouched(true);
-                update('slug', e.target.value.toLowerCase());
+                update("slug", e.target.value.toLowerCase());
               }}
               placeholder="energia-procesos"
               className="input-base font-mono text-sm"
@@ -217,7 +239,7 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
             <Field label="Cliente" required error={errors.client}>
               <input
                 value={form.client}
-                onChange={(e) => update('client', e.target.value)}
+                onChange={(e) => update("client", e.target.value)}
                 placeholder="Líder energético LATAM"
                 className="input-base"
               />
@@ -225,7 +247,7 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
             <Field label="Industria" required error={errors.industry}>
               <input
                 value={form.industry}
-                onChange={(e) => update('industry', e.target.value)}
+                onChange={(e) => update("industry", e.target.value)}
                 placeholder="Energía & Combustibles"
                 className="input-base"
               />
@@ -258,7 +280,9 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
               <span className="rounded-full bg-secondary/15 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-secondary-200 ring-1 ring-secondary/30">
                 EN
               </span>
-              <h3 className="text-sm font-semibold text-white/85">Traducción al inglés (opcional)</h3>
+              <h3 className="text-sm font-semibold text-white/85">
+                Traducción al inglés (opcional)
+              </h3>
               <span className="ml-auto text-[11px] text-white/45">
                 Si queda vacío, el sitio público usa el español.
               </span>
@@ -268,7 +292,7 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
               <Field label="Title (EN)">
                 <input
                   value={form.title_en}
-                  onChange={(e) => update('title_en', e.target.value)}
+                  onChange={(e) => update("title_en", e.target.value)}
                   placeholder="Process Intelligence on SAP Signavio"
                   className="input-base"
                 />
@@ -277,8 +301,16 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
               <Field label="Industry (EN)">
                 <input
                   value={form.industry_en}
-                  onChange={(e) => update('industry_en', e.target.value)}
+                  onChange={(e) => update("industry_en", e.target.value)}
                   placeholder="Energy & Fuels"
+                  className="input-base"
+                />
+              </Field>
+              <Field label="Client (EN)">
+                <input
+                  value={form.client_en}
+                  onChange={(e) => update("client_en", e.target.value)}
+                  placeholder="Leading LATAM energy company"
                   className="input-base"
                 />
               </Field>
@@ -360,14 +392,14 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
         <aside className="space-y-5">
           <CloudinaryUpload
             value={form.image_url}
-            onChange={(url) => update('image_url', url)}
+            onChange={(url) => update("image_url", url)}
             label="Imagen del proyecto"
           />
 
           <Field label="Alt de la imagen" hint="Para accesibilidad">
             <input
               value={form.image_alt}
-              onChange={(e) => update('image_alt', e.target.value)}
+              onChange={(e) => update("image_alt", e.target.value)}
               placeholder="Tablero de control de procesos"
               className="input-base"
             />
@@ -377,21 +409,23 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
             <input
               type="number"
               value={form.sort_order}
-              onChange={(e) => update('sort_order', parseInt(e.target.value, 10) || 0)}
+              onChange={(e) =>
+                update("sort_order", parseInt(e.target.value, 10) || 0)
+              }
               className="input-base"
             />
           </Field>
 
-          {mode === 'edit' && project && (
+          {mode === "edit" && project && (
             <>
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-white/55 space-y-1">
                 <div>
-                  <span className="text-white/40">Creado:</span>{' '}
-                  {new Date(project.created_at).toLocaleString('es-AR')}
+                  <span className="text-white/40">Creado:</span>{" "}
+                  {new Date(project.created_at).toLocaleString("es-AR")}
                 </div>
                 <div>
-                  <span className="text-white/40">Actualizado:</span>{' '}
-                  {new Date(project.updated_at).toLocaleString('es-AR')}
+                  <span className="text-white/40">Actualizado:</span>{" "}
+                  {new Date(project.updated_at).toLocaleString("es-AR")}
                 </div>
               </div>
               <button
@@ -409,7 +443,11 @@ export function AdminProjectEditor({ mode }: AdminProjectEditorProps) {
       <DeleteConfirmation
         open={toDelete}
         title="¿Eliminar este proyecto?"
-        description={project ? `Vas a borrar "${project.title}" de forma permanente.` : undefined}
+        description={
+          project
+            ? `Vas a borrar "${project.title}" de forma permanente.`
+            : undefined
+        }
         loading={deleting}
         onConfirm={onDelete}
         onCancel={() => !deleting && setToDelete(false)}
@@ -433,7 +471,9 @@ function Field({ label, hint, error, required, children }: FieldProps) {
           {label}
           {required && <span className="ml-1 text-red-400">*</span>}
         </span>
-        {hint && !error && <span className="text-[11px] text-white/40">{hint}</span>}
+        {hint && !error && (
+          <span className="text-[11px] text-white/40">{hint}</span>
+        )}
       </div>
       {children}
       {error && <p className="mt-1.5 text-xs text-red-300">{error}</p>}

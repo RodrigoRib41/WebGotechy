@@ -39,6 +39,7 @@ export interface ProjectRow {
   industry_en?: string | null;
   challenge_en?: string | null;
   solution_en?: string | null;
+  client_en?: string | null;
 }
 
 /**
@@ -52,6 +53,7 @@ export function localizeProject(p: ProjectRow, isEn: boolean): ProjectRow {
   return {
     ...p,
     title: pickStr(p.title_en, p.title),
+    client: pickStr(p.client_en, p.client),
     industry: pickStr(p.industry_en, p.industry),
     challenge: pickStr(p.challenge_en, p.challenge),
     solution: pickStr(p.solution_en, p.solution),
@@ -76,6 +78,7 @@ export interface ProjectFormState {
   industry_en: string;
   challenge_en: string;
   solution_en: string;
+  client_en: string;
 }
 
 export const EMPTY_PROJECT: ProjectFormState = {
@@ -93,4 +96,5 @@ export const EMPTY_PROJECT: ProjectFormState = {
   industry_en: '',
   challenge_en: '',
   solution_en: '',
+  client_en: '',
 };
